@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AGBoxACell">
+            <rect key="frame" x="0.0" y="0.0" width="123" height="111"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="123" height="111"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CEG-TR-F1l">
+                        <rect key="frame" x="8" y="8" width="107" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="fnj-Iv-6oz"/>
+                        </constraints>
+                        <segments>
+                            <segment title="左"/>
+                            <segment title="🐒"/>
+                        </segments>
+                    </segmentedControl>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YbF-Rc-mhq">
+                        <rect key="frame" x="57" y="40" width="9" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vqo-PQ-c9r">
+                        <rect key="frame" x="4" y="58.5" width="115" height="48.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="vqo-PQ-c9r" firstAttribute="top" secondItem="YbF-Rc-mhq" secondAttribute="bottom" constant="4" id="6QU-E3-Luu"/>
+                <constraint firstAttribute="bottom" secondItem="vqo-PQ-c9r" secondAttribute="bottom" constant="4" id="CGA-07-1Fy"/>
+                <constraint firstItem="CEG-TR-F1l" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="DfP-pY-aKl"/>
+                <constraint firstAttribute="trailing" secondItem="vqo-PQ-c9r" secondAttribute="trailing" constant="4" id="HOA-hO-hVy"/>
+                <constraint firstItem="vqo-PQ-c9r" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="Hv6-mn-AZE"/>
+                <constraint firstItem="YbF-Rc-mhq" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="KcL-xb-qKa"/>
+                <constraint firstItem="YbF-Rc-mhq" firstAttribute="top" secondItem="CEG-TR-F1l" secondAttribute="bottom" constant="4" id="ROU-GZ-tkW"/>
+                <constraint firstAttribute="trailing" secondItem="CEG-TR-F1l" secondAttribute="trailing" constant="8" id="gS7-2N-ltv"/>
+                <constraint firstItem="CEG-TR-F1l" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="qqX-oc-ho4"/>
+            </constraints>
+            <size key="customSize" width="123" height="111"/>
+            <connections>
+                <outlet property="colorView" destination="vqo-PQ-c9r" id="WU8-fS-pXt"/>
+                <outlet property="segmentedControl" destination="CEG-TR-F1l" id="in3-Kn-N22"/>
+                <outlet property="titleLabel" destination="YbF-Rc-mhq" id="fAH-aq-dsd"/>
+            </connections>
+            <point key="canvasLocation" x="-111.5" y="-46.5"/>
+        </collectionViewCell>
+    </objects>
+</document>
