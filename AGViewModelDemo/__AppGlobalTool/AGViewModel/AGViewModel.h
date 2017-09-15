@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  通过拷贝数据字典快速初始化 viewModel 实例
- 如果 bindingModel 为 nil 创建 capacity 为 6 的内部数据字典
+ 如果 bindingModel 为 nil, 创建 capacity 为 6 的内部数据字典
 
  @param bindingModel 数据字典
  @return viewModel 对象
@@ -90,8 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict;
 
 
-
-// 不使用
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

@@ -67,7 +67,7 @@
            configDataBlock:(AGVMConfigDataBlock)configDataBlock
 {
     _bindingView        = bindingView;
-    _configDataBlock    = configDataBlock;
+    _configDataBlock    = [configDataBlock copy];
     
     // 判断 bv 是否实现方法
     if (!_configDataBlock && [bindingView respondsToSelector:@selector(setViewModel:)])
