@@ -44,6 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 当 bindingView 为空时，直接传进去计算 size */
 - (CGSize) ag_sizeOfBindingView:(UIView<AGVMIncludable> *)bv;
 
+/** 预先计算 size */
+- (void) ag_precomputedSizeOfBindingView:(UIView<AGVMIncludable> *)bv;
+
 
 #pragma mark 通知代理根据信息或类型做某事（ 让 view 传递信息给 controller ）
 - (void) ag_callDelegateToDoForInfo:(nullable NSDictionary *)info;

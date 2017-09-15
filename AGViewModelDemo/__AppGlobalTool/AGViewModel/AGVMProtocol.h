@@ -101,7 +101,7 @@ typedef void (^AGVMPackageDataBlock)
 @protocol AGTableHeaderFooterViewReusable <AGBaseReusable>
 @required
 + (void) ag_registerHeaderFooterViewBy:(UITableView *)tableView;
-+ (__kindof UITableViewHeaderFooterView *) ag_dequeueHeaderFooterView;
++ (__kindof UITableViewHeaderFooterView *) ag_dequeueHeaderFooterViewBy:(UITableView *)tableView;
 
 @end
 

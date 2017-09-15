@@ -104,10 +104,23 @@
     
     if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
         bindingViewS = [bv ag_viewModel:self sizeForBindingView:bindingViewS];
-        self[kAGVMViewW] = @(bindingViewS.width);
-        self[kAGVMViewH] = @(bindingViewS.height);
+        
+        if ( height != bindingViewS.height ) {
+            self[kAGVMViewH] = @(bindingViewS.height);
+        }
+        
+        if ( width != bindingViewS.width ) {
+            self[kAGVMViewW] = @(bindingViewS.width);
+        }
+        
     }
     return bindingViewS;
+}
+
+/** 预先计算 size */
+- (void) ag_precomputedSizeOfBindingView:(UIView<AGVMIncludable> *)bv
+{
+    [self ag_sizeOfBindingView:bv];
 }
 
 #pragma mark help method
