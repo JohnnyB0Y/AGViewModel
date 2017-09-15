@@ -15,7 +15,7 @@
 @property (nonatomic, weak) AGViewModel *viewModel;
 
 /** observers dict */
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMapTable *> *observerDictM;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMapTable *> *observerDM;
 
 /** readd observer map table */
 @property (nonatomic, strong) NSMapTable<NSString *, id> *readdObserverMT;
@@ -136,7 +136,7 @@
     if ( ! key ) return isNotify;
     
     // observer - block
-    NSMapTable *o_bMT = [_observerDictM objectForKey:key];
+    NSMapTable *o_bMT = [_observerDM objectForKey:key];
     
     if ( o_bMT.count > 0 ) {
         // enumerating
@@ -167,7 +167,7 @@
     if ( ! key || ! observer ) return;
     
     // observer - block
-    NSMapTable *o_bMT = [_observerDictM objectForKey:key];
+    NSMapTable *o_bMT = [_observerDM objectForKey:key];
     [o_bMT removeObjectForKey:observer];
     
     // observe ?
@@ -187,20 +187,20 @@
 
 - (void) ag_removeObserver:(NSObject *)observer
 {
-    for ( NSString *key in _observerDictM.allKeys ) {
+    for ( NSString *key in _observerDM.allKeys ) {
         [self ag_removeObserver:observer forKey:key];
     }
 }
 
 - (void) ag_removeAllObservers
 {
-    for ( NSString *key in _observerDictM.allKeys ) {
+    for ( NSString *key in _observerDM.allKeys ) {
         // remove KVO
         [self.viewModel.bindingModel removeObserver:self forKeyPath:key];
     }
     
     // make empty
-    _observerDictM = nil;
+    _observerDM = nil;
     _readdObserverMT = nil;
 }
 
@@ -221,13 +221,8 @@
 #pragma mark - ---------- Private Methods ----------
 - (void) _removeObserversForKey:(NSString *)key
 {
-    // remove from observerDictM
-    [_observerDictM removeObjectForKey:key];
-    
-    // remove from readdObserverMT
+    [_observerDM removeObjectForKey:key];
     [_readdObserverMT removeObjectForKey:key];
-    
-    // remove KVO
     [self.viewModel.bindingModel removeObserver:self forKeyPath:key];
 }
 
@@ -242,7 +237,7 @@
     if ( ! key || ! observer ) return;
     
     // observer - block
-    NSMapTable *o_bMT = [self.observerDictM objectForKey:key];
+    NSMapTable *o_bMT = [self.observerDM objectForKey:key];
     
     if ( o_bMT ) {
         // have
@@ -258,7 +253,7 @@
         // no have
         o_bMT = [NSMapTable weakToStrongObjectsMapTable];
         [o_bMT setObject:[block copy] forKey:observer];
-        [self.observerDictM setObject:o_bMT forKey:key];
+        [self.observerDM setObject:o_bMT forKey:key];
         
         // KVO
         [self.viewModel.bindingModel addObserver:self
@@ -277,20 +272,20 @@
 - (NSString *)debugDescription
 {
     NSMutableString *strM = [NSMutableString string];
-    [strM appendFormat:@"_viewModel      : %@, \n", _viewModel];
-    [strM appendFormat:@"_observerDictM  : %@, \n", _observerDictM];
-    [strM appendFormat:@"_readdObserverMT: %@, \n", _readdObserverMT];
-    [strM appendFormat:@"_observationInfo: %@,", [_viewModel.bindingModel observationInfo]];
+    [strM appendFormat:@"  _viewModel       [ weak ] : %@, \n", _viewModel];
+    [strM appendFormat:@"  _observerDM      (strong) : %@, \n", _observerDM];
+    [strM appendFormat:@"  _readdObserverMT (strong) : %@, \n", _readdObserverMT];
+    [strM appendFormat:@"  _observationInfo: %@,", [_viewModel.bindingModel observationInfo]];
     return [NSString stringWithFormat:@"<%@: %p> --- {\n%@\n}", [self class] , self, strM];
 }
 
 #pragma mark - ----------- Getter Methods ----------
-- (NSMutableDictionary<NSString *,NSMapTable *> *)observerDictM
+- (NSMutableDictionary<NSString *,NSMapTable *> *)observerDM
 {
-    if (_observerDictM == nil) {
-        _observerDictM = [NSMutableDictionary dictionaryWithCapacity:6];
+    if (_observerDM == nil) {
+        _observerDM = [NSMutableDictionary dictionaryWithCapacity:6];
     }
-    return _observerDictM;
+    return _observerDM;
 }
 
 - (NSMapTable<NSString *,id> *)readdObserverMT

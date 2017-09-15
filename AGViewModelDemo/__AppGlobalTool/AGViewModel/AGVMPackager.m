@@ -71,6 +71,7 @@
         // 字典
         NSMutableString *definitionStrM = [NSMutableString string];
         NSMutableString *takeOutStrM = [NSMutableString string];
+        NSMutableString *assignStrM = [NSMutableString string];
         
         // 1.遍历字典，把字典中的所有key取出来，生成对应的属性代码
         [object enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
@@ -80,13 +81,17 @@
                 // 先打印自身
                 NSMutableString *definitionStrM = [NSMutableString string];
                 NSMutableString *takeOutStrM = [NSMutableString string];
+                NSMutableString *assignStrM = [NSMutableString string];
                 [self _appendStrWithKey:key
                              moduleName:moduleName
                             returnClass:[self _returnClassName:obj]
                          definitionStrM:definitionStrM
-                            takeOutStrM:takeOutStrM];
+                            takeOutStrM:takeOutStrM
+                             assignStrM:assignStrM];
                 
-                [self _printDefinitionStrM:definitionStrM takeOutStrM:takeOutStrM];
+                [self _printDefinitionStrM:definitionStrM
+                               takeOutStrM:takeOutStrM
+                                assignStrM:assignStrM];
                 
                 
                 // 继续遍历打印
@@ -99,11 +104,14 @@
                              moduleName:moduleName
                             returnClass:[self _returnClassName:obj]
                          definitionStrM:definitionStrM
-                            takeOutStrM:takeOutStrM];
+                            takeOutStrM:takeOutStrM
+                             assignStrM:assignStrM];
             }
             
         }];
-        [self _printDefinitionStrM:definitionStrM takeOutStrM:takeOutStrM];
+        [self _printDefinitionStrM:definitionStrM
+                       takeOutStrM:takeOutStrM
+                        assignStrM:assignStrM];
         
     }
     else if ([object isKindOfClass:[NSArray class]] ) {
@@ -119,6 +127,7 @@
                returnClass:(NSString *)returnClass
             definitionStrM:(NSMutableString *)definitionStrM
                takeOutStrM:(NSMutableString *)takeOutStrM
+                assignStrM:(NSMutableString *)assignStrM
 {
     NSString *newKey;
     // 1.1 把 key 首字母变大写 并 去掉下划线
@@ -131,23 +140,38 @@
     
     // 1.2 完整 数据key
     newKey = [NSString stringWithFormat:@"ak_%@_%@", moduleName, newKey];
-    
+    // ...
     NSString *definitionStr = [NSString stringWithFormat:@"/** %@ <#description#> 👉%@👈 */\nstatic NSString * const %@ = @\"%@\";", key, returnClass, newKey, newKey];
     
+    [definitionStrM appendFormat:@"\n%@\n",definitionStr];
+    // ...
     NSString *takeOutStr = [NSString stringWithFormat:@"// %@\npackage[%@] = dict[@\"%@\"];", key, newKey, key];
     
-    [definitionStrM appendFormat:@"\n%@\n",definitionStr];
     [takeOutStrM appendFormat:@"\n%@\n",takeOutStr];
+    // ...
+    NSString *assignStr = [NSString stringWithFormat:@"%@ *%@ = _viewModel[%@];", returnClass, key, newKey];
+    
+    [assignStrM appendFormat:@"\n%@\n", assignStr];
 }
 
 - (void) _printDefinitionStrM:(NSMutableString *)definitionStrM
                   takeOutStrM:(NSMutableString *)takeOutStrM
+                   assignStrM:(NSMutableString *)assignStrM
 {
+    [self _printString:@"🦋" row:1];
     printf("%s\n", [definitionStrM UTF8String]);
-    [self _printString:@"✨" row:1];
+    [self _printString:@"🦋" row:1];
+    printf("\n\n");
     
+    [self _printString:@"🍀" row:1];
     printf("%s\n", [takeOutStrM UTF8String]);
-    [self _printString:@"🍌" row:2];
+    [self _printString:@"🍀" row:1];
+    printf("\n\n");
+    
+    [self _printString:@"😈" row:1];
+    printf("%s\n", [assignStrM UTF8String]);
+    [self _printString:@"😈" row:1];
+    printf("\n\n");
 }
 
 - (void) _printString:(NSString *)str row:(NSInteger)row

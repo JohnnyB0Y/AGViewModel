@@ -269,12 +269,19 @@
 - (NSString *)debugDescription
 {
     NSMutableString *strM = [NSMutableString string];
-    [strM appendFormat:@"_status      : %@, \n", @(_status)];
-    [strM appendFormat:@"_delegate    : %@, \n", _delegate];
-    [strM appendFormat:@"_notifier    : %@, \n", _notifier];
-    [strM appendFormat:@"_indexPath   : %@, \n", _indexPath];
-    [strM appendFormat:@"_bindingView : <%@: %p>, \n", [_bindingView class], _bindingView];
-    [strM appendFormat:@"_bindingModel: %@,", _bindingModel];
+    [strM appendFormat:@"  _status       [assign] : %@, \n", @(_status)];
+    [strM appendFormat:@"  _delegate     [ weak ] : %@, \n", _delegate];
+    [strM appendFormat:@"  _notifier     (strong) : %@, \n", _notifier];
+    [strM appendFormat:@"  _indexPath    ( copy ) : %@, \n", _indexPath];
+    [strM appendFormat:@"  _bindingView  [ weak ] : <%@: %p>, \n", [_bindingView class], _bindingView];
+    
+    NSMutableString *bmStrM = [NSMutableString stringWithFormat:@"{\n"];
+    [_bindingModel enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [bmStrM appendFormat:@"    %@ = %@, \n", key, obj];
+    }];
+    [bmStrM appendFormat:@"  }"];
+    
+    [strM appendFormat:@"  _bindingModel (strong) : %@,", bmStrM];
     return [NSString stringWithFormat:@"<%@: %p> --- {\n%@\n}", [self class] , self, strM];
 }
 

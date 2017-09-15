@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
-@interface AGViewModel : NSObject <AGVMObserverRegistratio>
+@interface AGViewModel : NSObject <AGVMObserverRegistration>
 
 @property (nonatomic, weak,   readonly, nullable) UIView<AGVMIncludable> *bindingView;
 @property (nonatomic, strong, readonly) NSMutableDictionary *bindingModel;

@@ -156,8 +156,8 @@ typedef void (^AGVMPackageDataBlock)
 @end
 
 
-#pragma mark - AGVMObserverRegistratio
-@protocol AGVMObserverRegistratio <NSObject>
+#pragma mark - AGVMObserverRegistration
+@protocol AGVMObserverRegistration <NSObject>
 #pragma mark readd observer
 /**
  重新添加观察者 并 移除旧的观察者，观察 bindingModel 键-值变化

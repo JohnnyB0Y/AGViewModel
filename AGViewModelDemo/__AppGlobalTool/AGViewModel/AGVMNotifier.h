@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AGVMNotifier : NSObject <AGVMObserverRegistratio>
+@interface AGVMNotifier : NSObject <AGVMObserverRegistration>
 
 
 + (instancetype) ag_VMNotifierWithViewModel:(AGViewModel *)vm;
