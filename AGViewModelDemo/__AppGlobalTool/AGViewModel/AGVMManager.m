@@ -62,11 +62,32 @@
     return vms;
 }
 
+- (NSArray<AGVMSection *> *) ag_packageSections:(NSArray *)sections
+                                        inBlock:(AGVMPackageSectionsBlock)block
+{
+    return [self ag_packageSections:sections inBlock:block capacity:sections.count];
+}
+
+- (NSArray<AGVMSection *> *) ag_packageSections:(NSArray *)sections
+                                        inBlock:(AGVMPackageSectionsBlock)block
+                                       capacity:(NSUInteger)capacity
+{
+    NSMutableArray *arrM = ag_mutableArray(sections.count);
+    [sections enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        AGVMSection *vms = ag_VMSection(capacity);
+        block ? block(vms, obj, idx) : nil;
+        [arrM addObject:vms];
+    }];
+    [self ag_addSectionsFromArray:arrM];
+    
+    return [arrM copy];
+}
+
 #pragma mark - 修改数据
 #pragma mark 添加
 - (void) ag_addSection:(AGVMSection *)section
 {
-    if ( section ) [self.sectionArrM addObject:section];
+    section ? [self.sectionArrM addObject:section] : nil;
 }
 
 - (void) ag_addSectionsFromArray:(NSArray<AGVMSection *> *)sections;
@@ -74,9 +95,14 @@
     sections.count > 0 ? [self.sectionArrM addObjectsFromArray:sections] : nil;
 }
 
+- (void) ag_addSectionsFromManager:(AGVMManager *)vmm
+{
+    [self ag_addSectionsFromArray:vmm.sectionArrM];
+}
+
 #pragma mark 插入
-- (void) ag_insertSectionsFromVMManager:(AGVMManager *)vmm
-                                atIndex:(NSUInteger)index
+- (void) ag_insertSectionsFromManager:(AGVMManager *)vmm
+                              atIndex:(NSUInteger)index
 {
     [self ag_insertSectionsFromArray:vmm.sectionArrM atIndex:index];
 }
@@ -135,7 +161,7 @@
 
 #pragma mark 合并
 /** 合并 commonVM、sectionArrM */
-- (void) ag_mergeFromVMManager:(AGVMManager *)vmm
+- (void) ag_mergeFromManager:(AGVMManager *)vmm
 {
     [self.commonVM ag_mergeModelFromViewModel:vmm.commonVM];
     [self ag_addSectionsFromArray:vmm.sectionArrM];

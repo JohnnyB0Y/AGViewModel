@@ -48,6 +48,24 @@
     return [self ag_packageItemData:package capacity:6];
 }
 
+- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
+                                     inBlock:(AGVMPackageDatasBlock)block
+{
+    return [self ag_packageItems:items inBlock:block capacity:items.count];
+}
+
+- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
+                                     inBlock:(AGVMPackageDatasBlock)block
+                                    capacity:(NSUInteger)capacity
+{
+    NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
+                                                 commonVM:_itemCommonVM
+                                                  inBlock:block
+                                                 capacity:capacity];
+    [self ag_addItemsFromArray:arr];
+    return arr;
+}
+
 - (AGViewModel *) ag_packageFooterData:(AGVMPackageDataBlock)package
 {
     return [self ag_packageFooterData:package capacity:6];
@@ -229,12 +247,34 @@
 }
 
 #pragma mark 更新
-- (AGVMSection *) ag_updateItemInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (AGVMSection *) ag_updateItemInBlock:(AGVMUpdateModelBlock)block
                                atIndex:(NSUInteger)index
 {
     if ( block ) {
         AGViewModel *vm = self[index];
         vm ? block(vm.bindingModel) : NSLog(@"你要更新的 View Model 不存在！");
+    }
+    return self;
+}
+
+- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+                                             atIndex:(NSUInteger)index
+{
+    NSAssert(block, @"block nonnull.");
+    if ( block ) {
+        AGViewModel *vm = self[index];
+        vm ? [vm ag_refreshViewByUpdateModelInBlock:block] : nil;
+    }
+    return self;
+}
+
+- (AGVMSection *) ag_refreshItemsByUpdateModelInBlock:(AGVMUpdateModelBlock)block
+{
+    NSAssert(block, @"block nonnull.");
+    if ( block ) {
+        [self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
+            [vm ag_refreshViewByUpdateModelInBlock:block];
+        }];
     }
     return self;
 }

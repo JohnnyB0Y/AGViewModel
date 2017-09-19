@@ -76,6 +76,10 @@ static NSString * const kAGVMViewEdgeInsets = @"kAGVMViewEdgeInsets";
 /** 视图外边距 UIEdgeInsets 👉NSString👈 */
 static NSString * const kAGVMViewEdgeMargin = @"kAGVMViewEdgeMargin";
 
+#pragma mark 颜色
+/** view 背景色 👉UIColor👈 */
+static NSString * const kAGVMViewBGColor = @"kAGVMViewBGColor";
+
 
 #endif /* AGVMKeys_h */
 

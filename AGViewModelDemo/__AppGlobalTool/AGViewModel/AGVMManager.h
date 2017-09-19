@@ -43,6 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGVMSection *) ag_packageSection:(nullable NS_NOESCAPE AGVMPackageSectionBlock)block
                            capacity:(NSUInteger)capacity;
 
+- (NSArray<AGVMSection *> *) ag_packageSections:(nullable NSArray *)sections
+                                        inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block;
+
+- (NSArray<AGVMSection *> *) ag_packageSections:(nullable NSArray *)sections
+                                        inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block
+                                       capacity:(NSUInteger)capacity;
 
 /**
  打包公共数据
@@ -59,17 +65,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 修改数据
 #pragma mark 添加
 - (void) ag_addSection:(AGVMSection *)section;
+- (void) ag_addSectionsFromManager:(AGVMManager *)vmm;
 - (void) ag_addSectionsFromArray:(NSArray<AGVMSection *> *)sections;
 
 #pragma mark 插入
-- (void) ag_insertSectionsFromVMManager:(AGVMManager *)vmm
-                                atIndex:(NSUInteger)index;
+- (void) ag_insertSection:(AGVMSection *)section
+                  atIndex:(NSUInteger)index;
+
+- (void) ag_insertSectionsFromManager:(AGVMManager *)vmm
+                              atIndex:(NSUInteger)index;
 
 - (void) ag_insertSectionsFromArray:(NSArray<AGVMSection *> *)vmsArr
                             atIndex:(NSUInteger)index;
-
-- (void) ag_insertSection:(AGVMSection *)section
-                  atIndex:(NSUInteger)index;
 
 - (void) ag_insertSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
                          atIndex:(NSUInteger)index;
@@ -79,13 +86,13 @@ NS_ASSUME_NONNULL_BEGIN
                         capacity:(NSUInteger)capacity;
 
 #pragma mark 移除
-- (void) ag_removeAllSections;
 - (void) ag_removeLastObject;
+- (void) ag_removeAllSections;
 - (void) ag_removeSectionAtIndex:(NSUInteger)index;
 
 #pragma mark 合并
 /** 合并 commonVM、sectionArrM */
-- (void) ag_mergeFromVMManager:(AGVMManager *)vmm;
+- (void) ag_mergeFromManager:(AGVMManager *)vmm;
 
 #pragma mark 更新
 - (void) ag_updateSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
@@ -114,7 +121,7 @@ atIndexedSubscript:(NSUInteger)idx;
 - (void) ag_enumerateSectionHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSIndexPath *indexPath, BOOL *stop))block;
 
 
-// 不使用
+// ...
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

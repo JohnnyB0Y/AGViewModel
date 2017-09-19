@@ -80,6 +80,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
                             capacity:(NSUInteger)capacity;
 
+- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
+                                     inBlock:(AGVMPackageDatasBlock)block;
+
+- (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
+                                     inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
+                                    capacity:(NSUInteger)capacity;
+
 /** 拼装组尾数据 */
 - (AGViewModel *) ag_packageFooterData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
                               capacity:(NSUInteger)capacity;
@@ -98,19 +105,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 增删改查
 #pragma mark 新增
+- (AGVMSection *) ag_addItem:(AGViewModel *)item;
 - (AGVMSection *) ag_addItemsFromSection:(AGVMSection *)vms;
 - (AGVMSection *) ag_addItemsFromArray:(NSArray<AGViewModel *> *)vmArr;
-- (AGVMSection *) ag_addItem:(AGViewModel *)item;
 
 #pragma mark 插入
+- (AGVMSection *) ag_insertItem:(AGViewModel *)item
+                        atIndex:(NSUInteger)index;
+
 - (AGVMSection *) ag_insertItemsFromSection:(AGVMSection *)vms
                                     atIndex:(NSUInteger)index;
 
 - (AGVMSection *) ag_insertItemsFromArray:(NSArray<AGViewModel *> *)vmArr
                                   atIndex:(NSUInteger)index;
-
-- (AGVMSection *) ag_insertItem:(AGViewModel *)item
-                        atIndex:(NSUInteger)index;
 
 - (AGVMSection *) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
                                atIndex:(NSUInteger)index;
@@ -120,13 +127,18 @@ NS_ASSUME_NONNULL_BEGIN
                               capacity:(NSUInteger)capacity;
 
 #pragma mark 移除
-- (AGVMSection *) ag_removeItemAtIndex:(NSUInteger)index;
-- (AGVMSection *) ag_removeLastObject;
 - (AGVMSection *) ag_removeAllItems;
+- (AGVMSection *) ag_removeLastObject;
+- (AGVMSection *) ag_removeItemAtIndex:(NSUInteger)index;
 
 #pragma mark 更新
 - (AGVMSection *) ag_updateItemInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
                                atIndex:(NSUInteger)index;
+
+- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+                                             atIndex:(NSUInteger)index;
+
+- (AGVMSection *) ag_refreshItemsByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
 
 - (void) setObject:(AGViewModel *)vm
 atIndexedSubscript:(NSUInteger)idx;
@@ -160,7 +172,7 @@ atIndexedSubscript:(NSUInteger)idx;
 - (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 
-// 不使用
+// ...
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

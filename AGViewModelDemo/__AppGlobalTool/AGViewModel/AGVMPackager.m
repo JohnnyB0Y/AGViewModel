@@ -21,6 +21,24 @@
     return sharedInstance;
 }
 
+- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
+                                    commonVM:(AGViewModel *)commonVM
+                                     inBlock:(AGVMPackageDatasBlock)block
+                                    capacity:(NSUInteger)capacity
+{
+    NSMutableArray *arrM = ag_mutableArray(items.count);
+    [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        AGViewModel *vm =
+        [AGViewModel ag_viewModelWithModel:commonVM.bindingModel
+                                  capacity:capacity];
+        block ? block(vm.bindingModel, obj, idx) : nil;
+        [arrM addObject:vm];
+    }];
+    
+    return [arrM copy];
+}
+
 /**
  组装 ViewModel
  

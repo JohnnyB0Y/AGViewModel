@@ -15,6 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) sharedInstance;
 
+- (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
+                                    commonVM:(nullable AGViewModel *)commonVM
+                                     inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
+                                    capacity:(NSUInteger)capacity;
+
 /**
  组装 ViewModel
  
@@ -55,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
                             moduleName:(NSString *)moduleName;
 
 
-// 不使用
+// ...
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

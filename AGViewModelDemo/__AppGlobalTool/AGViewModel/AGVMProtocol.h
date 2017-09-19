@@ -46,6 +46,12 @@ typedef void(^AGVMPackageSectionBlock)
     AGVMSection *vms
 );
 
+typedef void(^AGVMPackageSectionsBlock)
+(
+    AGVMSection *vms,
+    id obj,
+    NSUInteger idx
+);
 
 #pragma mark viewModelPackage block
 typedef void (^AGVMPackageDataBlock)
@@ -53,6 +59,12 @@ typedef void (^AGVMPackageDataBlock)
     NSMutableDictionary *package
 );
 
+typedef void (^AGVMPackageDatasBlock)
+(
+    NSMutableDictionary *package,
+    id obj,
+    NSUInteger idx
+);
 
 #pragma mark - ------------- ViewModel 相关协议 --------------
 #pragma mark BaseReusable Protocol
