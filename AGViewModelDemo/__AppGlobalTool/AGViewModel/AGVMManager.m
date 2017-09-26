@@ -16,7 +16,9 @@
 @end
 
 
-@implementation AGVMManager
+@implementation AGVMManager {
+    NSUInteger _capacity;
+}
 
 #pragma mark - ----------- Life Cycle ----------
 /**
@@ -34,6 +36,7 @@
 {
     self = [super init];
     if (self) {
+        _capacity = capacity;
         _sectionArrM = ag_mutableArray(capacity);
     }
     return self;
@@ -81,6 +84,15 @@
     [self ag_addSectionsFromArray:arrM];
     
     return [arrM copy];
+}
+
+#pragma mark - NSCopying
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithCapacity:_capacity];
+    vmm->_commonVM = [_commonVM copy];
+    [vmm ag_addSectionsFromManager:self];
+    return vmm;
 }
 
 #pragma mark - 修改数据

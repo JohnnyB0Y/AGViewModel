@@ -155,15 +155,17 @@ typedef void (^AGVMPackageDatasBlock)
 @protocol AGVMDelegate <NSObject>
 
 /**
- 通过 viewModel 的 @selector(ag_callDelegateToDoForInfo:) 方法通知 controller 做事。
- 通过 viewModel 的 @selector(ag_callDelegateToDoForViewModel:) 方法通知 controller 做事。
- 通过 viewModel 的 @selector(ag_callDelegateToDoForAction:) 方法通知 controller 做事。
+ 通过 viewModel 的 @selector(ag_callDelegateToDoForInfo:)          方法通知 delegate 做事。
+ 通过 viewModel 的 @selector(ag_callDelegateToDoForViewModel:)     方法通知 delegate 做事。
+ 通过 viewModel 的 @selector(ag_callDelegateToDoForAction:)        方法通知 delegate 做事。
+ 通过 viewModel 的 @selector(ag_callDelegateToDoForAction:info:)   方法通知 delegate 做事。
  */
 
 @optional
 - (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForInfo:(nullable NSDictionary *)info;
 - (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForViewModel:(nullable AGViewModel *)info;
 - (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(nullable SEL)action;
+- (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(nullable SEL)action info:(nullable AGViewModel *)info;
 
 @end
 

@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
-@interface AGViewModel : NSObject <AGVMObserverRegistration>
+@interface AGViewModel : NSObject <AGVMObserverRegistration, NSCopying>
 
 @property (nonatomic, weak,   readonly, nullable) UIView<AGVMIncludable> *bindingView;
 @property (nonatomic, strong, readonly) NSMutableDictionary *bindingModel;
@@ -48,10 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_precomputedSizeOfBindingView:(UIView<AGVMIncludable> *)bv;
 
 
-#pragma mark 通知代理根据信息或类型做某事（ 让 view 传递信息给 controller ）
+#pragma mark 通知 delegate 根据信息或类型做某事（ 让 view 传递信息给 controller ）
 - (void) ag_callDelegateToDoForInfo:(nullable NSDictionary *)info;
 - (void) ag_callDelegateToDoForViewModel:(nullable AGViewModel *)info;
 - (void) ag_callDelegateToDoForAction:(nullable SEL)action;
+- (void) ag_callDelegateToDoForAction:(nullable SEL)action info:(nullable AGViewModel *)info;
 
 
 #pragma mark 快速初始化实例
@@ -85,7 +86,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_refreshViewByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
 - (void) setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;
 
-/** 合并 bindingModel */
+/**
+ 合并包含 keys 的模型数据
+
+ @param dict 待合并的字典
+ @param keys 要合并数据的keys
+ */
+- (void) ag_mergeModelFromDictionary:(NSDictionary *)dict byKeys:(NSArray<NSString *> *)keys;
+- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm  byKeys:(NSArray<NSString *> *)keys;
+
 - (void) ag_mergeModelFromViewModel:(AGViewModel *)vm;
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict;
 
@@ -98,9 +107,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 快捷函数
 /** fast create AGViewModel instance */
 AGViewModel * ag_viewModel(NSDictionary * _Nullable bindingModel);
-/** fast create 可变字典函数 */
+/** fast create mutableDictionary */
 NSMutableDictionary * ag_mutableDict(NSUInteger capacity);
-/** fast create 可变数组函数 */
+/** fast create mutableArray */
 NSMutableArray * ag_mutableArray(NSUInteger capacity);
 /** fast create 可变数组函数, 包含 Null 对象 */
 NSMutableArray * ag_mutableNullArray(NSUInteger capacity);

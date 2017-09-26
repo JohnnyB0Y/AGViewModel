@@ -15,7 +15,9 @@
 
 @end
 
-@implementation AGVMSection
+@implementation AGVMSection {
+    NSUInteger _capacity;
+}
 
 /**
  fast create vms
@@ -32,6 +34,7 @@
 {
     self = [super init];
     if (self) {
+        _capacity = capacity;
         _itemArrM = ag_mutableArray(capacity);
     }
     return self;
@@ -171,6 +174,18 @@
                              packager:(id<AGVMPackagable>)packager
 {
     return [self ag_packageFooterData:data packager:packager forObject:nil];
+}
+
+#pragma mark - NSCopying
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    AGVMSection *vms = [[self.class allocWithZone:zone] initWithCapacity:_capacity];
+    vms->_commonVM = [_commonVM copy];
+    vms->_headerVM = [_headerVM copy];
+    vms->_footerVM = [_footerVM copy];
+    vms->_itemCommonVM = [_itemCommonVM copy];
+    [vms ag_addItemsFromSection:self];
+    return vms;
 }
 
 #pragma mark - 增删改查

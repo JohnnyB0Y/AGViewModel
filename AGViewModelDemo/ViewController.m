@@ -54,6 +54,7 @@
     = [AGBoxCollectionViewController ag_viewControllerWithViewModel:nil];
     
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 #pragma mark - ---------- Event Methods ----------

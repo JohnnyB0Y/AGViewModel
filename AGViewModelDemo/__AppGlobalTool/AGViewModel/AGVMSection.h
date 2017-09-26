@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AGVMSection : NSObject
+@interface AGVMSection : NSObject <NSCopying>
 
 @property (nonatomic, strong, readonly, nullable) AGViewModel *commonVM;
 

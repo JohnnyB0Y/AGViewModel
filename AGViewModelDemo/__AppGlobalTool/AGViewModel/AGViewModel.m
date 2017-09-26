@@ -23,6 +23,7 @@
         unsigned int ag_callDelegateToDoForInfo         : 1;
         unsigned int ag_callDelegateToDoForViewModel    : 1;
         unsigned int ag_callDelegateToDoForAction       : 1;
+        unsigned int ag_callDelegateToDoForActionInfo   : 1;
     } _responeMethod;
 }
 
@@ -144,6 +145,18 @@
     dict.count > 0 ? [_bindingModel addEntriesFromDictionary:dict] : nil;
 }
 
+- (void) ag_mergeModelFromDictionary:(NSDictionary *)dict byKeys:(NSArray<NSString *> *)keys
+{
+    [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        self[obj] = dict[obj];
+    }];
+}
+
+- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm  byKeys:(NSArray<NSString *> *)keys
+{
+    [self ag_mergeModelFromDictionary:vm.bindingModel byKeys:keys];
+}
+
 #pragma mark - other method
 - (void)ag_callDelegateToDoForInfo:(NSDictionary *)info
 {
@@ -163,6 +176,13 @@
 {
     if ( _responeMethod.ag_callDelegateToDoForAction ) {
         [_delegate ag_viewModel:self callDelegateToDoForAction:action];
+    }
+}
+
+- (void)ag_callDelegateToDoForAction:(SEL)action info:(AGViewModel *)info
+{
+    if ( _responeMethod.ag_callDelegateToDoForActionInfo ) {
+        [_delegate ag_viewModel:self callDelegateToDoForAction:action info:info];
     }
 }
 
@@ -246,6 +266,16 @@
     [self.notifier ag_removeAllObservers];
 }
 
+#pragma mark - NSCopying
+- (id)copyWithZone:(nullable NSZone *)zone
+{
+    AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:_bindingModel];
+    vm.status = _status;
+    [vm ag_setBindingView:_bindingView configDataBlock:_configDataBlock];
+    [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
+    return vm;
+}
+
 #pragma mark - ------------ Override Methods --------------
 - (id)objectForKeyedSubscript:(NSString *)key;
 {
@@ -298,6 +328,9 @@
     
     _responeMethod.ag_callDelegateToDoForAction
     = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:)];
+    
+    _responeMethod.ag_callDelegateToDoForActionInfo
+    = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:info:)];
 }
 
 #pragma mark - ----------- Getter Methods ----------
@@ -320,13 +353,13 @@ AGViewModel * ag_viewModel(NSDictionary *bindingModel)
     return [AGViewModel ag_viewModelWithModel:bindingModel];
 }
 
-/** fast create 可变字典函数 */
+/** fast create mutableDictionary */
 NSMutableDictionary * ag_mutableDict(NSUInteger capacity)
 {
     return [NSMutableDictionary dictionaryWithCapacity:capacity];
 }
 
-/** fast create 可变数组函数 */
+/** fast create mutableArray */
 NSMutableArray * ag_mutableArray(NSUInteger capacity)
 {
     return [NSMutableArray arrayWithCapacity:capacity];

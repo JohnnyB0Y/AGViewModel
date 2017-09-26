@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
-@interface AGVMManager : NSObject
+@interface AGVMManager : NSObject <NSCopying>
 
 @property (nonatomic, strong, readonly, nullable) AGViewModel *commonVM;
 

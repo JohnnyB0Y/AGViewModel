@@ -51,6 +51,9 @@ static NSString * const kAGVMTargetVCTitle = @"kAGVMTargetVCTitle";
 /** 目标跳转控制器 - 类型 👉NSString👈 */
 static NSString * const kAGVMTargetVCType = @"kAGVMTargetVCType";
 
+/** 目标跳转控制器 - 执行的代码块 👉Block👈 */
+static NSString * const kAGVMTargetVCBlock = @"kAGVMTargetVCBlock";
+
 
 #pragma mark - 显示的视图相关
 /** view 实例化 👉Class👈 */
