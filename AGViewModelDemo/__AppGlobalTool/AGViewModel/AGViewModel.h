@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param keys 要合并数据的keys
  */
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict byKeys:(NSArray<NSString *> *)keys;
-- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm  byKeys:(NSArray<NSString *> *)keys;
+- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm byKeys:(NSArray<NSString *> *)keys;
 
 - (void) ag_mergeModelFromViewModel:(AGViewModel *)vm;
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict;

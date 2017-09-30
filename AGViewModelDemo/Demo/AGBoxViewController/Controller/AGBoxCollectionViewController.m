@@ -150,7 +150,7 @@
                 bm[kAGBoxACellSegmentedControlSelectedIndex] = @( selected );
             }];
             
-            NSLog(@"indexPath : %lu - %lu", indexPath.section, indexPath.item);
+            NSLog(@"indexPath : %ld - %ld", (long)indexPath.section, (long)indexPath.item);
         }
         
     }];
