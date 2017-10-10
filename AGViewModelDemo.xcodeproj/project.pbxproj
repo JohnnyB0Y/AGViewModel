@@ -596,6 +596,7 @@
 			baseConfigurationReference = 0B73F38F0874A936EE14B756 /* Pods-AGViewModelDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				DEVELOPMENT_TEAM = NYBK4PC9HB;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
@@ -611,6 +612,7 @@
 			baseConfigurationReference = 50237810C9061914256F6227 /* Pods-AGViewModelDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				DEVELOPMENT_TEAM = NYBK4PC9HB;
 				INFOPLIST_FILE = AGViewModelDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
