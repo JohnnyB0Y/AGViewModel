@@ -34,11 +34,6 @@
     return self;
 }
 
-+ (instancetype)ag_VMNotifierWithViewModel:(AGViewModel *)vm
-{
-    return [[self alloc] initWithViewModel:vm];
-}
-
 - (void)dealloc
 {
     [self ag_removeAllObservers];

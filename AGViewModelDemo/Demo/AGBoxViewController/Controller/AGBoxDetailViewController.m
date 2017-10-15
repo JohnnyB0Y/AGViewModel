@@ -31,15 +31,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-+ (UIViewController *)ag_viewControllerWithViewModel:(AGViewModel *)vm
+- (UIViewController *)initWithViewModel:(AGViewModel *)vm
 {
-    AGBoxDetailViewController *vc = [[self alloc] init];
-    vc->_viewModel = vm;
-    [vc setTitle:@"盒子"];
-    
-    vc.view.backgroundColor = vm[kAGVMBoxColor];
-    
-    return vc;
+    self = [super init];
+    if ( self ) {
+        self->_viewModel = vm;
+        self.title = @"盒子";
+        self.view.backgroundColor = vm[kAGVMBoxColor];
+    }
+    return self;
 }
 
 #pragma mark - ---------- Event Methods ----------

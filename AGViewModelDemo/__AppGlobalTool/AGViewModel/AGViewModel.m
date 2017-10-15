@@ -337,7 +337,7 @@
 - (AGVMNotifier *)notifier
 {
     if (_notifier == nil) {
-        _notifier = [AGVMNotifier ag_VMNotifierWithViewModel:self];
+        _notifier = [[AGVMNotifier alloc] initWithViewModel:self];
     }
     return _notifier;
 }

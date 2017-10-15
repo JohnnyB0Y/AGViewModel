@@ -51,7 +51,7 @@
     
     // 进入
     AGBoxCollectionViewController *vc
-    = [AGBoxCollectionViewController ag_viewControllerWithViewModel:nil];
+    = [[AGBoxCollectionViewController alloc] initWithViewModel:nil];
     
     [self.navigationController pushViewController:vc animated:YES];
     

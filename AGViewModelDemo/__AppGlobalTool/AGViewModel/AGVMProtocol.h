@@ -17,6 +17,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - ------------- typedef block --------------
+#pragma mark quick block
+typedef void (^AGVMTargetVCBlock)
+(
+     AGViewModel *vm
+);
+
+
 #pragma mark viewModel block
 typedef void(^AGVMConfigDataBlock)
 (
@@ -120,9 +127,12 @@ typedef void (^AGVMPackageDatasBlock)
 #pragma mark ViewController Protocol
 @protocol AGViewControllerProtocol <NSObject>
 @required
-+ (__kindof UIViewController *) ag_viewControllerWithViewModel:(nullable AGViewModel *)vm;
+- (__kindof UIViewController *) initWithViewModel:(nullable AGViewModel *)vm;
 
 @optional
++ (instancetype) alloc;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

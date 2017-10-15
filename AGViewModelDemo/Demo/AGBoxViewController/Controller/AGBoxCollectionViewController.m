@@ -53,12 +53,14 @@
     
 }
 
-+ (UIViewController *)ag_viewControllerWithViewModel:(AGViewModel *)vm
+- (UIViewController *)initWithViewModel:(AGViewModel *)vm
 {
     UICollectionViewFlowLayout *fl = [[UICollectionViewFlowLayout alloc] init];
-    UICollectionViewController *vc = [[AGBoxCollectionViewController alloc] initWithCollectionViewLayout:fl];
-    vc.title = @"多彩盒子";
-    return vc;
+    self = [super initWithCollectionViewLayout:fl];
+    if ( self ) {
+        self.title = @"多彩盒子";
+    }
+    return self;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -128,7 +130,7 @@
 {
     // 选中
     AGViewModel *vm = self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row];
-    AGBoxDetailViewController *vc = [AGBoxDetailViewController ag_viewControllerWithViewModel:vm];
+    AGBoxDetailViewController *vc = [[AGBoxDetailViewController alloc] initWithViewModel:vm];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
