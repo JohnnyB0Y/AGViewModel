@@ -1,7 +1,7 @@
 //
 //  AGVMKit.h
-//
-//
+//  https://github.com/JohnnyB0Y/AGViewModel
+//  http://www.jianshu.com/u/8939e3430d49
 //  Created by JohnnyB0Y on 2017/8/7.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
 //

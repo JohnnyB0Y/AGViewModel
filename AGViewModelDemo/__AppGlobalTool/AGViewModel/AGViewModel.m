@@ -276,6 +276,11 @@
     return vm;
 }
 
+- (id)mutableCopyWithZone:(NSZone *)zone
+{
+    return [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
+}
+
 #pragma mark - ------------ Override Methods --------------
 - (id)objectForKeyedSubscript:(NSString *)key;
 {

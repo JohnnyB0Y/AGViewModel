@@ -89,9 +89,19 @@
 #pragma mark - NSCopying
 - (id)copyWithZone:(nullable NSZone *)zone
 {
-    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithCapacity:_capacity];
+    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
     vmm->_commonVM = [_commonVM copy];
     [vmm ag_addSectionsFromManager:self];
+    return vmm;
+}
+
+- (id)mutableCopyWithZone:(NSZone *)zone
+{
+    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
+    vmm->_commonVM = [_commonVM mutableCopy];
+    [self ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger idx, BOOL * _Nonnull stop) {
+        [vmm ag_addSection:[vms mutableCopy]];
+    }];
     return vmm;
 }
 
