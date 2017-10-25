@@ -185,6 +185,9 @@
 /** 合并 commonVM、sectionArrM */
 - (void) ag_mergeFromManager:(AGVMManager *)vmm
 {
+    if ( vmm.commonVM ) {
+        _commonVM = _commonVM ?: ag_viewModel(nil);
+    }
     [self.commonVM ag_mergeModelFromViewModel:vmm.commonVM];
     [self ag_addSectionsFromArray:vmm.sectionArrM];
 }
@@ -280,7 +283,17 @@
     return [self.sectionArrM firstObject];
 }
 
+- (AGVMSection *)fs
+{
+    return [self.sectionArrM firstObject];
+}
+
 - (AGVMSection *)lastSection
+{
+    return [self.sectionArrM lastObject];
+}
+
+- (AGVMSection *)ls
 {
     return [self.sectionArrM lastObject];
 }

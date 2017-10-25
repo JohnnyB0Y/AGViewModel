@@ -13,8 +13,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AGVMSection : NSObject <NSCopying, NSMutableCopying>
-
-@property (nonatomic, strong, readonly, nullable) AGViewModel *commonVM;
+/** common vm */
+@property (nonatomic, strong, readonly, nullable, getter=cvm) AGViewModel *commonVM;
 
 @property (nonatomic, strong, readonly, nullable) AGViewModel *headerVM;
 @property (nonatomic, strong, readonly, nullable) AGViewModel *footerVM;
@@ -24,8 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) NSMutableArray<AGViewModel *> *itemArrM;
 @property (nonatomic, assign, readonly) NSUInteger count;
 
-@property (nonatomic, weak, readonly, nullable) AGViewModel *firstViewModel;
-@property (nonatomic, weak, readonly, nullable) AGViewModel *lastViewModel;
+/** first item vm */
+@property (nonatomic, weak, readonly, nullable, getter=fvm) AGViewModel *firstViewModel;
+/** last item vm */
+@property (nonatomic, weak, readonly, nullable, getter=lvm) AGViewModel *lastViewModel;
 
 /**
  fast create vms

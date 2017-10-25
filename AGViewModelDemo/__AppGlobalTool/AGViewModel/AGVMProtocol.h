@@ -20,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark quick block
 typedef void (^AGVMTargetVCBlock)
 (
-     UIViewController *vc,
-     AGViewModel *vm
+     UIViewController * _Nullable vc,
+     AGViewModel * _Nullable vm
 );
 
 

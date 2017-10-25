@@ -346,11 +346,24 @@
 #pragma mark 合并
 - (AGVMSection *) ag_mergeFromSection:(AGVMSection *)vms
 {
+    if ( vms.headerVM ) {
+        _headerVM = _headerVM ?: ag_viewModel(nil);
+    }
+    if ( vms.footerVM ) {
+        _footerVM = _footerVM ?: ag_viewModel(nil);
+    }
+    if ( vms.commonVM ) {
+        _commonVM = _commonVM ?: ag_viewModel(nil);
+    }
+    if ( vms.itemCommonVM ) {
+        _itemCommonVM = _itemCommonVM ?: ag_viewModel(nil);
+    }
     // 合并所有数据
     [self.headerVM ag_mergeModelFromViewModel:vms.headerVM];
     [self.footerVM ag_mergeModelFromViewModel:vms.footerVM];
     [self.commonVM ag_mergeModelFromViewModel:vms.commonVM];
     [self.itemCommonVM ag_mergeModelFromViewModel:vms.itemCommonVM];
+    
     [self ag_addItemsFromSection:vms];
     
     return self;
@@ -407,7 +420,17 @@
     return [self.itemArrM firstObject];
 }
 
+- (AGViewModel *)fvm
+{
+    return [self.itemArrM firstObject];
+}
+
 - (AGViewModel *)lastViewModel
+{
+    return [self.itemArrM lastObject];
+}
+
+- (AGViewModel *)lvm
 {
     return [self.itemArrM lastObject];
 }

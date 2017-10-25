@@ -13,14 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
 @interface AGVMManager : NSObject <NSCopying, NSMutableCopying>
-
-@property (nonatomic, strong, readonly, nullable) AGViewModel *commonVM;
+/** common vm */
+@property (nonatomic, strong, readonly, nullable, getter=cvm) AGViewModel *commonVM;
 
 @property (nonatomic, strong, readonly, nullable) NSMutableArray<AGVMSection *> *sectionArrM;
 @property (nonatomic, assign, readonly) NSUInteger count;
 
-@property (nonatomic, weak, readonly, nullable) AGVMSection *firstSection;
-@property (nonatomic, weak, readonly, nullable) AGVMSection *lastSection;
+/** first section */
+@property (nonatomic, weak, readonly, nullable, getter=fs) AGVMSection *firstSection;
+/** last section */
+@property (nonatomic, weak, readonly, nullable, getter=ls) AGVMSection *lastSection;
 
 #pragma mark - fast create vmm
 /**

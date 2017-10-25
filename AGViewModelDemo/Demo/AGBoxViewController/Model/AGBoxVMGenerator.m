@@ -16,6 +16,11 @@
     if (_boxVMManager == nil) {
         _boxVMManager = ag_VMManager(3);
         
+        // 公共数据
+        [_boxVMManager ag_packageCommonData:^(NSMutableDictionary * _Nonnull package) {
+            package[kAGVMBoxTitle] = @"boxTitle";
+        }];
+        
         NSArray *classArr = @[[AGBoxACell class],
                               [AGBoxBCell class],
                               [AGBoxCCell class],
@@ -34,6 +39,11 @@
         
         // 第一组
         [_boxVMManager ag_packageSection:^(AGVMSection *vms) {
+            
+            // 公共数据
+            [vms ag_packageCommonData:^(NSMutableDictionary * _Nonnull package) {
+                package[kAGVMBoxTitle] = @"SSS";
+            }];
             
             // 共享数据模型
             [vms ag_packageItemCommonData:^(NSMutableDictionary *package) {
