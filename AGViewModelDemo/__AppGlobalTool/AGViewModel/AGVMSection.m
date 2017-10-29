@@ -326,6 +326,24 @@
     return self;
 }
 
+- (AGVMSection *) ag_removeItem:(AGViewModel *)vm
+{
+    [self.itemArrM removeObject:vm];
+    return self;
+}
+
+- (AGVMSection *) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr
+{
+    [self.itemArrM removeObjectsInArray:vmArr];
+    return self;
+}
+
+- (AGVMSection *) ag_removeItemsFromSection:(AGVMSection *)vms
+{
+    [self ag_removeItemsFromArray:vms.itemArrM];
+    return self;
+}
+
 #pragma mark 选中
 - (AGViewModel *) objectAtIndexedSubscript:(NSUInteger)idx
 {

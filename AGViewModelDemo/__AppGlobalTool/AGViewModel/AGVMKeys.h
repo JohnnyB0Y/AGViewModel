@@ -82,7 +82,8 @@ static NSString * const kAGVMViewEdgeMargin = @"kAGVMViewEdgeMargin";
 #pragma mark 颜色
 /** view 背景色 👉UIColor👈 */
 static NSString * const kAGVMViewBGColor = @"kAGVMViewBGColor";
-
+/** view 显示类型 👉NSNumber👈 */
+static NSString * const kAGVMViewDisplayType = @"kAGVMViewDisplayType";
 
 #endif /* AGVMKeys_h */
 

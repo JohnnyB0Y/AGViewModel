@@ -131,7 +131,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 移除
 - (AGVMSection *) ag_removeAllItems;
 - (AGVMSection *) ag_removeLastObject;
+- (AGVMSection *) ag_removeItem:(AGViewModel *)vm; //
 - (AGVMSection *) ag_removeItemAtIndex:(NSUInteger)index;
+- (AGVMSection *) ag_removeItemsFromSection:(AGVMSection *)vms; //
+- (AGVMSection *) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr; //
 
 #pragma mark 更新
 - (AGVMSection *) ag_updateItemInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
