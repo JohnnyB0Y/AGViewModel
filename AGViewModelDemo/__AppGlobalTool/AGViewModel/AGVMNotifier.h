@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AGVMNotifier : NSObject <AGVMObserverRegistration>
 
 - (instancetype) initWithViewModel:(AGViewModel *)vm NS_DESIGNATED_INITIALIZER;
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 
 @end

@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
                               capacity:(NSUInteger)capacity;
-- (AGViewModel *)ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 
 
 #pragma mark - 修改数据
@@ -124,8 +124,8 @@ atIndexedSubscript:(NSUInteger)idx;
 
 
 // ...
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

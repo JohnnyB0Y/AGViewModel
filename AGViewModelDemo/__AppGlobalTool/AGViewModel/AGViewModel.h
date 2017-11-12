@@ -99,8 +99,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict;
 
 
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
++ (instancetype) new NS_UNAVAILABLE;
 
 @end
 

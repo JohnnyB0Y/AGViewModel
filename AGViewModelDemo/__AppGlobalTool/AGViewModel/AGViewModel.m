@@ -148,6 +148,7 @@
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict byKeys:(NSArray<NSString *> *)keys
 {
     [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSAssert([obj isKindOfClass:[NSString class]], @"key is not kind of NSString!");
         self[obj] = dict[obj];
     }];
 }
@@ -163,12 +164,20 @@
     if ( _responeMethod.ag_callDelegateToDoForInfo ) {
         [_delegate ag_viewModel:self callDelegateToDoForInfo:info];
     }
+    else {
+        SEL sel = @selector(ag_viewModel:callDelegateToDoForInfo:);
+        NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
+    }
 }
 
 - (void)ag_callDelegateToDoForViewModel:(AGViewModel *)info
 {
     if ( _responeMethod.ag_callDelegateToDoForViewModel ) {
         [_delegate ag_viewModel:self callDelegateToDoForViewModel:info];
+    }
+    else {
+        SEL sel = @selector(ag_viewModel:callDelegateToDoForViewModel:);
+        NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
     }
 }
 
@@ -177,12 +186,20 @@
     if ( _responeMethod.ag_callDelegateToDoForAction ) {
         [_delegate ag_viewModel:self callDelegateToDoForAction:action];
     }
+    else {
+        SEL sel = @selector(ag_viewModel:callDelegateToDoForAction:);
+        NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
+    }
 }
 
 - (void)ag_callDelegateToDoForAction:(SEL)action info:(AGViewModel *)info
 {
     if ( _responeMethod.ag_callDelegateToDoForActionInfo ) {
         [_delegate ag_viewModel:self callDelegateToDoForAction:action info:info];
+    }
+    else {
+        SEL sel = @selector(ag_viewModel:callDelegateToDoForAction:info:);
+        NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
     }
 }
 

@@ -176,19 +176,19 @@
                   takeOutStrM:(NSMutableString *)takeOutStrM
                    assignStrM:(NSMutableString *)assignStrM
 {
-    [self _printString:@"🦋" row:1];
+    [self _printString:@"🦋-" row:1];
     printf("%s\n", [definitionStrM UTF8String]);
-    [self _printString:@"🦋" row:1];
+    [self _printString:@"-🦋" row:1];
     printf("\n\n");
     
-    [self _printString:@"🍀" row:1];
+    [self _printString:@"-🍀" row:1];
     printf("%s\n", [takeOutStrM UTF8String]);
-    [self _printString:@"🍀" row:1];
+    [self _printString:@"🍀-" row:1];
     printf("\n\n");
     
-    [self _printString:@"😈" row:1];
+    [self _printString:@"😈-" row:1];
     printf("%s\n", [assignStrM UTF8String]);
-    [self _printString:@"😈" row:1];
+    [self _printString:@"-😈" row:1];
     printf("\n\n");
 }
 

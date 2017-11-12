@@ -19,11 +19,16 @@
 		3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A409D8A1F606A1700845767 /* AGVMNotifier.m */; };
 		3AACE8261EACF9100097C4F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8251EACF9100097C4F3 /* main.m */; };
 		3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8281EACF9100097C4F3 /* AppDelegate.m */; };
-		3AACE82C1EACF9100097C4F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE82B1EACF9100097C4F3 /* ViewController.m */; };
 		3AACE82F1EACF9100097C4F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE82D1EACF9100097C4F3 /* Main.storyboard */; };
 		3AACE8311EACF9100097C4F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE8301EACF9100097C4F3 /* Assets.xcassets */; };
 		3AACE8341EACF9100097C4F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE8321EACF9100097C4F3 /* LaunchScreen.storyboard */; };
 		3AACE83F1EACF9110097C4F3 /* AGViewModelDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE83E1EACF9110097C4F3 /* AGViewModelDemoTests.m */; };
+		3AC28E001FB8179C00578B5D /* AGTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFA1FB8179C00578B5D /* AGTableViewManager.m */; };
+		3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFB1FB8179C00578B5D /* AGCollectionViewManager.m */; };
+		3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFC1FB8179C00578B5D /* AGBaseViewManager.m */; };
+		3AC28E0E1FB847E300578B5D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28E081FB847E300578B5D /* ViewController.m */; };
+		3AC28E0F1FB847E300578B5D /* AGTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28E0D1FB847E300578B5D /* AGTextCell.m */; };
+		3AC28E131FB84A2D00578B5D /* AGHomeVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28E121FB84A2D00578B5D /* AGHomeVMGenerator.m */; };
 		3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8915E1F38965100E86F9F /* AGViewModel.m */; };
 		3AD8916B1F38965100E86F9F /* AGVMPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891631F38965100E86F9F /* AGVMPackager.m */; };
 		3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891651F38965100E86F9F /* AGVMManager.m */; };
@@ -66,8 +71,6 @@
 		3AACE8251EACF9100097C4F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3AACE8271EACF9100097C4F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3AACE8281EACF9100097C4F3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3AACE82A1EACF9100097C4F3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3AACE82B1EACF9100097C4F3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3AACE82E1EACF9100097C4F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3AACE8301EACF9100097C4F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AACE8331EACF9100097C4F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,6 +78,19 @@
 		3AACE83A1EACF9110097C4F3 /* AGViewModelDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGViewModelDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AACE83E1EACF9110097C4F3 /* AGViewModelDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGViewModelDemoTests.m; sourceTree = "<group>"; };
 		3AACE8401EACF9110097C4F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AC28DFA1FB8179C00578B5D /* AGTableViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTableViewManager.m; sourceTree = "<group>"; };
+		3AC28DFB1FB8179C00578B5D /* AGCollectionViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGCollectionViewManager.m; sourceTree = "<group>"; };
+		3AC28DFC1FB8179C00578B5D /* AGBaseViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBaseViewManager.m; sourceTree = "<group>"; };
+		3AC28DFD1FB8179C00578B5D /* AGTableViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTableViewManager.h; sourceTree = "<group>"; };
+		3AC28DFE1FB8179C00578B5D /* AGCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGCollectionViewManager.h; sourceTree = "<group>"; };
+		3AC28DFF1FB8179C00578B5D /* AGBaseViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBaseViewManager.h; sourceTree = "<group>"; };
+		3AC28E081FB847E300578B5D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3AC28E091FB847E300578B5D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3AC28E0C1FB847E300578B5D /* AGTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTextCell.h; sourceTree = "<group>"; };
+		3AC28E0D1FB847E300578B5D /* AGTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTextCell.m; sourceTree = "<group>"; };
+		3AC28E101FB848F600578B5D /* AGGlobalVMKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGGlobalVMKeys.h; sourceTree = "<group>"; };
+		3AC28E111FB84A2D00578B5D /* AGHomeVMGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGHomeVMGenerator.h; sourceTree = "<group>"; };
+		3AC28E121FB84A2D00578B5D /* AGHomeVMGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGHomeVMGenerator.m; sourceTree = "<group>"; };
 		3AD8915D1F38965100E86F9F /* AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGViewModel.h; sourceTree = "<group>"; };
 		3AD8915E1F38965100E86F9F /* AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGViewModel.m; sourceTree = "<group>"; };
 		3AD8915F1F38965100E86F9F /* AGVMKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGVMKeys.h; sourceTree = "<group>"; };
@@ -201,8 +217,7 @@
 				3ABB4B061F2644BA0007255F /* __AppGlobalTool */,
 				3AACE8271EACF9100097C4F3 /* AppDelegate.h */,
 				3AACE8281EACF9100097C4F3 /* AppDelegate.m */,
-				3AACE82A1EACF9100097C4F3 /* ViewController.h */,
-				3AACE82B1EACF9100097C4F3 /* ViewController.m */,
+				3AC28E061FB847E300578B5D /* Mian */,
 				3AACE84D1EACF9780097C4F3 /* Demo */,
 				3AACE82D1EACF9100097C4F3 /* Main.storyboard */,
 				3AACE8301EACF9100097C4F3 /* Assets.xcassets */,
@@ -241,7 +256,9 @@
 		3ABB4B061F2644BA0007255F /* __AppGlobalTool */ = {
 			isa = PBXGroup;
 			children = (
+				3AC28DF91FB8179C00578B5D /* ViewManager */,
 				3ABB4B211F2644E50007255F /* AGViewModel */,
+				3AC28E101FB848F600578B5D /* AGGlobalVMKeys.h */,
 			);
 			path = __AppGlobalTool;
 			sourceTree = "<group>";
@@ -266,6 +283,56 @@
 				3A409D8A1F606A1700845767 /* AGVMNotifier.m */,
 			);
 			path = AGViewModel;
+			sourceTree = "<group>";
+		};
+		3AC28DF91FB8179C00578B5D /* ViewManager */ = {
+			isa = PBXGroup;
+			children = (
+				3AC28DFF1FB8179C00578B5D /* AGBaseViewManager.h */,
+				3AC28DFC1FB8179C00578B5D /* AGBaseViewManager.m */,
+				3AC28DFD1FB8179C00578B5D /* AGTableViewManager.h */,
+				3AC28DFA1FB8179C00578B5D /* AGTableViewManager.m */,
+				3AC28DFE1FB8179C00578B5D /* AGCollectionViewManager.h */,
+				3AC28DFB1FB8179C00578B5D /* AGCollectionViewManager.m */,
+			);
+			path = ViewManager;
+			sourceTree = "<group>";
+		};
+		3AC28E061FB847E300578B5D /* Mian */ = {
+			isa = PBXGroup;
+			children = (
+				3AC28E071FB847E300578B5D /* Controller */,
+				3AC28E0A1FB847E300578B5D /* Model */,
+				3AC28E0B1FB847E300578B5D /* View */,
+			);
+			path = Mian;
+			sourceTree = "<group>";
+		};
+		3AC28E071FB847E300578B5D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3AC28E091FB847E300578B5D /* ViewController.h */,
+				3AC28E081FB847E300578B5D /* ViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3AC28E0A1FB847E300578B5D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3AC28E111FB84A2D00578B5D /* AGHomeVMGenerator.h */,
+				3AC28E121FB84A2D00578B5D /* AGHomeVMGenerator.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3AC28E0B1FB847E300578B5D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3AC28E0C1FB847E300578B5D /* AGTextCell.h */,
+				3AC28E0D1FB847E300578B5D /* AGTextCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,18 +501,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A1D2F451F499D5F004E8735 /* AGBoxBCell.m in Sources */,
+				3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */,
+				3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */,
 				3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */,
-				3AACE82C1EACF9100097C4F3 /* ViewController.m in Sources */,
 				3A1D2F3C1F4999DB004E8735 /* AGBoxVMGenerator.m in Sources */,
 				3A1D2F4A1F499DE1004E8735 /* AGBoxCCell.m in Sources */,
+				3AC28E001FB8179C00578B5D /* AGTableViewManager.m in Sources */,
 				3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */,
 				3A1D2F401F499C57004E8735 /* AGBoxACell.m in Sources */,
+				3AC28E131FB84A2D00578B5D /* AGHomeVMGenerator.m in Sources */,
 				3AACE8261EACF9100097C4F3 /* main.m in Sources */,
 				3AD8916E1F38965100E86F9F /* NSString+AGCalculate.m in Sources */,
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
+				3AC28E0E1FB847E300578B5D /* ViewController.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */,
+				3AC28E0F1FB847E300578B5D /* AGTextCell.m in Sources */,
 				3A1D2F391F4998FD004E8735 /* AGBoxCollectionViewController.m in Sources */,
 				3AD8916B1F38965100E86F9F /* AGVMPackager.m in Sources */,
 			);
