@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A07BA1C1FD1A25800887BBE /* AGDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA1B1FD1A25800887BBE /* AGDocumentViewController.m */; };
+		3A07BA201FD1A33200887BBE /* GZPSItemDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA1D1FD1A33200887BBE /* GZPSItemDetailCell.m */; };
+		3A07BA211FD1A33200887BBE /* GZPSItemDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A07BA1F1FD1A33200887BBE /* GZPSItemDetailCell.xib */; };
+		3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA221FD1A34F00887BBE /* GZPSItemHeaderView.m */; };
+		3A07BA281FD1A67800887BBE /* AGDocumentVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA271FD1A67800887BBE /* AGDocumentVMGenerator.m */; };
 		3A1D2F391F4998FD004E8735 /* AGBoxCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F381F4998FD004E8735 /* AGBoxCollectionViewController.m */; };
 		3A1D2F3C1F4999DB004E8735 /* AGBoxVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F3B1F4999DB004E8735 /* AGBoxVMGenerator.m */; };
 		3A1D2F401F499C57004E8735 /* AGBoxACell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F3E1F499C57004E8735 /* AGBoxACell.m */; };
@@ -49,6 +54,15 @@
 
 /* Begin PBXFileReference section */
 		0B73F38F0874A936EE14B756 /* Pods-AGViewModelDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		3A07BA1A1FD1A25800887BBE /* AGDocumentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDocumentViewController.h; sourceTree = "<group>"; };
+		3A07BA1B1FD1A25800887BBE /* AGDocumentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDocumentViewController.m; sourceTree = "<group>"; };
+		3A07BA1D1FD1A33200887BBE /* GZPSItemDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZPSItemDetailCell.m; sourceTree = "<group>"; };
+		3A07BA1E1FD1A33200887BBE /* GZPSItemDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZPSItemDetailCell.h; sourceTree = "<group>"; };
+		3A07BA1F1FD1A33200887BBE /* GZPSItemDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GZPSItemDetailCell.xib; sourceTree = "<group>"; };
+		3A07BA221FD1A34F00887BBE /* GZPSItemHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZPSItemHeaderView.m; sourceTree = "<group>"; };
+		3A07BA231FD1A34F00887BBE /* GZPSItemHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZPSItemHeaderView.h; sourceTree = "<group>"; };
+		3A07BA261FD1A67800887BBE /* AGDocumentVMGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDocumentVMGenerator.h; sourceTree = "<group>"; };
+		3A07BA271FD1A67800887BBE /* AGDocumentVMGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDocumentVMGenerator.m; sourceTree = "<group>"; };
 		3A1D2F371F4998FD004E8735 /* AGBoxCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBoxCollectionViewController.h; sourceTree = "<group>"; };
 		3A1D2F381F4998FD004E8735 /* AGBoxCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBoxCollectionViewController.m; sourceTree = "<group>"; };
 		3A1D2F3A1F4999DB004E8735 /* AGBoxVMGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBoxVMGenerator.h; sourceTree = "<group>"; };
@@ -142,6 +156,46 @@
 				B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A07BA161FD1A23E00887BBE /* AGDocumentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3A07BA171FD1A23E00887BBE /* Controller */,
+				3A07BA181FD1A23E00887BBE /* Model */,
+				3A07BA191FD1A23E00887BBE /* View */,
+			);
+			path = AGDocumentViewController;
+			sourceTree = "<group>";
+		};
+		3A07BA171FD1A23E00887BBE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3A07BA1A1FD1A25800887BBE /* AGDocumentViewController.h */,
+				3A07BA1B1FD1A25800887BBE /* AGDocumentViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3A07BA181FD1A23E00887BBE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3A07BA261FD1A67800887BBE /* AGDocumentVMGenerator.h */,
+				3A07BA271FD1A67800887BBE /* AGDocumentVMGenerator.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3A07BA191FD1A23E00887BBE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3A07BA231FD1A34F00887BBE /* GZPSItemHeaderView.h */,
+				3A07BA221FD1A34F00887BBE /* GZPSItemHeaderView.m */,
+				3A07BA1E1FD1A33200887BBE /* GZPSItemDetailCell.h */,
+				3A07BA1D1FD1A33200887BBE /* GZPSItemDetailCell.m */,
+				3A07BA1F1FD1A33200887BBE /* GZPSItemDetailCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		3A1D2F2B1F499864004E8735 /* AGBoxViewController */ = {
@@ -248,6 +302,7 @@
 		3AACE84D1EACF9780097C4F3 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				3A07BA161FD1A23E00887BBE /* AGDocumentViewController */,
 				3A1D2F2B1F499864004E8735 /* AGBoxViewController */,
 			);
 			path = Demo;
@@ -423,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AACE8341EACF9100097C4F3 /* LaunchScreen.storyboard in Resources */,
+				3A07BA211FD1A33200887BBE /* GZPSItemDetailCell.xib in Resources */,
 				3AACE8311EACF9100097C4F3 /* Assets.xcassets in Resources */,
 				3AACE82F1EACF9100097C4F3 /* Main.storyboard in Resources */,
 				3A1D2F461F499D5F004E8735 /* AGBoxBCell.xib in Resources */,
@@ -502,6 +558,7 @@
 			files = (
 				3A1D2F451F499D5F004E8735 /* AGBoxBCell.m in Sources */,
 				3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */,
+				3A07BA1C1FD1A25800887BBE /* AGDocumentViewController.m in Sources */,
 				3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */,
 				3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */,
 				3A1D2F3C1F4999DB004E8735 /* AGBoxVMGenerator.m in Sources */,
@@ -509,11 +566,14 @@
 				3AC28E001FB8179C00578B5D /* AGTableViewManager.m in Sources */,
 				3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */,
 				3A1D2F401F499C57004E8735 /* AGBoxACell.m in Sources */,
+				3A07BA281FD1A67800887BBE /* AGDocumentVMGenerator.m in Sources */,
 				3AC28E131FB84A2D00578B5D /* AGHomeVMGenerator.m in Sources */,
 				3AACE8261EACF9100097C4F3 /* main.m in Sources */,
 				3AD8916E1F38965100E86F9F /* NSString+AGCalculate.m in Sources */,
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
 				3AC28E0E1FB847E300578B5D /* ViewController.m in Sources */,
+				3A07BA201FD1A33200887BBE /* GZPSItemDetailCell.m in Sources */,
+				3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */,

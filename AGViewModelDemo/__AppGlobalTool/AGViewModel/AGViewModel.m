@@ -125,7 +125,7 @@
 }
 
 #pragma mark help method
-- (void) ag_refreshViewByUpdateModelInBlock:(AGVMUpdateModelBlock)block
+- (void) ag_refreshUIByUpdateModelInBlock:(AGVMUpdateModelBlock)block
 {
     if ( block ) block( _bindingModel );
     

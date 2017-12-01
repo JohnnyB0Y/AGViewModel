@@ -9,6 +9,8 @@
 #ifndef AGGlobalVMKeys_h
 #define AGGlobalVMKeys_h
 
-static NSString * const kAGVMItemTitle = @"kAGVMItemTitle"; // 颜色
-
+static NSString * const kAGVMItemTitle = @"kAGVMItemTitle";
+static NSString * const kAGVMItemSubTitle = @"kAGVMItemSubTitle";
+static NSString * const kAGVMItemDetail = @"kAGVMItemDetail";
+static NSString * const kAGVMItemArrowIsOpen = @"kAGVMItemArrowIsOpen";
 #endif /* AGGlobalVMKeys_h */

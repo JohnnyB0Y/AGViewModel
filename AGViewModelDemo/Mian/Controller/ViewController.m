@@ -146,6 +146,7 @@
         NSArray *cellClasses = @[AGTextCell.class];
         _tableViewManager = [[AGTableViewManager alloc] initWithCellClasses:cellClasses originVMManager:nil];
         _tableViewManager.view.contentInset = UIEdgeInsetsMake(24., 0., 24., 0.);
+        //_tableViewManager.view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _tableViewManager;
 }

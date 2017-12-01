@@ -291,7 +291,7 @@
     NSAssert(block, @"block nonnull.");
     if ( block ) {
         AGViewModel *vm = self[index];
-        vm ? [vm ag_refreshViewByUpdateModelInBlock:block] : nil;
+        vm ? [vm ag_refreshUIByUpdateModelInBlock:block] : nil;
     }
     return self;
 }
@@ -301,7 +301,7 @@
     NSAssert(block, @"block nonnull.");
     if ( block ) {
         [self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
-            [vm ag_refreshViewByUpdateModelInBlock:block];
+            [vm ag_refreshUIByUpdateModelInBlock:block];
         }];
     }
     return self;

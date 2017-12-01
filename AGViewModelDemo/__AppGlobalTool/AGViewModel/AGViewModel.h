@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id) objectForKeyedSubscript:(NSString *)key;
 
 /** 更新数据 并 刷新视图 */
-- (void) ag_refreshViewByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_refreshUIByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
 - (void) setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;
 
 /**
