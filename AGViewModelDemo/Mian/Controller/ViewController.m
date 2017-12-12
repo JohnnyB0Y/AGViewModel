@@ -134,6 +134,7 @@
 {
     if (_textField == nil) {
         _textField = [[UITextField alloc] initWithFrame:CGRectZero];
+		_textField.font = [UIFont systemFontOfSize:12.];
         _textField.borderStyle = UITextBorderStyleRoundedRect;
         _textField.placeholder = @"修改标题";
     }

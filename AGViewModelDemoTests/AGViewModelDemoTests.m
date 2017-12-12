@@ -97,6 +97,54 @@ static NSString * const kUserInfoSecondName = @"kUserInfoSecondName";
     
 }
 
+- (void) testFastFuntion
+{
+	NSSet *set = [NSSet set];
+	
+	// 测试字典
+	NSDictionary *dict = [NSDictionary dictionary];
+	dict = ag_safeDictionary(dict);
+	XCTAssertTrue(dict, @"ag_safeDictionary() 判断错误!");
+	dict = ag_safeDictionary(set);
+	XCTAssertTrue(dict == nil, @"ag_safeDictionary() 判断错误!");
+	
+	NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
+	dictM = ag_safeMutableDictionary(dictM);
+	XCTAssertTrue(dictM, @"ag_safeMutableDictionary() 判断错误!");
+	dictM = ag_safeMutableDictionary(set);
+	XCTAssertTrue(dictM == nil, @"ag_safeMutableDictionary() 判断错误!");
+	
+	
+	// 测试数组
+	NSArray *array = [NSArray array];
+	array = ag_safeArray(array);
+	XCTAssertTrue(array, @"ag_safeArray() 判断错误!");
+	array = ag_safeArray(set);
+	XCTAssertTrue(array == nil, @"ag_safeArray() 判断错误!");
+	
+	NSMutableArray *arrayM = [NSMutableArray array];
+	arrayM = ag_safeMutableArray(arrayM);
+	XCTAssertTrue(arrayM, @"ag_safeMutableArray() 判断错误!");
+	arrayM = ag_safeMutableArray(set);
+	XCTAssertTrue(arrayM == nil, @"ag_safeMutableArray() 判断错误!");
+	
+	
+	// 测试字符串
+	NSString *string = [NSString string];
+	string = ag_safeString(string);
+	XCTAssertTrue(string, @"ag_safeString() 判断错误!");
+	string = ag_safeString(set);
+	XCTAssertTrue(string == nil, @"ag_safeString() 判断错误!");
+	
+	// 测试数字类型
+	NSNumber *number = [NSNumber numberWithBool:YES];
+	number = ag_safeNumber(number);
+	XCTAssertTrue(number, @"ag_safeNumber() 判断错误!");
+	number = ag_safeNumber(set);
+	XCTAssertTrue(number == nil, @"ag_safeNumber() 判断错误!");
+	
+}
+
 #pragma mark - ---------- Private Methods ----------
 
 

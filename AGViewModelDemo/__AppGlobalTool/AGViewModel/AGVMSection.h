@@ -183,6 +183,7 @@ atIndexedSubscript:(NSUInteger)idx;
 
 @end
 
+#pragma mark - Fast Funtion
 /** fast create AGVMSection instance */
 AGVMSection * ag_VMSection(NSUInteger capacity);
 

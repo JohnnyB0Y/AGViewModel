@@ -128,6 +128,7 @@
                               packager:(id<AGVMPackagable>)packager
                              forObject:(id)obj
 {
+	NSAssert([data isKindOfClass:[NSDictionary class]], @"ag_packageHeaderData: data 为 nil 或 类型错误！");
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         _headerVM = [packager ag_packageData:data forObject:(id)obj];
     }
@@ -145,6 +146,7 @@
                             packager:(id<AGVMPackagable>)packager
                            forObject:(id)obj
 {
+	NSAssert([data isKindOfClass:[NSDictionary class]], @"ag_packageItemData: data 为 nil 或 类型错误！");
     AGViewModel *vm;
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         vm = [packager ag_packageData:data forObject:(id)obj];
@@ -164,6 +166,7 @@
                               packager:(id<AGVMPackagable>)packager
                              forObject:(id)obj
 {
+	NSAssert([data isKindOfClass:[NSDictionary class]], @"ag_packageFooterData: data 为 nil 或 类型错误！");
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         _footerVM = [packager ag_packageData:data forObject:(id)obj];
     }

@@ -130,7 +130,7 @@ atIndexedSubscript:(NSUInteger)idx;
 @end
 
 
-#pragma mark - 快捷函数
+#pragma mark - Fast Funtion
 /** fast create AGVMManager instance */
 AGVMManager * ag_VMManager(NSUInteger capacity);
 

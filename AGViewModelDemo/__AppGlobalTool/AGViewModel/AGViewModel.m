@@ -368,7 +368,7 @@
 
 
 
-#pragma mark - fast funtion
+#pragma mark - Fast Funtion
 /** fast create AGViewModel instance */
 AGViewModel * ag_viewModel(NSDictionary *bindingModel)
 {
@@ -397,3 +397,62 @@ NSMutableArray * ag_mutableNullArray(NSUInteger capacity)
     return arrM;
 }
 
+#pragma mark - Safe Convert
+id ag_safeObj(id obj, Class objClass)
+{
+	if ( [obj isKindOfClass:objClass] ) {
+		return obj;
+	}
+	return nil;
+}
+
+#pragma mark 字典、数组
+/** 验证是否为NSDictionary对象；是：返回原对象；否：返回nil */
+NSDictionary * ag_safeDictionary(id obj)
+{
+	return ag_safeObj(obj, [NSDictionary class]);
+}
+
+/** 验证是否为NSMutableDictionary对象；是：返回原对象；否：返回nil */
+NSMutableDictionary * ag_safeMutableDictionary(id obj)
+{
+	return ag_safeObj(obj, [NSMutableDictionary class]);
+}
+
+/** 验证是否为NSArray对象；是：返回原对象；否：返回nil */
+NSArray * ag_safeArray(id obj)
+{
+	return ag_safeObj(obj, [NSArray class]);
+}
+
+/** 验证是否为NSMutableArray对象；是：返回原对象；否：返回nil */
+NSMutableArray * ag_safeMutableArray(id obj)
+{
+	return ag_safeObj(obj, [NSMutableArray class]);
+}
+
+#pragma mark 字符串、数字
+/** 验证是否为NSString对象；是：返回原对象；否：返回nil */
+NSString * ag_safeString(id obj)
+{
+	return ag_safeObj(obj, [NSString class]);
+}
+
+/** 转换为NSString对象；能转为：返回NSString对象；不能：返回nil */
+NSString * ag_convertSafeString(id obj)
+{
+	if ( [obj isKindOfClass:[NSString class]] ) {
+		return obj;
+	}
+	else if ( [obj isKindOfClass:[NSNumber class]] ) {
+		NSNumber *numObj = obj;
+		return numObj.stringValue;
+	}
+	return nil;
+}
+
+/** 验证是否为NSNumber对象；是：返回原对象；否：返回nil */
+NSNumber * ag_safeNumber(id obj)
+{
+	return ag_safeObj(obj, [NSNumber class]);
+}
