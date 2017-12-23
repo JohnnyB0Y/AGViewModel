@@ -439,7 +439,7 @@ NSString * ag_safeString(id obj)
 }
 
 /** 转换为NSString对象；能转为：返回NSString对象；不能：返回nil */
-NSString * ag_convertSafeString(id obj)
+NSString * ag_safeStringConvert(id obj)
 {
 	if ( [obj isKindOfClass:[NSString class]] ) {
 		return obj;

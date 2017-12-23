@@ -142,7 +142,7 @@ NSMutableArray * ag_safeMutableArray(id obj);
 NSString * ag_safeString(id obj);
 
 /** 转换为NSString对象；能转为：返回NSString对象；不能：返回nil */
-NSString * ag_convertSafeString(id obj);
+NSString * ag_safeStringConvert(id obj);
 
 /** 验证是否为NSNumber对象；是：返回原对象；否：返回nil */
 NSNumber * ag_safeNumber(id obj);
