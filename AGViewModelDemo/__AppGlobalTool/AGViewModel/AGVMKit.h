@@ -18,4 +18,12 @@
 #import "AGVMPackager.h"
 #import "AGViewModel.h"
 
+/** TODO 宏 */
+#define STRINGIFY(S) #S
+#define DEFER_STRINGIFY(S) STRINGIFY(S)
+#define PRAGMA_MESSAGE(MSG) _Pragma(STRINGIFY(message(MSG)))
+#define FORMATTED_MESSAGE(MSG) "[TODO~" DEFER_STRINGIFY(__COUNTER__) "] " MSG " [LINE:" DEFER_STRINGIFY(__LINE__) "]"
+#define AGTODO(MSG) PRAGMA_MESSAGE(FORMATTED_MESSAGE(MSG))
+
+
 #endif /* AGVMKit_h */
