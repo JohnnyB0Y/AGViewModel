@@ -104,49 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - Fast Funtion
-/** fast create AGViewModel instance */
-AGViewModel * ag_viewModel(NSDictionary * _Nullable bindingModel);
-/** fast create mutableDictionary */
-NSMutableDictionary * ag_mutableDict(NSUInteger capacity);
-/** fast create mutableArray */
-NSMutableArray * ag_mutableArray(NSUInteger capacity);
-/** fast create 可变数组函数, 包含 Null 对象 */
-NSMutableArray * ag_mutableNullArray(NSUInteger capacity);
-
-#pragma mark - Safe Convert
-/**
- 验证传入对象是否莫类型
-
- @param obj 传入对象
- @param objClass 对象类型
- @return 是：返回原对象；否：返回nil；
- */
-id ag_safeObj(id obj, Class objClass);
-
-#pragma mark 字典、数组
-/** 验证是否为NSDictionary对象； */
-NSDictionary * ag_safeDictionary(id obj);
-
-/** 验证是否为NSMutableDictionary对象；是：返回原对象；否：返回nil */
-NSMutableDictionary * ag_safeMutableDictionary(id obj);
-
-/** 验证是否为NSArray对象；是：返回原对象；否：返回nil */
-NSArray * ag_safeArray(id obj);
-
-/** 验证是否为NSMutableArray对象；是：返回原对象；否：返回nil */
-NSMutableArray * ag_safeMutableArray(id obj);
-
-#pragma mark 字符串、数字
-/** 验证是否为NSString对象；是：返回原对象；否：返回nil */
-NSString * ag_safeString(id obj);
-
-/** 转换为NSString对象；能转为：返回NSString对象；不能：返回nil */
-NSString * ag_safeStringConvert(id obj);
-
-/** 验证是否为NSNumber对象；是：返回原对象；否：返回nil */
-NSNumber * ag_safeNumber(id obj);
-
 NS_ASSUME_NONNULL_END
 
 

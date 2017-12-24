@@ -7,6 +7,7 @@
 //  一组 View Model 数据
 
 #import "AGVMSection.h"
+#import "AGVMFunction.h"
 #import <objc/runtime.h>
 
 @interface AGVMSection ()

@@ -7,7 +7,7 @@
 //  View Model 包装者
 
 #import "AGVMPackager.h"
-
+#import "AGVMFunction.h"
 
 @implementation AGVMPackager
 

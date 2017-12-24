@@ -11,6 +11,7 @@
 
 #import "AGVMKeys.h"
 #import "AGVMProtocol.h"
+#import "AGVMFunction.h"
 #import "NSString+AGCalculate.h"
 
 #import "AGVMManager.h"

@@ -118,6 +118,7 @@
 		3AD891671F38965100E86F9F /* AGVMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGVMSection.m; sourceTree = "<group>"; };
 		3AD891681F38965100E86F9F /* NSString+AGCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGCalculate.h"; sourceTree = "<group>"; };
 		3AD891691F38965100E86F9F /* NSString+AGCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGCalculate.m"; sourceTree = "<group>"; };
+		3AE5B11C1FEF984B00C91906 /* AGVMFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMFunction.h; sourceTree = "<group>"; };
 		50237810C9061914256F6227 /* Pods-AGViewModelDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AGViewModelDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -323,19 +324,20 @@
 			children = (
 				3AD8915D1F38965100E86F9F /* AGViewModel.h */,
 				3AD8915E1F38965100E86F9F /* AGViewModel.m */,
+				3AE5B11C1FEF984B00C91906 /* AGVMFunction.h */,
 				3AD8915F1F38965100E86F9F /* AGVMKeys.h */,
 				3AD891601F38965100E86F9F /* AGVMKit.h */,
-				3AD891611F38965100E86F9F /* AGVMProtocol.h */,
-				3AD891621F38965100E86F9F /* AGVMPackager.h */,
-				3AD891631F38965100E86F9F /* AGVMPackager.m */,
 				3AD891641F38965100E86F9F /* AGVMManager.h */,
 				3AD891651F38965100E86F9F /* AGVMManager.m */,
+				3A409D891F606A1700845767 /* AGVMNotifier.h */,
+				3A409D8A1F606A1700845767 /* AGVMNotifier.m */,
+				3AD891621F38965100E86F9F /* AGVMPackager.h */,
+				3AD891631F38965100E86F9F /* AGVMPackager.m */,
+				3AD891611F38965100E86F9F /* AGVMProtocol.h */,
 				3AD891661F38965100E86F9F /* AGVMSection.h */,
 				3AD891671F38965100E86F9F /* AGVMSection.m */,
 				3AD891681F38965100E86F9F /* NSString+AGCalculate.h */,
 				3AD891691F38965100E86F9F /* NSString+AGCalculate.m */,
-				3A409D891F606A1700845767 /* AGVMNotifier.h */,
-				3A409D8A1F606A1700845767 /* AGVMNotifier.m */,
 			);
 			path = AGViewModel;
 			sourceTree = "<group>";

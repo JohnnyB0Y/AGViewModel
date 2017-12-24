@@ -66,10 +66,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - Fast Funtion
-/** 全局 vm packager */
-AGVMPackager * ag_sharedVMPackager(void);
-
-
-
 NS_ASSUME_NONNULL_END

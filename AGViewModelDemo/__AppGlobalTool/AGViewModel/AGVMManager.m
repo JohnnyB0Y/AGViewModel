@@ -7,6 +7,7 @@
 //  viewModel 生产者
 
 #import "AGVMManager.h"
+#import "AGVMFunction.h"
 #import <objc/runtime.h>
 
 @interface AGVMManager ()

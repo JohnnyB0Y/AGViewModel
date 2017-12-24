@@ -7,6 +7,7 @@
 //  视图-模型 绑定
 
 #import "AGViewModel.h"
+#import "AGVMFunction.h"
 #import "AGVMNotifier.h"
 
 @interface AGViewModel ()
