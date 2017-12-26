@@ -13,13 +13,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
-@interface AGViewModel : NSObject <AGVMObserverRegistration, NSCopying, NSMutableCopying>
+@interface AGViewModel : NSObject <NSCopying, NSMutableCopying>
 
 @property (nonatomic, weak,   readonly, nullable) UIView<AGVMIncludable> *bindingView;
 @property (nonatomic, strong, readonly) NSMutableDictionary *bindingModel;
 
-/** 状态 - 可作为控制器跳转操作标识 */
-@property (nonatomic, assign) AGVMStatus status;
 @property (nonatomic, weak, nullable) id<AGVMDelegate> delegate;
 @property (nonatomic, copy, nullable) NSIndexPath *indexPath;
 
@@ -102,6 +100,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
 
+@end
+
+
+@interface AGViewModel (AGVMSafeAccessible) <AGVMSafeAccessible>
+@end
+
+@interface AGViewModel (AGVMObserverRegistration) <AGVMObserverRegistration>
 @end
 
 NS_ASSUME_NONNULL_END

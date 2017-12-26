@@ -204,91 +204,10 @@
     }
 }
 
-#pragma mark - observer
-#pragma mark readd observer
-- (void) ag_readdObserver:(NSObject *)observer
-                   forKey:(NSString *)key
-                    block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_readdObserver:observer forKey:key block:block];
-}
-
-- (void) ag_readdObserver:(NSObject *)observer
-                  forKeys:(NSArray<NSString *> *)keys
-                    block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_readdObserver:observer forKeys:keys block:block];
-}
-
-- (void) ag_readdObserver:(NSObject *)observer forKey:(NSString *)key options:(NSKeyValueObservingOptions)options block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_readdObserver:observer forKey:key options:options block:block];
-}
-
-- (void)ag_readdObserver:(NSObject *)observer forKeys:(NSArray<NSString *> *)keys options:(NSKeyValueObservingOptions)options block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_readdObserver:observer forKeys:keys options:options block:block];
-}
-
-#pragma mark add observer
-- (void) ag_addObserver:(NSObject *)observer
-                 forKey:(NSString *)key
-                  block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_addObserver:observer forKey:key block:block];
-}
-
-- (void) ag_addObserver:(NSObject *)observer
-                forKeys:(NSArray<NSString *> *)keys
-                  block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_addObserver:observer forKeys:keys block:block];
-}
-
-- (void) ag_addObserver:(NSObject *)observer
-                 forKey:(NSString *)key
-                options:(NSKeyValueObservingOptions)options
-                  block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_addObserver:observer forKey:key options:options block:block];
-}
-
-- (void) ag_addObserver:(NSObject *)observer
-                forKeys:(NSArray<NSString *> *)keys
-                options:(NSKeyValueObservingOptions)options
-                  block:(AGVMNotificationBlock)block
-{
-    [self.notifier ag_addObserver:observer forKeys:keys options:options block:block];
-}
-
-#pragma mark remove observer
-- (void) ag_removeObserver:(NSObject *)observer
-                    forKey:(NSString *)key
-{
-    [self.notifier ag_removeObserver:observer forKey:key];
-}
-
-- (void) ag_removeObserver:(NSObject *)observer
-                   forKeys:(NSArray<NSString *> *)keys
-{
-    [self.notifier ag_removeObserver:observer forKeys:keys];
-}
-
-- (void) ag_removeObserver:(NSObject *)observer
-{
-    [self.notifier ag_removeObserver:observer];
-}
-
-- (void) ag_removeAllObservers
-{
-    [self.notifier ag_removeAllObservers];
-}
-
 #pragma mark - NSCopying
 - (id)copyWithZone:(nullable NSZone *)zone
 {
     AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:_bindingModel];
-    vm.status = _status;
     [vm ag_setBindingView:_bindingView configDataBlock:_configDataBlock];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
     return vm;
@@ -322,7 +241,6 @@
 - (NSString *)debugDescription
 {
     NSMutableString *strM = [NSMutableString string];
-    [strM appendFormat:@"  _status       [assign] : %@, \n", @(_status)];
     [strM appendFormat:@"  _delegate     [ weak ] : %@, \n", _delegate];
     [strM appendFormat:@"  _notifier     (strong) : %@, \n", _notifier];
     [strM appendFormat:@"  _indexPath    ( copy ) : %@, \n", _indexPath];
@@ -367,6 +285,300 @@
 
 @end
 
+#pragma mark -
+@implementation AGViewModel (AGVMObserverRegistration)
+#pragma mark readd observer
+- (void) ag_readdObserver:(NSObject *)observer
+				   forKey:(NSString *)key
+					block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_readdObserver:observer forKey:key block:block];
+}
+
+- (void) ag_readdObserver:(NSObject *)observer
+				  forKeys:(NSArray<NSString *> *)keys
+					block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_readdObserver:observer forKeys:keys block:block];
+}
+
+- (void) ag_readdObserver:(NSObject *)observer forKey:(NSString *)key options:(NSKeyValueObservingOptions)options block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_readdObserver:observer forKey:key options:options block:block];
+}
+
+- (void)ag_readdObserver:(NSObject *)observer forKeys:(NSArray<NSString *> *)keys options:(NSKeyValueObservingOptions)options block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_readdObserver:observer forKeys:keys options:options block:block];
+}
+
+#pragma mark add observer
+- (void) ag_addObserver:(NSObject *)observer
+				 forKey:(NSString *)key
+				  block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_addObserver:observer forKey:key block:block];
+}
+
+- (void) ag_addObserver:(NSObject *)observer
+				forKeys:(NSArray<NSString *> *)keys
+				  block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_addObserver:observer forKeys:keys block:block];
+}
+
+- (void) ag_addObserver:(NSObject *)observer
+				 forKey:(NSString *)key
+				options:(NSKeyValueObservingOptions)options
+				  block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_addObserver:observer forKey:key options:options block:block];
+}
+
+- (void) ag_addObserver:(NSObject *)observer
+				forKeys:(NSArray<NSString *> *)keys
+				options:(NSKeyValueObservingOptions)options
+				  block:(AGVMNotificationBlock)block
+{
+	[self.notifier ag_addObserver:observer forKeys:keys options:options block:block];
+}
+
+#pragma mark remove observer
+- (void) ag_removeObserver:(NSObject *)observer
+					forKey:(NSString *)key
+{
+	[self.notifier ag_removeObserver:observer forKey:key];
+}
+
+- (void) ag_removeObserver:(NSObject *)observer
+				   forKeys:(NSArray<NSString *> *)keys
+{
+	[self.notifier ag_removeObserver:observer forKeys:keys];
+}
+
+- (void) ag_removeObserver:(NSObject *)observer
+{
+	[self.notifier ag_removeObserver:observer];
+}
+
+- (void) ag_removeAllObservers
+{
+	[self.notifier ag_removeAllObservers];
+}
+@end
+
+#pragma mark -
+@implementation AGViewModel (AGVMSafeAccessible)
+
+#pragma mark safe number
+- (nullable id) ag_safeSetNumber:(nullable id)value forKey:(NSString *)key
+{
+	return [self ag_safeSetNumber:value forKey:key completion:nil];
+}
+- (nullable NSNumber *) ag_safeNumberForKey:(NSString *)key
+{
+	return [self ag_safeNumberForKey:key completion:nil];
+}
+- (nullable id) ag_safeSetNumber:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+{
+	return [self _setNewObject:ag_safeNumber(value) forKey:key withObject:value completion:block];
+}
+- (nullable NSNumber *) ag_safeNumberForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+{
+	id value = self[key];
+	return [self _getNewObject:ag_safeNumber(value) withObject:value completion:block];
+}
+
+
+#pragma mark safe string
+- (nullable id) ag_safeSetString:(nullable id)value forKey:(NSString *)key
+{
+	return [self ag_safeSetString:value forKey:key completion:nil];
+}
+- (nullable NSString *) ag_safeStringForKey:(NSString *)key
+{
+	return [self ag_safeStringForKey:key completion:nil];
+}
+- (nullable id) ag_safeSetString:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+{
+	return [self _setNewObject:ag_safeString(value) forKey:key withObject:value completion:block];
+}
+- (nullable NSString *) ag_safeStringForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+{
+	id value = self[key];
+	return [self _getNewObject:ag_safeString(value) withObject:value completion:block];
+}
+
+
+#pragma mark safe array
+- (nullable id) ag_safeSetArray:(nullable id)value forKey:(NSString *)key
+{
+	return [self ag_safeSetArray:value forKey:key completion:nil];
+}
+- (nullable NSArray *) ag_safeArrayForKey:(NSString *)key
+{
+	return [self ag_safeArrayForKey:key completion:nil];
+}
+- (nullable id) ag_safeSetArray:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+{
+	return [self _setNewObject:ag_safeArray(value) forKey:key withObject:value completion:block];
+}
+- (nullable NSArray *) ag_safeArrayForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+{
+	id value = self[key];
+	return [self _getNewObject:ag_safeArray(value) withObject:value completion:block];
+}
+
+
+#pragma mark safe dictionary
+- (nullable id) ag_safeSetDictionary:(nullable id)value forKey:(NSString *)key
+{
+	return [self ag_safeSetDictionary:value forKey:key completion:nil];
+}
+- (nullable NSDictionary *) ag_safeDictionaryForKey:(NSString *)key
+{
+	return [self ag_safeDictionaryForKey:key completion:nil];
+}
+- (nullable id) ag_safeSetDictionary:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+{
+	return [self _setNewObject:ag_safeDictionary(value) forKey:key withObject:value completion:block];
+}
+- (nullable NSDictionary *) ag_safeDictionaryForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+{
+	id value = self[key];
+	return [self _getNewObject:ag_safeDictionary(value) withObject:value completion:block];
+}
+
+
+#pragma mark safe url
+- (nullable NSURL *) ag_safeURLForKey:(NSString *)key
+{
+	return [self ag_safeURLForKey:key completion:nil];
+}
+- (nullable NSURL *) ag_safeURLForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+{
+	id value = self[key];
+	NSURL *url = ag_safeObj(value, [NSURL class]);
+	if ( url == nil ) {
+		NSString *urlStr = ag_safeString(value);
+		if ( urlStr ) {
+			url = [NSURL URLWithString:urlStr];
+		}
+	}
+	return [self _getNewObject:url withObject:value completion:block];
+}
+
+
+#pragma mark safe value type
+- (double) ag_safeDoubleValueForKey:(NSString *)key
+{
+	return [self ag_safeDoubleValueForKey:key completion:nil];
+}
+- (double) ag_safeDoubleValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+{
+	id value = self[key];
+	BOOL respond = [value respondsToSelector:@selector(doubleValue)];
+	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	return [number doubleValue];
+}
+
+
+- (float) ag_safeFloatValueForKey:(NSString *)key
+{
+	return [self ag_safeFloatValueForKey:key completion:nil];
+}
+- (float) ag_safeFloatValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+{
+	id value = self[key];
+	BOOL respond = [value respondsToSelector:@selector(floatValue)];
+	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	return [number floatValue];
+}
+
+
+- (int) ag_safeIntValueForKey:(NSString *)key
+{
+	return [self ag_safeIntValueForKey:key completion:nil];
+}
+- (int) ag_safeIntValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+{
+	id value = self[key];
+	BOOL respond = [value respondsToSelector:@selector(intValue)];
+	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	return [number intValue];
+}
+
+
+- (NSInteger) ag_safeIntegerValueForKey:(NSString *)key
+{
+	return [self ag_safeIntegerValueForKey:key completion:nil];
+}
+- (NSInteger) ag_safeIntegerValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+{
+	id value = self[key];
+	BOOL respond = [value respondsToSelector:@selector(integerValue)];
+	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	return [number integerValue];
+}
+
+
+- (long long) ag_safeLongLongValueForKey:(NSString *)key
+{
+	return [self ag_safeLongLongValueForKey:key completion:nil];
+}
+- (long long) ag_safeLongLongValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+{
+	id value = self[key];
+	BOOL respond = [value respondsToSelector:@selector(longLongValue)];
+	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	return [number longLongValue];
+}
+
+
+- (BOOL) ag_safeBoolValueForKey:(NSString *)key
+{
+	return [self ag_safeBoolValueForKey:key completion:nil];
+}
+- (BOOL) ag_safeBoolValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+{
+	id value = self[key];
+	BOOL respond = [value respondsToSelector:@selector(boolValue)];
+	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	return [number boolValue];
+}
+
+#pragma mark - ---------- Private Methods ----------
+- (nullable id) _setNewObject:(id)newObj
+					   forKey:(NSString *)key
+				   withObject:(id)obj
+				   completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+{
+	self[key] = newObj;
+	block ? block(self, obj, newObj != nil) : nil;
+	return obj;
+}
+- (nullable id) _getNewObject:(id)newObj
+				   withObject:(id)obj
+				   completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+{
+	if ( block ) {
+		obj = block(self, obj, newObj != nil);
+	}
+	return newObj ?: obj;
+}
+
+- (NSNumber *) _getNewNumber:(BOOL)respond
+				  withNumber:(id)obj
+				  completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+{
+	NSNumber *newObj;
+	if ( block ) {
+		newObj = block(self, obj, respond);
+	}
+	return respond ? obj : newObj;
+}
+
+@end
 
 
 #pragma mark - Fast Funtion
@@ -457,3 +669,4 @@ NSNumber * ag_safeNumber(id obj)
 {
 	return ag_safeObj(obj, [NSNumber class]);
 }
+

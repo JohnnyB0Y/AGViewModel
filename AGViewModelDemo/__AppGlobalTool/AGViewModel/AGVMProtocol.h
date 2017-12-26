@@ -48,7 +48,31 @@ typedef void (^AGVMNotificationBlock)
 );
 
 
-#pragma mark viewModelProcess block
+typedef void (^AGVMSafeSetCompletionBlock)
+(
+	 AGViewModel *vm,
+	 id value, // 数据
+	 BOOL safe // 数据是否类型安全
+);
+
+
+typedef _Nullable id (^AGVMSafeGetCompletionBlock)
+(
+	 AGViewModel *vm,
+	 id value, // 数据
+	 BOOL safe // 数据是否类型安全
+);
+
+
+typedef NSNumber * _Nullable (^AGVMSafeGetNumberCompletionBlock)
+(
+	 AGViewModel *vm,
+	 id value, // 数据
+	 BOOL safe // 数据是否类型安全
+);
+
+
+#pragma mark viewModelManager block
 typedef void(^AGVMPackageSectionBlock)
 (
     AGVMSection *vms
@@ -316,21 +340,273 @@ typedef void (^AGVMPackageDatasBlock)
 
 @end
 
-#pragma mark - ------------- typedef enum --------------
-typedef NS_ENUM(NSUInteger, AGVMStatus) {
-    /** 无状态 */
-    AGVMStatusNone = 0,
-    /** 刷新状态 */
-    AGVMStatusReload,
-    /** 选中状态 */
-    AGVMStatusSelected,
-    /** 禁用状态 */
-    AGVMStatusDisable,
-    /** 删除状态 */
-    AGVMStatusDelete,
-    /** 新增状态 */
-    AGVMStatusAdd,
-};
+
+#pragma mark - AGVMSafeAccessible
+@protocol AGVMSafeAccessible <NSObject>
+#pragma mark safe number
+/**
+ 安全设置 NSNumber对象
+ 
+ @param key 字典键
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetNumber:(nullable id)value forKey:(NSString *)key;
+/**
+ 安全获取 NSNumber对象
+ 
+ @param key 字典键
+ @return NSNumber对象
+ */
+- (nullable NSNumber *) ag_safeNumberForKey:(NSString *)key;
+/**
+ 安全设置 NSNumber对象
+
+ @param value 设置的值
+ @param key 设置的字典键
+ @param block 完成后对结果进行处理的block
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetNumber:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+/**
+ 安全获取 NSNumber对象
+
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return NSNumber对象
+ */
+- (nullable NSNumber *) ag_safeNumberForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+
+
+#pragma mark safe string
+/**
+ 安全设置 NSString对象
+ 
+ @param key 字典键
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetString:(nullable id)value forKey:(NSString *)key;
+/**
+ 安全获取 NSString对象
+ 
+ @param key 字典键
+ @return NSString对象
+ */
+- (nullable NSString *) ag_safeStringForKey:(NSString *)key;
+
+/**
+ 安全设置 NSString对象
+
+ @param value 设置的值
+ @param key 设置的字典键
+ @param block 完成后对结果进行处理的block
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetString:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+
+/**
+ 安全获取 NSString对象
+
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return NSString对象
+ */
+- (nullable NSString *) ag_safeStringForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+
+
+#pragma mark safe array
+/**
+ 安全设置 NSArray对象
+ 
+ @param key 字典键
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetArray:(nullable id)value forKey:(NSString *)key;
+/**
+ 安全获取 NSArray对象
+ 
+ @param key 字典键
+ @return NSArray对象
+ */
+- (nullable NSArray *) ag_safeArrayForKey:(NSString *)key;
+
+/**
+ 安全设置 NSArray对象
+ 
+ @param value 设置的值
+ @param key 设置的字典键
+ @param block 完成后对结果进行处理的block
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetArray:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+
+/**
+ 安全获取 NSArray对象
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return NSArray对象
+ */
+- (nullable NSArray *) ag_safeArrayForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+
+
+#pragma mark safe dictionary
+/**
+ 安全设置 NSDictionary对象
+ 
+ @param key 字典键
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetDictionary:(nullable id)value forKey:(NSString *)key;
+/**
+ 安全获取 NSDictionary对象
+ 
+ @param key 字典键
+ @return NSDictionary对象
+ */
+- (nullable NSDictionary *) ag_safeDictionaryForKey:(NSString *)key;
+
+/**
+ 安全设置 NSDictionary对象
+ 
+ @param value 设置的值
+ @param key 设置的字典键
+ @param block 完成后对结果进行处理的block
+ @return 对value处理后返回的对象
+ */
+- (nullable id) ag_safeSetDictionary:(nullable id)value forKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+
+/**
+ 安全获取 NSDictionary对象
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return NSDictionary对象
+ */
+- (nullable NSDictionary *) ag_safeDictionaryForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+
+
+#pragma mark safe url
+/**
+ 安全获取 NSURL对象
+
+ @param key 字典键
+ @return NSURL对象
+ */
+- (nullable NSURL *) ag_safeURLForKey:(NSString *)key;
+/**
+ 安全获取 NSURL对象
+
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return NSURL对象
+ */
+- (nullable NSURL *) ag_safeURLForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+
+
+#pragma mark safe value type
+/**
+ 安全获取 double类型数据
+ 
+ @param key 字典键
+ @return double类型数据
+ */
+- (double) ag_safeDoubleValueForKey:(NSString *)key;
+/**
+ 安全获取 double类型数据
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return double类型数据
+ */
+- (double) ag_safeDoubleValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+
+
+/**
+ 安全获取 float类型数据
+ 
+ @param key 字典键
+ @return float类型数据
+ */
+- (float) ag_safeFloatValueForKey:(NSString *)key;
+/**
+ 安全获取 float类型数据
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return float类型数据
+ */
+- (float) ag_safeFloatValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+
+
+/**
+ 安全获取 int类型数据
+ 
+ @param key 字典键
+ @return int类型数据
+ */
+- (int) ag_safeIntValueForKey:(NSString *)key;
+/**
+ 安全获取 int类型数据
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return int类型数据
+ */
+- (int) ag_safeIntValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+
+
+/**
+ 安全获取 NSInteger类型数据
+ 
+ @param key 字典键
+ @return NSInteger类型数据
+ */
+- (NSInteger) ag_safeIntegerValueForKey:(NSString *)key;
+/**
+ 安全获取 NSInteger类型数据
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return NSInteger类型数据
+ */
+- (NSInteger) ag_safeIntegerValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+
+
+/**
+ 安全获取 long long类型数据
+ 
+ @param key 字典键
+ @return long long类型数据
+ */
+- (long long) ag_safeLongLongValueForKey:(NSString *)key;
+/**
+ 安全获取 long long类型数据
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return long long类型数据
+ */
+- (long long) ag_safeLongLongValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+
+
+/**
+ 安全获取 BOOL类型数据
+ 
+ @param key 字典键
+ @return BOOL类型数据
+ */
+- (BOOL) ag_safeBoolValueForKey:(NSString *)key;
+/**
+ 安全获取 BOOL类型数据
+ 
+ @param key 字典键
+ @param block 完成后对结果进行处理的block
+ @return BOOL类型数据
+ */
+- (BOOL) ag_safeBoolValueForKey:(NSString *)key completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+
+
+@end
 
 
 #endif /* AGVMProtocol_h */

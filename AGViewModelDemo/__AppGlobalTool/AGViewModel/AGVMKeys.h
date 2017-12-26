@@ -36,10 +36,24 @@ static NSString * const kAGVMSection = @"kAGVMSection";
 static NSString * const kAGVMManager = @"kAGVMManager";
 
 
-#pragma mark - 类型描述相关
+#pragma mark - 类型、状态描述相关
 /** View Model 的类型 👉NSString👈 */
 static NSString * const kAGVMType = @"kAGVMType";
 
+/** 是否选中？ 👉NSNumber👈 */
+static NSString * const kAGVMSelected = @"kAGVMSelected";
+
+/** 是否禁用？ 👉NSNumber👈 */
+static NSString * const kAGVMDisabled = @"kAGVMDisabled";
+
+/** 是否删除？ 👉NSNumber👈 */
+static NSString * const kAGVMDeleted = @"kAGVMDeleted";
+
+/** 是否刷新？ 👉NSNumber👈 */
+static NSString * const kAGVMReloaded = @"kAGVMReloaded";
+
+/** 是否添加？ 👉NSNumber👈 */
+static NSString * const kAGVMAdded = @"kAGVMAdded";
 
 #pragma mark - 跳转的控制器相关
 /** 目标跳转控制器 - 👉Class👈 */
