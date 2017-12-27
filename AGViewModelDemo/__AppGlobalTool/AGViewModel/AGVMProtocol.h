@@ -51,7 +51,7 @@ typedef void (^AGVMNotificationBlock)
 typedef void (^AGVMSafeSetCompletionBlock)
 (
 	 AGViewModel *vm,
-	 id value, // 数据
+	 _Nullable id value, // 数据
 	 BOOL safe // 数据是否类型安全
 );
 
@@ -59,7 +59,7 @@ typedef void (^AGVMSafeSetCompletionBlock)
 typedef _Nullable id (^AGVMSafeGetCompletionBlock)
 (
 	 AGViewModel *vm,
-	 id value, // 数据
+	 _Nullable id value, // 数据
 	 BOOL safe // 数据是否类型安全
 );
 
@@ -67,7 +67,7 @@ typedef _Nullable id (^AGVMSafeGetCompletionBlock)
 typedef NSNumber * _Nullable (^AGVMSafeGetNumberCompletionBlock)
 (
 	 AGViewModel *vm,
-	 id value, // 数据
+	 _Nullable id value, // 数据
 	 BOOL safe // 数据是否类型安全
 );
 

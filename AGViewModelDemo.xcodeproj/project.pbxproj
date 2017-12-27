@@ -28,6 +28,7 @@
 		3AACE8311EACF9100097C4F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE8301EACF9100097C4F3 /* Assets.xcassets */; };
 		3AACE8341EACF9100097C4F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE8321EACF9100097C4F3 /* LaunchScreen.storyboard */; };
 		3AACE83F1EACF9110097C4F3 /* AGViewModelDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE83E1EACF9110097C4F3 /* AGViewModelDemoTests.m */; };
+		3ABDA84E1FF340F40039AA42 /* AGViewModelSafeAccessibleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDA84D1FF340F40039AA42 /* AGViewModelSafeAccessibleTests.m */; };
 		3AC28E001FB8179C00578B5D /* AGTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFA1FB8179C00578B5D /* AGTableViewManager.m */; };
 		3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFB1FB8179C00578B5D /* AGCollectionViewManager.m */; };
 		3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFC1FB8179C00578B5D /* AGBaseViewManager.m */; };
@@ -92,6 +93,7 @@
 		3AACE83A1EACF9110097C4F3 /* AGViewModelDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AGViewModelDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AACE83E1EACF9110097C4F3 /* AGViewModelDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGViewModelDemoTests.m; sourceTree = "<group>"; };
 		3AACE8401EACF9110097C4F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3ABDA84D1FF340F40039AA42 /* AGViewModelSafeAccessibleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGViewModelSafeAccessibleTests.m; sourceTree = "<group>"; };
 		3AC28DFA1FB8179C00578B5D /* AGTableViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTableViewManager.m; sourceTree = "<group>"; };
 		3AC28DFB1FB8179C00578B5D /* AGCollectionViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGCollectionViewManager.m; sourceTree = "<group>"; };
 		3AC28DFC1FB8179C00578B5D /* AGBaseViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBaseViewManager.m; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 		3AACE83D1EACF9110097C4F3 /* AGViewModelDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				3ABDA84D1FF340F40039AA42 /* AGViewModelSafeAccessibleTests.m */,
 				3AACE83E1EACF9110097C4F3 /* AGViewModelDemoTests.m */,
 				3AACE8401EACF9110097C4F3 /* Info.plist */,
 			);
@@ -589,6 +592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ABDA84E1FF340F40039AA42 /* AGViewModelSafeAccessibleTests.m in Sources */,
 				3AACE83F1EACF9110097C4F3 /* AGViewModelDemoTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,6 +716,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -748,6 +753,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				DEVELOPMENT_TEAM = NYBK4PC9HB;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = AGViewModelDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JohnnyB0Y.AGViewModelDemo;
@@ -773,6 +779,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = Y4TD9NMHQ7;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = AGViewModelDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JohnnyB0Y.AGViewModelDemoTests;
