@@ -102,10 +102,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
+#pragma mark - 安全存取
 @interface AGViewModel (AGVMSafeAccessible) <AGVMSafeAccessible>
 @end
 
+#pragma mark - 键值观察
 @interface AGViewModel (AGVMObserverRegistration) <AGVMObserverRegistration>
 @end
 

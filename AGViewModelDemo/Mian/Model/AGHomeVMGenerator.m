@@ -21,7 +21,7 @@
         
         [_homeListVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
             
-            [vms ag_packageItemCommonData:^(NSMutableDictionary * _Nonnull package) {
+            [vms ag_packageItemMergeData:^(NSMutableDictionary * _Nonnull package) {
                 package[kAGVMViewClass] = AGTextCell.class;
                 package[kAGVMViewH] = @44.;
             }];

@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) AGViewModel *headerVM;
 @property (nonatomic, strong, readonly, nullable) AGViewModel *footerVM;
 
-/** itemArr 中 viewModel 的共同数据模型 */
-@property (nonatomic, strong, readonly, nullable) AGViewModel *itemCommonVM;
+/** 会合并到 itemArr中的每个viewModel */
+@property (nonatomic, strong, readonly, nullable) AGViewModel *itemMergeVM;
 @property (nonatomic, strong, readonly, nullable) NSMutableArray<AGViewModel *> *itemArrM;
 @property (nonatomic, assign, readonly) NSUInteger count;
 
@@ -70,9 +70,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 数据字典每次增量拷贝的内存大小
  */
 
-/** 拼装 itemArr 中 viewModel 的共同数据模型 */
-- (AGViewModel *) ag_packageItemCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                                  capacity:(NSUInteger)capacity;
+/** 拼装 itemArr 中每个 viewModel 的合并数据模型 */
+- (AGViewModel *) ag_packageItemMergeData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+                                 capacity:(NSUInteger)capacity;
 
 /** 拼装组头数据 */
 - (AGViewModel *) ag_packageHeaderData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
@@ -102,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 - (AGViewModel *) ag_packageFooterData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 - (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
-- (AGViewModel *) ag_packageItemCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageItemMergeData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 
 
 #pragma mark - 增删改查
@@ -160,7 +160,7 @@ atIndexedSubscript:(NSUInteger)idx;
 - (nullable NSArray *) ag_findValueInItemArrWithKey:(NSString *)key;
 
 #pragma mark 合并
-/** 合并 headerVM、 footerVM、 commonVM、itemCommonVM、itemArr */
+/** 合并 headerVM、 footerVM、 commonVM、itemMergeVM、itemArr */
 - (AGVMSection *) ag_mergeFromSection:(AGVMSection *)vms;
 
 #pragma mark 交换

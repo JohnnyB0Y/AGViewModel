@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype) sharedInstance;
 
 - (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
-                                    commonVM:(nullable AGViewModel *)commonVM
+                                     mergeVM:(nullable AGViewModel *)mergeVM
                                      inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
                                     capacity:(NSUInteger)capacity;
 
@@ -24,12 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
  组装 ViewModel
  
  @param package 赋值数据的 Block
- @param commonVM 打包的共同数据模型
+ @param mergeVM 打包的共同数据模型
  @param capacity 字典每次增量拷贝的内存大小
  @return ViewModel
  */
 - (AGViewModel *) ag_package:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                    commonVM:(nullable AGViewModel *)commonVM
+                     mergeVM:(nullable AGViewModel *)mergeVM
                     capacity:(NSUInteger)capacity;
 
 /**

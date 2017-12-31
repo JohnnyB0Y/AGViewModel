@@ -22,7 +22,7 @@
 }
 
 - (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
-                                    commonVM:(AGViewModel *)commonVM
+                                     mergeVM:(AGViewModel *)mergeVM
                                      inBlock:(AGVMPackageDatasBlock)block
                                     capacity:(NSUInteger)capacity
 {
@@ -30,7 +30,7 @@
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         AGViewModel *vm =
-        [AGViewModel ag_viewModelWithModel:commonVM.bindingModel
+        [AGViewModel ag_viewModelWithModel:mergeVM.bindingModel
                                   capacity:capacity];
         block ? block(vm.bindingModel, obj, idx) : nil;
         [arrM addObject:vm];
@@ -43,16 +43,16 @@
  组装 ViewModel
  
  @param package 赋值数据的 Block
- @param commonVM 添加的共同数据字典
+ @param mergeVM 添加的共同数据字典
  @param capacity 字典每次增量拷贝的内存大小
  @return ViewModel
  */
 - (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package
-                    commonVM:(AGViewModel *)commonVM
+                     mergeVM:(AGViewModel *)mergeVM
                     capacity:(NSUInteger)capacity
 {
     AGViewModel *vm =
-    [AGViewModel ag_viewModelWithModel:commonVM.bindingModel
+    [AGViewModel ag_viewModelWithModel:mergeVM.bindingModel
                               capacity:capacity];
     package ? package(vm.bindingModel) : nil;
     return vm;
@@ -61,7 +61,7 @@
 - (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package
                     capacity:(NSUInteger)capacity
 {
-    return [self ag_package:package commonVM:nil capacity:capacity];
+    return [self ag_package:package mergeVM:nil capacity:capacity];
 }
 
 - (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package

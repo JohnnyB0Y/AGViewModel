@@ -13,7 +13,8 @@ static NSString * const kSafeKey1 = @"kSafeKey1";
 static NSString * const kSafeKey2 = @"kSafeKey2";
 static NSString * const kSafeKey3 = @"kSafeKey3";
 static NSString * const kSafeKey4 = @"kSafeKey4";
-
+static NSString * const kSafeKey5 = @"kSafeKey5";
+static NSString * const kSafeKey6 = @"kSafeKey6";
 
 
 @interface AGViewModelSafeAccessibleTests : XCTestCase
@@ -32,189 +33,617 @@ static NSString * const kSafeKey4 = @"kSafeKey4";
     [super tearDown];
 }
 
-- (void)testEmpty
+- (void)testEmptyAndUnsafe
 {
-	NSArray *empty = nil;
+	id empty = nil;
 	NSNull *null = [NSNull null];
-	// number
+    
+#pragma mark number
+    NSNumber *returnNumber = @11;
 	AGViewModel *numberVM = [AGViewModel ag_viewModelWithModel:nil];
-	NSArray *numberArr1 = [numberVM ag_safeSetNumber:empty forKey:kSafeKey1];
-	NSArray *numberArr2 = [numberVM ag_safeSetNumber:null forKey:kSafeKey2];
-	
-	XCTAssertTrue(numberArr1 == nil, @"返回数据不对!");
-	XCTAssertTrue(numberArr2 == nil, @"返回数据不对!");
-	XCTAssertTrue(numberVM[kSafeKey1] == numberArr1, @"错误数据存入字典!");
-	XCTAssertTrue(numberVM[kSafeKey2] == numberArr2, @"错误数据存入字典!");
-	
-	
-	
+	NSNumber *number1 = [numberVM ag_safeSetNumber:empty forKey:kSafeKey1];
+	NSNumber *number2 = [numberVM ag_safeSetNumber:null forKey:kSafeKey2];
+    NSNumber *number3 = [numberVM ag_safeSetNumber:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSNumber *number4 = [numberVM ag_safeSetNumber:null forKey:kSafeKey4 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSNumber *number5 = [numberVM ag_safeNumberForKey:kSafeKey1];
+    NSNumber *number6 = [numberVM ag_safeNumberForKey:kSafeKey2];
+    NSNumber *number7 = [numberVM ag_safeNumberForKey:kSafeKey3 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnNumber;
+    }];
+    NSNumber *number8 = [numberVM ag_safeNumberForKey:kSafeKey4 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnNumber;
+    }];
+    
+	XCTAssertTrue(number1 == nil, @"返回数据不对!");
+	XCTAssertTrue(number2 == nil, @"返回数据不对!");
+    XCTAssertTrue(number3 == nil, @"返回数据不对!");
+    XCTAssertTrue(number4 == nil, @"返回数据不对!");
+    XCTAssertTrue(number5 == nil, @"返回数据不对!");
+    XCTAssertTrue(number5 == number6, @"返回数据不对!");
+    XCTAssertTrue(number7 == returnNumber, @"返回数据不对!");
+    XCTAssertTrue(number7 == number8, @"返回数据不对!");
+	XCTAssertTrue(numberVM[kSafeKey1] == number1, @"错误数据存入字典!");
+	XCTAssertTrue(numberVM[kSafeKey2] == number2, @"错误数据存入字典!");
+    XCTAssertTrue(numberVM[kSafeKey3] == number3, @"错误数据存入字典!");
+    XCTAssertTrue(numberVM[kSafeKey4] == number4, @"错误数据存入字典!");
+    
+    
+    
+#pragma mark string
+    NSString *returnString = @"returnString";
+    AGViewModel *stringVM = [AGViewModel ag_viewModelWithModel:nil];
+    NSString *string1 = [stringVM ag_safeSetString:empty forKey:kSafeKey1];
+    NSString *string2 = [stringVM ag_safeSetString:null forKey:kSafeKey2];
+    NSString *string3 = [stringVM ag_safeSetString:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSString *string4 = [stringVM ag_safeSetString:null forKey:kSafeKey4 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSString *string5 = [stringVM ag_safeStringForKey:kSafeKey1];
+    NSString *string6 = [stringVM ag_safeStringForKey:kSafeKey2];
+    NSString *string7 = [stringVM ag_safeStringForKey:kSafeKey3 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnString;
+    }];
+    NSString *string8 = [stringVM ag_safeStringForKey:kSafeKey4 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnString;
+    }];
+    
+    XCTAssertTrue(string1 == nil, @"返回数据不对!");
+    XCTAssertTrue(string2 == nil, @"返回数据不对!");
+    XCTAssertTrue(string3 == nil, @"返回数据不对!");
+    XCTAssertTrue(string4 == nil, @"返回数据不对!");
+    XCTAssertTrue(string5 == nil, @"返回数据不对!");
+    XCTAssertTrue(string5 == string6, @"返回数据不对!");
+    XCTAssertTrue(string7 == returnString, @"返回数据不对!");
+    XCTAssertTrue(string7 == string8, @"返回数据不对!");
+    XCTAssertTrue(stringVM[kSafeKey1] == string1, @"错误数据存入字典!");
+    XCTAssertTrue(stringVM[kSafeKey2] == string2, @"错误数据存入字典!");
+    XCTAssertTrue(stringVM[kSafeKey3] == string3, @"错误数据存入字典!");
+    XCTAssertTrue(stringVM[kSafeKey4] == string4, @"错误数据存入字典!");
+    
+    
+#pragma mark array
+    NSArray *returnArray = @[@1, @2, @3];
+    AGViewModel *arrayVM = [AGViewModel ag_viewModelWithModel:nil];
+    NSArray *array1 = [arrayVM ag_safeSetArray:empty forKey:kSafeKey1];
+    NSArray *array2 = [arrayVM ag_safeSetArray:null forKey:kSafeKey2];
+    NSArray *array3 = [arrayVM ag_safeSetArray:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSArray *array4 = [arrayVM ag_safeSetArray:null forKey:kSafeKey4 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSArray *array5 = [arrayVM ag_safeArrayForKey:kSafeKey1];
+    NSArray *array6 = [arrayVM ag_safeArrayForKey:kSafeKey2];
+    NSArray *array7 = [arrayVM ag_safeArrayForKey:kSafeKey3 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnArray;
+    }];
+    NSArray *array8 = [arrayVM ag_safeArrayForKey:kSafeKey4 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnArray;
+    }];
+    
+    XCTAssertTrue(array1 == nil, @"返回数据不对!");
+    XCTAssertTrue(array2 == nil, @"返回数据不对!");
+    XCTAssertTrue(array3 == nil, @"返回数据不对!");
+    XCTAssertTrue(array4 == nil, @"返回数据不对!");
+    XCTAssertTrue(array5 == nil, @"返回数据不对!");
+    XCTAssertTrue(array5 == array6, @"返回数据不对!");
+    XCTAssertTrue(array7 == returnArray, @"返回数据不对!");
+    XCTAssertTrue(array7 == array8, @"返回数据不对!");
+    XCTAssertTrue(arrayVM[kSafeKey1] == array1, @"错误数据存入字典!");
+    XCTAssertTrue(arrayVM[kSafeKey2] == array2, @"错误数据存入字典!");
+    XCTAssertTrue(arrayVM[kSafeKey3] == array3, @"错误数据存入字典!");
+    XCTAssertTrue(arrayVM[kSafeKey4] == array4, @"错误数据存入字典!");
+    
+    
+    
+#pragma mark dictionary
+    NSDictionary *returnDict = @{@"username" : @"jack"};
+    AGViewModel *dictVM = [AGViewModel ag_viewModelWithModel:nil];
+    NSDictionary *dict1 = [dictVM ag_safeSetDictionary:empty forKey:kSafeKey1];
+    NSDictionary *dict2 = [dictVM ag_safeSetDictionary:null forKey:kSafeKey2];
+    NSDictionary *dict3 = [dictVM ag_safeSetDictionary:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSDictionary *dict4 = [dictVM ag_safeSetDictionary:null forKey:kSafeKey4 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+    }];
+    NSDictionary *dict5 = [dictVM ag_safeDictionaryForKey:kSafeKey1];
+    NSDictionary *dict6 = [dictVM ag_safeDictionaryForKey:kSafeKey2];
+    NSDictionary *dict7 = [dictVM ag_safeDictionaryForKey:kSafeKey3 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnDict;
+    }];
+    NSDictionary *dict8 = [dictVM ag_safeDictionaryForKey:kSafeKey4 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnDict;
+    }];
+    
+    XCTAssertTrue(dict1 == nil, @"返回数据不对!");
+    XCTAssertTrue(dict2 == nil, @"返回数据不对!");
+    XCTAssertTrue(dict3 == nil, @"返回数据不对!");
+    XCTAssertTrue(dict4 == nil, @"返回数据不对!");
+    XCTAssertTrue(dict5 == nil, @"返回数据不对!");
+    XCTAssertTrue(dict5 == dict6, @"返回数据不对!");
+    XCTAssertTrue(dict7 == returnDict, @"返回数据不对!");
+    XCTAssertTrue(dict7 == dict8, @"返回数据不对!");
+    XCTAssertTrue(dictVM[kSafeKey1] == dict1, @"错误数据存入字典!");
+    XCTAssertTrue(dictVM[kSafeKey2] == dict2, @"错误数据存入字典!");
+    XCTAssertTrue(dictVM[kSafeKey3] == dict3, @"错误数据存入字典!");
+    XCTAssertTrue(dictVM[kSafeKey4] == dict4, @"错误数据存入字典!");
+    
+    
+#pragma mark value type
+    AGViewModel *valueTypeVM = [AGViewModel ag_viewModelWithModel:nil];
+    valueTypeVM[kSafeKey1] = empty;
+    valueTypeVM[kSafeKey2] = null;
+    
+    // double
+    double returnDoubleValue = 11.123456789;
+    double doubleValue = [valueTypeVM ag_safeDoubleValueForKey:kSafeKey1];
+    XCTAssertTrue(doubleValue == 0, @"返回数据不对!");
+    
+    doubleValue = [valueTypeVM ag_safeDoubleValueForKey:kSafeKey2];
+    XCTAssertTrue(doubleValue == 0, @"返回数据不对!");
+    
+    doubleValue = [valueTypeVM ag_safeDoubleValueForKey:kSafeKey1 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithDouble:returnDoubleValue];
+    }];
+    XCTAssertTrue(doubleValue == returnDoubleValue, @"返回数据不对!");
+    
+    doubleValue = [valueTypeVM ag_safeDoubleValueForKey:kSafeKey2 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithDouble:returnDoubleValue];
+    }];
+    XCTAssertTrue(doubleValue == returnDoubleValue, @"返回数据不对!");
+    
+    
+    // float
+    float returnFloatValue = 12.12;
+    float floatValue = [valueTypeVM ag_safeFloatValueForKey:kSafeKey1];
+    XCTAssertTrue(floatValue == 0, @"返回数据不对!");
+    
+    floatValue = [valueTypeVM ag_safeFloatValueForKey:kSafeKey2];
+    XCTAssertTrue(floatValue == 0, @"返回数据不对!");
+    
+    floatValue = [valueTypeVM ag_safeFloatValueForKey:kSafeKey1 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithFloat:returnFloatValue];
+    }];
+    XCTAssertTrue(floatValue == returnFloatValue, @"返回数据不对!");
+    
+    floatValue = [valueTypeVM ag_safeFloatValueForKey:kSafeKey2 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithFloat:returnFloatValue];
+    }];
+    XCTAssertTrue(floatValue == returnFloatValue, @"返回数据不对!");
+    
+    
+    // int
+    int returnIntValue = 113114;
+    int intValue = [valueTypeVM ag_safeIntValueForKey:kSafeKey1];
+    XCTAssertTrue(intValue == 0, @"返回数据不对!");
+    
+    intValue = [valueTypeVM ag_safeIntValueForKey:kSafeKey2];
+    XCTAssertTrue(intValue == 0, @"返回数据不对!");
+    
+    intValue = [valueTypeVM ag_safeIntValueForKey:kSafeKey1 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithInt:returnIntValue];
+    }];
+    XCTAssertTrue(intValue == returnIntValue, @"返回数据不对!");
+    
+    intValue = [valueTypeVM ag_safeIntValueForKey:kSafeKey2 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithInt:returnIntValue];
+    }];
+    XCTAssertTrue(intValue == returnIntValue, @"返回数据不对!");
+    
+    // NSInteger
+    NSInteger returnIntegerValue = 168168;
+    NSInteger integerValue = [valueTypeVM ag_safeIntegerValueForKey:kSafeKey1];
+    XCTAssertTrue(integerValue == 0, @"返回数据不对!");
+    
+    integerValue = [valueTypeVM ag_safeIntegerValueForKey:kSafeKey2];
+    XCTAssertTrue(integerValue == 0, @"返回数据不对!");
+    
+    integerValue = [valueTypeVM ag_safeIntegerValueForKey:kSafeKey1 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithInteger:returnIntegerValue];
+    }];
+    XCTAssertTrue(integerValue == returnIntegerValue, @"返回数据不对!");
+    
+    integerValue = [valueTypeVM ag_safeIntegerValueForKey:kSafeKey2 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithInteger:returnIntegerValue];
+    }];
+    XCTAssertTrue(integerValue == returnIntegerValue, @"返回数据不对!");
+    
+    // long long类型数据
+    long long returnLongLongValue = 168168888;
+    long long longlongValue = [valueTypeVM ag_safeLongLongValueForKey:kSafeKey1];
+    XCTAssertTrue(longlongValue == 0, @"返回数据不对!");
+    
+    longlongValue = [valueTypeVM ag_safeLongLongValueForKey:kSafeKey2];
+    XCTAssertTrue(longlongValue == 0, @"返回数据不对!");
+    
+    longlongValue = [valueTypeVM ag_safeLongLongValueForKey:kSafeKey1 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithLongLong:returnLongLongValue];
+    }];
+    XCTAssertTrue(longlongValue == returnLongLongValue, @"返回数据不对!");
+    
+    longlongValue = [valueTypeVM ag_safeLongLongValueForKey:kSafeKey2 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithLongLong:returnLongLongValue];
+    }];
+    XCTAssertTrue(longlongValue == returnLongLongValue, @"返回数据不对!");
+    
+    // BOOL类型数据
+    BOOL returnBoolValue = YES;
+    BOOL boolValue = [valueTypeVM ag_safeBoolValueForKey:kSafeKey1];
+    XCTAssertTrue(boolValue == 0, @"返回数据不对!");
+    
+    boolValue = [valueTypeVM ag_safeBoolValueForKey:kSafeKey2];
+    XCTAssertTrue(boolValue == 0, @"返回数据不对!");
+    
+    boolValue = [valueTypeVM ag_safeBoolValueForKey:kSafeKey1 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithBool:returnBoolValue];
+    }];
+    XCTAssertTrue(boolValue == returnBoolValue, @"返回数据不对!");
+    
+    boolValue = [valueTypeVM ag_safeBoolValueForKey:kSafeKey2 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return [NSNumber numberWithBool:returnBoolValue];
+    }];
+    XCTAssertTrue(boolValue == returnBoolValue, @"返回数据不对!");
+    
+    
+#pragma mark number string
+    NSString *returnNumberString = @"returnNumberString";
+    NSString *numberString = [valueTypeVM ag_safeNumberStringForKey:kSafeKey1];
+    XCTAssertTrue(numberString == nil, @"返回数据不对!");
+    
+    numberString = [valueTypeVM ag_safeNumberStringForKey:kSafeKey2];
+    XCTAssertTrue(numberString == nil, @"返回数据不对!");
+    
+    numberString = [valueTypeVM ag_safeNumberStringForKey:kSafeKey1 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == nil, @"value必须为空!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnNumberString;
+    }];
+    XCTAssertTrue([numberString isEqualToString:returnNumberString], @"返回数据不对!");
+    
+    numberString = [valueTypeVM ag_safeNumberStringForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == null, @"value传递出错!");
+        XCTAssertTrue(safe == NO, @"数据判断不对!");
+        return returnNumberString;
+    }];
+    XCTAssertTrue([numberString isEqualToString:returnNumberString], @"返回数据不对!");
 }
 
 - (void)testSafeNumber
 {
-	NSNumber *number = @1;
-	NSString *string = @"2";
-	
-	AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
-	// true
-	NSNumber *newNumber = [vm ag_safeSetNumber:number forKey:kSafeKey1];
-	XCTAssertTrue(newNumber == number, @"返回数据不对!");
-	XCTAssertTrue(vm[kSafeKey1] == number, @"数据未存入字典!");
-	// false
-	NSNumber *newNumber2 = [vm ag_safeSetNumber:string forKey:kSafeKey2];
-	XCTAssertTrue(newNumber2 == nil, @"返回数据不对!");
-	XCTAssertTrue(vm[kSafeKey2] == nil, @"错误数据存入字典!");
-	
-	
-	NSNumber *number2 = @3;
-	NSString *string2 = @"4";
-	// true
-	NSNumber *newNumber3 = [vm ag_safeSetNumber:number2 forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == YES, @"数据判断不对!");
-	}];
-	XCTAssertTrue(newNumber3 == number2, @"返回数据不对!");
-	
-	// false
-	NSNumber *newNumber4 = [vm ag_safeSetNumber:string2 forKey:kSafeKey4 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == NO, @"数据判断不对!");
-	}];
-	XCTAssertTrue(vm[kSafeKey4] == nil, @"错误数据存入字典!");
-	XCTAssertTrue(newNumber4 == nil, @"返回数据不对!");
-	
-	// 取
-	NSNumber *newNumber5 = [vm ag_safeNumberForKey:kSafeKey1];
-	NSNumber *newNumber6 = [vm ag_safeNumberForKey:kSafeKey2];
-	XCTAssertTrue(newNumber5 == number, @"返回数据不对!");
-	XCTAssertTrue(newNumber6 == nil, @"返回数据不对!");
-	
-	NSNumber *newNumber7 = [vm ag_safeNumberForKey:kSafeKey1 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == YES, @"数据判断不对!");
-		return nil;
-	}];
-	NSNumber *returnNum = @11;
-	NSNumber *newNumber8 = [vm ag_safeNumberForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == NO, @"数据判断不对!");
-		return returnNum;
-	}];
-	XCTAssertTrue(newNumber7 == number, @"返回数据不对!");
-	XCTAssertTrue(newNumber8 == returnNum, @"返回数据不对!");
-	
+    NSNumber *saveObj1 = @10086;
+    NSNumber *saveObj2 = @2018;
+    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    NSNumber *obj1 = [vm ag_safeSetNumber:saveObj1 forKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
+    
+    obj1 = [vm ag_safeNumberForKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    
+    NSNumber *obj2 = [vm ag_safeSetNumber:saveObj2 forKey:kSafeKey2 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey2] == saveObj2, @"数据未存入字典!");
+    
+    obj2 = [vm ag_safeNumberForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
 }
 
 - (void)testSafeString
 {
-	NSNumber *number = @1;
-	NSString *string = @"2";
+    NSString *saveObj1 = @"10086";
+    NSString *saveObj2 = @"2018";
+    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    NSString *obj1 = [vm ag_safeSetString:saveObj1 forKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
+    
+    obj1 = [vm ag_safeStringForKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    
+    NSString *obj2 = [vm ag_safeSetString:saveObj2 forKey:kSafeKey2 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey2] == saveObj2, @"数据未存入字典!");
+    
+    obj2 = [vm ag_safeStringForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
 	
-	AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
-	// true
-	NSString *newString = [vm ag_safeSetString:string forKey:kSafeKey1];
-	XCTAssertTrue(newString == string, @"返回数据不对!");
-	XCTAssertTrue(vm[kSafeKey1] == string, @"数据未存入字典!");
-	// false
-	NSString *newString2 = [vm ag_safeSetString:number forKey:kSafeKey2];
-	XCTAssertTrue(newString2 == nil, @"返回数据不对!");
-	XCTAssertTrue(vm[kSafeKey2] == nil, @"错误数据存入字典!");
-	
-	
-	NSNumber *number2 = @3;
-	NSString *string2 = @"4";
-	// true
-	NSString *newString3 = [vm ag_safeSetString:string2 forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == YES, @"数据判断不对!");
-	}];
-	XCTAssertTrue(newString3 == string2, @"返回数据不对!");
-	
-	// false
-	NSString *newString4 = [vm ag_safeSetString:number2 forKey:kSafeKey4 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == NO, @"数据判断不对!");
-	}];
-	XCTAssertTrue(vm[kSafeKey4] == nil, @"错误数据存入字典!");
-	XCTAssertTrue(newString4 == nil, @"返回数据不对!");
-	
-	// 取
-	NSString *newString5 = [vm ag_safeStringForKey:kSafeKey1];
-	NSString *newString6 = [vm ag_safeStringForKey:kSafeKey2];
-	XCTAssertTrue(newString5 == string, @"返回数据不对!");
-	XCTAssertTrue(newString6 == nil, @"返回数据不对!");
-	
-	NSString *newString7 = [vm ag_safeStringForKey:kSafeKey1 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == YES, @"数据判断不对!");
-		return nil;
-	}];
-	NSString *returnStr = @"11";
-	NSString *newString8 = [vm ag_safeStringForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == NO, @"数据判断不对!");
-		return returnStr;
-	}];
-	XCTAssertTrue(newString7 == string, @"返回数据不对!");
-	XCTAssertTrue(newString8 == returnStr, @"返回数据不对!");
-	
+}
+
+- (void)testSafeNumberString
+{
+    NSString *saveObj1 = @"10086";
+    NSNumber *saveObj2 = @2018;
+    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    vm[kSafeKey1] = saveObj1;
+    vm[kSafeKey2] = saveObj2;
+    
+    NSString *obj1 = [vm ag_safeNumberStringForKey:kSafeKey1];
+    XCTAssertTrue([obj1 isEqualToString:saveObj1], @"返回数据不对!");
+    obj1 = [vm ag_safeNumberStringForKey:kSafeKey2];
+    XCTAssertTrue([obj1 isEqualToString:saveObj2.stringValue], @"返回数据不对!");
+    
+    NSString *obj2 = [vm ag_safeNumberStringForKey:kSafeKey1 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj1, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue([obj2 isEqualToString:saveObj1], @"返回数据不对!");
+    obj2 = [vm ag_safeNumberStringForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return [NSString stringWithFormat:@"%@", value];
+    }];
+    XCTAssertTrue([obj2 isEqualToString:saveObj2.stringValue], @"返回数据不对!");
+    
 }
 
 - (void)testSafeArray
 {
-	NSArray *arr = @[@1];
-	NSDictionary *dict = @{@"2" : @2};
-	
-	AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
-	// true
-	NSArray *newArr = [vm ag_safeSetArray:arr forKey:kSafeKey1];
-	XCTAssertTrue(newArr == arr, @"返回数据不对!");
-	XCTAssertTrue(vm[kSafeKey1] == arr, @"数据未存入字典!");
-	// false
-	NSArray *newArr2 = [vm ag_safeSetArray:dict forKey:kSafeKey2];
-	XCTAssertTrue(newArr2 == nil, @"返回数据不对!");
-	XCTAssertTrue(vm[kSafeKey2] == nil, @"错误数据存入字典!");
-	
-	
-	NSArray *arr2 = @[@3];
-	NSDictionary *dict2 = @{@"4" : @4};
-	// true
-	NSArray *newArr3 = [vm ag_safeSetArray:arr2 forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == YES, @"数据判断不对!");
-	}];
-	XCTAssertTrue(newArr3 == arr2, @"返回数据不对!");
-	
-	// false
-	NSArray *newString4 = [vm ag_safeSetArray:dict2 forKey:kSafeKey4 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == NO, @"数据判断不对!");
-	}];
-	XCTAssertTrue(vm[kSafeKey4] == nil, @"错误数据存入字典!");
-	XCTAssertTrue(newString4 == nil, @"返回数据不对!");
-	
-	// 取
-	NSArray *newArr5 = [vm ag_safeArrayForKey:kSafeKey1];
-	NSArray *newArr6 = [vm ag_safeArrayForKey:kSafeKey2];
-	XCTAssertTrue(newArr5 == arr, @"返回数据不对!");
-	XCTAssertTrue(newArr6 == nil, @"返回数据不对!");
-	
-	NSArray *newArr7 = [vm ag_safeArrayForKey:kSafeKey1 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == YES, @"数据判断不对!");
-		return nil;
-	}];
-	NSArray *returnArr = @[@11];
-	NSArray *newArr8 = [vm ag_safeArrayForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
-		XCTAssertTrue(safe == NO, @"数据判断不对!");
-		return returnArr;
-	}];
-	XCTAssertTrue(newArr7 == arr, @"返回数据不对!");
-	XCTAssertTrue(newArr8 == returnArr, @"返回数据不对!");
+    NSArray *saveObj1 = @[@1, @3, @5];
+    NSArray *saveObj2 = @[@11, @33, @55];
+    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    NSArray *obj1 = [vm ag_safeSetArray:saveObj1 forKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
+    
+    obj1 = [vm ag_safeArrayForKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    
+    NSArray *obj2 = [vm ag_safeSetArray:saveObj2 forKey:kSafeKey2 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey2] == saveObj2, @"数据未存入字典!");
+    
+    obj2 = [vm ag_safeArrayForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
 	
 }
 
 - (void)testSafeDictionary
 {
-	//NSDictionary *dict = @{@"test" : @"1"};
-	
-	
-	
+    NSDictionary *saveObj1 = @{@"username" : @"Kobe"};
+    NSDictionary *saveObj2 = @{@"age" : @39};
+    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    NSDictionary *obj1 = [vm ag_safeSetDictionary:saveObj1 forKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
+    
+    obj1 = [vm ag_safeDictionaryForKey:kSafeKey1];
+    XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
+    
+    NSDictionary *obj2 = [vm ag_safeSetDictionary:saveObj2 forKey:kSafeKey2 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
+    XCTAssertTrue(vm[kSafeKey2] == saveObj2, @"数据未存入字典!");
+    
+    obj2 = [vm ag_safeDictionaryForKey:kSafeKey2 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj2, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(obj2 == saveObj2, @"返回数据不对!");
 }
 
 - (void)testSafeValueType
 {
+    // value type
+    double returnDoubleValue = 11.123456789;
+    float returnFloatValue = 12.12;
+    int returnIntValue = 113114;
+    NSInteger returnIntegerValue = 168168;
+    long long returnLongLongValue = 168168888;
+    BOOL returnBoolValue = YES;
+    
+    AGViewModel *valueTypeVM = [AGViewModel ag_viewModelWithModel:nil];
+    valueTypeVM[kSafeKey1] = [NSNumber numberWithDouble:returnDoubleValue];
+    valueTypeVM[kSafeKey2] = [NSNumber numberWithFloat:returnFloatValue];
+    valueTypeVM[kSafeKey3] = [NSNumber numberWithInt:returnIntValue];
+    valueTypeVM[kSafeKey4] = [NSNumber numberWithInteger:returnIntegerValue];
+    valueTypeVM[kSafeKey5] = [NSNumber numberWithLongLong:returnLongLongValue];
+    valueTypeVM[kSafeKey6] = [NSNumber numberWithBool:returnBoolValue];
+    
+    // double
+    double doubleValue = [valueTypeVM ag_safeDoubleValueForKey:kSafeKey1];
+    XCTAssertTrue(doubleValue == returnDoubleValue, @"返回数据不对!");
+    doubleValue = [valueTypeVM ag_safeDoubleValueForKey:kSafeKey1 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value != nil, @"value必须有值!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(doubleValue == returnDoubleValue, @"返回数据不对!");
+    
+    
+    // float
+    float floatValue = [valueTypeVM ag_safeFloatValueForKey:kSafeKey2];
+    XCTAssertTrue(floatValue == returnFloatValue, @"返回数据不对!");
+    floatValue = [valueTypeVM ag_safeFloatValueForKey:kSafeKey2 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value != nil, @"value必须有值!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(floatValue == returnFloatValue, @"返回数据不对!");
+    
+    // int
+    int intValue = [valueTypeVM ag_safeIntValueForKey:kSafeKey3];
+    XCTAssertTrue(intValue == returnIntValue, @"返回数据不对!");
+    intValue = [valueTypeVM ag_safeIntValueForKey:kSafeKey3 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value != nil, @"value必须有值!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(intValue == returnIntValue, @"返回数据不对!");
+    
+    // NSInteger
+    NSInteger integerValue = [valueTypeVM ag_safeIntegerValueForKey:kSafeKey4];
+    XCTAssertTrue(integerValue == returnIntegerValue, @"返回数据不对!");
+    integerValue = [valueTypeVM ag_safeIntegerValueForKey:kSafeKey4 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value != nil, @"value必须有值!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(integerValue == returnIntegerValue, @"返回数据不对!");
+    
+    // long long类型数据
+    long long longlongValue = [valueTypeVM ag_safeLongLongValueForKey:kSafeKey5];
+    XCTAssertTrue(longlongValue == returnLongLongValue, @"返回数据不对!");
+    longlongValue = [valueTypeVM ag_safeLongLongValueForKey:kSafeKey5 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value != nil, @"value必须有值!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(longlongValue == returnLongLongValue, @"返回数据不对!");
+    
+    // BOOL类型数据
+    BOOL boolValue = [valueTypeVM ag_safeBoolValueForKey:kSafeKey6];
+    XCTAssertTrue(boolValue == returnBoolValue, @"返回数据不对!");
+    boolValue = [valueTypeVM ag_safeBoolValueForKey:kSafeKey6 completion:^NSNumber * _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value != nil, @"value必须有值!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return value;
+    }];
+    XCTAssertTrue(boolValue == returnBoolValue, @"返回数据不对!");
 	
-	
+}
+
+- (void)testSafeURL
+{
+    NSString *saveObj1 = @"http://baidu.com";
+    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    vm[kSafeKey1] = saveObj1;
+    
+    NSURL *obj1 = [vm ag_safeURLForKey:kSafeKey1];
+    XCTAssertTrue([obj1 isKindOfClass:[NSURL class]], @"返回数据不对!");
+    
+    obj1 = [vm ag_safeURLForKey:kSafeKey1 completion:^id _Nullable(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
+        XCTAssertTrue(vm != nil, @"vm必须有值!");
+        XCTAssertTrue(value == saveObj1, @"value传递出错!");
+        XCTAssertTrue(safe == YES, @"数据判断不对!");
+        return [NSURL URLWithString:value];
+    }];
+    XCTAssertTrue([obj1 isKindOfClass:[NSURL class]], @"返回数据不对!");
 }
 
 - (void)testPerformanceExample {

@@ -46,7 +46,7 @@
             }];
             
             // 共享数据模型
-            [vms ag_packageItemCommonData:^(NSMutableDictionary *package) {
+            [vms ag_packageItemMergeData:^(NSMutableDictionary *package) {
                 // 要实例化的类
                 package[kAGVMViewClass] = [self _randClassAtArr:classArr];
             }];
@@ -108,7 +108,7 @@
         [_boxVMManager ag_packageSection:^(AGVMSection *vms) {
             
             // 共享数据模型
-            [vms ag_packageItemCommonData:^(NSMutableDictionary *package) {
+            [vms ag_packageItemMergeData:^(NSMutableDictionary *package) {
                 // 要实例化的类
                 package[kAGVMViewClass] = [self _randClassAtArr:classArr];
                 package[kAGVMBoxTitle] = @"波波维奇。";

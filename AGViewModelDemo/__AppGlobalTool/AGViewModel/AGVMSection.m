@@ -63,7 +63,7 @@
                                     capacity:(NSUInteger)capacity
 {
     NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
-                                                 commonVM:_itemCommonVM
+                                                  mergeVM:_itemMergeVM
                                                   inBlock:block
                                                  capacity:capacity];
     [self ag_addItemsFromArray:arr];
@@ -91,7 +91,7 @@
                             capacity:(NSUInteger)capacity
 {
     AGViewModel *vm =
-    [ag_sharedVMPackager() ag_package:package commonVM:_itemCommonVM capacity:capacity];
+    [ag_sharedVMPackager() ag_package:package mergeVM:_itemMergeVM capacity:capacity];
     if (vm) [self.itemArrM addObject:vm];
     return vm;
 }
@@ -111,16 +111,16 @@
 }
 
 /** 拼装 itemArr 中 viewModel 的共同字典数据 */
-- (AGViewModel *) ag_packageItemCommonData:(AGVMPackageDataBlock)package
-                                  capacity:(NSUInteger)capacity
+- (AGViewModel *) ag_packageItemMergeData:(AGVMPackageDataBlock)package
+                                 capacity:(NSUInteger)capacity
 {
-    _itemCommonVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
-    return _itemCommonVM;
+    _itemMergeVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    return _itemMergeVM;
 }
 
-- (AGViewModel *) ag_packageItemCommonData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageItemMergeData:(AGVMPackageDataBlock)package
 {
-    return [self ag_packageItemCommonData:package capacity:6];
+    return [self ag_packageItemMergeData:package capacity:6];
 }
 
 #pragma mark AGVMPackagable
@@ -187,7 +187,7 @@
     vms->_commonVM = [_commonVM copy];
     vms->_headerVM = [_headerVM copy];
     vms->_footerVM = [_footerVM copy];
-    vms->_itemCommonVM = [_itemCommonVM copy];
+    vms->_itemMergeVM = [_itemMergeVM copy];
     [vms ag_addItemsFromSection:self];
     return vms;
 }
@@ -198,7 +198,7 @@
     vms->_commonVM = [_commonVM mutableCopy];
     vms->_headerVM = [_headerVM mutableCopy];
     vms->_footerVM = [_footerVM mutableCopy];
-    vms->_itemCommonVM = [_itemCommonVM mutableCopy];
+    vms->_itemMergeVM = [_itemMergeVM mutableCopy];
     [self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
         [vms ag_addItem:[vm mutableCopy]];
     }];
@@ -377,14 +377,14 @@
     if ( vms.commonVM ) {
         _commonVM = _commonVM ?: ag_viewModel(nil);
     }
-    if ( vms.itemCommonVM ) {
-        _itemCommonVM = _itemCommonVM ?: ag_viewModel(nil);
+    if ( vms.itemMergeVM ) {
+        _itemMergeVM = _itemMergeVM ?: ag_viewModel(nil);
     }
     // 合并所有数据
     [self.headerVM ag_mergeModelFromViewModel:vms.headerVM];
     [self.footerVM ag_mergeModelFromViewModel:vms.footerVM];
     [self.commonVM ag_mergeModelFromViewModel:vms.commonVM];
-    [self.itemCommonVM ag_mergeModelFromViewModel:vms.itemCommonVM];
+    [self.itemMergeVM ag_mergeModelFromViewModel:vms.itemMergeVM];
     
     [self ag_addItemsFromSection:vms];
     

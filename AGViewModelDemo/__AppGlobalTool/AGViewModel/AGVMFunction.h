@@ -61,8 +61,8 @@ NSMutableArray * ag_safeMutableArray(id obj);
 /** 验证是否为 NSString 对象；是：返回原对象；否：返回 nil */
 NSString * ag_safeString(id obj);
 
-/** 转换为 NSString 对象；能转为：返回 NSString 对象；不能：返回 nil */
-NSString * ag_safeStringConvert(id obj);
+/** 验证是否能转换为 NSString 对象；能转：返回 NSString 对象；不能：返回 nil */
+NSString * ag_safeNumberString(id obj);
 
 /** 验证是否为 NSNumber 对象；是：返回原对象；否：返回 nil */
 NSNumber * ag_safeNumber(id obj);
