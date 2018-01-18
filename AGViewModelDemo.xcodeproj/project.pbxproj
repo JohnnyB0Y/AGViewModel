@@ -452,7 +452,6 @@
 					};
 					3AACE8391EACF9110097C4F3 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = Y4TD9NMHQ7;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 3AACE8201EACF9100097C4F3;
 					};
@@ -765,7 +764,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = Y4TD9NMHQ7;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AGViewModelDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JohnnyB0Y.AGViewModelDemoTests;
@@ -778,7 +777,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = Y4TD9NMHQ7;
+				DEVELOPMENT_TEAM = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = AGViewModelDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

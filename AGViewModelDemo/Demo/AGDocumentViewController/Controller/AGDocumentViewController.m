@@ -95,7 +95,9 @@
             }
             
             // 转换箭头
-            vm[kAGVMItemArrowIsOpen] = @(! isOpen);
+			[vm ag_refreshUIByUpdateModelInBlock:^(NSMutableDictionary * _Nonnull bm) {
+				bm[kAGVMItemArrowIsOpen] = @(! isOpen);
+			}];
             
         }
     }

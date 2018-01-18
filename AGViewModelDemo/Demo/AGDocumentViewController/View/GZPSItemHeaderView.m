@@ -13,10 +13,10 @@
 @interface GZPSItemHeaderView ()
 
 /** headerLine */
-@property (nonatomic, strong) UIView *headerLine;
+@property (strong, nonatomic) UIView *headerLine;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *subTitleLabel;
-@property (strong, nonatomic) UIImageView *arrowView;
+@property (strong, nonatomic) UIButton *arrowBtn;
 
 @end
 
@@ -59,9 +59,11 @@
     // 取出数据赋值
     NSString *title = _viewModel[kAGVMItemTitle];
     NSString *subTitle = _viewModel[kAGVMItemSubTitle];
+	BOOL isOpen = [_viewModel ag_safeBoolValueForKey:kAGVMItemArrowIsOpen];
     
     [self.titleLabel setText:title];
     [self.subTitleLabel setText:subTitle];
+	self.arrowBtn.selected = isOpen;
     
 }
 
@@ -95,7 +97,7 @@
     [self.contentView addSubview:self.headerLine];
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.subTitleLabel];
-    [self.contentView addSubview:self.arrowView];
+    [self.contentView addSubview:self.arrowBtn];
 }
 
 // 添加子视图约束
@@ -117,9 +119,10 @@
         make.left.mas_equalTo(self.titleLabel.mas_right).mas_offset(16.);
     }];
     
-    [self.arrowView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.arrowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.titleLabel);
         make.right.mas_equalTo(-8.);
+		make.size.mas_equalTo(CGSizeMake(16., 16.));
     }];
 }
 
@@ -130,11 +133,15 @@
     UIView *bgView = [UIView new];
     bgView.backgroundColor = [UIColor whiteColor];
     self.backgroundView = bgView;
-    self.arrowView.backgroundColor = [UIColor greenColor];
-    
+	
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTap:)];
     [self addGestureRecognizer:tap];
+	
+	[self.arrowBtn setImage:[UIImage imageNamed:@"arrow-down-o"] forState:UIControlStateNormal];
+	[self.arrowBtn setImage:[UIImage imageNamed:@"arrow-up-o"] forState:UIControlStateSelected];
 }
+
+
 
 #pragma mark - ----------- Getter Methods ----------
 - (UILabel *)titleLabel
@@ -156,12 +163,12 @@
     return _subTitleLabel;
 }
 
-- (UIImageView *) arrowView
+- (UIButton *)arrowBtn
 {
-    if (_arrowView == nil) {
-        _arrowView = [[UIImageView alloc] init];
-    }
-    return _arrowView;
+	if (_arrowBtn == nil) {
+		_arrowBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+	}
+	return _arrowBtn;
 }
 
 - (UIView *)headerLine
