@@ -35,6 +35,12 @@ static NSString * const kAGVMSection = @"kAGVMSection";
 /** 携带的AGVMManager 👉AGVMManager👈  */
 static NSString * const kAGVMManager = @"kAGVMManager";
 
+/** 携带的公共VM 👉AGViewModel👈 */
+static NSString * const kAGVMCommonVM = @"kAGVMCommonVM";
+/** 携带的头部VM 👉AGViewModel👈 */
+static NSString * const kAGVMHeaderVM = @"kAGVMHeaderVM";
+/** 携带的尾部VM 👉AGViewModel👈 */
+static NSString * const kAGVMFooterVM = @"kAGVMFooterVM";
 
 #pragma mark - 类型、状态描述相关
 /** View Model 的类型 👉NSString👈 */

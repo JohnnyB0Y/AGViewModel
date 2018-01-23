@@ -110,7 +110,6 @@
         [originVmm.fs ag_removeAllItems];
         [originVmm.fs ag_addItemsFromSection:vmm.fs];
     }];
-    
 }
 
 #pragma mark - ---------- Event Methods ----------

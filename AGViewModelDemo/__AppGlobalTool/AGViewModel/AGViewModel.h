@@ -110,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AGViewModel (AGVMObserverRegistration) <AGVMObserverRegistration>
 @end
 
+#pragma mark - 数据转换
+@interface AGViewModel (AGVMJSONTransformable) <AGVMJSONTransformable>
+@end
+
 NS_ASSUME_NONNULL_END
 
 

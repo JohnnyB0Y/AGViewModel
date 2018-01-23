@@ -67,6 +67,32 @@ NSString * ag_safeNumberString(id obj);
 /** 验证是否为 NSNumber 对象；是：返回原对象；否：返回 nil */
 NSNumber * ag_safeNumber(id obj);
 
+#pragma mark JSON Transform
+/**
+ 数组转成字符串 - 可替换自定义key - 可自行处理特殊类型（NSString、NSNumber、NSURL、实现NSFastEnumeration或AGVMJSONTransformable协议对象、{其他类型自行处理}）
+ 
+ @param array 待转换的数组
+ @param exchangeKeyVM 需要替换key的VM，格式 {原Key:新Key}
+ @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
+ @return JSON字符串
+ */
+NSString * _Nullable ag_JSONStringWithArray(NSArray *array,
+                                            AGViewModel * _Nullable exchangeKeyVM,
+                                            AGVMJSONTransformBlock _Nullable NS_NOESCAPE block);
+
+/**
+ 字典转成字符串 - 可替换自定义key - 可自行处理特殊类型（NSString、NSNumber、NSURL、实现NSFastEnumeration或AGVMJSONTransformable协议对象、{其他类型自行处理}）
+ 
+ @param dict 待转换的字典
+ @param exchangeKeyVM 需要替换key的VM，格式 {原Key:新Key}
+ @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
+ @return JSON字符串
+ */
+NSString * _Nullable ag_JSONStringWithDict(NSDictionary *dict,
+                                           AGViewModel * _Nullable exchangeKeyVM,
+                                           AGVMJSONTransformBlock _Nullable NS_NOESCAPE block);
+
+
 NS_ASSUME_NONNULL_END
 
 #endif /* AGVMFunction_h */

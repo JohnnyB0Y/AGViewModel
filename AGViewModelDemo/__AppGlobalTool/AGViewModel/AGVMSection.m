@@ -477,6 +477,31 @@
 
 @end
 
+
+@implementation AGVMSection (AGVMJSONTransformable)
+- (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
+                              customTransform:(AGVMJSONTransformBlock)block
+{
+    NSMutableDictionary *dictM = ag_mutableDict(4);
+    dictM[kAGVMCommonVM] = _commonVM;
+    dictM[kAGVMHeaderVM] = _headerVM;
+    dictM[kAGVMArray] = _itemArrM;
+    dictM[kAGVMFooterVM] = _footerVM;
+    return ag_JSONStringWithDict(dictM, vm, block);
+}
+
+- (NSString *)ag_toJSONStringWithCustomTransform:(AGVMJSONTransformBlock)block
+{
+    return [self ag_toJSONStringWithExchangeKey:nil customTransform:block];
+}
+
+- (NSString *)ag_toJSONString
+{
+    return [self ag_toJSONStringWithCustomTransform:nil];
+}
+
+@end
+
 /** fast create AGVMSection instance */
 AGVMSection * ag_VMSection(NSUInteger capacity)
 {

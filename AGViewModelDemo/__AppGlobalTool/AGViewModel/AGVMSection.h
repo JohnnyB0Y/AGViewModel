@@ -183,4 +183,10 @@ atIndexedSubscript:(NSUInteger)idx;
 
 @end
 
+
+#pragma mark - 数据转换
+@interface AGVMSection (AGVMJSONTransformable) <AGVMJSONTransformable>
+
+@end
+
 NS_ASSUME_NONNULL_END

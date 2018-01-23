@@ -591,6 +591,25 @@
 @end
 
 
+@implementation AGViewModel (AGVMJSONTransformable)
+- (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
+                              customTransform:(AGVMJSONTransformBlock)block
+{
+    return ag_JSONStringWithDict(_bindingModel, vm, block);
+}
+
+- (NSString *)ag_toJSONStringWithCustomTransform:(AGVMJSONTransformBlock)block
+{
+    return ag_JSONStringWithDict(_bindingModel, nil, block);
+}
+
+- (NSString *)ag_toJSONString
+{
+    return ag_JSONStringWithDict(_bindingModel, nil, nil);
+}
+
+@end
+
 #pragma mark - Fast Funtion
 /** fast create AGViewModel instance */
 AGViewModel * ag_viewModel(NSDictionary *bindingModel)

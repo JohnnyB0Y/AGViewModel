@@ -71,6 +71,12 @@ typedef NSNumber * _Nullable (^AGVMSafeGetNumberCompletionBlock)
 	 BOOL safe // 数据是否类型安全
 );
 
+#pragma mark JSON transform block
+typedef id _Nullable (^AGVMJSONTransformBlock)
+(
+ _Nullable id obj, // 数据对象
+ BOOL *useDefault // 是否跳过block处理，使用默认处理方式：*useDefault = YES;
+ );
 
 #pragma mark viewModelManager block
 typedef void(^AGVMPackageSectionBlock)
@@ -650,6 +656,35 @@ typedef void (^AGVMPackageDatasBlock)
 
 @end
 
+
+#pragma mark - AGVMJSONTransformable
+@protocol AGVMJSONTransformable <NSObject>
+/**
+ 转成字符串 - 可替换自定义key - 可自行处理特殊类型（NSString、NSNumber、NSURL、实现NSFastEnumeration或AGVMJSONTransformable协议对象、{其他类型自行处理}）
+ 
+ @param vm 需要替换key的VM，格式 {原Key:新Key}
+ @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
+ @return JSON字符串
+ */
+- (nullable NSString *) ag_toJSONStringWithExchangeKey:(nullable AGViewModel *)vm
+                                       customTransform:(nullable NS_NOESCAPE AGVMJSONTransformBlock)block;
+
+/**
+ 转成字符串 - 可自行处理特殊类型（NSString、NSNumber、NSURL、实现NSFastEnumeration或AGVMJSONTransformable协议对象、{其他类型自行处理}）
+ 
+ @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
+ @return JSON字符串
+ */
+
+- (nullable NSString *) ag_toJSONStringWithCustomTransform:(nullable NS_NOESCAPE AGVMJSONTransformBlock)block;
+/**
+ 转成字符串（NSString、NSNumber、NSURL、实现NSFastEnumeration或AGVMJSONTransformable协议对象、{其他类型自行处理}）
+ 
+ @return JSON字符串
+ */
+- (nullable NSString *) ag_toJSONString;
+
+@end
 
 #endif /* AGVMProtocol_h */
 

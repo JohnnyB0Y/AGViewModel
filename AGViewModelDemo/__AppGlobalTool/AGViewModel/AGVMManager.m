@@ -320,6 +320,28 @@
 @end
 
 
+@implementation AGVMManager (AGVMJSONTransformable)
+- (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
+                              customTransform:(AGVMJSONTransformBlock)block
+{
+    NSMutableDictionary *dictM = ag_mutableDict(2);
+    dictM[kAGVMCommonVM] = _commonVM;
+    dictM[kAGVMArray] = _sectionArrM;
+    return ag_JSONStringWithDict(dictM, vm, block);
+}
+
+- (NSString *)ag_toJSONStringWithCustomTransform:(AGVMJSONTransformBlock)block
+{
+    return [self ag_toJSONStringWithExchangeKey:nil customTransform:block];
+}
+
+- (NSString *)ag_toJSONString
+{
+    return [self ag_toJSONStringWithCustomTransform:nil];
+}
+
+@end
+
 /** fast create AGVMManager instance */
 AGVMManager * ag_VMManager(NSUInteger capacity)
 {
