@@ -428,6 +428,43 @@
     return self;
 }
 
+#pragma mark - map、filter、reduce
+- (AGVMSection *) map:(AGVMMapBlock)block
+{
+	if ( ! block ) return self;
+	AGVMSection *vms = ag_VMSection(self.count);
+	[self.itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		if ( [obj isKindOfClass:[AGViewModel class]] ) {
+			AGViewModel *newVM = [obj mutableCopy];
+			block(newVM);
+			[vms ag_addItem:newVM];
+		}
+	}];
+	return vms;
+}
+
+- (AGVMSection *) filter:(AGVMFilterBlock)block
+{
+	if ( ! block ) return self;
+	AGVMSection *vms = ag_VMSection(self.count);
+	[self.itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		if ( [obj isKindOfClass:[AGViewModel class]] && block(obj) ) {
+			[vms ag_addItem:[obj mutableCopy]];
+		}
+	}];
+	return vms;
+}
+
+- (void) reduce:(AGVMReduceBlock)block
+{
+	if ( ! block ) return;
+	[self.itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		if ( [obj isKindOfClass:[AGViewModel class]] ) {
+			block(obj);
+		}
+	}];
+}
+
 #pragma mark - ---------- Private Methods ----------
 
 

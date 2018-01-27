@@ -39,7 +39,50 @@
     [self _setupUI];
     [self _addActions];
     [self _networkRequest];
-    
+	
+	// 测试
+	AGVMSection *vms = ag_VMSection(9);
+	// 数据准备
+	for (NSInteger i = 0; i<9; i++) {
+		[vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
+			package[kAGVMItemTitle] = [NSString stringWithFormat:@"test: %@", @(i)];
+			package[kAGVMItemArrowIsOpen] = @(i % 2);
+			package[kAGVMViewTag] = @(i);
+		}];
+	}
+	
+	// 处理数据
+	AGVMSection *newVMS =
+	[[vms map:^(AGViewModel * _Nonnull vm) {
+		// 元素加工
+		NSString *title = vm[kAGVMItemTitle];
+		vm[kAGVMItemTitle] = [NSString stringWithFormat:@"map-%@", title];
+		
+		NSInteger i = [vm ag_safeIntegerValueForKey:kAGVMViewTag];
+		vm[kAGVMViewTag] = @(i + 1);
+		
+	}] filter:^BOOL(AGViewModel * _Nonnull vm) {
+		// 元素过滤
+		if ( [vm ag_safeBoolValueForKey:kAGVMItemArrowIsOpen] ) {
+			return YES;
+		}
+		return NO;
+		
+	}];
+	
+	NSMutableString *strM = [NSMutableString stringWithFormat:@"我是字符串："];
+	[newVMS reduce:^(AGViewModel * _Nonnull vm) {
+		[strM appendFormat:@"-%@", vm[kAGVMItemTitle]];
+	}];
+	
+	__block NSInteger integer = 0;
+	[newVMS reduce:^(AGViewModel * _Nonnull vm) {
+		integer += [vm ag_safeIntegerValueForKey:kAGVMViewTag];
+	}];
+	
+	NSLog(@"字符串：%@", strM);
+	NSLog(@"计数：%@", @(integer));
+	
 }
 
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

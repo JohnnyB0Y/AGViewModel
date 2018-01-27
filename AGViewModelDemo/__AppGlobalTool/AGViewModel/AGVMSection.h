@@ -12,6 +12,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^AGVMMapBlock)(AGViewModel *vm);
+typedef BOOL (^AGVMFilterBlock)(AGViewModel *vm);
+typedef void (^AGVMReduceBlock)(AGViewModel *vm);
+
+
+
 @interface AGVMSection : NSObject <NSCopying, NSMutableCopying>
 /** common vm */
 @property (nonatomic, strong, readonly, nullable, getter=cvm) AGViewModel *commonVM;
@@ -176,6 +182,10 @@ atIndexedSubscript:(NSUInteger)idx;
 /** 遍历 header、footer vm */
 - (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
+#pragma mark - map、filter、reduce
+- (AGVMSection *) map:(NS_NOESCAPE AGVMMapBlock)block; // 需要控制跳出循环
+- (AGVMSection *) filter:(NS_NOESCAPE AGVMFilterBlock)block;
+- (void) reduce:(NS_NOESCAPE AGVMReduceBlock)block;
 
 // ...
 - (instancetype) init NS_UNAVAILABLE;
