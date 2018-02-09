@@ -14,7 +14,9 @@
 
 @end
 
-@implementation AGTextCell
+@implementation AGTextCell {
+	AGViewModel *_viewModel;
+}
 #pragma mark - ----------- Life Cycle -----------
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -34,20 +36,20 @@
 }
 
 #pragma mark - ---------- AGTableCellReusable ----------
-+ (NSString *) ag_reuseIdentifier
-{
-    return NSStringFromClass([self class]);
-}
-
-+ (instancetype) ag_dequeueCellBy:(UITableView *)tableView for:(NSIndexPath *)indexPath
-{
-    return [tableView dequeueReusableCellWithIdentifier:[self ag_reuseIdentifier] forIndexPath:indexPath];
-}
-
-+ (void) ag_registerCellBy:(UITableView *)tableView
-{
-    [tableView registerClass:[self class] forCellReuseIdentifier:[self ag_reuseIdentifier]];
-}
+//+ (NSString *) ag_reuseIdentifier
+//{
+//    return NSStringFromClass([self class]);
+//}
+//
+//+ (instancetype) ag_dequeueCellBy:(UITableView *)tableView for:(NSIndexPath *)indexPath
+//{
+//    return [tableView dequeueReusableCellWithIdentifier:[self ag_reuseIdentifier] forIndexPath:indexPath];
+//}
+//
+//+ (void) ag_registerCellBy:(UITableView *)tableView
+//{
+//    [tableView registerClass:[self class] forCellReuseIdentifier:[self ag_reuseIdentifier]];
+//}
 
 #pragma mark - ----------- AGViewModelIncludable -----------
 /**
@@ -73,6 +75,9 @@
     // 取出数据赋值
     NSString *title = _viewModel[kAGVMItemTitle];
     [self.textLabel setText:title];
+	
+	
+	NSLog(@":::::::::%@", self.viewModel);
 }
 
 #pragma mark - ----------- Event Methods -----------

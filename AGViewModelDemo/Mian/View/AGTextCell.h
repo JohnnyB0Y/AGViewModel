@@ -10,10 +10,6 @@
 #import "AGVMKit.h"
 #import "AGGlobalVMKeys.h"
 
-@interface AGTextCell : UITableViewCell <AGVMIncludable, AGTableCellReusable>
-
-/** 持有的 viewModel */
-@property (nonatomic, strong) AGViewModel *viewModel;
-
+@interface AGTextCell : UITableViewCell
 
 @end

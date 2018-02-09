@@ -19,6 +19,9 @@
 #import "AGVMPackager.h"
 #import "AGViewModel.h"
 
+#import "UITableViewCell+AGViewModel.h"
+#import "UICollectionViewCell+AGViewModel.h"
+
 /** TODO 宏 */
 #define STRINGIFY(S) #S
 #define DEFER_STRINGIFY(S) STRINGIFY(S)

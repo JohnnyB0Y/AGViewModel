@@ -22,6 +22,8 @@
 		3A1D2F4B1F499DE1004E8735 /* AGBoxCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A1D2F491F499DE1004E8735 /* AGBoxCCell.xib */; };
 		3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2AEDAD1F556A420005C994 /* AGBoxDetailViewController.m */; };
 		3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A409D8A1F606A1700845767 /* AGVMNotifier.m */; };
+		3A77DD0B202D5BF400C16B07 /* UITableViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A77DD0A202D5BF400C16B07 /* UITableViewCell+AGViewModel.m */; };
+		3A77DD0E202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A77DD0D202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m */; };
 		3AACE8261EACF9100097C4F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8251EACF9100097C4F3 /* main.m */; };
 		3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8281EACF9100097C4F3 /* AppDelegate.m */; };
 		3AACE82F1EACF9100097C4F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE82D1EACF9100097C4F3 /* Main.storyboard */; };
@@ -82,6 +84,10 @@
 		3A2AEDAD1F556A420005C994 /* AGBoxDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBoxDetailViewController.m; sourceTree = "<group>"; };
 		3A409D891F606A1700845767 /* AGVMNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGVMNotifier.h; sourceTree = "<group>"; };
 		3A409D8A1F606A1700845767 /* AGVMNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGVMNotifier.m; sourceTree = "<group>"; };
+		3A77DD09202D5BF400C16B07 /* UITableViewCell+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+AGViewModel.h"; sourceTree = "<group>"; };
+		3A77DD0A202D5BF400C16B07 /* UITableViewCell+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+AGViewModel.m"; sourceTree = "<group>"; };
+		3A77DD0C202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+AGViewModel.h"; sourceTree = "<group>"; };
+		3A77DD0D202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+AGViewModel.m"; sourceTree = "<group>"; };
 		3AACE8211EACF9100097C4F3 /* AGViewModelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGViewModelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AACE8251EACF9100097C4F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3AACE8271EACF9100097C4F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -341,6 +347,10 @@
 				3AD891671F38965100E86F9F /* AGVMSection.m */,
 				3AD891681F38965100E86F9F /* NSString+AGCalculate.h */,
 				3AD891691F38965100E86F9F /* NSString+AGCalculate.m */,
+				3A77DD09202D5BF400C16B07 /* UITableViewCell+AGViewModel.h */,
+				3A77DD0A202D5BF400C16B07 /* UITableViewCell+AGViewModel.m */,
+				3A77DD0C202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.h */,
+				3A77DD0D202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m */,
 			);
 			path = AGViewModel;
 			sourceTree = "<group>";
@@ -579,11 +589,13 @@
 				3A07BA201FD1A33200887BBE /* GZPSItemDetailCell.m in Sources */,
 				3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
+				3A77DD0E202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */,
 				3AC28E0F1FB847E300578B5D /* AGTextCell.m in Sources */,
 				3A1D2F391F4998FD004E8735 /* AGBoxCollectionViewController.m in Sources */,
 				3AD8916B1F38965100E86F9F /* AGVMPackager.m in Sources */,
+				3A77DD0B202D5BF400C16B07 /* UITableViewCell+AGViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
