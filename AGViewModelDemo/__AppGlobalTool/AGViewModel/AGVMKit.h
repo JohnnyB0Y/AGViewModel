@@ -21,6 +21,8 @@
 
 #import "UITableViewCell+AGViewModel.h"
 #import "UICollectionViewCell+AGViewModel.h"
+#import "UICollectionReusableView+AGViewModel.h"
+#import "UITableViewHeaderFooterView+AGViewModel.m"
 
 /** TODO 宏 */
 #define STRINGIFY(S) #S

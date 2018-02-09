@@ -9,12 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface GZPSItemDetailCell : UITableViewCell <AGVMIncludable, AGTableCellReusable>
-
-/** 持有的 viewModel */
-@property (nonatomic, strong) AGViewModel *viewModel;
-
-/** 从 nib 创建视图 */
-+ (instancetype) ag_createFromNib;
+@interface GZPSItemDetailCell : UITableViewCell
 
 @end

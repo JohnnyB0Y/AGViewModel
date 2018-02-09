@@ -14,9 +14,7 @@
 
 @end
 
-@implementation AGTextCell {
-	AGViewModel *_viewModel;
-}
+@implementation AGTextCell
 #pragma mark - ----------- Life Cycle -----------
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -59,25 +57,22 @@
  @param bvS bindingViewSize
  @return 计算后的 Size
  */
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
-{
-    // 计算
-    
-    
-    
-    return bvS;
-}
+//- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
+//{
+//    // 计算
+//    
+//    
+//    
+//    return bvS;
+//}
 
 - (void)setViewModel:(AGViewModel *)viewModel
 {
-    _viewModel = viewModel;
-    
+    [super setViewModel:viewModel];
     // 取出数据赋值
-    NSString *title = _viewModel[kAGVMItemTitle];
+    NSString *title = self.viewModel[kAGVMItemTitle];
     [self.textLabel setText:title];
 	
-	
-	NSLog(@":::::::::%@", self.viewModel);
 }
 
 #pragma mark - ----------- Event Methods -----------

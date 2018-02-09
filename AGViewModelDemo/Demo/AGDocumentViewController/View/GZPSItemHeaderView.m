@@ -37,29 +37,13 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-/**
- 计算返回 bindingView 的 size
- 
- @param vm viewModel
- @param bvS bindingViewSize
- @return 计算后的 Size
- */
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
-{
-    // 计算
-    
-    
-    return bvS;
-}
-
 - (void)setViewModel:(AGViewModel *)viewModel
 {
-    _viewModel = viewModel;
-    
+    [super setViewModel:viewModel];
     // 取出数据赋值
-    NSString *title = _viewModel[kAGVMItemTitle];
-    NSString *subTitle = _viewModel[kAGVMItemSubTitle];
-	BOOL isOpen = [_viewModel ag_safeBoolValueForKey:kAGVMItemArrowIsOpen];
+    NSString *title = viewModel[kAGVMItemTitle];
+    NSString *subTitle = viewModel[kAGVMItemSubTitle];
+	BOOL isOpen = [viewModel ag_safeBoolValueForKey:kAGVMItemArrowIsOpen];
     
     [self.titleLabel setText:title];
     [self.subTitleLabel setText:subTitle];
@@ -67,26 +51,12 @@
     
 }
 
-+ (NSString *) ag_reuseIdentifier
-{
-    return NSStringFromClass([self class]);
-}
-
-+ (void) ag_registerHeaderFooterViewBy:(UITableView *)tableView
-{
-    [tableView registerClass:[self class] forHeaderFooterViewReuseIdentifier:[self ag_reuseIdentifier]];
-}
-
-+ (__kindof UITableViewHeaderFooterView *) ag_dequeueHeaderFooterViewBy:(UITableView *)tableView
-{
-    return [tableView dequeueReusableHeaderFooterViewWithIdentifier:[self ag_reuseIdentifier]];
-}
 
 #pragma mark - ----------- Event Methods -----------
 - (void) cellTap:(UITapGestureRecognizer *)tap
 {
     _cellTap = _cmd;
-    [_viewModel ag_callDelegateToDoForAction:_cmd];
+    [self.viewModel ag_callDelegateToDoForAction:_cmd];
 }
 
 #pragma mark - ---------- Private Methods ----------

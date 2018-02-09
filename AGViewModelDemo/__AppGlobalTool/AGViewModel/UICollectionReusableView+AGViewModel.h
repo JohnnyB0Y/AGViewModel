@@ -1,8 +1,8 @@
 //
-//  UITableViewCell+AGViewModel.h
+//  UICollectionReusableView+AGViewModel.h
 //  AGViewModelDemo
 //
-//  Created by JohnnyB0Y on 2018/2/9.
+//  Created by JohnnyB0Y on 2018/2/10.
 //  Copyright © 2018年 JohnnyB0Y. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #import "AGViewModel.h"
 #import "AGVMProtocol.h"
 
-@interface UITableViewCell (AGViewModel) <AGVMIncludable, AGTableCellReusable>
+@interface UICollectionReusableView (AGViewModel) <AGVMIncludable, AGCollectionFooterViewReusable, AGCollectionHeaderViewReusable>
 
 - (void) setViewModel:(AGViewModel *)viewModel NS_REQUIRES_SUPER;
 

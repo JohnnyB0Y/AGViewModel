@@ -75,11 +75,10 @@
 
 - (void)setViewModel:(AGViewModel *)viewModel
 {
-    _viewModel = viewModel;
-    
+    [super setViewModel:viewModel];
     // 取出数据赋值
-    self.titleLabel.text = _viewModel[kAGVMBoxTitle];
-    self.colorView.backgroundColor = _viewModel[kAGVMBoxColor];
+    self.titleLabel.text = viewModel[kAGVMBoxTitle];
+    self.colorView.backgroundColor = viewModel[kAGVMBoxColor];
 }
 
 #pragma mark - ----------- Event Methods -----------

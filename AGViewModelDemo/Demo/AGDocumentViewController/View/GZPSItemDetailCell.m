@@ -29,31 +29,6 @@
     [self _setupUI];
 }
 
-+ (instancetype) ag_createFromNib
-{
-    UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class])
-                                bundle:nil];
-    return [[nib instantiateWithOwner:self options:nil] firstObject];
-}
-
-#pragma mark - ---------- AGTableCellReusable ----------
-+ (NSString *) ag_reuseIdentifier
-{
-    return NSStringFromClass([self class]);
-}
-
-+ (instancetype) ag_dequeueCellBy:(UITableView *)tableView for:(NSIndexPath *)indexPath
-{
-    return [tableView dequeueReusableCellWithIdentifier:[self ag_reuseIdentifier] forIndexPath:indexPath];
-}
-
-+ (void) ag_registerCellBy:(UITableView *)tableView
-{
-    UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class])
-                                bundle:nil];
-    [tableView registerNib:nib forCellReuseIdentifier:[self ag_reuseIdentifier]];
-}
-
 #pragma mark - ----------- AGViewModelIncludable -----------
 /**
  计算返回 bindingView 的 size
@@ -66,7 +41,7 @@
 {
     // 计算
     if ( bvS.height < 44.) {
-        NSString *detail = _viewModel[kAGVMItemDetail];
+        NSString *detail = vm[kAGVMItemDetail];
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGSize textS = [detail ag_sizeCalculateInBlock:^CGSize(NSString *text, CGSize screenS, CGSize maxS) {
             maxS = CGSizeMake(width - 30., CGFLOAT_MAX);
@@ -82,12 +57,10 @@
 
 - (void)setViewModel:(AGViewModel *)viewModel
 {
-    _viewModel = viewModel;
-    
+    [super setViewModel:viewModel];
     // 取出数据赋值
-    NSString *detail = _viewModel[kAGVMItemDetail];
+    NSString *detail = viewModel[kAGVMItemDetail];
     [self.detailLabel setText:detail];
-    
 }
 
 #pragma mark - ----------- Event Methods -----------

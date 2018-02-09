@@ -10,6 +10,11 @@
 #import "AGViewModel.h"
 #import "AGVMProtocol.h"
 
-@interface UICollectionViewCell (AGViewModel) <AGVMIncludable, AGTableCellReusable>
+@interface UICollectionViewCell (AGViewModel) <AGVMIncludable, AGCollectionCellReusable>
+
+- (void)setViewModel:(AGViewModel *)viewModel NS_REQUIRES_SUPER;
+
+/** 从 nib 创建实例,没有 nib时返回 nil */
++ (instancetype) ag_createFromNib;
 
 @end

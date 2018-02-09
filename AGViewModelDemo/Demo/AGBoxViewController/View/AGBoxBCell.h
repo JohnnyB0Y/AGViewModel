@@ -7,12 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AGViewModel.h"
+#import "AGVMKit.h"
 
-@interface AGBoxBCell : UICollectionViewCell <AGCollectionCellReusable, AGVMIncludable>
-
-/** 持有的 viewModel */
-@property (nonatomic, strong) AGViewModel *viewModel;
+@interface AGBoxBCell : UICollectionViewCell
 
 /** 从 nib 创建实例 */
 + (instancetype) ag_createFromNib;

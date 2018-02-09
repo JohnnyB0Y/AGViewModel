@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface GZPSItemHeaderView : UITableViewHeaderFooterView <AGVMIncludable, AGTableHeaderFooterViewReusable>
-
-
-/** 持有的 viewModel */
-@property (nonatomic, strong) AGViewModel *viewModel;
+@interface GZPSItemHeaderView : UITableViewHeaderFooterView
 
 /** tap */
 @property (nonatomic, assign) SEL cellTap;

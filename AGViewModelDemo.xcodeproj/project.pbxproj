@@ -12,6 +12,8 @@
 		3A07BA211FD1A33200887BBE /* GZPSItemDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A07BA1F1FD1A33200887BBE /* GZPSItemDetailCell.xib */; };
 		3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA221FD1A34F00887BBE /* GZPSItemHeaderView.m */; };
 		3A07BA281FD1A67800887BBE /* AGDocumentVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA271FD1A67800887BBE /* AGDocumentVMGenerator.m */; };
+		3A0DE0F1202E109800E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0DE0F0202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m */; };
+		3A0DE0F4202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0DE0F3202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m */; };
 		3A1D2F391F4998FD004E8735 /* AGBoxCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F381F4998FD004E8735 /* AGBoxCollectionViewController.m */; };
 		3A1D2F3C1F4999DB004E8735 /* AGBoxVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F3B1F4999DB004E8735 /* AGBoxVMGenerator.m */; };
 		3A1D2F401F499C57004E8735 /* AGBoxACell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F3E1F499C57004E8735 /* AGBoxACell.m */; };
@@ -66,6 +68,10 @@
 		3A07BA231FD1A34F00887BBE /* GZPSItemHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZPSItemHeaderView.h; sourceTree = "<group>"; };
 		3A07BA261FD1A67800887BBE /* AGDocumentVMGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDocumentVMGenerator.h; sourceTree = "<group>"; };
 		3A07BA271FD1A67800887BBE /* AGDocumentVMGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDocumentVMGenerator.m; sourceTree = "<group>"; };
+		3A0DE0EF202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+AGViewModel.h"; sourceTree = "<group>"; };
+		3A0DE0F0202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+AGViewModel.m"; sourceTree = "<group>"; };
+		3A0DE0F2202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionReusableView+AGViewModel.h"; sourceTree = "<group>"; };
+		3A0DE0F3202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionReusableView+AGViewModel.m"; sourceTree = "<group>"; };
 		3A1D2F371F4998FD004E8735 /* AGBoxCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBoxCollectionViewController.h; sourceTree = "<group>"; };
 		3A1D2F381F4998FD004E8735 /* AGBoxCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBoxCollectionViewController.m; sourceTree = "<group>"; };
 		3A1D2F3A1F4999DB004E8735 /* AGBoxVMGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBoxVMGenerator.h; sourceTree = "<group>"; };
@@ -351,6 +357,10 @@
 				3A77DD0A202D5BF400C16B07 /* UITableViewCell+AGViewModel.m */,
 				3A77DD0C202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.h */,
 				3A77DD0D202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m */,
+				3A0DE0EF202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.h */,
+				3A0DE0F0202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m */,
+				3A0DE0F2202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.h */,
+				3A0DE0F3202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m */,
 			);
 			path = AGViewModel;
 			sourceTree = "<group>";
@@ -570,6 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A0DE0F4202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m in Sources */,
 				3A1D2F451F499D5F004E8735 /* AGBoxBCell.m in Sources */,
 				3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */,
 				3A07BA1C1FD1A25800887BBE /* AGDocumentViewController.m in Sources */,
@@ -589,6 +600,7 @@
 				3A07BA201FD1A33200887BBE /* GZPSItemDetailCell.m in Sources */,
 				3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
+				3A0DE0F1202E109800E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
 				3A77DD0E202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */,
