@@ -21,12 +21,12 @@
 }
 
 /**
- fast create vms
+ Quickly create vms
  
  @param capacity itemArrM 每次增量拷贝的内存大小
  @return vms
  */
-+ (instancetype) ag_VMSectionWithItemCapacity:(NSUInteger)capacity
++ (instancetype) newWithItemCapacity:(NSUInteger)capacity
 {
     return [[self alloc] initWithItemCapacity:capacity];
 }
@@ -460,7 +460,7 @@
 	if ( ! block ) return;
 	[self.itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 		if ( [obj isKindOfClass:[AGViewModel class]] ) {
-			block(obj);
+			block(obj, idx);
 		}
 	}];
 }
@@ -539,10 +539,10 @@
 
 @end
 
-/** fast create AGVMSection instance */
+/** Quickly create AGVMSection instance */
 AGVMSection * ag_VMSection(NSUInteger capacity)
 {
-    return [AGVMSection ag_VMSectionWithItemCapacity:capacity];
+    return [AGVMSection newWithItemCapacity:capacity];
 }
 
 

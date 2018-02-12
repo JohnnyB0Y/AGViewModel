@@ -11,9 +11,6 @@
 
 @interface AGBoxACell : UICollectionViewCell
 
-/** 从 nib 创建实例 */
-+ (instancetype) ag_createFromNib;
-
 @end
 
 

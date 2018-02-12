@@ -62,8 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 数据字典每次增量拷贝的内存大小
  @return viewModel 对象
  */
-+ (instancetype) ag_viewModelWithModel:(nullable NSDictionary *)bindingModel
-                              capacity:(NSUInteger)capacity;
++ (instancetype) newWithModel:(nullable NSDictionary *)bindingModel
+                     capacity:(NSUInteger)capacity;
 
 /**
  通过拷贝数据字典快速初始化 viewModel 实例
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param bindingModel 数据字典
  @return viewModel 对象
  */
-+ (instancetype) ag_viewModelWithModel:(nullable NSDictionary *)bindingModel;
++ (instancetype) newWithModel:(nullable NSDictionary *)bindingModel;
 - (instancetype) initWithModel:(NSMutableDictionary *)bindingModel NS_DESIGNATED_INITIALIZER;
 
 

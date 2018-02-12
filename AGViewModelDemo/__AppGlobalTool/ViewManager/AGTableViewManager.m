@@ -1,6 +1,6 @@
 //
 //  AGTableViewManager.m
-//  
+//
 //
 //  Created by JohnnyB0Y on 2017/9/11.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
@@ -15,12 +15,10 @@
 @end
 
 @implementation AGTableViewManager
-@synthesize
-vmm                     = _vmm,
-view                    = _view,
-headerRefreshingBlock   = _headerRefreshingBlock,
-footerRefreshingBlock   = _footerRefreshingBlock,
-itemClickBlock          = _itemClickBlock;
+@synthesize vmm = _vmm, view = _view,
+headerRefreshingBlock = _headerRefreshingBlock,
+footerRefreshingBlock = _footerRefreshingBlock,
+itemClickBlock = _itemClickBlock;
 
 #pragma mark - ----------- Life Cycle ----------
 - (instancetype)initWithCellClasses:(NSArray<Class<AGTableCellReusable>> *)classes
@@ -139,11 +137,11 @@ itemClickBlock          = _itemClickBlock;
     UITableViewHeaderFooterView<AGVMIncludable> *headerView;
     if ( headerClass ) {
         headerView = [headerClass ag_dequeueHeaderFooterViewBy:tableView];
-		/** 断点在这!!!
-		 1.headerView 是否已注册。
-		 2.headerView 是否正确实现 AGTableHeaderFooterViewReusable 协议。
-		 */
-		NSAssert(headerView, @"AGTableViewManager error: headerView can not be nil!");
+        /** 断点在这!!!
+         1.headerView 是否已注册。
+         2.headerView 是否正确实现 AGTableHeaderFooterViewReusable 协议。
+         */
+        NSAssert(headerView, @"AGTableViewManager error: headerView can not be nil!");
         
         // setup header view
         [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
@@ -182,11 +180,11 @@ itemClickBlock          = _itemClickBlock;
     UITableViewHeaderFooterView<AGVMIncludable> *footerView;
     if ( footerClass ) {
         footerView = [footerClass ag_dequeueHeaderFooterViewBy:tableView];
-		/** 断点在这!!!
-		 1.footerView 是否已注册。
-		 2.footerView 是否正确实现 AGTableHeaderFooterViewReusable 协议。
-		 */
-		NSAssert(footerView, @"AGTableViewManager error: footerView can not be nil!");
+        /** 断点在这!!!
+         1.footerView 是否已注册。
+         2.footerView 是否正确实现 AGTableHeaderFooterViewReusable 协议。
+         */
+        NSAssert(footerView, @"AGTableViewManager error: footerView can not be nil!");
         
         // setup footer view
         [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
@@ -203,7 +201,28 @@ itemClickBlock          = _itemClickBlock;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     AGViewModel *vm = self.vmm[indexPath.section][indexPath.row];
+    // 更新indexPath
+    vm.indexPath = indexPath;
     _itemClickBlock ? _itemClickBlock(tableView, indexPath, vm) : nil;
+}
+
+#pragma mark ScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ( [_scrollDelegate respondsToSelector:@selector(tableViewManagerScrollToTop:)] ) {
+        CGFloat offsetY = scrollView.contentOffset.y;
+        if ( ! _canScroll ) {
+            scrollView.contentOffset = CGPointZero;
+        }
+        
+        if ( offsetY < 0 ) {
+            _canScroll = NO;
+            scrollView.contentOffset = CGPointZero;
+            // 滚动交替
+            [_scrollDelegate tableViewManagerScrollToTop:self];
+        }
+    }
+    
 }
 
 #pragma mark EditingStyle
@@ -272,6 +291,145 @@ itemClickBlock          = _itemClickBlock;
     }];
 }
 
+- (CGFloat) estimateHeightWithItem:(UIView<AGVMIncludable> *)item
+{
+    __block CGFloat height = 0;
+    [self.vmm ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        height += [vms.headerVM ag_sizeOfBindingView].height ?: self.sectionHeaderH;
+        height += [vms.footerVM ag_sizeOfBindingView].height ?: self.sectionFooterH;
+        
+        [vms ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
+            height += [vm ag_sizeOfBindingView:item].height ?: self.cellH;
+        }];
+        
+    }];
+    
+    return height;
+}
+
+#pragma mark 数据与界面的插入、删除、刷新
+/**
+ 插入 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @param indexPath 插入的起始位置
+ @return 是否插入成功
+ */
+- (BOOL)insertViewModels:(NSArray<AGViewModel *> *)viewModels
+             atIndexPath:(NSIndexPath *)indexPath
+        withRowAnimation:(UITableViewRowAnimation)animation
+{
+    return [self insertViewModels:viewModels atIndexPath:indexPath withRowAnimation:animation scrollToRowAtIndexPath:nil atScrollPosition:UITableViewScrollPositionNone];
+}
+
+/**
+ 插入 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @param indexPath 插入的起始位置
+ @param scrollIndexPath 移动到的位置
+ @param scrollPosition 移动到位置动画类型
+ @return 是否插入成功
+ */
+- (BOOL)insertViewModels:(NSArray<AGViewModel *> *)viewModels
+             atIndexPath:(NSIndexPath *)indexPath
+        withRowAnimation:(UITableViewRowAnimation)animation
+  scrollToRowAtIndexPath:(NSIndexPath *)scrollIndexPath
+        atScrollPosition:(UITableViewScrollPosition)scrollPosition
+{
+    AGVMSection *vms = self.vmm[indexPath.section];
+    NSMutableArray *indexPathsM = [NSMutableArray arrayWithCapacity:viewModels.count];
+    for (NSInteger i = 0; i<viewModels.count; i++) {
+        AGViewModel *vm = viewModels[i];
+        NSIndexPath *newIndexPath =
+        [NSIndexPath indexPathForRow:(indexPath.row + i) inSection:indexPath.section];
+        vm.indexPath = newIndexPath;
+        [indexPathsM addObject:newIndexPath];
+    }
+    
+    if ( indexPathsM.count > 0 ) {
+        [vms ag_insertItemsFromArray:viewModels atIndex:indexPath.row];
+        [self.view insertRowsAtIndexPaths:indexPathsM
+                         withRowAnimation:animation];
+        
+        scrollIndexPath = scrollIndexPath ?: [indexPathsM lastObject];
+        [self.view scrollToRowAtIndexPath:scrollIndexPath
+                         atScrollPosition:scrollPosition
+                                 animated:YES];
+        return YES;
+    }
+    
+    return NO;
+}
+
+/**
+ 删除 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @return 是否删除成功
+ */
+- (BOOL)deleteViewModels:(NSArray<AGViewModel *> *)viewModels
+        withRowAnimation:(UITableViewRowAnimation)animation
+{
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:viewModels.count];
+    [viewModels enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexPath *indexPath = obj.indexPath ?: [self.view indexPathForCell:(UITableViewCell *)obj.bindingView];
+        
+        NSAssert(indexPath, @"can not get indexPath！");
+        if ( indexPath ) {
+            [indexPaths addObject:indexPath];
+        }
+        
+    }];
+    
+    for (NSInteger i = indexPaths.count - 1; i>=0; i--) {
+        NSIndexPath *indexPath = indexPaths[i];
+        if ( indexPath ) {
+            // 删数据
+            AGVMSection *vms = self.vmm[indexPath.section];
+            [vms ag_removeItemAtIndex:indexPath.row];
+        }
+    }
+    
+    if ( indexPaths.count > 0 ) {
+        // 更新界面
+        [self.view deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+        return YES;
+    }
+    return NO;
+}
+
+/**
+ 刷新 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @return 是否刷新成功
+ */
+- (BOOL)reloadViewModels:(NSArray<AGViewModel *> *)viewModels
+        withRowAnimation:(UITableViewRowAnimation)animation
+{
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:viewModels.count];
+    [viewModels enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexPath *indexPath = obj.indexPath ?: [self.view indexPathForCell:(UITableViewCell *)obj.bindingView];
+        NSAssert(indexPath, @"can not get indexPath！");
+        if ( indexPath ) {
+            [indexPaths addObject:indexPath];
+        }
+    }];
+    
+    if ( indexPaths.count > 0 ) {
+        // 更新界面
+        [self.view reloadRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - ---------- Private Methods ----------
 - (void) registerNormalHeaderFooterView
 {
@@ -329,9 +487,9 @@ itemClickBlock          = _itemClickBlock;
 {
     __block CGFloat height = 0;
     [self.vmm ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger idx, BOOL * _Nonnull stop) {
-		
-		height += [vms.headerVM ag_sizeOfBindingView].height ?: self.sectionHeaderH;
-		height += [vms.footerVM ag_sizeOfBindingView].height ?: self.sectionFooterH;
+        
+        height += [vms.headerVM ag_sizeOfBindingView].height ?: self.sectionHeaderH;
+        height += [vms.footerVM ag_sizeOfBindingView].height ?: self.sectionFooterH;
         
         [vms ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
             height += [vm ag_sizeOfBindingView].height ?: self.cellH;
@@ -377,3 +535,4 @@ itemClickBlock          = _itemClickBlock;
 }
 
 @end
+

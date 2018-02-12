@@ -7,23 +7,8 @@
 //
 
 #import "UITableViewCell+AGViewModel.h"
-#import <objc/runtime.h>
-
-static void *AGTableViewCellViewModel;
 
 @implementation UITableViewCell (AGViewModel)
-
-+ (instancetype)ag_createFromNib
-{
-    // 有特殊需求，请在子类重写。
-    NSString *className = NSStringFromClass([self class]);
-    NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
-    if ( nibPath ) {
-        UINib *nib = [UINib nibWithNibName:className bundle:nil];
-        return [[nib instantiateWithOwner:self options:nil] firstObject];
-    }
-    return nil;
-}
 
 #pragma mark - ---------- AGTableCellReusable ----------
 + (NSString *) ag_reuseIdentifier
@@ -34,10 +19,8 @@ static void *AGTableViewCellViewModel;
 + (void) ag_registerCellBy:(UITableView *)tableView
 {
     // 有特殊需求，请在子类重写。
-	NSString *className = NSStringFromClass([self class]);
-	NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
-	if ( nibPath ) {
-		UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    if ( [self canAwakeFromNib] ) {
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
 		[tableView registerNib:nib forCellReuseIdentifier:[self ag_reuseIdentifier]];
 	}
 	else {
@@ -62,17 +45,6 @@ static void *AGTableViewCellViewModel;
         bvS.height = 44.;
     }
     return bvS;
-}
-
-#pragma mark - ----------- Getter Setter Methods ----------
-- (void)setViewModel:(AGViewModel *)viewModel
-{
-	objc_setAssociatedObject(self, &AGTableViewCellViewModel, viewModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (AGViewModel *)viewModel
-{
-	return objc_getAssociatedObject(self, &AGTableViewCellViewModel);
 }
 
 @end

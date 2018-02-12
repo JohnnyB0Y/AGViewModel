@@ -24,14 +24,14 @@ NS_ASSUME_NONNULL_BEGIN
 /** last section */
 @property (nonatomic, weak, readonly, nullable, getter=ls) AGVMSection *lastSection;
 
-#pragma mark - fast create vmm
+#pragma mark - Quickly create vmm
 /**
- fast create vmm
+ Quickly create vmm
 
  @param capacity sectionArrM 每次增量拷贝的内存大小
  @return vmm
  */
-+ (instancetype) ag_VMManagerWithItemCapacity:(NSUInteger)capacity;
++ (instancetype) newWithItemCapacity:(NSUInteger)capacity;
 - (instancetype) initWithItemCapacity:(NSUInteger)capacity NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - 自己拼装数据 （不用担心循环引用问题）

@@ -104,6 +104,11 @@ typedef void (^AGVMPackageDatasBlock)
     NSUInteger idx
 );
 
+#pragma mark map、filter、reduce
+typedef void (^AGVMMapBlock)(AGViewModel *vm);
+typedef BOOL (^AGVMFilterBlock)(AGViewModel *vm);
+typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSUInteger idx);
+
 #pragma mark - ------------- ViewModel 相关协议 --------------
 #pragma mark BaseReusable Protocol
 @protocol AGBaseReusable <NSObject>

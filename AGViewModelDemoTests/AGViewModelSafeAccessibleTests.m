@@ -40,7 +40,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
     
 #pragma mark number
     NSNumber *returnNumber = @11;
-	AGViewModel *numberVM = [AGViewModel ag_viewModelWithModel:nil];
+	AGViewModel *numberVM = [AGViewModel newWithModel:nil];
 	NSNumber *number1 = [numberVM ag_safeSetNumber:empty forKey:kSafeKey1];
 	NSNumber *number2 = [numberVM ag_safeSetNumber:null forKey:kSafeKey2];
     NSNumber *number3 = [numberVM ag_safeSetNumber:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
@@ -85,7 +85,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
     
 #pragma mark string
     NSString *returnString = @"returnString";
-    AGViewModel *stringVM = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *stringVM = [AGViewModel newWithModel:nil];
     NSString *string1 = [stringVM ag_safeSetString:empty forKey:kSafeKey1];
     NSString *string2 = [stringVM ag_safeSetString:null forKey:kSafeKey2];
     NSString *string3 = [stringVM ag_safeSetString:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
@@ -129,7 +129,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
     
 #pragma mark array
     NSArray *returnArray = @[@1, @2, @3];
-    AGViewModel *arrayVM = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *arrayVM = [AGViewModel newWithModel:nil];
     NSArray *array1 = [arrayVM ag_safeSetArray:empty forKey:kSafeKey1];
     NSArray *array2 = [arrayVM ag_safeSetArray:null forKey:kSafeKey2];
     NSArray *array3 = [arrayVM ag_safeSetArray:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
@@ -174,7 +174,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
     
 #pragma mark dictionary
     NSDictionary *returnDict = @{@"username" : @"jack"};
-    AGViewModel *dictVM = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *dictVM = [AGViewModel newWithModel:nil];
     NSDictionary *dict1 = [dictVM ag_safeSetDictionary:empty forKey:kSafeKey1];
     NSDictionary *dict2 = [dictVM ag_safeSetDictionary:null forKey:kSafeKey2];
     NSDictionary *dict3 = [dictVM ag_safeSetDictionary:empty forKey:kSafeKey3 completion:^(AGViewModel * _Nonnull vm, id  _Nullable value, BOOL safe) {
@@ -217,7 +217,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
     
     
 #pragma mark value type
-    AGViewModel *valueTypeVM = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *valueTypeVM = [AGViewModel newWithModel:nil];
     valueTypeVM[kSafeKey1] = empty;
     valueTypeVM[kSafeKey2] = null;
     
@@ -397,7 +397,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
 {
     NSNumber *saveObj1 = @10086;
     NSNumber *saveObj2 = @2018;
-    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *vm = [AGViewModel newWithModel:nil];
     NSNumber *obj1 = [vm ag_safeSetNumber:saveObj1 forKey:kSafeKey1];
     XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
     XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
@@ -426,7 +426,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
 {
     NSString *saveObj1 = @"10086";
     NSString *saveObj2 = @"2018";
-    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *vm = [AGViewModel newWithModel:nil];
     NSString *obj1 = [vm ag_safeSetString:saveObj1 forKey:kSafeKey1];
     XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
     XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
@@ -456,7 +456,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
 {
     NSString *saveObj1 = @"10086";
     NSNumber *saveObj2 = @2018;
-    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *vm = [AGViewModel newWithModel:nil];
     vm[kSafeKey1] = saveObj1;
     vm[kSafeKey2] = saveObj2;
     
@@ -486,7 +486,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
 {
     NSArray *saveObj1 = @[@1, @3, @5];
     NSArray *saveObj2 = @[@11, @33, @55];
-    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *vm = [AGViewModel newWithModel:nil];
     NSArray *obj1 = [vm ag_safeSetArray:saveObj1 forKey:kSafeKey1];
     XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
     XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
@@ -516,7 +516,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
 {
     NSDictionary *saveObj1 = @{@"username" : @"Kobe"};
     NSDictionary *saveObj2 = @{@"age" : @39};
-    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *vm = [AGViewModel newWithModel:nil];
     NSDictionary *obj1 = [vm ag_safeSetDictionary:saveObj1 forKey:kSafeKey1];
     XCTAssertTrue(obj1 == saveObj1, @"返回数据不对!");
     XCTAssertTrue(vm[kSafeKey1] == saveObj1, @"数据未存入字典!");
@@ -551,7 +551,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
     long long returnLongLongValue = 168168888;
     BOOL returnBoolValue = YES;
     
-    AGViewModel *valueTypeVM = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *valueTypeVM = [AGViewModel newWithModel:nil];
     valueTypeVM[kSafeKey1] = [NSNumber numberWithDouble:returnDoubleValue];
     valueTypeVM[kSafeKey2] = [NSNumber numberWithFloat:returnFloatValue];
     valueTypeVM[kSafeKey3] = [NSNumber numberWithInt:returnIntValue];
@@ -631,7 +631,7 @@ static NSString * const kSafeKey6 = @"kSafeKey6";
 - (void)testSafeURL
 {
     NSString *saveObj1 = @"http://baidu.com";
-    AGViewModel *vm = [AGViewModel ag_viewModelWithModel:nil];
+    AGViewModel *vm = [AGViewModel newWithModel:nil];
     vm[kSafeKey1] = saveObj1;
     
     NSURL *obj1 = [vm ag_safeURLForKey:kSafeKey1];

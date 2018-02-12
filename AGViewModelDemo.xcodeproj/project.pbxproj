@@ -12,8 +12,6 @@
 		3A07BA211FD1A33200887BBE /* GZPSItemDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A07BA1F1FD1A33200887BBE /* GZPSItemDetailCell.xib */; };
 		3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA221FD1A34F00887BBE /* GZPSItemHeaderView.m */; };
 		3A07BA281FD1A67800887BBE /* AGDocumentVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA271FD1A67800887BBE /* AGDocumentVMGenerator.m */; };
-		3A0DE0F1202E109800E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0DE0F0202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m */; };
-		3A0DE0F4202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A0DE0F3202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m */; };
 		3A1D2F391F4998FD004E8735 /* AGBoxCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F381F4998FD004E8735 /* AGBoxCollectionViewController.m */; };
 		3A1D2F3C1F4999DB004E8735 /* AGBoxVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F3B1F4999DB004E8735 /* AGBoxVMGenerator.m */; };
 		3A1D2F401F499C57004E8735 /* AGBoxACell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A1D2F3E1F499C57004E8735 /* AGBoxACell.m */; };
@@ -24,8 +22,6 @@
 		3A1D2F4B1F499DE1004E8735 /* AGBoxCCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A1D2F491F499DE1004E8735 /* AGBoxCCell.xib */; };
 		3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2AEDAD1F556A420005C994 /* AGBoxDetailViewController.m */; };
 		3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A409D8A1F606A1700845767 /* AGVMNotifier.m */; };
-		3A77DD0B202D5BF400C16B07 /* UITableViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A77DD0A202D5BF400C16B07 /* UITableViewCell+AGViewModel.m */; };
-		3A77DD0E202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A77DD0D202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m */; };
 		3AACE8261EACF9100097C4F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8251EACF9100097C4F3 /* main.m */; };
 		3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8281EACF9100097C4F3 /* AppDelegate.m */; };
 		3AACE82F1EACF9100097C4F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE82D1EACF9100097C4F3 /* Main.storyboard */; };
@@ -43,7 +39,12 @@
 		3AD8916B1F38965100E86F9F /* AGVMPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891631F38965100E86F9F /* AGVMPackager.m */; };
 		3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891651F38965100E86F9F /* AGVMManager.m */; };
 		3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891671F38965100E86F9F /* AGVMSection.m */; };
-		3AD8916E1F38965100E86F9F /* NSString+AGCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891691F38965100E86F9F /* NSString+AGCalculate.m */; };
+		3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3802031437B009F4B29 /* UITableViewCell+AGViewModel.m */; };
+		3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */; };
+		3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */; };
+		3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3832031437B009F4B29 /* UICollectionViewCell+AGViewModel.m */; };
+		3AE9C38E2031437B009F4B29 /* NSString+AGCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3892031437B009F4B29 /* NSString+AGCalculate.m */; };
+		3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */; };
 		87465D43050D2F2439B7FF87 /* libPods-AGViewModelDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -68,10 +69,6 @@
 		3A07BA231FD1A34F00887BBE /* GZPSItemHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GZPSItemHeaderView.h; sourceTree = "<group>"; };
 		3A07BA261FD1A67800887BBE /* AGDocumentVMGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDocumentVMGenerator.h; sourceTree = "<group>"; };
 		3A07BA271FD1A67800887BBE /* AGDocumentVMGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDocumentVMGenerator.m; sourceTree = "<group>"; };
-		3A0DE0EF202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+AGViewModel.h"; sourceTree = "<group>"; };
-		3A0DE0F0202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+AGViewModel.m"; sourceTree = "<group>"; };
-		3A0DE0F2202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionReusableView+AGViewModel.h"; sourceTree = "<group>"; };
-		3A0DE0F3202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionReusableView+AGViewModel.m"; sourceTree = "<group>"; };
 		3A1D2F371F4998FD004E8735 /* AGBoxCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBoxCollectionViewController.h; sourceTree = "<group>"; };
 		3A1D2F381F4998FD004E8735 /* AGBoxCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBoxCollectionViewController.m; sourceTree = "<group>"; };
 		3A1D2F3A1F4999DB004E8735 /* AGBoxVMGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBoxVMGenerator.h; sourceTree = "<group>"; };
@@ -90,10 +87,6 @@
 		3A2AEDAD1F556A420005C994 /* AGBoxDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBoxDetailViewController.m; sourceTree = "<group>"; };
 		3A409D891F606A1700845767 /* AGVMNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGVMNotifier.h; sourceTree = "<group>"; };
 		3A409D8A1F606A1700845767 /* AGVMNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGVMNotifier.m; sourceTree = "<group>"; };
-		3A77DD09202D5BF400C16B07 /* UITableViewCell+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+AGViewModel.h"; sourceTree = "<group>"; };
-		3A77DD0A202D5BF400C16B07 /* UITableViewCell+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+AGViewModel.m"; sourceTree = "<group>"; };
-		3A77DD0C202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+AGViewModel.h"; sourceTree = "<group>"; };
-		3A77DD0D202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+AGViewModel.m"; sourceTree = "<group>"; };
 		3AACE8211EACF9100097C4F3 /* AGViewModelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGViewModelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AACE8251EACF9100097C4F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3AACE8271EACF9100097C4F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -130,9 +123,19 @@
 		3AD891651F38965100E86F9F /* AGVMManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGVMManager.m; sourceTree = "<group>"; };
 		3AD891661F38965100E86F9F /* AGVMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGVMSection.h; sourceTree = "<group>"; };
 		3AD891671F38965100E86F9F /* AGVMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGVMSection.m; sourceTree = "<group>"; };
-		3AD891681F38965100E86F9F /* NSString+AGCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGCalculate.h"; sourceTree = "<group>"; };
-		3AD891691F38965100E86F9F /* NSString+AGCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGCalculate.m"; sourceTree = "<group>"; };
 		3AE5B11C1FEF984B00C91906 /* AGVMFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMFunction.h; sourceTree = "<group>"; };
+		3AE9C3802031437B009F4B29 /* UITableViewCell+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+AGViewModel.m"; sourceTree = "<group>"; };
+		3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+AGViewModel.m"; sourceTree = "<group>"; };
+		3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionReusableView+AGViewModel.m"; sourceTree = "<group>"; };
+		3AE9C3832031437B009F4B29 /* UICollectionViewCell+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+AGViewModel.m"; sourceTree = "<group>"; };
+		3AE9C3842031437B009F4B29 /* NSString+AGCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGCalculate.h"; sourceTree = "<group>"; };
+		3AE9C3852031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+AGViewModel.h"; sourceTree = "<group>"; };
+		3AE9C3862031437B009F4B29 /* UITableViewCell+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+AGViewModel.h"; sourceTree = "<group>"; };
+		3AE9C3872031437B009F4B29 /* UICollectionReusableView+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionReusableView+AGViewModel.h"; sourceTree = "<group>"; };
+		3AE9C3882031437B009F4B29 /* UICollectionViewCell+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+AGViewModel.h"; sourceTree = "<group>"; };
+		3AE9C3892031437B009F4B29 /* NSString+AGCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGCalculate.m"; sourceTree = "<group>"; };
+		3AE9C392203143DB009F4B29 /* UIView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AGViewModel.h"; sourceTree = "<group>"; };
+		3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AGViewModel.m"; sourceTree = "<group>"; };
 		50237810C9061914256F6227 /* Pods-AGViewModelDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AGViewModelDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -337,6 +340,7 @@
 		3ABB4B211F2644E50007255F /* AGViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3AE9C37F2031437B009F4B29 /* Category */,
 				3AD8915D1F38965100E86F9F /* AGViewModel.h */,
 				3AD8915E1F38965100E86F9F /* AGViewModel.m */,
 				3AE5B11C1FEF984B00C91906 /* AGVMFunction.h */,
@@ -351,16 +355,6 @@
 				3AD891611F38965100E86F9F /* AGVMProtocol.h */,
 				3AD891661F38965100E86F9F /* AGVMSection.h */,
 				3AD891671F38965100E86F9F /* AGVMSection.m */,
-				3AD891681F38965100E86F9F /* NSString+AGCalculate.h */,
-				3AD891691F38965100E86F9F /* NSString+AGCalculate.m */,
-				3A77DD09202D5BF400C16B07 /* UITableViewCell+AGViewModel.h */,
-				3A77DD0A202D5BF400C16B07 /* UITableViewCell+AGViewModel.m */,
-				3A77DD0C202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.h */,
-				3A77DD0D202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m */,
-				3A0DE0EF202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.h */,
-				3A0DE0F0202E109700E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m */,
-				3A0DE0F2202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.h */,
-				3A0DE0F3202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m */,
 			);
 			path = AGViewModel;
 			sourceTree = "<group>";
@@ -413,6 +407,25 @@
 				3AC28E0D1FB847E300578B5D /* AGTextCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3AE9C37F2031437B009F4B29 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				3AE9C3842031437B009F4B29 /* NSString+AGCalculate.h */,
+				3AE9C3892031437B009F4B29 /* NSString+AGCalculate.m */,
+				3AE9C3872031437B009F4B29 /* UICollectionReusableView+AGViewModel.h */,
+				3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */,
+				3AE9C3882031437B009F4B29 /* UICollectionViewCell+AGViewModel.h */,
+				3AE9C3832031437B009F4B29 /* UICollectionViewCell+AGViewModel.m */,
+				3AE9C3862031437B009F4B29 /* UITableViewCell+AGViewModel.h */,
+				3AE9C3802031437B009F4B29 /* UITableViewCell+AGViewModel.m */,
+				3AE9C3852031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.h */,
+				3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */,
+				3AE9C392203143DB009F4B29 /* UIView+AGViewModel.h */,
+				3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -580,10 +593,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A0DE0F4202E128C00E3EDB7 /* UICollectionReusableView+AGViewModel.m in Sources */,
+				3AE9C38E2031437B009F4B29 /* NSString+AGCalculate.m in Sources */,
+				3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
+				3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */,
 				3A1D2F451F499D5F004E8735 /* AGBoxBCell.m in Sources */,
 				3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */,
 				3A07BA1C1FD1A25800887BBE /* AGDocumentViewController.m in Sources */,
+				3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */,
 				3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */,
 				3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */,
 				3A1D2F3C1F4999DB004E8735 /* AGBoxVMGenerator.m in Sources */,
@@ -594,20 +610,18 @@
 				3A07BA281FD1A67800887BBE /* AGDocumentVMGenerator.m in Sources */,
 				3AC28E131FB84A2D00578B5D /* AGHomeVMGenerator.m in Sources */,
 				3AACE8261EACF9100097C4F3 /* main.m in Sources */,
-				3AD8916E1F38965100E86F9F /* NSString+AGCalculate.m in Sources */,
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
 				3AC28E0E1FB847E300578B5D /* ViewController.m in Sources */,
 				3A07BA201FD1A33200887BBE /* GZPSItemDetailCell.m in Sources */,
 				3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
-				3A0DE0F1202E109800E3EDB7 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
-				3A77DD0E202D5C0C00C16B07 /* UICollectionViewCell+AGViewModel.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */,
 				3AC28E0F1FB847E300578B5D /* AGTextCell.m in Sources */,
 				3A1D2F391F4998FD004E8735 /* AGBoxCollectionViewController.m in Sources */,
+				3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */,
+				3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */,
 				3AD8916B1F38965100E86F9F /* AGVMPackager.m in Sources */,
-				3A77DD0B202D5BF400C16B07 /* UITableViewCell+AGViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

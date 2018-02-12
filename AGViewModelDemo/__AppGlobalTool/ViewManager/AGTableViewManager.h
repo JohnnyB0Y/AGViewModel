@@ -1,6 +1,6 @@
 //
 //  AGTableViewManager.h
-//  
+//
 //
 //  Created by JohnnyB0Y on 2017/9/11.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
@@ -10,7 +10,8 @@
 @protocol
 AGTableViewManagerEditable,
 AGTableViewManagerSettable,
-AGTableViewManagerCustomizable;
+AGTableViewManagerCustomizable,
+AGTableViewManagerScrollDelegate;
 
 @interface AGTableViewManager : AGBaseViewManager
 <UITableViewDataSource, UITableViewDelegate>
@@ -37,6 +38,11 @@ AGTableViewManagerCustomizable;
 /** section footer height */
 @property (nonatomic, assign) CGFloat sectionFooterH;
 
+/** 能否滚动 */
+@property (nonatomic, assign) BOOL canScroll;
+
+/** 滚动代理 */
+@property (nonatomic, weak) id<AGTableViewManagerScrollDelegate> scrollDelegate;
 
 /** 编辑代理 */
 @property (nonatomic, weak) id<AGTableViewManagerEditable> editDelegate;
@@ -68,6 +74,56 @@ AGTableViewManagerCustomizable;
 
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
+
+
+#pragma mark 数据与界面的插入、删除、刷新
+/**
+ 插入 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @param indexPath 插入的起始位置
+ @return 是否插入成功
+ */
+- (BOOL)insertViewModels:(NSArray<AGViewModel *> *)viewModels
+             atIndexPath:(NSIndexPath *)indexPath
+        withRowAnimation:(UITableViewRowAnimation)animation;
+
+/**
+ 插入 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @param indexPath 插入的起始位置
+ @param scrollIndexPath 移动到的位置
+ @param scrollPosition 移动到位置动画类型
+ @return 是否插入成功
+ */
+- (BOOL)insertViewModels:(NSArray<AGViewModel *> *)viewModels
+             atIndexPath:(NSIndexPath *)indexPath
+        withRowAnimation:(UITableViewRowAnimation)animation
+  scrollToRowAtIndexPath:(NSIndexPath *)scrollIndexPath
+        atScrollPosition:(UITableViewScrollPosition)scrollPosition;
+
+/**
+ 删除 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @return 是否删除成功
+ */
+- (BOOL)deleteViewModels:(NSArray<AGViewModel *> *)viewModels
+        withRowAnimation:(UITableViewRowAnimation)animation;
+
+/**
+ 刷新 vm
+ 
+ @param viewModels 需要插入的 vm 数组
+ @param animation 插入动画
+ @return 是否刷新成功
+ */
+- (BOOL)reloadViewModels:(NSArray<AGViewModel *> *)viewModels
+        withRowAnimation:(UITableViewRowAnimation)animation;
 
 
 @end
@@ -125,6 +181,14 @@ AGTableViewManagerCustomizable;
 
 - (Class<AGVMIncludable, AGTableHeaderFooterViewReusable>) tableViewManager:(AGTableViewManager *)manager
                                               classForFooterViewAtIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
+@protocol AGTableViewManagerScrollDelegate <NSObject>
+
+- (void) tableViewManagerScrollToTop:(AGTableViewManager *)manager;
+
+//- (void) tableViewManagerScrollToTop:(AGTableViewManager *)manager;
 
 @end
 

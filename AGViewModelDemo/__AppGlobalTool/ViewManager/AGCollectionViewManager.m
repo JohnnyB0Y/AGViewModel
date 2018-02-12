@@ -1,6 +1,6 @@
 //
 //  AGCollectionViewManager.m
-//  
+//
 //
 //  Created by JohnnyB0Y on 2017/9/14.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
@@ -52,12 +52,10 @@
 @end
 
 @implementation AGCollectionViewManager
-@synthesize
-vmm                     = _vmm,
-view                    = _view,
-headerRefreshingBlock   = _headerRefreshingBlock,
-footerRefreshingBlock   = _footerRefreshingBlock,
-itemClickBlock          = _itemClickBlock;
+@synthesize vmm = _vmm, view = _view,
+headerRefreshingBlock = _headerRefreshingBlock,
+footerRefreshingBlock = _footerRefreshingBlock,
+itemClickBlock = _itemClickBlock;
 
 #pragma mark - ----------- Life Cycle ----------
 - (instancetype)initWithCellClasses:(NSArray<Class<AGCollectionCellReusable>> *)classes
@@ -78,7 +76,7 @@ itemClickBlock          = _itemClickBlock;
         _inset = UIEdgeInsetsZero;
         _interval = CGSizeZero;
         _itemSize = CGSizeZero;
-        _aspectRatio = 1.;
+        _aspectRatio = 1;
         _cols = 0;
         _layoutDirection = AGCollectionLayoutDirectionNone;
         
@@ -198,6 +196,7 @@ itemClickBlock          = _itemClickBlock;
 - (void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     AGViewModel *vm = self.vmm[indexPath.section][indexPath.item];
+    vm.indexPath = indexPath;
     _itemClickBlock ? _itemClickBlock(collectionView, indexPath, vm) : nil;
 }
 
@@ -327,7 +326,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 #pragma mark - ---------- Private Methods ----------
 - (CGSize) _sizeForItem
 {
-    if ( CGSizeEqualToSize(_itemSize, CGSizeZero) ) {
+    if (  ! self.cacheLayout  ) {
         _itemSize = [self _sizeForItemWithLayoutDirection:_layoutDirection];
     }
     return _itemSize;
@@ -364,7 +363,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
         case AGCollectionLayoutDirectionCenter: {
             // 控制宽度
             if ( haveSize && ! haveCol ) {
-                _cols = (width - (insets.left+insets.right)) / _itemSize.width;
+                _cols = (width-(insets.left+insets.right)+interval.width)/(_itemSize.width+interval.width);
                 _cols = _cols > 0 ? _cols : 1;
             }
             // 计算
@@ -416,17 +415,50 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 
 - (CGSize) _intervalForItem
 {
-    if ( CGSizeEqualToSize(_interval, CGSizeZero) ) {
+    if ( ! self.cacheLayout ) {
         if ( _layoutDelegateResponeMethod.ag_intervalForItem ) {
             _interval = [_layoutDelegate intervalForItemInCollectionView:self];
         }
     }
+    
+    switch (_layoutDirection) {
+        case AGCollectionLayoutDirectionCenter: {
+            
+            
+        } break;
+            
+        case AGCollectionLayoutDirectionLeft: {
+            
+            
+        } break;
+            
+        case AGCollectionLayoutDirectionRight: {
+            
+            
+        } break;
+            
+        case AGCollectionLayoutDirectionTop: {
+            
+            
+        } break;
+            
+        case AGCollectionLayoutDirectionBotton: {
+            
+            
+        } break;
+            
+        case AGCollectionLayoutDirectionNone: {
+            
+            
+        } break;
+    }
+    
     return _interval;
 }
 
 - (UIEdgeInsets) _insetForSection
 {
-    if ( UIEdgeInsetsEqualToEdgeInsets(_inset, UIEdgeInsetsZero) ) {
+    if (  ! self.cacheLayout  ) {
         if ( _layoutDelegateResponeMethod.ag_insetForSection ) {
             _inset = [_layoutDelegate insetForSectionInCollectionView:self];
         }
@@ -567,3 +599,4 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 }
 
 @end
+

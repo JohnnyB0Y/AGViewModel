@@ -7,23 +7,8 @@
 //
 
 #import "UICollectionReusableView+AGViewModel.h"
-#import <objc/runtime.h>
-
-static void *AGCollectionReusableViewModel;
 
 @implementation UICollectionReusableView (AGViewModel)
-
-+ (instancetype)ag_createFromNib
-{
-    // 有特殊需求，请在子类重写。
-    NSString *className = NSStringFromClass([self class]);
-    NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
-    if ( nibPath ) {
-        UINib *nib = [UINib nibWithNibName:className bundle:nil];
-        return [[nib instantiateWithOwner:self options:nil] firstObject];
-    }
-    return nil;
-}
 
 #pragma mark - AGCollectionFooterViewReusable
 + (NSString *)ag_reuseIdentifier
@@ -34,10 +19,8 @@ static void *AGCollectionReusableViewModel;
 + (void)ag_registerFooterViewBy:(UICollectionView *)collectionView
 {
     // 有特殊需求，请在子类重写。
-    NSString *className = NSStringFromClass([self class]);
-    NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
-    if ( nibPath ) {
-        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    if ( [self canAwakeFromNib] ) {
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
         [collectionView registerNib:nib
          forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                 withReuseIdentifier:[self ag_reuseIdentifier]];
@@ -61,10 +44,8 @@ static void *AGCollectionReusableViewModel;
 + (void)ag_registerHeaderViewBy:(UICollectionView *)collectionView
 {
     // 有特殊需求，请在子类重写。
-    NSString *className = NSStringFromClass([self class]);
-    NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
-    if ( nibPath ) {
-        UINib *nib = [UINib nibWithNibName:className bundle:nil];
+    if ( [self canAwakeFromNib] ) {
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
         [collectionView registerNib:nib
          forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                 withReuseIdentifier:[self ag_reuseIdentifier]];
@@ -92,17 +73,6 @@ static void *AGCollectionReusableViewModel;
         bvS.height = 34.;
     }
     return bvS;
-}
-
-#pragma mark - ----------- Getter Setter Methods ----------
-- (void)setViewModel:(AGViewModel *)viewModel
-{
-    objc_setAssociatedObject(self, &AGCollectionReusableViewModel, viewModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (AGViewModel *)viewModel
-{
-    return objc_getAssociatedObject(self, &AGCollectionReusableViewModel);
 }
 
 @end

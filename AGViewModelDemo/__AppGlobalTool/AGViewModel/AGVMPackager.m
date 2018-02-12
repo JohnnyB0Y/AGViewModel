@@ -37,8 +37,8 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         AGViewModel *vm =
-        [AGViewModel ag_viewModelWithModel:mergeVM.bindingModel
-                                  capacity:capacity];
+        [AGViewModel newWithModel:mergeVM.bindingModel
+                         capacity:capacity];
         block ? block(vm.bindingModel, obj, idx) : nil;
         [arrM addObject:vm];
     }];
@@ -59,8 +59,8 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
                     capacity:(NSUInteger)capacity
 {
     AGViewModel *vm =
-    [AGViewModel ag_viewModelWithModel:mergeVM.bindingModel
-                              capacity:capacity];
+    [AGViewModel newWithModel:mergeVM.bindingModel
+                     capacity:capacity];
     package ? package(vm.bindingModel) : nil;
     return vm;
 }

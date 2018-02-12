@@ -29,15 +29,15 @@
 }
 
 #pragma mark - ----------- Life Cycle ----------
-+ (instancetype) ag_viewModelWithModel:(NSDictionary *)bindingModel
-                              capacity:(NSUInteger)capacity
++ (instancetype) newWithModel:(NSDictionary *)bindingModel
+                     capacity:(NSUInteger)capacity
 {
     AGViewModel *vm = [[self alloc] initWithModel:ag_mutableDict(capacity)];
     [vm ag_mergeModelFromDictionary:bindingModel];
     return vm;
 }
 
-+ (instancetype) ag_viewModelWithModel:(NSDictionary *)bindingModel
++ (instancetype) newWithModel:(NSDictionary *)bindingModel
 {
     NSMutableDictionary *dictM = bindingModel ? [bindingModel mutableCopy] : ag_mutableDict(6);
     AGViewModel *vm = [[self alloc] initWithModel:dictM];
@@ -611,25 +611,25 @@
 @end
 
 #pragma mark - Fast Funtion
-/** fast create AGViewModel instance */
+/** Quickly create AGViewModel instance */
 AGViewModel * ag_viewModel(NSDictionary *bindingModel)
 {
-    return [AGViewModel ag_viewModelWithModel:bindingModel];
+    return [AGViewModel newWithModel:bindingModel];
 }
 
-/** fast create mutableDictionary */
+/** Quickly create mutableDictionary */
 NSMutableDictionary * ag_mutableDict(NSUInteger capacity)
 {
     return [NSMutableDictionary dictionaryWithCapacity:capacity];
 }
 
-/** fast create mutableArray */
+/** Quickly create mutableArray */
 NSMutableArray * ag_mutableArray(NSUInteger capacity)
 {
     return [NSMutableArray arrayWithCapacity:capacity];
 }
 
-/** fast create 可变数组函数, 包含 Null 对象 */
+/** Quickly create 可变数组函数, 包含 Null 对象 */
 NSMutableArray * ag_mutableNullArray(NSUInteger capacity)
 {
     NSMutableArray *arrM = [NSMutableArray arrayWithCapacity:capacity];

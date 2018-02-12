@@ -1,32 +1,32 @@
 //
 //  AGBaseViewManager.h
-//  
+//
 //
 //  Created by JohnnyB0Y on 2017/9/14.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "AGVMKit.h"
 #import <MJRefresh.h>
+#import "AGVMKit.h"
 
 typedef void(^AGTableViewManagerItemClickBlock)
 (
-    UITableView *tableView,
-    NSIndexPath *indexPath,
-    AGViewModel *vm
+     UITableView *tableView,
+     NSIndexPath *indexPath,
+     AGViewModel *vm
 );
 
 typedef void(^AGCollectionViewManagerItemClickBlock)
 (
-    UICollectionView *collectionView,
-    NSIndexPath *indexPath,
-    AGViewModel *vm
+     UICollectionView *collectionView,
+     NSIndexPath *indexPath,
+     AGViewModel *vm
 );
 
 typedef void(^ATVMManagerHandleBlock)
 (
-    AGVMManager *originVmm
+     AGVMManager *originVmm
 );
 
 
@@ -70,4 +70,17 @@ typedef void(^ATVMManagerHandleBlock)
  */
 - (void) stopRefresh;
 
+
+/**
+ 估算 整体 高度
+ 
+ @param item view
+ @return 高度
+ */
+- (CGFloat) estimateHeightWithItem:(UIView<AGVMIncludable> *)item;
+
 @end
+
+
+
+

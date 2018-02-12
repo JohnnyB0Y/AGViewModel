@@ -1,6 +1,6 @@
 //
 //  AGCollectionViewManager.h
-//  
+//
 //
 //  Created by JohnnyB0Y on 2017/9/14.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
@@ -13,7 +13,7 @@ AGCollectionViewManagerCustomizable,
 AGCollectionViewManagerSettable;
 
 typedef NS_ENUM(NSUInteger, AGCollectionLayoutDirection) {
-    AGCollectionLayoutDirectionNone,
+    AGCollectionLayoutDirectionNone, // 已实现
     AGCollectionLayoutDirectionLeft,
     AGCollectionLayoutDirectionRight,
     AGCollectionLayoutDirectionCenter, // 已实现
@@ -38,7 +38,8 @@ typedef NS_ENUM(NSUInteger, AGCollectionLayoutDirection) {
 
 /** 点击 item 调用 block */
 @property (nonatomic, copy) AGCollectionViewManagerItemClickBlock itemClickBlock;
-
+/** 缓存 layout */
+@property (nonatomic, assign, readonly) BOOL cacheLayout;
 
 - (void) registerFooterViewClasses:(NSArray<Class<AGCollectionFooterViewReusable>> *)classes;
 - (void) registerHeaderViewClasses:(NSArray<Class<AGCollectionHeaderViewReusable>> *)classes;
@@ -122,7 +123,7 @@ typedef NS_ENUM(NSUInteger, AGCollectionLayoutDirection) {
 @optional
 /**
  取出对应 item 的 Class
-
+ 
  @param manager collectionViewManager
  @param indexPath 位置
  @return 对应cell 的Class

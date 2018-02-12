@@ -16,21 +16,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fast Funtion
 
-/** fast create AGVMManager instance */
+/** Quickly create AGVMManager instance */
 AGVMManager * ag_VMManager(NSUInteger capacity);
-/** fast create AGVMSection instance */
+/** Quickly create AGVMSection instance */
 AGVMSection * ag_VMSection(NSUInteger capacity);
-/** fast create AGViewModel instance */
+/** Quickly create AGViewModel instance */
 AGViewModel * ag_viewModel(NSDictionary * _Nullable bindingModel);
 /** 全局 vm packager */
 AGVMPackager * ag_sharedVMPackager(void);
 
 
-/** fast create mutableDictionary */
+/** Quickly create mutableDictionary */
 NSMutableDictionary * ag_mutableDict(NSUInteger capacity);
-/** fast create mutableArray */
+/** Quickly create mutableArray */
 NSMutableArray * ag_mutableArray(NSUInteger capacity);
-/** fast create 可变数组函数, 包含 Null 对象 */
+/** Quickly create 可变数组函数, 包含 Null 对象 */
 NSMutableArray * ag_mutableNullArray(NSUInteger capacity);
 
 

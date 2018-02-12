@@ -70,13 +70,19 @@
 		
 	}];
 	
-	NSMutableString *strM = [NSMutableString stringWithFormat:@"我是字符串："];
-	[newVMS reduce:^(AGViewModel * _Nonnull vm) {
-		[strM appendFormat:@"-%@", vm[kAGVMItemTitle]];
+	NSMutableString *strM = [NSMutableString string];
+	[newVMS reduce:^(AGViewModel * _Nonnull vm, NSUInteger idx) {
+        if ( idx == 0 ) {
+            [strM appendFormat:@"%@", vm[kAGVMItemTitle]];
+        }
+        else {
+            [strM appendFormat:@", %@", vm[kAGVMItemTitle]];
+        }
+		
 	}];
 	
 	__block NSInteger integer = 0;
-	[newVMS reduce:^(AGViewModel * _Nonnull vm) {
+	[newVMS reduce:^(AGViewModel * _Nonnull vm, NSUInteger idx) {
 		integer += [vm ag_safeIntegerValueForKey:kAGVMViewTag];
 	}];
 	

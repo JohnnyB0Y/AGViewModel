@@ -12,12 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void (^AGVMMapBlock)(AGViewModel *vm);
-typedef BOOL (^AGVMFilterBlock)(AGViewModel *vm);
-typedef void (^AGVMReduceBlock)(AGViewModel *vm);
-
-
-
 @interface AGVMSection : NSObject <NSCopying, NSMutableCopying>
 /** common vm */
 @property (nonatomic, strong, readonly, nullable, getter=cvm) AGViewModel *commonVM;
@@ -36,12 +30,12 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm);
 @property (nonatomic, weak, readonly, nullable, getter=lvm) AGViewModel *lastViewModel;
 
 /**
- fast create vms
+ Quickly create vms
  
  @param capacity itemArrM 每次增量拷贝的内存大小
  @return vms
  */
-+ (instancetype) ag_VMSectionWithItemCapacity:(NSUInteger)capacity;
++ (instancetype) newWithItemCapacity:(NSUInteger)capacity;
 - (instancetype) initWithItemCapacity:(NSUInteger)capacity NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - 通过 packager 拼装数据
@@ -182,10 +176,12 @@ atIndexedSubscript:(NSUInteger)idx;
 /** 遍历 header、footer vm */
 - (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
+
 #pragma mark - map、filter、reduce
-- (AGVMSection *) map:(NS_NOESCAPE AGVMMapBlock)block; // 需要控制跳出循环
+- (AGVMSection *) map:(NS_NOESCAPE AGVMMapBlock)block;
 - (AGVMSection *) filter:(NS_NOESCAPE AGVMFilterBlock)block;
 - (void) reduce:(NS_NOESCAPE AGVMReduceBlock)block;
+
 
 // ...
 - (instancetype) init NS_UNAVAILABLE;

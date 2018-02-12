@@ -33,39 +33,7 @@
     return self;
 }
 
-#pragma mark - ---------- AGTableCellReusable ----------
-//+ (NSString *) ag_reuseIdentifier
-//{
-//    return NSStringFromClass([self class]);
-//}
-//
-//+ (instancetype) ag_dequeueCellBy:(UITableView *)tableView for:(NSIndexPath *)indexPath
-//{
-//    return [tableView dequeueReusableCellWithIdentifier:[self ag_reuseIdentifier] forIndexPath:indexPath];
-//}
-//
-//+ (void) ag_registerCellBy:(UITableView *)tableView
-//{
-//    [tableView registerClass:[self class] forCellReuseIdentifier:[self ag_reuseIdentifier]];
-//}
-
 #pragma mark - ----------- AGViewModelIncludable -----------
-/**
- 计算返回 bindingView 的 size
- 
- @param vm viewModel
- @param bvS bindingViewSize
- @return 计算后的 Size
- */
-//- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
-//{
-//    // 计算
-//    
-//    
-//    
-//    return bvS;
-//}
-
 - (void)setViewModel:(AGViewModel *)viewModel
 {
     [super setViewModel:viewModel];

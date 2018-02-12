@@ -29,32 +29,6 @@
     
 }
 
-+ (instancetype) ag_createFromNib
-{
-    UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class])
-                                bundle:nil];
-    AGBoxACell *item = [[nib instantiateWithOwner:self options:nil] firstObject];
-    return item;
-}
-
-#pragma mark - ---------- AGCollectionCellProtocol ----------
-+ (NSString *) ag_reuseIdentifier
-{
-    return NSStringFromClass([self class]);
-}
-
-+ (void) ag_registerCellBy:(UICollectionView *)collectionView
-{
-    UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class])
-                                bundle:nil];
-    [collectionView registerNib:nib forCellWithReuseIdentifier:[self ag_reuseIdentifier]];
-}
-
-+ (__kindof UICollectionViewCell *) ag_dequeueCellBy:(UICollectionView *)collectionView for:(NSIndexPath *)indexPath
-{
-    return [collectionView dequeueReusableCellWithReuseIdentifier:[self ag_reuseIdentifier] forIndexPath:indexPath];
-}
-
 #pragma mark - ----------- AGViewModelIncludable -----------
 /**
  计算返回 bindingView 的 size

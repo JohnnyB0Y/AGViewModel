@@ -23,12 +23,12 @@
 
 #pragma mark - ----------- Life Cycle ----------
 /**
- fast create vmm
+ Quickly create vmm
  
  @param capacity itemArr 的 capacity
  @return vmm
  */
-+ (instancetype) ag_VMManagerWithItemCapacity:(NSUInteger)capacity
++ (instancetype) newWithItemCapacity:(NSUInteger)capacity
 {
     return [[self alloc] initWithItemCapacity:capacity];
 }
@@ -342,10 +342,10 @@
 
 @end
 
-/** fast create AGVMManager instance */
+/** Quickly create AGVMManager instance */
 AGVMManager * ag_VMManager(NSUInteger capacity)
 {
-    return [AGVMManager ag_VMManagerWithItemCapacity:capacity];
+    return [AGVMManager newWithItemCapacity:capacity];
 }
 
 
