@@ -63,6 +63,11 @@
     return self;
 }
 
++ (instancetype)newWithViewModel:(AGViewModel *)vm
+{
+	return [[self alloc] initWithViewModel:vm];
+}
+
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -133,7 +138,7 @@
 {
     // 选中
     AGViewModel *vm = self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row];
-    AGBoxDetailViewController *vc = [[AGBoxDetailViewController alloc] initWithViewModel:vm];
+    AGBoxDetailViewController *vc = [AGBoxDetailViewController newWithViewModel:vm];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

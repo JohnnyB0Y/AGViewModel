@@ -12,7 +12,7 @@
 
 - (CGSize) ag_sizeOfFont:(UIFont *)font maxSize:(CGSize)maxS
 {
-    if ( self.length <= 0) return CGSizeZero;
+    if ( self.length <= 0 ) return CGSizeZero;
     
     CGSize textS = [self boundingRectWithSize:maxS
                                       options:(NSStringDrawingTruncatesLastVisibleLine |

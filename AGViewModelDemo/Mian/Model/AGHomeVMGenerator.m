@@ -32,7 +32,7 @@
                 package[kAGVMTargetVCBlock] = [self _targetVCBlockWithBlock:^(UIViewController * _Nullable vc, AGViewModel * _Nullable vm) {
                     // 进入 box 控制器
                     AGBoxCollectionViewController *targetVC
-                    = [[AGBoxCollectionViewController alloc] initWithViewModel:vm];
+                    = [AGBoxCollectionViewController newWithViewModel:vm];
                     
                     [vc.navigationController pushViewController:targetVC animated:YES];
                 }];
@@ -44,7 +44,7 @@
                 package[kAGVMTargetVCBlock] = [self _targetVCBlockWithBlock:^(UIViewController * _Nullable vc, AGViewModel * _Nullable vm) {
                     // 进入 document 控制器
                     AGDocumentViewController *targetVC
-                    = [[AGDocumentViewController alloc] initWithViewModel:vm];
+                    = [AGDocumentViewController newWithViewModel:vm];
                     
                     [vc.navigationController pushViewController:targetVC animated:YES];
                 }];

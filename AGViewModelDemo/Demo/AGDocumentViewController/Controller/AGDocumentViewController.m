@@ -64,6 +64,11 @@
     return self;
 }
 
++ (instancetype)newWithViewModel:(AGViewModel *)vm
+{
+	return [[self alloc] initWithViewModel:vm];
+}
+
 #pragma mark - AGVMDelegate
 - (void)ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(SEL)action
 {

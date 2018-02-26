@@ -74,8 +74,8 @@ typedef NSNumber * _Nullable (^AGVMSafeGetNumberCompletionBlock)
 #pragma mark JSON transform block
 typedef id _Nullable (^AGVMJSONTransformBlock)
 (
- _Nullable id obj, // 数据对象
- BOOL *useDefault // 是否跳过block处理，使用默认处理方式：*useDefault = YES;
+	 _Nullable id obj, // 数据对象
+	 BOOL *useDefault // 是否跳过block处理，使用默认处理方式：*useDefault = YES;
  );
 
 #pragma mark viewModelManager block
@@ -163,7 +163,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSUInteger idx);
 #pragma mark ViewController Protocol
 @protocol AGViewControllerProtocol <NSObject>
 @required
-- (instancetype) initWithViewModel:(nullable AGViewModel *)vm;
++ (instancetype) newWithViewModel:(nullable AGViewModel *)vm;
 
 @optional
 + (instancetype) alloc;
@@ -238,7 +238,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSUInteger idx);
  @param block 回调 Block
  */
 - (void) ag_readdObserver:(NSObject *)observer
-                   forKeys:(NSArray<NSString *> *)keys
+				  forKeys:(NSArray<NSString *> *)keys
                     block:(AGVMNotificationBlock)block;
 
 /**

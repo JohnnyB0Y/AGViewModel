@@ -42,6 +42,11 @@
     return self;
 }
 
++ (instancetype)newWithViewModel:(AGViewModel *)vm
+{
+	return [[self alloc] initWithViewModel:vm];
+}
+
 #pragma mark - ---------- Event Methods ----------
 - (void) rightBarButtonItemClick:(UIBarButtonItem *)item
 {
