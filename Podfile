@@ -8,5 +8,7 @@ pod 'SAMKeychain'
 pod 'MJRefresh'
 pod 'Masonry'
 pod 'RealReachability'
+pod 'AGTimerManager'
+pod 'AGVerifyManager'
 
 end
