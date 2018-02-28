@@ -4,7 +4,7 @@
 //
 //  Created by JohnnyB0Y on 2017/6/7.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
-//  viewModel 生产者
+//  
 
 #import "AGVMManager.h"
 #import "AGVMFunction.h"
@@ -18,7 +18,7 @@
 
 
 @implementation AGVMManager {
-    NSUInteger _capacity;
+    NSInteger _capacity;
 }
 
 #pragma mark - ----------- Life Cycle ----------
@@ -28,12 +28,12 @@
  @param capacity itemArr 的 capacity
  @return vmm
  */
-+ (instancetype) newWithItemCapacity:(NSUInteger)capacity
++ (instancetype) newWithItemCapacity:(NSInteger)capacity
 {
     return [[self alloc] initWithItemCapacity:capacity];
 }
 
-- (instancetype)initWithItemCapacity:(NSUInteger)capacity
+- (instancetype)initWithItemCapacity:(NSInteger)capacity
 {
     self = [super init];
     if (self) {
@@ -50,7 +50,7 @@
 }
 
 - (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
-                             capacity:(NSUInteger)capacity
+                             capacity:(NSInteger)capacity
 {
     _commonVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _commonVM;
@@ -58,7 +58,7 @@
 
 #pragma mark -
 /** 拼装 section 数据 capacity */
-- (AGVMSection *) ag_packageSection:(AGVMPackageSectionBlock)block capacity:(NSUInteger)capacity
+- (AGVMSection *) ag_packageSection:(AGVMPackageSectionBlock)block capacity:(NSInteger)capacity
 {
     AGVMSection *vms = ag_VMSection(capacity);
     if ( block ) block(vms);
@@ -74,7 +74,7 @@
 
 - (NSArray<AGVMSection *> *) ag_packageSections:(NSArray *)sections
                                         inBlock:(AGVMPackageSectionsBlock)block
-                                       capacity:(NSUInteger)capacity
+                                       capacity:(NSInteger)capacity
 {
     NSMutableArray *arrM = ag_mutableArray(sections.count);
     [sections enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -125,13 +125,13 @@
 
 #pragma mark 插入
 - (void) ag_insertSectionsFromManager:(AGVMManager *)vmm
-                              atIndex:(NSUInteger)index
+                              atIndex:(NSInteger)index
 {
     [self ag_insertSectionsFromArray:vmm.sectionArrM atIndex:index];
 }
 
 - (void) ag_insertSectionsFromArray:(NSArray<AGVMSection *> *)vmsArr
-                            atIndex:(NSUInteger)index
+                            atIndex:(NSInteger)index
 {
     if ( index == self.count ) {
         [self ag_addSectionsFromArray:vmsArr];
@@ -144,20 +144,20 @@
 }
 
 - (void) ag_insertSection:(AGVMSection *)section
-                  atIndex:(NSUInteger)index
+                  atIndex:(NSInteger)index
 {
     section ? [self setObject:section atIndexedSubscript:index] : nil;
 }
 
 - (void) ag_insertSectionPackage:(AGVMPackageSectionBlock)package
-                         atIndex:(NSUInteger)index
+                         atIndex:(NSInteger)index
 {
     [self ag_insertSectionPackage:package atIndex:index capacity:6];
 }
 
 - (void) ag_insertSectionPackage:(AGVMPackageSectionBlock)package
-                         atIndex:(NSUInteger)index
-                        capacity:(NSUInteger)capacity
+                         atIndex:(NSInteger)index
+                        capacity:(NSInteger)capacity
 {
     if ( package ) {
         AGVMSection *vms = ag_VMSection(capacity);
@@ -177,7 +177,7 @@
     [self.sectionArrM removeLastObject];
 }
 
-- (void) ag_removeSectionAtIndex:(NSUInteger)index
+- (void) ag_removeSectionAtIndex:(NSInteger)index
 {
     index < self.count ? [self.sectionArrM removeObjectAtIndex:index] : nil;
 }
@@ -195,7 +195,7 @@
 
 #pragma mark 更新
 - (void) ag_updateSectionPackage:(AGVMPackageSectionBlock)package
-                         atIndex:(NSUInteger)index
+                         atIndex:(NSInteger)index
 {
     if ( package ) {
         AGVMSection *vms = self[index];
@@ -203,7 +203,7 @@
     }
 }
 
-- (void)setObject:(AGVMSection *)vms atIndexedSubscript:(NSUInteger)idx
+- (void)setObject:(AGVMSection *)vms atIndexedSubscript:(NSInteger)idx
 {
     if ( idx == self.count ) {
         [self.sectionArrM addObject:vms];
@@ -214,20 +214,20 @@
 }
 
 #pragma mark 取出
-- (AGVMSection *)objectAtIndexedSubscript:(NSUInteger)idx
+- (AGVMSection *)objectAtIndexedSubscript:(NSInteger)idx
 {
     return idx < self.count ? [self.sectionArrM objectAtIndex:idx] : nil;
 }
 
 #pragma mark 交换
-- (void) ag_exchangeSectionAtIndex:(NSUInteger)idx1 withSectionAtIndex:(NSUInteger)idx2
+- (void) ag_exchangeSectionAtIndex:(NSInteger)idx1 withSectionAtIndex:(NSInteger)idx2
 {
     if ( idx1 < self.count && idx2 < self.count )
         [self.sectionArrM exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
 }
 
 #pragma mark 替换
-- (void) ag_replaceSectionAtIndex:(NSUInteger)index withSection:(AGVMSection *)section
+- (void) ag_replaceSectionAtIndex:(NSInteger)index withSection:(AGVMSection *)section
 {
     index < self.count ? [self.sectionArrM replaceObjectAtIndex:index withObject:section] : nil;
 }
@@ -274,7 +274,7 @@
 }
 
 #pragma mark - ----------- Getter Methods ----------
-- (NSUInteger) count
+- (NSInteger) count
 {
     return self.sectionArrM.count;
 }
@@ -343,7 +343,7 @@
 @end
 
 /** Quickly create AGVMManager instance */
-AGVMManager * ag_VMManager(NSUInteger capacity)
+AGVMManager * ag_VMManager(NSInteger capacity)
 {
     return [AGVMManager newWithItemCapacity:capacity];
 }

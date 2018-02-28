@@ -17,7 +17,7 @@
 @end
 
 @implementation AGVMSection {
-    NSUInteger _capacity;
+    NSInteger _capacity;
 }
 
 /**
@@ -26,12 +26,12 @@
  @param capacity itemArrM 每次增量拷贝的内存大小
  @return vms
  */
-+ (instancetype) newWithItemCapacity:(NSUInteger)capacity
++ (instancetype) newWithItemCapacity:(NSInteger)capacity
 {
     return [[self alloc] initWithItemCapacity:capacity];
 }
 
-- (instancetype) initWithItemCapacity:(NSUInteger)capacity
+- (instancetype) initWithItemCapacity:(NSInteger)capacity
 {
     self = [super init];
     if (self) {
@@ -60,7 +60,7 @@
 
 - (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
                                      inBlock:(AGVMPackageDatasBlock)block
-                                    capacity:(NSUInteger)capacity
+                                    capacity:(NSInteger)capacity
 {
     NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
                                                   mergeVM:_itemMergeVM
@@ -81,14 +81,14 @@
 }
 
 - (AGViewModel *) ag_packageHeaderData:(AGVMPackageDataBlock)package
-                              capacity:(NSUInteger)capacity
+                              capacity:(NSInteger)capacity
 {
     _headerVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _headerVM;
 }
 
 - (AGViewModel *) ag_packageItemData:(AGVMPackageDataBlock)package
-                            capacity:(NSUInteger)capacity
+                            capacity:(NSInteger)capacity
 {
     AGViewModel *vm =
     [ag_sharedVMPackager() ag_package:package mergeVM:_itemMergeVM capacity:capacity];
@@ -97,14 +97,14 @@
 }
 
 - (AGViewModel *) ag_packageFooterData:(AGVMPackageDataBlock)package
-                              capacity:(NSUInteger)capacity
+                              capacity:(NSInteger)capacity
 {
     _footerVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _footerVM;
 }
 
 - (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
-                             capacity:(NSUInteger)capacity
+                             capacity:(NSInteger)capacity
 {
     _commonVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _commonVM;
@@ -112,7 +112,7 @@
 
 /** 拼装 itemArr 中 viewModel 的共同字典数据 */
 - (AGViewModel *) ag_packageItemMergeData:(AGVMPackageDataBlock)package
-                                 capacity:(NSUInteger)capacity
+                                 capacity:(NSInteger)capacity
 {
     _itemMergeVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _itemMergeVM;
@@ -207,13 +207,13 @@
 
 #pragma mark - 增删改查
 #pragma mark 插入
-- (AGVMSection *) ag_insertItemsFromSection:(AGVMSection *)vms atIndex:(NSUInteger)index
+- (AGVMSection *) ag_insertItemsFromSection:(AGVMSection *)vms atIndex:(NSInteger)index
 {
     return [self ag_insertItemsFromArray:vms.itemArrM atIndex:index];
 }
 
 - (AGVMSection *) ag_insertItemsFromArray:(NSArray<AGViewModel *> *)vmArr
-                                  atIndex:(NSUInteger)index
+                                  atIndex:(NSInteger)index
 {
     if ( index == self.count ) {
         [self ag_addItemsFromArray:vmArr];
@@ -228,26 +228,26 @@
 }
 
 - (AGVMSection *) ag_insertItemPackage:(AGVMPackageDataBlock)package
-                               atIndex:(NSUInteger)index
-                              capacity:(NSUInteger)capacity
+                               atIndex:(NSInteger)index
+                              capacity:(NSInteger)capacity
 {
     AGViewModel *vm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return [self ag_insertItem:vm atIndex:index];
 }
 
 - (AGVMSection *) ag_insertItemPackage:(AGVMPackageDataBlock)package
-                               atIndex:(NSUInteger)index
+                               atIndex:(NSInteger)index
 {
     return [self ag_insertItemPackage:package atIndex:index capacity:6];
 }
 
-- (AGVMSection *)ag_insertItem:(AGViewModel *)item atIndex:(NSUInteger)index
+- (AGVMSection *)ag_insertItem:(AGViewModel *)item atIndex:(NSInteger)index
 {
     item ? [self setObject:item atIndexedSubscript:index] : nil;
     return self;
 }
 
-- (void)setObject:(AGViewModel *)vm atIndexedSubscript:(NSUInteger)idx
+- (void)setObject:(AGViewModel *)vm atIndexedSubscript:(NSInteger)idx
 {
     if ( idx == self.count ) {
         [self.itemArrM addObject:vm];
@@ -280,7 +280,7 @@
 
 #pragma mark 更新
 - (AGVMSection *) ag_updateItemInBlock:(AGVMUpdateModelBlock)block
-                               atIndex:(NSUInteger)index
+                               atIndex:(NSInteger)index
 {
     if ( block ) {
         AGViewModel *vm = self[index];
@@ -290,7 +290,7 @@
 }
 
 - (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
-                                             atIndex:(NSUInteger)index
+                                             atIndex:(NSInteger)index
 {
     NSAssert(block, @"block nonnull.");
     if ( block ) {
@@ -318,7 +318,7 @@
     return self;
 }
 
-- (AGVMSection *) ag_removeItemAtIndex:(NSUInteger)index
+- (AGVMSection *) ag_removeItemAtIndex:(NSInteger)index
 {
     index < self.count ? [self.itemArrM removeObjectAtIndex:index] : nil;
     return self;
@@ -349,7 +349,7 @@
 }
 
 #pragma mark 选中
-- (AGViewModel *) objectAtIndexedSubscript:(NSUInteger)idx
+- (AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx
 {
     return idx < self.count ? [self.itemArrM objectAtIndex:idx] : nil;
 }
@@ -392,7 +392,7 @@
 }
 
 #pragma mark 交换
-- (AGVMSection *) ag_exchangeItemAtIndex:(NSUInteger)idx1 withItemAtIndex:(NSUInteger)idx2
+- (AGVMSection *) ag_exchangeItemAtIndex:(NSInteger)idx1 withItemAtIndex:(NSInteger)idx2
 {
     if ( idx1 < self.count && idx2 < self.count )
         [self.itemArrM exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
@@ -401,7 +401,7 @@
 }
 
 #pragma mark 替换
-- (AGVMSection *) ag_replaceItemAtIndex:(NSUInteger)index withItem:(AGViewModel *)item
+- (AGVMSection *) ag_replaceItemAtIndex:(NSInteger)index withItem:(AGViewModel *)item
 {
     index < self.count ? [self.itemArrM replaceObjectAtIndex:index withObject:item] : nil;
     return self;
@@ -469,7 +469,7 @@
 
 
 #pragma mark - ----------- Getter Methods ----------
-- (NSUInteger) count
+- (NSInteger) count
 {
     return self.itemArrM.count;
 }
@@ -540,7 +540,7 @@
 @end
 
 /** Quickly create AGVMSection instance */
-AGVMSection * ag_VMSection(NSUInteger capacity)
+AGVMSection * ag_VMSection(NSInteger capacity)
 {
     return [AGVMSection newWithItemCapacity:capacity];
 }

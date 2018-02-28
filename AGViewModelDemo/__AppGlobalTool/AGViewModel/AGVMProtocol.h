@@ -88,7 +88,7 @@ typedef void(^AGVMPackageSectionsBlock)
 (
     AGVMSection *vms,
     id obj,
-    NSUInteger idx
+    NSInteger idx
 );
 
 #pragma mark viewModelPackage block
@@ -101,13 +101,13 @@ typedef void (^AGVMPackageDatasBlock)
 (
     NSMutableDictionary *package,
     id obj,
-    NSUInteger idx
+    NSInteger idx
 );
 
 #pragma mark map、filter、reduce
 typedef void (^AGVMMapBlock)(AGViewModel *vm);
 typedef BOOL (^AGVMFilterBlock)(AGViewModel *vm);
-typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSUInteger idx);
+typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 
 #pragma mark - ------------- ViewModel 相关协议 --------------
 #pragma mark BaseReusable Protocol

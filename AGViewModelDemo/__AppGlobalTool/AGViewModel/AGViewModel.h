@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return viewModel 对象
  */
 + (instancetype) newWithModel:(nullable NSDictionary *)bindingModel
-                     capacity:(NSUInteger)capacity;
+                     capacity:(NSInteger)capacity;
 
 /**
  通过拷贝数据字典快速初始化 viewModel 实例

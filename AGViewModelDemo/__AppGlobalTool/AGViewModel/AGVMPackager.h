@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
                                      mergeVM:(nullable AGViewModel *)mergeVM
                                      inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
-                                    capacity:(NSUInteger)capacity;
+                                    capacity:(NSInteger)capacity;
 
 /**
  组装 ViewModel
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (AGViewModel *) ag_package:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
                      mergeVM:(nullable AGViewModel *)mergeVM
-                    capacity:(NSUInteger)capacity;
+                    capacity:(NSInteger)capacity;
 
 /**
  组装 ViewModel
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return ViewModel
  */
 - (AGViewModel *) ag_package:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                    capacity:(NSUInteger)capacity;
+                    capacity:(NSInteger)capacity;
 
 /**
  组装 ViewModel, 字典每次增量拷贝的内存大小为 6.

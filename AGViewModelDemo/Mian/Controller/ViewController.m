@@ -71,7 +71,7 @@
 	}];
 	
 	NSMutableString *strM = [NSMutableString string];
-	[newVMS reduce:^(AGViewModel * _Nonnull vm, NSUInteger idx) {
+	[newVMS reduce:^(AGViewModel * _Nonnull vm, NSInteger idx) {
         if ( idx == 0 ) {
             [strM appendFormat:@"%@", vm[kAGVMItemTitle]];
         }
@@ -82,7 +82,7 @@
 	}];
 	
 	__block NSInteger integer = 0;
-	[newVMS reduce:^(AGViewModel * _Nonnull vm, NSUInteger idx) {
+	[newVMS reduce:^(AGViewModel * _Nonnull vm, NSInteger idx) {
 		integer += [vm ag_safeIntegerValueForKey:kAGVMViewTag];
 	}];
 	

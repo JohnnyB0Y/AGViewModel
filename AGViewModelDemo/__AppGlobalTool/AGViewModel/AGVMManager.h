@@ -4,7 +4,7 @@
 //
 //  Created by JohnnyB0Y on 2017/6/7.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
-//  viewModel 生产者
+//  
 
 #import "AGVMProtocol.h"
 #import "AGVMSection.h"
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable, getter=cvm) AGViewModel *commonVM;
 
 @property (nonatomic, strong, readonly, nullable) NSMutableArray<AGVMSection *> *sectionArrM;
-@property (nonatomic, assign, readonly) NSUInteger count;
+@property (nonatomic, assign, readonly) NSInteger count;
 
 /** first section */
 @property (nonatomic, weak, readonly, nullable, getter=fs) AGVMSection *firstSection;
@@ -31,8 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity sectionArrM 每次增量拷贝的内存大小
  @return vmm
  */
-+ (instancetype) newWithItemCapacity:(NSUInteger)capacity;
-- (instancetype) initWithItemCapacity:(NSUInteger)capacity NS_DESIGNATED_INITIALIZER;
++ (instancetype) newWithItemCapacity:(NSInteger)capacity;
+- (instancetype) initWithItemCapacity:(NSInteger)capacity NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - 自己拼装数据 （不用担心循环引用问题）
 /**
@@ -43,14 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return 一组数据对象
  */
 - (AGVMSection *) ag_packageSection:(nullable NS_NOESCAPE AGVMPackageSectionBlock)block
-                           capacity:(NSUInteger)capacity;
+                           capacity:(NSInteger)capacity;
 
 - (NSArray<AGVMSection *> *) ag_packageSections:(nullable NSArray *)sections
                                         inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block;
 
 - (NSArray<AGVMSection *> *) ag_packageSections:(nullable NSArray *)sections
                                         inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block
-                                       capacity:(NSUInteger)capacity;
+                                       capacity:(NSInteger)capacity;
 
 /**
  打包公共数据
@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return 打包好的 View Model
  */
 - (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                              capacity:(NSUInteger)capacity;
+                              capacity:(NSInteger)capacity;
 - (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 
 
@@ -72,25 +72,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 插入
 - (void) ag_insertSection:(AGVMSection *)section
-                  atIndex:(NSUInteger)index;
+                  atIndex:(NSInteger)index;
 
 - (void) ag_insertSectionsFromManager:(AGVMManager *)vmm
-                              atIndex:(NSUInteger)index;
+                              atIndex:(NSInteger)index;
 
 - (void) ag_insertSectionsFromArray:(NSArray<AGVMSection *> *)vmsArr
-                            atIndex:(NSUInteger)index;
+                            atIndex:(NSInteger)index;
 
 - (void) ag_insertSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
-                         atIndex:(NSUInteger)index;
+                         atIndex:(NSInteger)index;
 
 - (void) ag_insertSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
-                         atIndex:(NSUInteger)index
-                        capacity:(NSUInteger)capacity;
+                         atIndex:(NSInteger)index
+                        capacity:(NSInteger)capacity;
 
 #pragma mark 移除
 - (void) ag_removeLastObject;
 - (void) ag_removeAllSections;
-- (void) ag_removeSectionAtIndex:(NSUInteger)index;
+- (void) ag_removeSectionAtIndex:(NSInteger)index;
 
 #pragma mark 合并
 /** 合并 commonVM、sectionArrM */
@@ -98,19 +98,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 更新
 - (void) ag_updateSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
-                         atIndex:(NSUInteger)index;
+                         atIndex:(NSInteger)index;
 
 - (void) setObject:(AGVMSection *)vms
-atIndexedSubscript:(NSUInteger)idx;
+atIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 取出
-- (nullable AGVMSection *) objectAtIndexedSubscript:(NSUInteger)idx;
+- (nullable AGVMSection *) objectAtIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 交换
-- (void) ag_exchangeSectionAtIndex:(NSUInteger)idx1 withSectionAtIndex:(NSUInteger)idx2;
+- (void) ag_exchangeSectionAtIndex:(NSInteger)idx1 withSectionAtIndex:(NSInteger)idx2;
 
 #pragma mark 替换
-- (void) ag_replaceSectionAtIndex:(NSUInteger)index withSection:(AGVMSection *)section;
+- (void) ag_replaceSectionAtIndex:(NSInteger)index withSection:(AGVMSection *)section;
 
 #pragma mark 遍历
 /** 遍历所有 section */

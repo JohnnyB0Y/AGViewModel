@@ -31,7 +31,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
 - (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
                                      mergeVM:(AGViewModel *)mergeVM
                                      inBlock:(AGVMPackageDatasBlock)block
-                                    capacity:(NSUInteger)capacity
+                                    capacity:(NSInteger)capacity
 {
     NSMutableArray *arrM = ag_mutableArray(items.count);
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -56,7 +56,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
  */
 - (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package
                      mergeVM:(AGViewModel *)mergeVM
-                    capacity:(NSUInteger)capacity
+                    capacity:(NSInteger)capacity
 {
     AGViewModel *vm =
     [AGViewModel newWithModel:mergeVM.bindingModel
@@ -66,7 +66,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
 }
 
 - (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package
-                    capacity:(NSUInteger)capacity
+                    capacity:(NSInteger)capacity
 {
     return [self ag_package:package mergeVM:nil capacity:capacity];
 }

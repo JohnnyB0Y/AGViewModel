@@ -30,7 +30,7 @@
 
 #pragma mark - ----------- Life Cycle ----------
 + (instancetype) newWithModel:(NSDictionary *)bindingModel
-                     capacity:(NSUInteger)capacity
+                     capacity:(NSInteger)capacity
 {
     AGViewModel *vm = [[self alloc] initWithModel:ag_mutableDict(capacity)];
     [vm ag_mergeModelFromDictionary:bindingModel];
@@ -618,19 +618,19 @@ AGViewModel * ag_viewModel(NSDictionary *bindingModel)
 }
 
 /** Quickly create mutableDictionary */
-NSMutableDictionary * ag_mutableDict(NSUInteger capacity)
+NSMutableDictionary * ag_mutableDict(NSInteger capacity)
 {
     return [NSMutableDictionary dictionaryWithCapacity:capacity];
 }
 
 /** Quickly create mutableArray */
-NSMutableArray * ag_mutableArray(NSUInteger capacity)
+NSMutableArray * ag_mutableArray(NSInteger capacity)
 {
     return [NSMutableArray arrayWithCapacity:capacity];
 }
 
 /** Quickly create 可变数组函数, 包含 Null 对象 */
-NSMutableArray * ag_mutableNullArray(NSUInteger capacity)
+NSMutableArray * ag_mutableNullArray(NSInteger capacity)
 {
     NSMutableArray *arrM = [NSMutableArray arrayWithCapacity:capacity];
     for (NSInteger i = 0; i < capacity; i++) {
