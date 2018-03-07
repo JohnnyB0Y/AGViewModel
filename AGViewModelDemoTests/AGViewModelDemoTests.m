@@ -60,7 +60,7 @@ static NSString * const kUserInfoSecondName = @"kUserInfoSecondName";
     
     AGVMManager *vmm = ag_VMManager(1);
     [vmm ag_packageSection:^(AGVMSection * _Nonnull vms) {
-        [vms ag_packageItems:list inBlock:^(NSMutableDictionary * _Nonnull package, id  _Nonnull obj, NSUInteger idx) {
+        [vms ag_packageItems:list inBlock:^(NSMutableDictionary * _Nonnull package, id  _Nonnull obj, NSInteger idx) {
             package[kUserInfoFirstName] = obj[@"firstName"];
             package[kUserInfoSecondName] = obj[@"secondName"];
         }];

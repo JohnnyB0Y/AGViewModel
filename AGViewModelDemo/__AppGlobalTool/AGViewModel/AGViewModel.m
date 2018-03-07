@@ -565,15 +565,16 @@
          completion:(AGVMSafeSetCompletionBlock)block
 {
 	self[key] = newObj;
-	block ? block(self, obj, newObj != nil) : nil;
+	block ? block(obj, newObj != nil) : nil;
 	return newObj;
 }
+
 - (id) _getNewObject:(id)newObj
 	     withObject:(id)obj
          completion:(AGVMSafeGetCompletionBlock)block
 {
 	if ( block ) {
-		newObj = block(self, obj, newObj != nil);
+		newObj = block(obj, newObj != nil);
 	}
 	return newObj;
 }
@@ -583,7 +584,7 @@
 				  completion:(AGVMSafeGetNumberCompletionBlock)block
 {
 	if ( block ) {
-		return block(self, obj, respond);
+		return block(obj, respond);
 	}
 	return respond ? obj : nil;
 }
