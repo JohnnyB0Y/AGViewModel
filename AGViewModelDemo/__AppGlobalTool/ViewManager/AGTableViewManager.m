@@ -249,7 +249,7 @@ itemClickBlock = _itemClickBlock;
     [self stopRefresh];
     
     // 是否没有更多数据
-    if ( vmm && ( ( vmm.count <= 0 ) || ( vmm.firstSection.count <= 0 && ( vmm.firstSection.headerVM == nil && vmm.firstSection.footerVM == nil ) ) ) ) {
+    if ( vmm && ( ( vmm.count <= 0 ) || ( vmm.fs.count <= 0 && ( vmm.fs.headerVM == nil && vmm.fs.footerVM == nil ) ) ) ) {
         [self noMoreData];
     }
     

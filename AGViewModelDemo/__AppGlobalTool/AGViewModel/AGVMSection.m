@@ -106,8 +106,8 @@
 - (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
                              capacity:(NSInteger)capacity
 {
-    _commonVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
-    return _commonVM;
+    _cvm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    return _cvm;
 }
 
 /** 拼装 itemArr 中 viewModel 的共同字典数据 */
@@ -184,7 +184,7 @@
 - (id)copyWithZone:(nullable NSZone *)zone
 {
     AGVMSection *vms = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
-    vms->_commonVM = [_commonVM copy];
+    vms->_cvm = [_cvm copy];
     vms->_headerVM = [_headerVM copy];
     vms->_footerVM = [_footerVM copy];
     vms->_itemMergeVM = [_itemMergeVM copy];
@@ -195,7 +195,7 @@
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
     AGVMSection *vms = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
-    vms->_commonVM = [_commonVM mutableCopy];
+    vms->_cvm = [_cvm mutableCopy];
     vms->_headerVM = [_headerVM mutableCopy];
     vms->_footerVM = [_footerVM mutableCopy];
     vms->_itemMergeVM = [_itemMergeVM mutableCopy];
@@ -279,35 +279,19 @@
 }
 
 #pragma mark 更新
-- (AGVMSection *) ag_updateItemInBlock:(AGVMUpdateModelBlock)block
-                               atIndex:(NSInteger)index
-{
-    if ( block ) {
-        AGViewModel *vm = self[index];
-        vm ? block(vm.bindingModel) : NSLog(@"你要更新的 View Model 不存在！");
-    }
-    return self;
-}
-
-- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(AGVMUpdateModelBlock)block
                                              atIndex:(NSInteger)index
 {
-    NSAssert(block, @"block nonnull.");
-    if ( block ) {
-        AGViewModel *vm = self[index];
-        vm ? [vm ag_refreshUIByUpdateModelInBlock:block] : nil;
-    }
+	AGViewModel *vm = self[index];
+	vm ? [vm ag_refreshUIByUpdateModelInBlock:block] : nil;
     return self;
 }
 
 - (AGVMSection *) ag_refreshItemsByUpdateModelInBlock:(AGVMUpdateModelBlock)block
 {
-    NSAssert(block, @"block nonnull.");
-    if ( block ) {
-        [self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
-            [vm ag_refreshUIByUpdateModelInBlock:block];
-        }];
-    }
+	[self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
+		[vm ag_refreshUIByUpdateModelInBlock:block];
+	}];
     return self;
 }
 
@@ -332,12 +316,14 @@
 
 - (AGVMSection *) ag_removeItem:(AGViewModel *)vm
 {
+	if (vm == nil) return self;
     [self.itemArrM removeObject:vm];
     return self;
 }
 
 - (AGVMSection *) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr
 {
+	if (vmArr == nil) return self;
     [self.itemArrM removeObjectsInArray:vmArr];
     return self;
 }
@@ -354,28 +340,18 @@
     return idx < self.count ? [self.itemArrM objectAtIndex:idx] : nil;
 }
 
-- (NSArray *) ag_findValueInItemArrWithKey:(NSString *)key
-{
-    NSMutableArray *arrM = ag_mutableArray(self.count);
-    [self.itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id findObj = obj[key];
-        if ( findObj ) [arrM addObject:findObj];
-    }];
-    
-    return [arrM copy];
-}
-
 #pragma mark 合并
 - (AGVMSection *) ag_mergeFromSection:(AGVMSection *)vms
 {
+	if (vms == nil) return self;
     if ( vms.headerVM ) {
         _headerVM = _headerVM ?: ag_viewModel(nil);
     }
     if ( vms.footerVM ) {
         _footerVM = _footerVM ?: ag_viewModel(nil);
     }
-    if ( vms.commonVM ) {
-        _commonVM = _commonVM ?: ag_viewModel(nil);
+    if ( vms.cvm ) {
+        _cvm = _cvm ?: ag_viewModel(nil);
     }
     if ( vms.itemMergeVM ) {
         _itemMergeVM = _itemMergeVM ?: ag_viewModel(nil);
@@ -383,7 +359,7 @@
     // 合并所有数据
     [self.headerVM ag_mergeModelFromViewModel:vms.headerVM];
     [self.footerVM ag_mergeModelFromViewModel:vms.footerVM];
-    [self.commonVM ag_mergeModelFromViewModel:vms.commonVM];
+    [self.cvm ag_mergeModelFromViewModel:vms.cvm];
     [self.itemMergeVM ag_mergeModelFromViewModel:vms.itemMergeVM];
     
     [self ag_addItemsFromSection:vms];
@@ -403,6 +379,7 @@
 #pragma mark 替换
 - (AGVMSection *) ag_replaceItemAtIndex:(NSInteger)index withItem:(AGViewModel *)item
 {
+	if (item == nil) return self;
     index < self.count ? [self.itemArrM replaceObjectAtIndex:index withObject:item] : nil;
     return self;
 }
@@ -411,7 +388,7 @@
 - (AGVMSection *) ag_enumerateItemsUsingBlock:(void (^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
     if ( ! block ) return self;
-    
+	
     [self.itemArrM enumerateObjectsUsingBlock:block];
     return self;
 }
@@ -474,19 +451,9 @@
     return self.itemArrM.count;
 }
 
-- (AGViewModel *)firstViewModel
-{
-    return [self.itemArrM firstObject];
-}
-
 - (AGViewModel *)fvm
 {
     return [self.itemArrM firstObject];
-}
-
-- (AGViewModel *)lastViewModel
-{
-    return [self.itemArrM lastObject];
 }
 
 - (AGViewModel *)lvm
@@ -520,7 +487,7 @@
                               customTransform:(AGVMJSONTransformBlock)block
 {
     NSMutableDictionary *dictM = ag_mutableDict(4);
-    dictM[kAGVMCommonVM] = _commonVM;
+    dictM[kAGVMCommonVM] = _cvm;
     dictM[kAGVMHeaderVM] = _headerVM;
     dictM[kAGVMArray] = _itemArrM;
     dictM[kAGVMFooterVM] = _footerVM;

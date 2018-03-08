@@ -52,8 +52,8 @@
 - (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
                              capacity:(NSInteger)capacity
 {
-    _commonVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
-    return _commonVM;
+    _cvm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    return _cvm;
 }
 
 #pragma mark -
@@ -91,7 +91,7 @@
 - (id)copyWithZone:(nullable NSZone *)zone
 {
     AGVMManager *vmm = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
-    vmm->_commonVM = [_commonVM copy];
+    vmm->_cvm = [_cvm copy];
     [vmm ag_addSectionsFromManager:self];
     return vmm;
 }
@@ -99,7 +99,7 @@
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
     AGVMManager *vmm = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
-    vmm->_commonVM = [_commonVM mutableCopy];
+    vmm->_cvm = [_cvm mutableCopy];
     [self ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger idx, BOOL * _Nonnull stop) {
         [vmm ag_addSection:[vms mutableCopy]];
     }];
@@ -133,6 +133,8 @@
 - (void) ag_insertSectionsFromArray:(NSArray<AGVMSection *> *)vmsArr
                             atIndex:(NSInteger)index
 {
+	if (vmsArr == nil) return;
+	
     if ( index == self.count ) {
         [self ag_addSectionsFromArray:vmsArr];
     }
@@ -186,10 +188,12 @@
 /** 合并 commonVM、sectionArrM */
 - (void) ag_mergeFromManager:(AGVMManager *)vmm
 {
-    if ( vmm.commonVM ) {
-        _commonVM = _commonVM ?: ag_viewModel(nil);
+	if (vmm == nil) return;
+	
+    if ( vmm.cvm ) {
+        _cvm = _cvm ?: ag_viewModel(nil);
     }
-    [self.commonVM ag_mergeModelFromViewModel:vmm.commonVM];
+    [self.cvm ag_mergeModelFromViewModel:vmm.cvm];
     [self ag_addSectionsFromArray:vmm.sectionArrM];
 }
 
@@ -205,6 +209,8 @@
 
 - (void)setObject:(AGVMSection *)vms atIndexedSubscript:(NSInteger)idx
 {
+	if ( vms == nil ) return;
+	
     if ( idx == self.count ) {
         [self.sectionArrM addObject:vms];
     }
@@ -229,6 +235,7 @@
 #pragma mark 替换
 - (void) ag_replaceSectionAtIndex:(NSInteger)index withSection:(AGVMSection *)section
 {
+	if (section == nil) return;
     index < self.count ? [self.sectionArrM replaceObjectAtIndex:index withObject:section] : nil;
 }
 
@@ -279,19 +286,9 @@
     return self.sectionArrM.count;
 }
 
-- (AGVMSection *)firstSection
-{
-    return [self.sectionArrM firstObject];
-}
-
 - (AGVMSection *)fs
 {
     return [self.sectionArrM firstObject];
-}
-
-- (AGVMSection *)lastSection
-{
-    return [self.sectionArrM lastObject];
 }
 
 - (AGVMSection *)ls
@@ -325,7 +322,7 @@
                               customTransform:(AGVMJSONTransformBlock)block
 {
     NSMutableDictionary *dictM = ag_mutableDict(2);
-    dictM[kAGVMCommonVM] = _commonVM;
+    dictM[kAGVMCommonVM] = _cvm;
     dictM[kAGVMArray] = _sectionArrM;
     return ag_JSONStringWithDict(dictM, vm, block);
 }

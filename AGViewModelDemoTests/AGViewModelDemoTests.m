@@ -70,7 +70,7 @@ static NSString * const kUserInfoSecondName = @"kUserInfoSecondName";
     XCTAssertTrue(vmm.count == 1, @"section 个数不对!");
     
     // 验证 section 中 item 个数
-    XCTAssertTrue(vmm.firstSection.count == list.count, @"section 中 item 个数不对!");
+    XCTAssertTrue(vmm.fs.count == list.count, @"section 中 item 个数不对!");
     
     // 验证 数据是否正确
     [vmm ag_enumerateSectionItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {

@@ -99,11 +99,33 @@ static NSString * const kAGVMViewEdgeInsets = @"kAGVMViewEdgeInsets";
 /** 视图外边距 UIEdgeInsets 👉NSString👈 */
 static NSString * const kAGVMViewEdgeMargin = @"kAGVMViewEdgeMargin";
 
+
 #pragma mark 颜色
 /** view 背景色 👉UIColor👈 */
 static NSString * const kAGVMViewBGColor = @"kAGVMViewBGColor";
 /** view 显示类型 👉NSNumber👈 */
 static NSString * const kAGVMViewDisplayType = @"kAGVMViewDisplayType";
+
+
+#pragma mark 元素
+/** 标题内容 👉NSString👈 */
+static NSString * const kAGVMTitleText = @"kAGVMTitleText";
+static NSString * const kAGVMTitlePlaceholder = @"kAGVMTitlePlaceholder";
+
+/** 子标题内容 👉NSString👈 */
+static NSString * const kAGVMSubTitleText = @"kAGVMSubTitleText";
+static NSString * const kAGVMSubTitlePlaceholder = @"kAGVMSubTitlePlaceholder";
+
+/** 详情内容 👉NSString👈 */
+static NSString * const kAGVMDetailText = @"kAGVMDetailText";
+static NSString * const kAGVMDetailPlaceholder = @"kAGVMDetailPlaceholder";
+
+/** 图片 👉UIImage👈 */
+static NSString * const kAGVMImage = @"kAGVMImage";
+
+/** 网络图片 👉NSString👈 */
+static NSString * const kAGVMImageURLText = @"kAGVMImageURLText";
+static NSString * const kAGVMImageURLPlaceholder = @"kAGVMImageURLPlaceholder";
 
 #endif /* AGVMKeys_h */
 
