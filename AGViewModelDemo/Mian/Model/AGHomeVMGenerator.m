@@ -20,15 +20,21 @@
         _homeListVMM = ag_VMManager(1);
         
         [_homeListVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
+            // ...
+            UITableViewHeaderFooterView *headerFooterView = [UITableViewHeaderFooterView new];
+            [[vms ag_packageHeaderData:^(NSMutableDictionary * _Nonnull package) {
+                package[kAGVMViewClass] = UITableViewHeaderFooterView.class;
+                package[kAGVMTitleText] = @"我是 header view 标题";
+            }] ag_precomputedSizeOfBindingView:headerFooterView]; // 提前计算好高度
             
+            // ...
             [vms ag_packageItemMergeData:^(NSMutableDictionary * _Nonnull package) {
-                package[kAGVMViewClass] = AGTextCell.class;
-                package[kAGVMViewH] = @44.;
+                package[kAGVMViewClass] = UITableViewCell.class;
             }];
             
             [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
                 
-                package[kAGVMItemTitle] = @"case 1";
+                package[kAGVMTitleText] = @"case 1";
                 package[kAGVMTargetVCBlock] = [self _targetVCBlockWithBlock:^(UIViewController * _Nullable vc, AGViewModel * _Nullable vm) {
                     // 进入 box 控制器
                     AGBoxCollectionViewController *targetVC
@@ -40,7 +46,7 @@
             
             [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
                 
-                package[kAGVMItemTitle] = @"case 2";
+                package[kAGVMTitleText] = @"case 2";
                 package[kAGVMTargetVCBlock] = [self _targetVCBlockWithBlock:^(UIViewController * _Nullable vc, AGViewModel * _Nullable vm) {
                     // 进入 document 控制器
                     AGDocumentViewController *targetVC
@@ -50,9 +56,17 @@
                 }];
             }];
             
+            // ...
+            [vms ag_packageFooterData:^(NSMutableDictionary * _Nonnull package) {
+                package[kAGVMViewClass] = UITableViewHeaderFooterView.class;
+                package[kAGVMTitleText] = @"我是 footer view 标题";
+                package[kAGVMViewH] = @34.;
+            }];
+            
         } capacity:5];
         
     }
+    
     return _homeListVMM;
 }
 

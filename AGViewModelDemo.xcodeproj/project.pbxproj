@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A03B174205178E40034DC87 /* NSString+AGCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A03B173205178E40034DC87 /* NSString+AGCalculate.m */; };
 		3A07BA1C1FD1A25800887BBE /* AGDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA1B1FD1A25800887BBE /* AGDocumentViewController.m */; };
 		3A07BA201FD1A33200887BBE /* GZPSItemDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A07BA1D1FD1A33200887BBE /* GZPSItemDetailCell.m */; };
 		3A07BA211FD1A33200887BBE /* GZPSItemDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A07BA1F1FD1A33200887BBE /* GZPSItemDetailCell.xib */; };
@@ -33,7 +34,6 @@
 		3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFB1FB8179C00578B5D /* AGCollectionViewManager.m */; };
 		3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFC1FB8179C00578B5D /* AGBaseViewManager.m */; };
 		3AC28E0E1FB847E300578B5D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28E081FB847E300578B5D /* ViewController.m */; };
-		3AC28E0F1FB847E300578B5D /* AGTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28E0D1FB847E300578B5D /* AGTextCell.m */; };
 		3AC28E131FB84A2D00578B5D /* AGHomeVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28E121FB84A2D00578B5D /* AGHomeVMGenerator.m */; };
 		3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8915E1F38965100E86F9F /* AGViewModel.m */; };
 		3AD8916B1F38965100E86F9F /* AGVMPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891631F38965100E86F9F /* AGVMPackager.m */; };
@@ -43,7 +43,6 @@
 		3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */; };
 		3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */; };
 		3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3832031437B009F4B29 /* UICollectionViewCell+AGViewModel.m */; };
-		3AE9C38E2031437B009F4B29 /* NSString+AGCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3892031437B009F4B29 /* NSString+AGCalculate.m */; };
 		3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */; };
 		87465D43050D2F2439B7FF87 /* libPods-AGViewModelDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */; };
 /* End PBXBuildFile section */
@@ -60,6 +59,8 @@
 
 /* Begin PBXFileReference section */
 		0B73F38F0874A936EE14B756 /* Pods-AGViewModelDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		3A03B172205178E40034DC87 /* NSString+AGCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGCalculate.h"; sourceTree = "<group>"; };
+		3A03B173205178E40034DC87 /* NSString+AGCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGCalculate.m"; sourceTree = "<group>"; };
 		3A07BA1A1FD1A25800887BBE /* AGDocumentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDocumentViewController.h; sourceTree = "<group>"; };
 		3A07BA1B1FD1A25800887BBE /* AGDocumentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDocumentViewController.m; sourceTree = "<group>"; };
 		3A07BA1D1FD1A33200887BBE /* GZPSItemDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GZPSItemDetailCell.m; sourceTree = "<group>"; };
@@ -107,8 +108,6 @@
 		3AC28DFF1FB8179C00578B5D /* AGBaseViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBaseViewManager.h; sourceTree = "<group>"; };
 		3AC28E081FB847E300578B5D /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3AC28E091FB847E300578B5D /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3AC28E0C1FB847E300578B5D /* AGTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTextCell.h; sourceTree = "<group>"; };
-		3AC28E0D1FB847E300578B5D /* AGTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGTextCell.m; sourceTree = "<group>"; };
 		3AC28E101FB848F600578B5D /* AGGlobalVMKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGGlobalVMKeys.h; sourceTree = "<group>"; };
 		3AC28E111FB84A2D00578B5D /* AGHomeVMGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGHomeVMGenerator.h; sourceTree = "<group>"; };
 		3AC28E121FB84A2D00578B5D /* AGHomeVMGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGHomeVMGenerator.m; sourceTree = "<group>"; };
@@ -128,12 +127,10 @@
 		3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+AGViewModel.m"; sourceTree = "<group>"; };
 		3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionReusableView+AGViewModel.m"; sourceTree = "<group>"; };
 		3AE9C3832031437B009F4B29 /* UICollectionViewCell+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+AGViewModel.m"; sourceTree = "<group>"; };
-		3AE9C3842031437B009F4B29 /* NSString+AGCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGCalculate.h"; sourceTree = "<group>"; };
 		3AE9C3852031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewHeaderFooterView+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C3862031437B009F4B29 /* UITableViewCell+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C3872031437B009F4B29 /* UICollectionReusableView+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionReusableView+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C3882031437B009F4B29 /* UICollectionViewCell+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+AGViewModel.h"; sourceTree = "<group>"; };
-		3AE9C3892031437B009F4B29 /* NSString+AGCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGCalculate.m"; sourceTree = "<group>"; };
 		3AE9C392203143DB009F4B29 /* UIView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AGViewModel.m"; sourceTree = "<group>"; };
 		50237810C9061914256F6227 /* Pods-AGViewModelDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -403,8 +400,6 @@
 		3AC28E0B1FB847E300578B5D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3AC28E0C1FB847E300578B5D /* AGTextCell.h */,
-				3AC28E0D1FB847E300578B5D /* AGTextCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -412,8 +407,8 @@
 		3AE9C37F2031437B009F4B29 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				3AE9C3842031437B009F4B29 /* NSString+AGCalculate.h */,
-				3AE9C3892031437B009F4B29 /* NSString+AGCalculate.m */,
+				3A03B172205178E40034DC87 /* NSString+AGCalculate.h */,
+				3A03B173205178E40034DC87 /* NSString+AGCalculate.m */,
 				3AE9C3872031437B009F4B29 /* UICollectionReusableView+AGViewModel.h */,
 				3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */,
 				3AE9C3882031437B009F4B29 /* UICollectionViewCell+AGViewModel.h */,
@@ -594,7 +589,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AE9C38E2031437B009F4B29 /* NSString+AGCalculate.m in Sources */,
 				3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
 				3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */,
 				3A1D2F451F499D5F004E8735 /* AGBoxBCell.m in Sources */,
@@ -613,12 +607,12 @@
 				3AACE8261EACF9100097C4F3 /* main.m in Sources */,
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
 				3AC28E0E1FB847E300578B5D /* ViewController.m in Sources */,
+				3A03B174205178E40034DC87 /* NSString+AGCalculate.m in Sources */,
 				3A07BA201FD1A33200887BBE /* GZPSItemDetailCell.m in Sources */,
 				3A07BA241FD1A34F00887BBE /* GZPSItemHeaderView.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A2AEDAE1F556A420005C994 /* AGBoxDetailViewController.m in Sources */,
-				3AC28E0F1FB847E300578B5D /* AGTextCell.m in Sources */,
 				3A1D2F391F4998FD004E8735 /* AGBoxCollectionViewController.m in Sources */,
 				3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */,
 				3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */,

@@ -44,4 +44,13 @@
     return bvS;
 }
 
+- (void)setViewModel:(AGViewModel *)viewModel
+{
+    [super setViewModel:viewModel];
+    
+    self.textLabel.text = [viewModel ag_safeStringForKey:kAGVMTitleText];
+    self.detailTextLabel.text = [viewModel ag_safeStringForKey:kAGVMDetailText];
+    
+}
+
 @end

@@ -47,4 +47,15 @@
     return bvS;
 }
 
+- (void)setViewModel:(AGViewModel *)viewModel
+{
+    [super setViewModel:viewModel];
+    
+    self.textLabel.text = [viewModel ag_safeStringForKey:kAGVMTitleText];
+    UIImage *image = viewModel[kAGVMImage];
+    if ( [image isKindOfClass:[UIImage class]] ) {
+        self.imageView.image = image;
+    }
+}
+
 @end

@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "AGTableViewManager.h"
 #import "AGVMKit.h"
+#import "AGGlobalVMKeys.h"
 #import "AGHomeVMGenerator.h"
 #import <Masonry/Masonry.h>
 
@@ -156,8 +157,8 @@
     
     AGVMManager *vmm = self.homeVMG.homeListVMM;
     [self.tableViewManager handleVMManager:nil inBlock:^(AGVMManager *originVmm) {
-        [originVmm.fs ag_removeAllItems];
-        [originVmm.fs ag_addItemsFromSection:vmm.fs];
+        [originVmm ag_removeAllSections];
+        [originVmm ag_addSection:vmm.fs];
     }];
 }
 
@@ -192,9 +193,10 @@
 - (AGTableViewManager *)tableViewManager
 {
     if (_tableViewManager == nil) {
-        NSArray *cellClasses = @[AGTextCell.class];
+        NSArray *cellClasses = @[UITableViewCell.class];
         _tableViewManager = [[AGTableViewManager alloc] initWithCellClasses:cellClasses originVMManager:nil];
         _tableViewManager.view.contentInset = UIEdgeInsetsMake(24., 0., 24., 0.);
+        [_tableViewManager registerHeaderFooterViewClasses:@[UITableViewHeaderFooterView.class]];
         //_tableViewManager.view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _tableViewManager;

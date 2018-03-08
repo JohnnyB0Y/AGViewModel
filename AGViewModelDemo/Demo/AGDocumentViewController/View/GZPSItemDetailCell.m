@@ -43,14 +43,10 @@
     if ( bvS.height < 44.) {
         NSString *detail = vm[kAGVMItemDetail];
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        CGSize textS = [detail ag_sizeCalculateInBlock:^CGSize(NSString *text, CGSize screenS, CGSize maxS) {
-            maxS = CGSizeMake(width - 30., CGFLOAT_MAX);
-            return [text ag_sizeOfFont:self.detailLabel.font maxSize:maxS];
-        }];
-        
+        CGSize maxS = CGSizeMake(width - 30, CGFLOAT_MAX);
+        CGSize textS = [detail ag_sizeOfFont:self.detailLabel.font maxSize:maxS];
         bvS.height = 33. + textS.height;
     }
-    
     
     return bvS;
 }
