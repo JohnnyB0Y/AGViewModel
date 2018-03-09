@@ -145,7 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setObject:(nullable AGViewModel *)vm atIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 取出
-- (nullable AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;
+- (AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 合并
 /** 合并 headerVM、 footerVM、 commonVM、itemMergeVM、itemArr */

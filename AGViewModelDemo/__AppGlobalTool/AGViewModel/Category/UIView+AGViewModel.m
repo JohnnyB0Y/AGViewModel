@@ -33,6 +33,7 @@ static void *kAGViewModelProperty;
 #pragma mark - ----------- Getter Setter Methods ----------
 - (void)setViewModel:(AGViewModel *)viewModel
 {
+	[viewModel ag_setBindingView:self];
     objc_setAssociatedObject(self, &kAGViewModelProperty, viewModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

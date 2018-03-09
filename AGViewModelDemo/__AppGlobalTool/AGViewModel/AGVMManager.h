@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setObject:(nullable AGVMSection *)vms atIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 取出
-- (nullable AGVMSection *) objectAtIndexedSubscript:(NSInteger)idx;
+- (AGVMSection *) objectAtIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 交换
 - (void) ag_exchangeSectionAtIndex:(NSInteger)idx1 withSectionAtIndex:(NSInteger)idx2;
