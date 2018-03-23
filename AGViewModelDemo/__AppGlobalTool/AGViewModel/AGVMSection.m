@@ -55,13 +55,14 @@
 - (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
                                      inBlock:(AGVMPackageDatasBlock)block
 {
-    return [self ag_packageItems:items inBlock:block capacity:items.count];
+    return [self ag_packageItems:items inBlock:block capacity:6];
 }
 
 - (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
                                      inBlock:(AGVMPackageDatasBlock)block
                                     capacity:(NSInteger)capacity
 {
+	NSAssert([items isKindOfClass:[NSArray class]], @"ag_packageItems: items 为 nil 或 类型错误！");
     NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
                                                   mergeVM:_itemMergeVM
                                                   inBlock:block
@@ -150,7 +151,7 @@
 	NSAssert([data isKindOfClass:[NSDictionary class]], @"ag_packageItemData: data 为 nil 或 类型错误！");
     AGViewModel *vm;
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
-        vm = [packager ag_packageData:data forObject:(id)obj];
+        vm = [packager ag_packageData:data forObject:obj];
         if (vm) [self.itemArrM addObject:vm];
     }
     return vm;
@@ -160,6 +161,25 @@
                            packager:(id<AGVMPackagable>)packager
 {
     return [self ag_packageItemData:data packager:packager forObject:nil];
+}
+
+- (NSArray<AGViewModel *> *)ag_packageItems:(NSArray *)items
+								   packager:(id<AGVMPackagable>)packager
+{
+	return [self ag_packageItems:items packager:packager forObject:nil];
+}
+
+- (NSArray<AGViewModel *> *)ag_packageItems:(NSArray *)items
+								   packager:(id<AGVMPackagable>)packager
+								  forObject:(id)obj
+{
+	NSAssert([items isKindOfClass:[NSArray class]], @"ag_packageItems: items 为 nil 或 类型错误！");
+	NSMutableArray *arrM = ag_mutableArray(items.count);
+	for (NSDictionary *dict in items) {
+		AGViewModel *vm = [self ag_packageItemData:dict packager:packager forObject:obj];
+		if (vm) [arrM addObject:vm];
+	}
+	return arrM;
 }
 
 /** 通过 packager 拼装组尾数据 */

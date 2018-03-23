@@ -55,6 +55,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGViewModel *) ag_packageItemData:(NSDictionary *)data
                             packager:(id<AGVMPackagable>)packager;
 
+- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
+									packager:(id<AGVMPackagable>)packager
+								   forObject:(nullable id)obj;
+
+- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
+									packager:(id<AGVMPackagable>)packager;
+
+
 /** 通过 packager 拼装组尾数据 */
 - (AGViewModel *) ag_packageFooterData:(NSDictionary *)data
                               packager:(id<AGVMPackagable>)packager
@@ -82,8 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
                             capacity:(NSInteger)capacity;
 
-- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
-                                     inBlock:(AGVMPackageDatasBlock)block;
+- (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
+                                     inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block;
 
 - (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
                                      inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block

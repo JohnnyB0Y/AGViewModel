@@ -69,13 +69,14 @@
 - (NSArray<AGVMSection *> *) ag_packageSections:(NSArray *)sections
                                         inBlock:(AGVMPackageSectionsBlock)block
 {
-    return [self ag_packageSections:sections inBlock:block capacity:sections.count];
+    return [self ag_packageSections:sections inBlock:block capacity:15];
 }
 
 - (NSArray<AGVMSection *> *) ag_packageSections:(NSArray *)sections
                                         inBlock:(AGVMPackageSectionsBlock)block
                                        capacity:(NSInteger)capacity
 {
+	NSAssert([sections isKindOfClass:[NSArray class]], @"ag_packageSections: sections 为 nil 或 类型错误！");
     NSMutableArray *arrM = ag_mutableArray(sections.count);
     [sections enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         AGVMSection *vms = ag_VMSection(capacity);

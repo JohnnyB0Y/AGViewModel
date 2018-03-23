@@ -111,14 +111,20 @@ static NSString * const kAGVMViewDisplayType = @"kAGVMViewDisplayType";
 /** 标题内容 👉NSString👈 */
 static NSString * const kAGVMTitleText = @"kAGVMTitleText";
 static NSString * const kAGVMTitlePlaceholder = @"kAGVMTitlePlaceholder";
+/** 标题颜色 👉UIColor👈 */
+static NSString * const kAGVMTitleColor = @"kAGVMTitleColor";
 
 /** 子标题内容 👉NSString👈 */
 static NSString * const kAGVMSubTitleText = @"kAGVMSubTitleText";
 static NSString * const kAGVMSubTitlePlaceholder = @"kAGVMSubTitlePlaceholder";
+/** 子标题颜色 👉UIColor👈 */
+static NSString * const kAGVMSubTitleColor = @"kAGVMSubTitleColor";
 
 /** 详情内容 👉NSString👈 */
 static NSString * const kAGVMDetailText = @"kAGVMDetailText";
 static NSString * const kAGVMDetailPlaceholder = @"kAGVMDetailPlaceholder";
+/** 详情颜色 👉UIColor👈 */
+static NSString * const kAGVMDetailColor = @"kAGVMDetailColor";
 
 /** 图片 👉UIImage👈 */
 static NSString * const kAGVMImage = @"kAGVMImage";
