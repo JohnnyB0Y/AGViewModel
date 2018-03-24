@@ -28,12 +28,12 @@
  @param capacity itemArr 的 capacity
  @return vmm
  */
-+ (instancetype) newWithItemCapacity:(NSInteger)capacity
++ (instancetype) newWithSectionCapacity:(NSInteger)capacity
 {
-    return [[self alloc] initWithItemCapacity:capacity];
+    return [[self alloc] initWithSectionCapacity:capacity];
 }
 
-- (instancetype)initWithItemCapacity:(NSInteger)capacity
+- (instancetype)initWithSectionCapacity:(NSInteger)capacity
 {
     self = [super init];
     if (self) {
@@ -66,32 +66,36 @@
     return vms;
 }
 
-- (NSArray<AGVMSection *> *) ag_packageSections:(NSArray *)sections
-                                        inBlock:(AGVMPackageSectionsBlock)block
+- (AGVMSection *)ag_packageSectionItems:(NSArray *)items packager:(id<AGVMPackagable>)packager forObject:(id)obj
 {
-    return [self ag_packageSections:sections inBlock:block capacity:15];
+	return [self ag_packageSection:^(AGVMSection * _Nonnull vms) {
+		[vms ag_packageItems:items packager:packager forObject:obj];
+	} capacity:items.count];
 }
 
-- (NSArray<AGVMSection *> *) ag_packageSections:(NSArray *)sections
-                                        inBlock:(AGVMPackageSectionsBlock)block
-                                       capacity:(NSInteger)capacity
+- (AGVMManager *) ag_packageSections:(NSArray *)sections
+							 inBlock:(AGVMPackageSectionsBlock)block
+{
+	return [self ag_packageSections:sections inBlock:block capacity:15];
+}
+
+- (AGVMManager *) ag_packageSections:(NSArray *)sections
+							 inBlock:(AGVMPackageSectionsBlock)block
+							capacity:(NSInteger)capacity
 {
 	NSAssert([sections isKindOfClass:[NSArray class]], @"ag_packageSections: sections 为 nil 或 类型错误！");
-    NSMutableArray *arrM = ag_mutableArray(sections.count);
-    [sections enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        AGVMSection *vms = ag_VMSection(capacity);
-        block ? block(vms, obj, idx) : nil;
-        [arrM addObject:vms];
-    }];
-    [self ag_addSectionsFromArray:arrM];
-    
-    return [arrM copy];
+	[sections enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+		[self ag_packageSection:^(AGVMSection * _Nonnull vms) {
+			block ? block(vms, obj, idx) : nil;
+		} capacity:capacity];
+	}];
+	return self;
 }
 
 #pragma mark - NSCopying
 - (id)copyWithZone:(nullable NSZone *)zone
 {
-    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
+    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithSectionCapacity:_capacity];
     vmm->_cvm = [_cvm copy];
     [vmm ag_addSectionsFromManager:self];
     return vmm;
@@ -99,7 +103,7 @@
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
-    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithItemCapacity:_capacity];
+    AGVMManager *vmm = [[self.class allocWithZone:zone] initWithSectionCapacity:_capacity];
     vmm->_cvm = [_cvm mutableCopy];
     [self ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger idx, BOOL * _Nonnull stop) {
         [vmm ag_addSection:[vms mutableCopy]];
@@ -343,7 +347,7 @@
 /** Quickly create AGVMManager instance */
 AGVMManager * ag_VMManager(NSInteger capacity)
 {
-    return [AGVMManager newWithItemCapacity:capacity];
+    return [AGVMManager newWithSectionCapacity:capacity];
 }
 
 

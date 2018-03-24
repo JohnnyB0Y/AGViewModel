@@ -39,77 +39,205 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) initWithItemCapacity:(NSInteger)capacity NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - 通过 packager 拼装数据
-/** 通过 packager 拼装组头数据 */
+/**
+ 通过 packager 拼装组头数据
+ 
+ @param data 数据
+ @param packager 遵守AGVMPackagable的对象
+ @param obj 传入的对象
+ @return headerVM
+ */
 - (AGViewModel *) ag_packageHeaderData:(NSDictionary *)data
-                              packager:(id<AGVMPackagable>)packager
-                             forObject:(nullable id)obj;
+							  packager:(id<AGVMPackagable>)packager
+							 forObject:(nullable id)obj;
 
+/**
+ 通过 packager 拼装组头数据
+ 
+ @param data 数据
+ @param packager 遵守AGVMPackagable的对象
+ @return headerVM
+ */
 - (AGViewModel *) ag_packageHeaderData:(NSDictionary *)data
-                              packager:(id<AGVMPackagable>)packager;
+							  packager:(id<AGVMPackagable>)packager;
 
-/** 通过 packager 拼装 item 数据 */
+/**
+ 通过 packager 拼装 item 数据
+ 
+ @param data 数据
+ @param packager 遵守AGVMPackagable的对象
+ @param obj 传入的对象
+ @return viewModle对象
+ */
 - (AGViewModel *) ag_packageItemData:(NSDictionary *)data
-                            packager:(id<AGVMPackagable>)packager
-                           forObject:(nullable id)obj;
+							packager:(id<AGVMPackagable>)packager
+						   forObject:(nullable id)obj;
 
+/**
+ 通过 packager 拼装 item 数据
+ 
+ @param data 数据
+ @param packager 遵守AGVMPackagable的对象
+ @return viewModle对象
+ */
 - (AGViewModel *) ag_packageItemData:(NSDictionary *)data
-                            packager:(id<AGVMPackagable>)packager;
+							packager:(id<AGVMPackagable>)packager;
 
-- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
-									packager:(id<AGVMPackagable>)packager
-								   forObject:(nullable id)obj;
+/**
+ 通过 packager 拼装 一组item 数据
+ 
+ @param items 一组数据
+ @param packager 遵守AGVMPackagable的对象
+ @param obj 传入的对象
+ @return section对象
+ */
+- (AGVMSection *) ag_packageItems:(NSArray *)items
+						 packager:(id<AGVMPackagable>)packager
+						forObject:(nullable id)obj;
 
-- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
-									packager:(id<AGVMPackagable>)packager;
+/**
+ 通过 packager 拼装 一组item 数据
+ 
+ @param items 一组数据
+ @param packager 遵守AGVMPackagable的对象
+ @return section对象
+ */
+- (AGVMSection *) ag_packageItems:(NSArray *)items
+						 packager:(id<AGVMPackagable>)packager;
 
-
-/** 通过 packager 拼装组尾数据 */
+/**
+ 通过 packager 拼装组尾数据
+ 
+ @param data 数据
+ @param packager 遵守AGVMPackagable的对象
+ @param obj 传入的对象
+ @return footerVM
+ */
 - (AGViewModel *) ag_packageFooterData:(NSDictionary *)data
-                              packager:(id<AGVMPackagable>)packager
-                             forObject:(nullable id)obj;
+							  packager:(id<AGVMPackagable>)packager
+							 forObject:(nullable id)obj;
 
+/**
+ 通过 packager 拼装组尾数据
+ 
+ @param data 数据
+ @param packager 遵守AGVMPackagable的对象
+ @return footerVM
+ */
 - (AGViewModel *) ag_packageFooterData:(NSDictionary *)data
-                              packager:(id<AGVMPackagable>)packager;
+							  packager:(id<AGVMPackagable>)packager;
 
 #pragma mark - 自己拼装数据 （不用担心循环引用问题）
 /**
- 拼装数据
+ 拼装组头数据
+ 
  @param package 存放数据的字典 Block
  @param capacity 数据字典每次增量拷贝的内存大小
+ @return headerVM
  */
-
-/** 拼装 itemArr 中每个 viewModel 的合并数据模型 */
-- (AGViewModel *) ag_packageItemMergeData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                                 capacity:(NSInteger)capacity;
-
-/** 拼装组头数据 */
 - (AGViewModel *) ag_packageHeaderData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                              capacity:(NSInteger)capacity;
+							  capacity:(NSInteger)capacity;
 
-/** 拼装 item 数据 */
-- (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                            capacity:(NSInteger)capacity;
-
-- (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
-                                     inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block;
-
-- (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
-                                     inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
-                                    capacity:(NSInteger)capacity;
-
-/** 拼装组尾数据 */
-- (AGViewModel *) ag_packageFooterData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                              capacity:(NSInteger)capacity;
-
-/** 拼装公共数据 */
-- (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                              capacity:(NSInteger)capacity;
-
-#pragma mark capacity 默认为 6
+/**
+ 拼装组头数据（数据字典每次增量拷贝的内存大小为6）
+ 
+ @param package 存放数据的字典 Block
+ @return headerVM
+ */
 - (AGViewModel *) ag_packageHeaderData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+
+/**
+ 拼装 item 数据
+ 
+ @param package 存放数据的字典 Block
+ @param capacity 数据字典每次增量拷贝的内存大小
+ @return viewModel对象
+ */
+- (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+							capacity:(NSInteger)capacity;
+
+/**
+ 拼装 item 数据（数据字典每次增量拷贝的内存大小为6）
+ 
+ @param package 存放数据的字典 Block
+ @return viewModel对象
+ */
 - (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+
+/**
+ 拼装多条 item 数据
+ 
+ @param items 一组数据
+ @param block 存放数据的字典 Block
+ @param capacity 每条 item 中 数据字典每次增量拷贝的内存大小
+ @return section对象
+ */
+- (AGVMSection *) ag_packageItems:(nullable NSArray *)items
+						  inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
+						 capacity:(NSInteger)capacity;
+
+/**
+ 拼装多条 item 数据（每条 item 中 数据字典每次增量拷贝的内存大小为6）
+ 
+ @param items 一组数据
+ @param block 存放数据的字典 Block
+ @return section对象
+ */
+- (AGVMSection *) ag_packageItems:(nullable NSArray *)items
+						  inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block;
+
+/**
+ 拼装组尾数据
+ 
+ @param package 存放数据的字典 Block
+ @param capacity 数据字典每次增量拷贝的内存大小
+ @return footerVM
+ */
+- (AGViewModel *) ag_packageFooterData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+							  capacity:(NSInteger)capacity;
+
+/**
+ 拼装组尾数据（数据字典每次增量拷贝的内存大小为6）
+ 
+ @param package 存放数据的字典 Block
+ @return footerVM
+ */
 - (AGViewModel *) ag_packageFooterData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+
+/**
+ 拼装公共数据
+ 
+ @param package 存放数据的字典 Block
+ @param capacity 数据字典每次增量拷贝的内存大小
+ @return commonVM
+ */
+- (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+							  capacity:(NSInteger)capacity;
+
+/**
+ 拼装公共数据（数据字典每次增量拷贝的内存大小为6）
+ 
+ @param package 存放数据的字典 Block
+ @return commonVM
+ */
 - (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+
+/**
+ 拼装 itemArr 中每个 viewModel 的合并数据模型
+ 
+ @param package 存放数据的字典 Block
+ @param capacity 数据字典每次增量拷贝的内存大小
+ @return itemMergeVM
+ */
+- (AGViewModel *) ag_packageItemMergeData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+								 capacity:(NSInteger)capacity;
+
+/**
+ 拼装 itemArr 中每个 viewModel 的合并数据模型（数据字典每次增量拷贝的内存大小为6）
+ 
+ @param package 存放数据的字典 Block
+ @return itemMergeVM
+ */
 - (AGViewModel *) ag_packageItemMergeData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 
 

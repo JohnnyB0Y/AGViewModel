@@ -31,37 +31,71 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity sectionArrM 每次增量拷贝的内存大小
  @return vmm
  */
-+ (instancetype) newWithItemCapacity:(NSInteger)capacity;
-- (instancetype) initWithItemCapacity:(NSInteger)capacity NS_DESIGNATED_INITIALIZER;
++ (instancetype) newWithSectionCapacity:(NSInteger)capacity;
+- (instancetype) initWithSectionCapacity:(NSInteger)capacity NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - 自己拼装数据 （不用担心循环引用问题）
 /**
  拼装 section 数据
-
+ 
  @param block 传递 section 的 block
  @param capacity section 中 itemArr 每次增量拷贝的内存大小
- @return 一组数据对象
+ @return section对象
  */
 - (AGVMSection *) ag_packageSection:(nullable NS_NOESCAPE AGVMPackageSectionBlock)block
-                           capacity:(NSInteger)capacity;
+						   capacity:(NSInteger)capacity;
 
-- (NSArray<AGVMSection *> *) ag_packageSections:(nullable NSArray *)sections
-                                        inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block;
+/**
+ 通过 packager 拼装 section 数据
+ 
+ @param items 一组数据
+ @param packager 遵守AGVMPackagable的对象
+ @param obj 传入的对象
+ @return section对象
+ */
+- (AGVMSection *) ag_packageSectionItems:(nullable NSArray *)items
+								packager:(id<AGVMPackagable>)packager
+							   forObject:(nullable id)obj;
 
-- (NSArray<AGVMSection *> *) ag_packageSections:(nullable NSArray *)sections
-                                        inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block
-                                       capacity:(NSInteger)capacity;
+/**
+ 拼装多条 section 数据 （每条 section 中 itemArr 每次增量拷贝的内存大小为15）
+ 
+ @param sections 多组数据
+ @param block 拼装block
+ @return manager对象
+ */
+- (AGVMManager *) ag_packageSections:(nullable NSArray *)sections
+							 inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block;
+
+
+/**
+ 拼装多条 section 数据
+ 
+ @param sections 多组数据
+ @param block 拼装block
+ @param capacity 每条 section 中 itemArr 每次增量拷贝的内存大小
+ @return manager对象
+ */
+- (AGVMManager *) ag_packageSections:(nullable NSArray *)sections
+							 inBlock:(nullable NS_NOESCAPE AGVMPackageSectionsBlock)block
+							capacity:(NSInteger)capacity;
 
 /**
  打包公共数据
-
+ 
  @param package 打包block
  @param capacity 字典每次增量拷贝的内存大小
  @return 打包好的 View Model
  */
 - (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                              capacity:(NSInteger)capacity;
+							  capacity:(NSInteger)capacity;
 
+/**
+ 打包公共数据
+ 
+ @param package 打包block
+ @return 打包好的 View Model
+ */
 - (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 
 

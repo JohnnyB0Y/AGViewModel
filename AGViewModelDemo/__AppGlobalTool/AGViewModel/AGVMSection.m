@@ -52,23 +52,23 @@
     return [self ag_packageItemData:package capacity:6];
 }
 
-- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
-                                     inBlock:(AGVMPackageDatasBlock)block
+- (AGVMSection *) ag_packageItems:(NSArray *)items
+						  inBlock:(AGVMPackageDatasBlock)block
 {
-    return [self ag_packageItems:items inBlock:block capacity:6];
+	return [self ag_packageItems:items inBlock:block capacity:6];
 }
 
-- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
-                                     inBlock:(AGVMPackageDatasBlock)block
-                                    capacity:(NSInteger)capacity
+- (AGVMSection *) ag_packageItems:(NSArray *)items
+						  inBlock:(AGVMPackageDatasBlock)block
+						 capacity:(NSInteger)capacity
 {
 	NSAssert([items isKindOfClass:[NSArray class]], @"ag_packageItems: items 为 nil 或 类型错误！");
-    NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
-                                                  mergeVM:_itemMergeVM
-                                                  inBlock:block
-                                                 capacity:capacity];
-    [self ag_addItemsFromArray:arr];
-    return arr;
+	NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
+												  mergeVM:_itemMergeVM
+												  inBlock:block
+												 capacity:capacity];
+	[self ag_addItemsFromArray:arr];
+	return self;
 }
 
 - (AGViewModel *) ag_packageFooterData:(AGVMPackageDataBlock)package
@@ -163,23 +163,21 @@
     return [self ag_packageItemData:data packager:packager forObject:nil];
 }
 
-- (NSArray<AGViewModel *> *)ag_packageItems:(NSArray *)items
-								   packager:(id<AGVMPackagable>)packager
+- (AGVMSection *)ag_packageItems:(NSArray *)items
+						packager:(id<AGVMPackagable>)packager
 {
 	return [self ag_packageItems:items packager:packager forObject:nil];
 }
 
-- (NSArray<AGViewModel *> *)ag_packageItems:(NSArray *)items
-								   packager:(id<AGVMPackagable>)packager
-								  forObject:(id)obj
+- (AGVMSection *)ag_packageItems:(NSArray *)items
+						packager:(id<AGVMPackagable>)packager
+					   forObject:(id)obj
 {
 	NSAssert([items isKindOfClass:[NSArray class]], @"ag_packageItems: items 为 nil 或 类型错误！");
-	NSMutableArray *arrM = ag_mutableArray(items.count);
 	for (NSDictionary *dict in items) {
-		AGViewModel *vm = [self ag_packageItemData:dict packager:packager forObject:obj];
-		if (vm) [arrM addObject:vm];
+		[self ag_packageItemData:dict packager:packager forObject:obj];
 	}
-	return arrM;
+	return self;
 }
 
 /** 通过 packager 拼装组尾数据 */
