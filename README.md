@@ -25,7 +25,6 @@ pod 'AGViewModel'
 end
 ```
 
-## 后续
-- 后续加入多线程
+
 
 
