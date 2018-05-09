@@ -99,6 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
+- (NSString *) ag_debugString;
 
 @end
 

@@ -14,13 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AGVMSection : NSObject <NSCopying, NSMutableCopying>
 /** common vm */
-@property (nonatomic, strong, readonly, nullable) AGViewModel *cvm;
+@property (nonatomic, strong, nullable) AGViewModel *cvm;
 
-@property (nonatomic, strong, readonly, nullable) AGViewModel *headerVM;
-@property (nonatomic, strong, readonly, nullable) AGViewModel *footerVM;
+@property (nonatomic, strong, nullable) AGViewModel *headerVM;
+@property (nonatomic, strong, nullable) AGViewModel *footerVM;
 
 /** 会合并到 itemArr中的每个viewModel */
-@property (nonatomic, strong, readonly, nullable) AGViewModel *itemMergeVM;
+@property (nonatomic, strong, nullable) AGViewModel *itemMergeVM;
 @property (nonatomic, strong, readonly, nullable) NSMutableArray<AGViewModel *> *itemArrM;
 @property (nonatomic, assign, readonly) NSInteger count;
 
@@ -47,19 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return headerVM
  */
-- (AGViewModel *) ag_packageHeaderData:(NSDictionary *)data
+- (AGViewModel *) ag_packageHeaderData:(nullable NSDictionary *)data
 							  packager:(id<AGVMPackagable>)packager
 							 forObject:(nullable id)obj;
-
-/**
- 通过 packager 拼装组头数据
- 
- @param data 数据
- @param packager 遵守AGVMPackagable的对象
- @return headerVM
- */
-- (AGViewModel *) ag_packageHeaderData:(NSDictionary *)data
-							  packager:(id<AGVMPackagable>)packager;
 
 /**
  通过 packager 拼装 item 数据
@@ -69,21 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return viewModle对象
  */
-- (AGViewModel *) ag_packageItemData:(NSDictionary *)data
+- (AGViewModel *) ag_packageItemData:(nullable NSDictionary *)data
 							packager:(id<AGVMPackagable>)packager
 						   forObject:(nullable id)obj;
 
 /**
- 通过 packager 拼装 item 数据
- 
- @param data 数据
- @param packager 遵守AGVMPackagable的对象
- @return viewModle对象
- */
-- (AGViewModel *) ag_packageItemData:(NSDictionary *)data
-							packager:(id<AGVMPackagable>)packager;
-
-/**
  通过 packager 拼装 一组item 数据
  
  @param items 一组数据
@@ -91,21 +71,11 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return section对象
  */
-- (AGVMSection *) ag_packageItems:(NSArray *)items
+- (AGVMSection *) ag_packageItems:(nullable NSArray *)items
 						 packager:(id<AGVMPackagable>)packager
 						forObject:(nullable id)obj;
 
 /**
- 通过 packager 拼装 一组item 数据
- 
- @param items 一组数据
- @param packager 遵守AGVMPackagable的对象
- @return section对象
- */
-- (AGVMSection *) ag_packageItems:(NSArray *)items
-						 packager:(id<AGVMPackagable>)packager;
-
-/**
  通过 packager 拼装组尾数据
  
  @param data 数据
@@ -113,19 +83,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return footerVM
  */
-- (AGViewModel *) ag_packageFooterData:(NSDictionary *)data
+- (AGViewModel *) ag_packageFooterData:(nullable NSDictionary *)data
 							  packager:(id<AGVMPackagable>)packager
 							 forObject:(nullable id)obj;
 
-/**
- 通过 packager 拼装组尾数据
- 
- @param data 数据
- @param packager 遵守AGVMPackagable的对象
- @return footerVM
- */
-- (AGViewModel *) ag_packageFooterData:(NSDictionary *)data
-							  packager:(id<AGVMPackagable>)packager;
 
 #pragma mark - 自己拼装数据 （不用担心循环引用问题）
 /**
@@ -310,7 +271,7 @@ NS_ASSUME_NONNULL_BEGIN
 // ...
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
-
+- (NSString *) ag_debugString;
 @end
 
 

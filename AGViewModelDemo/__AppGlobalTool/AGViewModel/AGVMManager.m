@@ -8,7 +8,6 @@
 
 #import "AGVMManager.h"
 #import "AGVMFunction.h"
-#import <objc/runtime.h>
 
 @interface AGVMManager ()
 
@@ -302,21 +301,42 @@
 }
 
 #pragma mark - ----------- Override Methods ----------
-- (NSString *) debugDescription
+- (NSString *)debugDescription
 {
-    uint count;
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
+    return [self _debugStringIncludeDetail:NO];
+}
+
+- (id)debugQuickLookObject
+{
+    return [self _debugStringIncludeDetail:YES];
+}
+
+- (NSString *) _debugStringIncludeDetail:(BOOL)yesOrNo
+{
+    NSMutableString *strM = [NSMutableString string];
+    [strM appendFormat:@"  _cvm     (strong) : %@, \n", _cvm];
     
-    NSMutableDictionary *dictM = ag_mutableDict(count);
-    for ( int i = 0; i<count; i++ ) {
-        objc_property_t property = properties[i];
-        NSString *name = @(property_getName(property));
-        id value = [self valueForKey:name] ?: @"nil";
-        [dictM setObject:value forKey:name];
+    if ( yesOrNo ) {
+        NSMutableString *arrStrM = [NSMutableString stringWithString:@"(\n"];
+        NSInteger maxIdx = self.count - 1;
+        [_sectionArrM enumerateObjectsUsingBlock:^(AGVMSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ( idx == maxIdx ) {
+                [arrStrM appendFormat:@"🔷%@%@ \n", @(idx), [obj ag_debugString]];
+            }
+            else {
+                [arrStrM appendFormat:@"🔷%@%@, \n", @(idx), [obj ag_debugString]];
+            }
+        }];
+        
+        [arrStrM appendFormat:@")"];
+        
+        [strM appendFormat:@"  _sectionArrM - Capacity:%@ - Count:%@ : %@", @(_capacity), @(self.count), arrStrM];
+    }
+    else {
+        [strM appendFormat:@"  _sectionArrM - Capacity:%@ - Count:%@ : %@", @(_capacity), @(self.count), _sectionArrM];
     }
     
-    free(properties);
-    return [NSString stringWithFormat:@"<%@: %p> -- %@", [self class] , self, dictM];
+    return [NSString stringWithFormat:@"🔵 <%@: %p> --- {\n%@\n}", [self class] , self, strM];
 }
 
 @end

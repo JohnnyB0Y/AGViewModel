@@ -240,6 +240,16 @@
 
 - (NSString *)debugDescription
 {
+    return [self ag_debugString];
+}
+
+- (id)debugQuickLookObject
+{
+    return [self ag_debugString];
+}
+
+- (NSString *) ag_debugString
+{
     NSMutableString *strM = [NSMutableString string];
     [strM appendFormat:@"  _delegate     [ weak ] : %@, \n", _delegate];
     [strM appendFormat:@"  _notifier     (strong) : %@, \n", _notifier];
@@ -252,8 +262,8 @@
     }];
     [bmStrM appendFormat:@"  }"];
     
-    [strM appendFormat:@"  _bindingModel (strong) : %@,", bmStrM];
-    return [NSString stringWithFormat:@"<%@: %p> --- {\n%@\n}", [self class] , self, strM];
+    [strM appendFormat:@"  _bindingModel (strong) : %@", bmStrM];
+    return [NSString stringWithFormat:@"♦️ <%@: %p> --- {\n%@\n}", [self class] , self, strM];
 }
 
 #pragma mark - ----------- Setter Methods ----------
@@ -643,9 +653,19 @@ NSMutableArray * ag_mutableNullArray(NSInteger capacity)
 #pragma mark - Safe Convert
 id ag_safeObj(id obj, Class objClass)
 {
-	if ( [obj isKindOfClass:objClass] ) {
-		return obj;
-	}
+    if ( obj == nil ) {
+        return nil;
+    }
+    else if ( [obj isKindOfClass:objClass] ) {
+        return obj;
+    }
+    
+#ifdef DEBUG
+    NSLog(@"ag_safeObj(<%@: %p> != %@)", obj, obj, NSStringFromClass(objClass));
+#else
+    
+#endif
+    
 	return nil;
 }
 

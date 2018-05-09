@@ -8,7 +8,6 @@
 
 #import "AGVMSection.h"
 #import "AGVMFunction.h"
-#import <objc/runtime.h>
 
 @interface AGVMSection ()
 
@@ -62,7 +61,6 @@
 						  inBlock:(AGVMPackageDatasBlock)block
 						 capacity:(NSInteger)capacity
 {
-	NSAssert([items isKindOfClass:[NSArray class]], @"ag_packageItems: items 为 nil 或 类型错误！");
 	NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
 												  mergeVM:_itemMergeVM
 												  inBlock:block
@@ -130,17 +128,10 @@
                               packager:(id<AGVMPackagable>)packager
                              forObject:(id)obj
 {
-	NSAssert([data isKindOfClass:[NSDictionary class]], @"ag_packageHeaderData: data 为 nil 或 类型错误！");
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         _headerVM = [packager ag_packageData:data forObject:(id)obj];
     }
     return _headerVM;
-}
-
-- (AGViewModel *)ag_packageHeaderData:(NSDictionary *)data
-                             packager:(id<AGVMPackagable>)packager
-{
-    return [self ag_packageHeaderData:data packager:packager forObject:nil];
 }
 
 /** 通过 packager 拼装 item 数据 */
@@ -148,7 +139,6 @@
                             packager:(id<AGVMPackagable>)packager
                            forObject:(id)obj
 {
-	NSAssert([data isKindOfClass:[NSDictionary class]], @"ag_packageItemData: data 为 nil 或 类型错误！");
     AGViewModel *vm;
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         vm = [packager ag_packageData:data forObject:obj];
@@ -157,23 +147,10 @@
     return vm;
 }
 
-- (AGViewModel *)ag_packageItemData:(NSDictionary *)data
-                           packager:(id<AGVMPackagable>)packager
-{
-    return [self ag_packageItemData:data packager:packager forObject:nil];
-}
-
-- (AGVMSection *)ag_packageItems:(NSArray *)items
-						packager:(id<AGVMPackagable>)packager
-{
-	return [self ag_packageItems:items packager:packager forObject:nil];
-}
-
 - (AGVMSection *)ag_packageItems:(NSArray *)items
 						packager:(id<AGVMPackagable>)packager
 					   forObject:(id)obj
 {
-	NSAssert([items isKindOfClass:[NSArray class]], @"ag_packageItems: items 为 nil 或 类型错误！");
 	for (NSDictionary *dict in items) {
 		[self ag_packageItemData:dict packager:packager forObject:obj];
 	}
@@ -185,17 +162,10 @@
                               packager:(id<AGVMPackagable>)packager
                              forObject:(id)obj
 {
-	NSAssert([data isKindOfClass:[NSDictionary class]], @"ag_packageFooterData: data 为 nil 或 类型错误！");
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
-        _footerVM = [packager ag_packageData:data forObject:(id)obj];
+        _footerVM = [packager ag_packageData:data forObject:obj];
     }
     return _footerVM;
-}
-
-- (AGViewModel *)ag_packageFooterData:(NSDictionary *)data
-                             packager:(id<AGVMPackagable>)packager
-{
-    return [self ag_packageFooterData:data packager:packager forObject:nil];
 }
 
 #pragma mark - NSCopying
@@ -480,21 +450,51 @@
 }
 
 #pragma mark - ----------- Override Methods ----------
-- (NSString *) debugDescription
+- (NSString *)debugDescription
 {
-    uint count;
-    objc_property_t *properties = class_copyPropertyList([self class], &count);
+    return [self _debugStringIncludeDetail:NO];
+}
+
+- (id)debugQuickLookObject
+{
+    return [self _debugStringIncludeDetail:YES];
+}
+
+- (NSString *) ag_debugString
+{
+    return [self _debugStringIncludeDetail:YES];
+}
+
+- (NSString *) _debugStringIncludeDetail:(BOOL)yesOrNo
+{
+    NSMutableString *strM = [NSMutableString string];
+    [strM appendFormat:@"  _cvm         (strong) : %@, \n", _cvm];
+    [strM appendFormat:@"  _headerVM    (strong) : %@, \n", _headerVM];
+    [strM appendFormat:@"  _footerVM    (strong) : %@, \n", _footerVM];
+    [strM appendFormat:@"  _itemMergeVM (strong) : %@, \n", _itemMergeVM];
     
-    NSMutableDictionary *dictM = ag_mutableDict(count);
-    for ( int i = 0; i<count; i++ ) {
-        objc_property_t property = properties[i];
-        NSString *name = @(property_getName(property));
-        id value = [self valueForKey:name] ?: @"nil";
-        [dictM setObject:value forKey:name];
+    if ( yesOrNo ) {
+        NSMutableString *arrStrM = [NSMutableString stringWithString:@"(\n"];
+        NSInteger maxIdx = self.count - 1;
+        [_itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            if ( idx == maxIdx ) {
+                [arrStrM appendFormat:@"♦️%@%@ \n", @(idx), [obj ag_debugString]];
+            }
+            else {
+                [arrStrM appendFormat:@"♦️%@%@, \n", @(idx), [obj ag_debugString]];
+            }
+        }];
+        
+        [arrStrM appendFormat:@")"];
+        
+        [strM appendFormat:@"  _itemArrM - Capacity:%@ - Count:%@ : %@", @(_capacity), @(self.count), arrStrM];
+    }
+    else {
+        [strM appendFormat:@"  _itemArrM - Capacity:%@ - Count:%@ : %@", @(_capacity), @(self.count), _itemArrM];
     }
     
-    free(properties);
-    return [NSString stringWithFormat:@"<%@: %p> -- %@", [self class] , self, dictM];
+    return [NSString stringWithFormat:@"🔷 <%@: %p> --- {\n%@\n}", [self class] , self, strM];
 }
 
 @end
