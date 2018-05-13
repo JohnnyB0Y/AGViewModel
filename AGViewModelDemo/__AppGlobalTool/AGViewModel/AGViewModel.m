@@ -570,9 +570,9 @@
 
 #pragma mark - ---------- Private Methods ----------
 - (id) _setNewObject:(id)newObj
-             forKey:(NSString *)key
-         withObject:(id)obj
-         completion:(AGVMSafeSetCompletionBlock)block
+              forKey:(NSString *)key
+          withObject:(id)obj
+          completion:(AGVMSafeSetCompletionBlock)block
 {
 	self[key] = newObj;
 	block ? block(obj, newObj != nil) : nil;
@@ -580,8 +580,8 @@
 }
 
 - (id) _getNewObject:(id)newObj
-	     withObject:(id)obj
-         completion:(AGVMSafeGetCompletionBlock)block
+	      withObject:(id)obj
+          completion:(AGVMSafeGetCompletionBlock)block
 {
 	if ( block ) {
 		newObj = block(obj, newObj != nil);

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+AGViewModel.h"
 
-@interface UICollectionReusableView (AGViewModel) <AGCollectionFooterViewReusable, AGCollectionHeaderViewReusable>
+@interface UICollectionReusableView (AGViewModel)
+<AGCollectionFooterViewReusable, AGCollectionHeaderViewReusable>
 
 @end

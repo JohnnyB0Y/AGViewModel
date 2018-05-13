@@ -10,7 +10,8 @@
 #import "AGViewModel.h"
 #import "AGVMProtocol.h"
 
-@interface UIView (AGViewModel) <AGVMIncludable>
+@interface UIView (AGViewModel)
+<AGVMIncludable>
 
 - (void) setViewModel:(AGViewModel *)viewModel NS_REQUIRES_SUPER;
 

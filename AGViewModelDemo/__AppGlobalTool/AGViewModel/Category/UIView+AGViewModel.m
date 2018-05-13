@@ -9,7 +9,7 @@
 #import "UIView+AGViewModel.h"
 #import <objc/runtime.h>
 
-static void *kAGViewModelProperty;
+static void *kAGViewModelProperty = &kAGViewModelProperty;
 
 @implementation UIView (AGViewModel)
 

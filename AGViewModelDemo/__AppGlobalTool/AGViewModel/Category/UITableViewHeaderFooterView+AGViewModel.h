@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UIView+AGViewModel.h"
 
-@interface UITableViewHeaderFooterView (AGViewModel) <AGTableHeaderFooterViewReusable>
+@interface UITableViewHeaderFooterView (AGViewModel)
+<AGTableHeaderFooterViewReusable>
 
 
 @end

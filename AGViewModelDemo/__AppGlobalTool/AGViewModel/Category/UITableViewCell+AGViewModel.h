@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+AGViewModel.h"
 
-@interface UITableViewCell (AGViewModel) <AGTableCellReusable>
+@interface UITableViewCell (AGViewModel)
+<AGTableCellReusable>
 
 @end
