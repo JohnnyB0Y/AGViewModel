@@ -10,6 +10,7 @@
 
 #import "AGBoxCollectionViewController.h"
 #import "AGDocumentViewController.h"
+#import "AGBookListViewController.h"
 
 @implementation AGHomeVMGenerator
 
@@ -46,11 +47,23 @@
             
             [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
                 
-                package[kAGVMTitleText] = @"case 2";
+                package[kAGVMTitleText] = @"古诗";
                 package[kAGVMTargetVCBlock] = [self _targetVCBlockWithBlock:^(UIViewController * _Nullable vc, AGViewModel * _Nullable vm) {
                     // 进入 document 控制器
                     AGDocumentViewController *targetVC
                     = [AGDocumentViewController newWithViewModel:vm];
+                    
+                    [vc.navigationController pushViewController:targetVC animated:YES];
+                }];
+            }];
+            
+            [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
+                
+                package[kAGVMTitleText] = @"豆瓣图书";
+                package[kAGVMTargetVCBlock] = [self _targetVCBlockWithBlock:^(UIViewController * _Nullable vc, AGViewModel * _Nullable vm) {
+                    // 豆瓣图书
+                    AGBookListViewController *targetVC
+                    = [[AGBookListViewController alloc] init];
                     
                     [vc.navigationController pushViewController:targetVC animated:YES];
                 }];
