@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <CTServiceFactory.h>
 
 @interface AppDelegate ()
 
