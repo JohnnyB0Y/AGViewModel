@@ -659,12 +659,15 @@ id ag_safeObj(id obj, Class objClass)
     else if ( [obj isKindOfClass:objClass] ) {
         return obj;
     }
+    else if ( [obj isKindOfClass:[NSNull class]]) {
+        return nil;
+    }
     
-#ifdef DEBUG
-    NSLog(@"ag_safeObj(<%@: %p> != %@)", obj, obj, NSStringFromClass(objClass));
-#else
-    
-#endif
+//#ifdef DEBUG
+//    NSLog(@"ag_safeObj(<%@: %p> != %@)", obj, obj, NSStringFromClass(objClass));
+//#else
+//
+//#endif
     
 	return nil;
 }
