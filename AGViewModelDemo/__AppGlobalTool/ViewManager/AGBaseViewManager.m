@@ -10,7 +10,7 @@
 
 @implementation AGBaseViewManager
 
-- (void)handleVMManager:(AGVMManager *)vmm inBlock:(ATVMManagerHandleBlock)block
+- (void)handleVMManager:(AGVMManager *)vmm inBlock:(NS_NOESCAPE ATVMManagerHandleBlock)block
 {
     NSLog(@"%@: 我什么都没有做!", self);
 }

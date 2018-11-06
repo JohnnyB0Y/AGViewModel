@@ -256,7 +256,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 遍历
 /** 遍历所有 item */
-- (AGVMSection *) ag_enumerateItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+- (AGVMSection *) ag_enumerateItemsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 /** 遍历 header、footer vm */
 - (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;

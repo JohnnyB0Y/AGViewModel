@@ -41,24 +41,24 @@
 }
 
 #pragma mark - ---------- Public Methods ----------
-- (AGViewModel *) ag_packageHeaderData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageHeaderData:(NS_NOESCAPE AGVMPackageDataBlock)package
 {
     return [self ag_packageHeaderData:package capacity:6];
 }
 
-- (AGViewModel *) ag_packageItemData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageItemData:(NS_NOESCAPE AGVMPackageDataBlock)package
 {
     return [self ag_packageItemData:package capacity:6];
 }
 
 - (AGVMSection *) ag_packageItems:(NSArray *)items
-						  inBlock:(AGVMPackageDatasBlock)block
+						  inBlock:(NS_NOESCAPE AGVMPackageDatasBlock)block
 {
 	return [self ag_packageItems:items inBlock:block capacity:6];
 }
 
 - (AGVMSection *) ag_packageItems:(NSArray *)items
-						  inBlock:(AGVMPackageDatasBlock)block
+						  inBlock:(NS_NOESCAPE AGVMPackageDatasBlock)block
 						 capacity:(NSInteger)capacity
 {
 	NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
@@ -69,24 +69,24 @@
 	return self;
 }
 
-- (AGViewModel *) ag_packageFooterData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageFooterData:(NS_NOESCAPE AGVMPackageDataBlock)package
 {
     return [self ag_packageFooterData:package capacity:6];
 }
 
-- (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
+- (AGViewModel *)ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package
 {
     return [self ag_packageCommonData:package capacity:6];
 }
 
-- (AGViewModel *) ag_packageHeaderData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageHeaderData:(NS_NOESCAPE AGVMPackageDataBlock)package
                               capacity:(NSInteger)capacity
 {
     _headerVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _headerVM;
 }
 
-- (AGViewModel *) ag_packageItemData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageItemData:(NS_NOESCAPE AGVMPackageDataBlock)package
                             capacity:(NSInteger)capacity
 {
     AGViewModel *vm =
@@ -95,14 +95,14 @@
     return vm;
 }
 
-- (AGViewModel *) ag_packageFooterData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageFooterData:(NS_NOESCAPE AGVMPackageDataBlock)package
                               capacity:(NSInteger)capacity
 {
     _footerVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _footerVM;
 }
 
-- (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
+- (AGViewModel *)ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package
                              capacity:(NSInteger)capacity
 {
     _cvm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
@@ -110,14 +110,14 @@
 }
 
 /** 拼装 itemArr 中 viewModel 的共同字典数据 */
-- (AGViewModel *) ag_packageItemMergeData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageItemMergeData:(NS_NOESCAPE AGVMPackageDataBlock)package
                                  capacity:(NSInteger)capacity
 {
     _itemMergeVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return _itemMergeVM;
 }
 
-- (AGViewModel *) ag_packageItemMergeData:(AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageItemMergeData:(NS_NOESCAPE AGVMPackageDataBlock)package
 {
     return [self ag_packageItemMergeData:package capacity:6];
 }
@@ -215,7 +215,7 @@
     return self;
 }
 
-- (AGVMSection *) ag_insertItemPackage:(AGVMPackageDataBlock)package
+- (AGVMSection *) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
                                atIndex:(NSInteger)index
                               capacity:(NSInteger)capacity
 {
@@ -223,7 +223,7 @@
     return [self ag_insertItem:vm atIndex:index];
 }
 
-- (AGVMSection *) ag_insertItemPackage:(AGVMPackageDataBlock)package
+- (AGVMSection *) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
                                atIndex:(NSInteger)index
 {
     return [self ag_insertItemPackage:package atIndex:index capacity:6];
@@ -267,7 +267,7 @@
 }
 
 #pragma mark 更新
-- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(AGVMUpdateModelBlock)block
+- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
                                              atIndex:(NSInteger)index
 {
 	AGViewModel *vm = self[index];
@@ -275,7 +275,7 @@
     return self;
 }
 
-- (AGVMSection *) ag_refreshItemsByUpdateModelInBlock:(AGVMUpdateModelBlock)block
+- (AGVMSection *) ag_refreshItemsByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
 	[self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
 		[vm ag_refreshUIByUpdateModelInBlock:block];
@@ -373,7 +373,7 @@
 }
 
 #pragma mark 遍历
-- (AGVMSection *) ag_enumerateItemsUsingBlock:(void (^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+- (AGVMSection *) ag_enumerateItemsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
     if ( ! block ) return self;
 	
@@ -382,7 +382,7 @@
 }
 
 /** 遍历所有 section 的 header、footer vm */
-- (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+- (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
     if ( ! block ) return self;
     
@@ -394,7 +394,7 @@
 }
 
 #pragma mark - map、filter、reduce
-- (AGVMSection *) map:(AGVMMapBlock)block
+- (AGVMSection *) map:(NS_NOESCAPE AGVMMapBlock)block
 {
 	if ( ! block ) return self;
 	AGVMSection *vms = ag_VMSection(self.count);
@@ -408,7 +408,7 @@
 	return vms;
 }
 
-- (AGVMSection *) filter:(AGVMFilterBlock)block
+- (AGVMSection *) filter:(NS_NOESCAPE AGVMFilterBlock)block
 {
 	if ( ! block ) return self;
 	AGVMSection *vms = ag_VMSection(self.count);
@@ -420,7 +420,7 @@
 	return vms;
 }
 
-- (void) reduce:(AGVMReduceBlock)block
+- (void) reduce:(NS_NOESCAPE AGVMReduceBlock)block
 {
 	if ( ! block ) return;
 	[self.itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -502,7 +502,7 @@
 
 @implementation AGVMSection (AGVMJSONTransformable)
 - (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
-                              customTransform:(AGVMJSONTransformBlock)block
+                              customTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
 {
     NSMutableDictionary *dictM = ag_mutableDict(4);
     dictM[kAGVMCommonVM] = _cvm;
@@ -512,7 +512,7 @@
     return ag_JSONStringWithDict(dictM, vm, block);
 }
 
-- (NSString *)ag_toJSONStringWithCustomTransform:(AGVMJSONTransformBlock)block
+- (NSString *)ag_toJSONStringWithCustomTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
 {
     return [self ag_toJSONStringWithExchangeKey:nil customTransform:block];
 }

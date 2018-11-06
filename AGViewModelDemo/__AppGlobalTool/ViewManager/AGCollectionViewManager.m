@@ -256,7 +256,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 }
 
 #pragma mark - ---------- Public Methods ----------
-- (void)handleVMManager:(AGVMManager *)vmm inBlock:(ATVMManagerHandleBlock)block
+- (void)handleVMManager:(AGVMManager *)vmm inBlock:(NS_NOESCAPE ATVMManagerHandleBlock)block
 {
     block ? block(self.vmm) : nil;
     

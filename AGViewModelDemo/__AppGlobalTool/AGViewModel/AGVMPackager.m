@@ -30,7 +30,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
 
 - (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
                                      mergeVM:(AGViewModel *)mergeVM
-                                     inBlock:(AGVMPackageDatasBlock)block
+                                     inBlock:(__attribute__((noescape)) AGVMPackageDatasBlock)block
                                     capacity:(NSInteger)capacity
 {
     if ( items == nil ) return nil;

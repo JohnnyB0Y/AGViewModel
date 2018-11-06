@@ -43,12 +43,12 @@
 }
 
 #pragma mark - ---------- Public Methods ----------
-- (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
+- (AGViewModel *)ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package
 {
     return [self ag_packageCommonData:package capacity:6];
 }
 
-- (AGViewModel *)ag_packageCommonData:(AGVMPackageDataBlock)package
+- (AGViewModel *)ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package
                              capacity:(NSInteger)capacity
 {
     _cvm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
@@ -57,7 +57,7 @@
 
 #pragma mark -
 /** 拼装 section 数据 capacity */
-- (AGVMSection *) ag_packageSection:(AGVMPackageSectionBlock)block capacity:(NSInteger)capacity
+- (AGVMSection *) ag_packageSection:(NS_NOESCAPE AGVMPackageSectionBlock)block capacity:(NSInteger)capacity
 {
     AGVMSection *vms = ag_VMSection(capacity);
     if ( block ) block(vms);
@@ -73,13 +73,13 @@
 }
 
 - (AGVMManager *) ag_packageSections:(NSArray *)sections
-							 inBlock:(AGVMPackageSectionsBlock)block
+							 inBlock:(NS_NOESCAPE AGVMPackageSectionsBlock)block
 {
 	return [self ag_packageSections:sections inBlock:block capacity:15];
 }
 
 - (AGVMManager *) ag_packageSections:(NSArray *)sections
-							 inBlock:(AGVMPackageSectionsBlock)block
+							 inBlock:(NS_NOESCAPE AGVMPackageSectionsBlock)block
 							capacity:(NSInteger)capacity
 {
 	NSAssert([sections isKindOfClass:[NSArray class]], @"ag_packageSections: sections 为 nil 或 类型错误！");
@@ -155,13 +155,13 @@
     section ? [self setObject:section atIndexedSubscript:index] : nil;
 }
 
-- (void) ag_insertSectionPackage:(AGVMPackageSectionBlock)package
+- (void) ag_insertSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
                          atIndex:(NSInteger)index
 {
     [self ag_insertSectionPackage:package atIndex:index capacity:6];
 }
 
-- (void) ag_insertSectionPackage:(AGVMPackageSectionBlock)package
+- (void) ag_insertSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
                          atIndex:(NSInteger)index
                         capacity:(NSInteger)capacity
 {
@@ -202,7 +202,7 @@
 }
 
 #pragma mark 更新
-- (void) ag_updateSectionPackage:(AGVMPackageSectionBlock)package
+- (void) ag_updateSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
                          atIndex:(NSInteger)index
 {
     if ( package ) {
@@ -244,14 +244,14 @@
 }
 
 #pragma mark 遍历
-- (void) ag_enumerateSectionsUsingBlock:(void (^)(AGVMSection * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+- (void) ag_enumerateSectionsUsingBlock:(void (^NS_NOESCAPE)(AGVMSection * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
     if ( ! block ) return;
     
     [self.sectionArrM enumerateObjectsUsingBlock:block];
 }
 
-- (void) ag_enumerateSectionItemsUsingBlock:(void (^)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
+- (void) ag_enumerateSectionItemsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
 {
     if ( ! block ) return;
     
@@ -268,7 +268,7 @@
 }
 
 /** 遍历所有 section 的 header、footer vm */
-- (void) ag_enumerateSectionHeaderFooterVMsUsingBlock:(void (^)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
+- (void) ag_enumerateSectionHeaderFooterVMsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
 {
     if ( ! block ) return;
     
@@ -344,7 +344,7 @@
 
 @implementation AGVMManager (AGVMJSONTransformable)
 - (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
-                              customTransform:(AGVMJSONTransformBlock)block
+                              customTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
 {
     NSMutableDictionary *dictM = ag_mutableDict(2);
     dictM[kAGVMCommonVM] = _cvm;
@@ -352,7 +352,7 @@
     return ag_JSONStringWithDict(dictM, vm, block);
 }
 
-- (NSString *)ag_toJSONStringWithCustomTransform:(AGVMJSONTransformBlock)block
+- (NSString *)ag_toJSONStringWithCustomTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
 {
     return [self ag_toJSONStringWithExchangeKey:nil customTransform:block];
 }
