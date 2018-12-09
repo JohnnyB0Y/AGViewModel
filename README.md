@@ -1,4 +1,5 @@
 # AGViewModel
+### 设计思路
 在实践 casa 的去Model化后，为了解决网络数据获取后如何处理、如何更新、如何监听变化等一系列细节问题，而设计了AGViewModel一系列模块。
 
 - 去Model化后，几乎不需要再设计模型对象了。
@@ -15,7 +16,7 @@
 
 
 
-### cocoapods 集成
+### Cocoapods 集成
 ```
 platform :ios, '7.0'
 target 'AGViewModel' do
@@ -25,6 +26,12 @@ pod 'AGViewModel'
 end
 ```
 
+
+
+### 查看内部数据结构
+![PngOne](https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131537.imageset/WX20180509-131537%402x.png)
+
+![PngTwo](https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131441.imageset/WX20180509-131441%402x.png)
 
 
 
