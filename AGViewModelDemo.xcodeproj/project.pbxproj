@@ -272,11 +272,11 @@
 		3A04292F20B7AADA0025D9D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3A04293020B7AADA0025D9D5 /* GZPSItemHeaderView.m */,
+				3A04293420B7AADA0025D9D5 /* GZPSItemDetailCell.h */,
 				3A04293120B7AADA0025D9D5 /* GZPSItemDetailCell.m */,
 				3A04293220B7AADA0025D9D5 /* GZPSItemDetailCell.xib */,
 				3A04293320B7AADA0025D9D5 /* GZPSItemHeaderView.h */,
-				3A04293420B7AADA0025D9D5 /* GZPSItemDetailCell.h */,
+				3A04293020B7AADA0025D9D5 /* GZPSItemHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";

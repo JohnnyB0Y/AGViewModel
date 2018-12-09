@@ -148,13 +148,17 @@
 
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict byKeys:(NSArray<NSString *> *)keys
 {
+    if ( dict.count <= 0 ) {
+        return;
+    }
+    
     [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSAssert([obj isKindOfClass:[NSString class]], @"key is not kind of NSString!");
+        NSAssert([obj isKindOfClass:[NSString class]], @"Key is not kind of NSString!");
         self[obj] = dict[obj];
     }];
 }
 
-- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm  byKeys:(NSArray<NSString *> *)keys
+- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm byKeys:(NSArray<NSString *> *)keys
 {
     [self ag_mergeModelFromDictionary:vm.bindingModel byKeys:keys];
 }
@@ -221,13 +225,13 @@
 #pragma mark - ------------ Override Methods --------------
 - (id)objectForKeyedSubscript:(NSString *)key;
 {
-    NSAssert(key, @"key can't be nil.");
+    NSParameterAssert(key);
     return key ? _bindingModel[key] : nil;
 }
 
 - (void)setObject:(id)obj forKeyedSubscript:(NSString *)key;
 {
-    NSAssert(key, @"key can't be nil.");
+    NSParameterAssert(key);
     if ( ! key ) return;
     
     if ( obj ) {
