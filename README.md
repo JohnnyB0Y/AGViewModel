@@ -12,7 +12,6 @@
 - ViewModel可以添加观察者，字典中的数据变化可以监听。
 - VMManager管理整个TableView或CollectionView的数据，而VMSection管理一组Cell或Item的数据（包括头尾视图），ViewModel管理一个Cell或Item的数据。
 
-去Model化会不会很重，其实组件化后完全可以隔离开来。每个程序员可以各显神通，互不影响。
 
 
 
@@ -29,9 +28,6 @@ end
 
 
 ### 查看内部数据结构
-![PngOne](https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131537.imageset/WX20180509-131537%402x.png)
+<img src="https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131537.imageset/WX20180509-131537%402x.png" width = "516" height = "100" />
 
-![PngTwo](https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131441.imageset/WX20180509-131441%402x.png)
-
-
-
+<img src="https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131441.imageset/WX20180509-131441%402x.png" width = "516" height = "555" />
