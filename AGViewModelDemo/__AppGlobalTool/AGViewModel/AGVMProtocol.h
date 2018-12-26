@@ -112,9 +112,6 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 @required
 + (NSString *) ag_reuseIdentifier;
 
-@optional
-- (void) ag_configData:(nullable id)data;
-
 @end
 
 #pragma mark CollectionViewCell Protocol

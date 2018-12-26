@@ -104,7 +104,7 @@ itemClickBlock = _itemClickBlock;
     AGViewModel *vm = self.vmm[indexPath.section][indexPath.row];
     CGFloat aspectRatio = [vm[kAGVMViewAspectRatio] floatValue];
     CGFloat height = aspectRatio > 0 ?
-    (tableView.frame.size.width / aspectRatio) :
+    (tableView.bounds.size.width / aspectRatio) :
     ([vm ag_sizeOfBindingView].height ?: self.cellH);
     
     return height ?: .1;
@@ -300,7 +300,7 @@ itemClickBlock = _itemClickBlock;
         height += [vms.footerVM ag_sizeOfBindingView].height ?: self.sectionFooterH;
         
         [vms ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
-            height += [vm ag_sizeOfBindingView:item].height ?: self.cellH;
+            height += [vm ag_sizeForBindingView:item].height ?: self.cellH;
         }];
         
     }];
@@ -535,4 +535,3 @@ itemClickBlock = _itemClickBlock;
 }
 
 @end
-

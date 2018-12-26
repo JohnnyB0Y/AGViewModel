@@ -19,7 +19,7 @@
 + (void)ag_registerFooterViewBy:(UICollectionView *)collectionView
 {
     // 有特殊需求，请在子类重写。
-    if ( [self canAwakeFromNib] ) {
+    if ( [self ag_canAwakeFromNib] ) {
         UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
         [collectionView registerNib:nib
          forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
@@ -44,7 +44,7 @@
 + (void)ag_registerHeaderViewBy:(UICollectionView *)collectionView
 {
     // 有特殊需求，请在子类重写。
-    if ( [self canAwakeFromNib] ) {
+    if ( [self ag_canAwakeFromNib] ) {
         UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
         [collectionView registerNib:nib
          forSupplementaryViewOfKind:UICollectionElementKindSectionHeader

@@ -26,6 +26,10 @@
         unsigned int ag_callDelegateToDoForAction       : 1;
         unsigned int ag_callDelegateToDoForActionInfo   : 1;
     } _responeMethod;
+    
+    BOOL _cachedBindingViewSizeTag;
+    
+    BOOL _refreshUITag;
 }
 
 #pragma mark - ----------- Life Cycle ----------
@@ -49,6 +53,7 @@
     self = [super init];
     if (self) {
         _bindingModel = bindingModel;
+        _cachedBindingViewSizeTag = YES;
     }
     return self;
 }
@@ -91,47 +96,114 @@
 }
 
 #pragma mark 绑定视图后，可以让视图做一些事情
-/** 获取 bindingView 的 size */
 - (CGSize) ag_sizeOfBindingView
 {
-    return [self ag_sizeOfBindingView:_bindingView];
-}
-
-/** 当 bindingView 为空时，直接传进去计算 size */
-- (CGSize) ag_sizeOfBindingView:(UIView<AGVMIncludable> *)bv
-{
+    if ( _cachedBindingViewSizeTag ) {
+        return [self ag_cachedSizeByBindingView:_bindingView];
+    }
+    
     CGFloat height = [self[kAGVMViewH] floatValue];
     CGFloat width = [self[kAGVMViewW] floatValue];
-    CGSize bindingViewS = CGSizeMake(width, height);
-    
-    if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
-        bindingViewS = [bv ag_viewModel:self sizeForBindingView:bindingViewS];
-        
-        if ( height != bindingViewS.height ) {
-            self[kAGVMViewH] = @(bindingViewS.height);
-        }
-        
-        if ( width != bindingViewS.width ) {
-            self[kAGVMViewW] = @(bindingViewS.width);
-        }
-        
-    }
-    return bindingViewS;
+    return CGSizeMake(width, height);
 }
 
-/** 预先计算 size */
-- (void) ag_precomputedSizeOfBindingView:(UIView<AGVMIncludable> *)bv
+- (CGSize) ag_sizeForBindingView:(UIView<AGVMIncludable> *)bv
 {
-    [self ag_sizeOfBindingView:bv];
+    if ( _cachedBindingViewSizeTag ) {
+        return [self ag_cachedSizeByBindingView:bv];
+    }
+    
+    CGFloat height = [self[kAGVMViewH] floatValue];
+    CGFloat width = [self[kAGVMViewW] floatValue];
+    CGSize bvSize = CGSizeMake(width, height);
+    if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
+        return [bv ag_viewModel:self sizeForBindingView:bvSize];
+    }
+    else {
+        NSAssert(NO, @"绑定视图未实现 AGVMIncludable 协议方法：ag_viewModel:sizeForBindingView:");
+    }
+    return bvSize;
+}
+
+/** 计算并缓存绑定视图的Size */
+- (CGSize) ag_cachedSizeByBindingView:(UIView<AGVMIncludable> *)bv
+{
+    // old bv size
+    CGFloat height = [self[kAGVMViewH] floatValue];
+    CGFloat width = [self[kAGVMViewW] floatValue];
+    CGSize bvSize = CGSizeMake(width, height);
+    
+    // 预防性
+    if ( bv == nil ) {
+        return bvSize;
+    }
+    
+    if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
+        // new bv size
+        bvSize = [bv ag_viewModel:self sizeForBindingView:bvSize];
+        // cache size
+        if ( height != bvSize.height ) {
+            self[kAGVMViewH] = @(bvSize. height);
+        }
+        
+        if ( width != bvSize.width ) {
+            self[kAGVMViewW] = @(bvSize. width);
+        }
+        // cached
+        _cachedBindingViewSizeTag = NO;
+    }
+    else {
+        NSAssert(NO, @"绑定视图未实现 AGVMIncludable 协议方法：ag_viewModel:sizeForBindingView:");
+    }
+    return bvSize;
+}
+
+- (void) ag_setNeedsCachedBindingViewSize
+{
+    _cachedBindingViewSizeTag = YES;
+}
+
+- (void) ag_cachedBindingViewSizeIfNeeded
+{
+    if ( _cachedBindingViewSizeTag ) {
+        [self ag_cachedSizeByBindingView:_bindingView];
+    }
 }
 
 #pragma mark help method
 - (void) ag_refreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
+    [self ag_setNeedsRefreshUIModelInBlock:block];
+    [self ag_refreshUI];
+}
+
+/** 更新数据，并对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
+- (void) ag_setNeedsRefreshUIModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+{
     if ( block ) block( _bindingModel );
-    
+    [self ag_setNeedsRefreshUI];
+}
+
+/** 对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
+- (void) ag_setNeedsRefreshUI
+{
+    _refreshUITag = YES;
+}
+
+/** 刷新UI界面。*/
+- (void) ag_refreshUI
+{
     if ( _configDataBlock && _bindingView.viewModel == self ) {
         _configDataBlock( self, _bindingView, _bindingModel );
+        _refreshUITag = NO;
+    }
+}
+
+/** 如果有“需要刷新UI”的标记，马上刷新界面。 */
+- (void) ag_refreshUIIfNeeded
+{
+    if ( _refreshUITag ) {
+        [self ag_refreshUI];
     }
 }
 

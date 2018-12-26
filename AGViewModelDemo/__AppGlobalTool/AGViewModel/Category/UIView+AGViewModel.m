@@ -13,7 +13,7 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 
 @implementation UIView (AGViewModel)
 
-+ (BOOL)canAwakeFromNib
++ (BOOL)ag_canAwakeFromNib
 {
     NSString *className = NSStringFromClass([self class]);
     NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
@@ -23,7 +23,7 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 + (instancetype)ag_createFromNib
 {
     // 有特殊需求，请在子类重写。
-    if ( [self canAwakeFromNib] ) {
+    if ( [self ag_canAwakeFromNib] ) {
         UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
         return [[nib instantiateWithOwner:self options:nil] firstObject];
     }

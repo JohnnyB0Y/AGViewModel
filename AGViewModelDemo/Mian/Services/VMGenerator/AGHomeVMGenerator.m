@@ -26,7 +26,7 @@
             [[vms ag_packageHeaderData:^(NSMutableDictionary * _Nonnull package) {
                 package[kAGVMViewClass] = UITableViewHeaderFooterView.class;
                 package[kAGVMTitleText] = @"我是 header view 标题";
-            }] ag_precomputedSizeOfBindingView:headerFooterView]; // 提前计算好高度
+            }] ag_cachedSizeByBindingView:headerFooterView]; // 提前计算好高度
             
             // ...
             [vms ag_packageItemMergeData:^(NSMutableDictionary * _Nonnull package) {

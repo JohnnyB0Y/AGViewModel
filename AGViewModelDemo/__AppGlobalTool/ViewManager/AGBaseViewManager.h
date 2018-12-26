@@ -12,22 +12,22 @@
 
 typedef void(^AGTableViewManagerItemClickBlock)
 (
-     UITableView *tableView,
-     NSIndexPath *indexPath,
-     AGViewModel *vm
-);
+ UITableView *tableView,
+ NSIndexPath *indexPath,
+ AGViewModel *vm
+ );
 
 typedef void(^AGCollectionViewManagerItemClickBlock)
 (
-     UICollectionView *collectionView,
-     NSIndexPath *indexPath,
-     AGViewModel *vm
-);
+ UICollectionView *collectionView,
+ NSIndexPath *indexPath,
+ AGViewModel *vm
+ );
 
 typedef void(^ATVMManagerHandleBlock)
 (
-     AGVMManager *originVmm
-);
+ AGVMManager *originVmm
+ );
 
 
 @interface AGBaseViewManager : NSObject
@@ -80,7 +80,3 @@ typedef void(^ATVMManagerHandleBlock)
 - (CGFloat) estimateHeightWithItem:(UIView<AGVMIncludable> *)item;
 
 @end
-
-
-
-

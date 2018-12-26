@@ -114,7 +114,7 @@
         else if ( cellClass == [AGBoxCCell class] ) {
             view = [AGBoxCCell ag_createFromNib];
         }
-        cellS = [vm ag_sizeOfBindingView:view];
+        cellS = [vm ag_sizeForBindingView:view];
     }
     return cellS;
 }

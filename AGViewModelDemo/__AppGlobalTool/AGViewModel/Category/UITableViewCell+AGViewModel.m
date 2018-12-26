@@ -19,7 +19,7 @@
 + (void) ag_registerCellBy:(UITableView *)tableView
 {
     // 有特殊需求，请在子类重写。
-    if ( [self canAwakeFromNib] ) {
+    if ( [self ag_canAwakeFromNib] ) {
         UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
 		[tableView registerNib:nib forCellReuseIdentifier:[self ag_reuseIdentifier]];
 	}

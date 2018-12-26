@@ -16,7 +16,7 @@
 - (void) setViewModel:(AGViewModel *)viewModel NS_REQUIRES_SUPER;
 
 /** 是否能从nil文件创建视图 */
-+ (BOOL) canAwakeFromNib;
++ (BOOL) ag_canAwakeFromNib;
 
 /** 从 nib 创建实例,没有nib 时返回 nil */
 + (instancetype) ag_createFromNib;
