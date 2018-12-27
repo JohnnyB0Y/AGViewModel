@@ -12,37 +12,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  // 使用须知
- 1. ag_timerManager(id token)，一个 token 对应一组 Timer；
- 调用 ag_stopAllTimers，会移除该 token 对应的所有 Timer；
  
- 2. token 必须是 oc 对象，当对象销毁时，定时器会自动停止并移除。一般传 self 就可以了。
- 如果传常量或全局变量作为 token 就要手动管理好定时器了。
+ 1. AGTimerManager 对象管理一组 Timer，当 AGTimerManager 对象销毁时，自动停止所有 Timer。
  
- 3. 如果用 LLDB 打印信息，token 传 nil 就好了。传 nil 后调用 ag_stopAllTimers 是移除内部全部 timer。
+ 2. 调用ag_stopAllTimers()方法停止所有 Timer。
+ 
+ 3. LLDB 打印所有 Timer信息，po timerManager。
  
  */
 
 
-typedef BOOL(^AGTMCountdownBlock)(NSUInteger surplus);
+typedef BOOL(^AGTMCountdownBlock)(NSTimeInterval surplus);
 typedef void(^AGTMCompletionBlock)(void);
 typedef BOOL(^AGTMRepeatBlock)(void);
-
-/**
- 获取 timerManager 实例。
- 
- @param token 一个令牌对应一组 Timer；调用 ag_stopAllTimers，会移除该 token 对应的所有 Timer；token 必须是 oc 对象。
- @return timerManager
- */
-AGTimerManager * ag_timerManager(id _Nullable token);
-#define ag_TM(token) ag_timerManager(token)
-
 
 
 @interface AGTimerManager : NSObject
 
 #pragma mark - 定时器⏰
 /**
- 开始重复调用 repeatBlock，直到返回 NO  (NSRunLoopCommonModes)
+ 开始并马上重复调用 repeatBlock，直到返回 NO  (NSRunLoopCommonModes)
  
  @param ti 调用间隔
  @param repeatBlock 执行的block 返回 NO 停止，返回 YES 继续。
@@ -64,7 +53,7 @@ AGTimerManager * ag_timerManager(id _Nullable token);
                            	repeat:(AGTMRepeatBlock)repeatBlock;
 
 /**
- 开始重复调用 repeatBlock，直到返回 NO  (自定义NSRunLoopMode)
+ 开始并马上重复调用 repeatBlock，直到返回 NO  (自定义NSRunLoopMode)
  
  @param ti 调用间隔
  @param mode 运行循环模式
@@ -91,7 +80,7 @@ AGTimerManager * ag_timerManager(id _Nullable token);
 
 #pragma mark - 倒计时⏳
 /**
- 开始倒计时 (NSRunLoopCommonModes)
+ 开始倒计时，间隔为1秒 (NSRunLoopCommonModes)
  
  @param duration 计数值
  @param countdownBlock 计数回调 block 返回 NO 停止，返回 YES 继续。
@@ -149,12 +138,6 @@ AGTimerManager * ag_timerManager(id _Nullable token);
  @return 是否停止成功
  */
 - (BOOL) ag_stopAllTimers;
-
-
-
-/** 禁止调用 */
-- (instancetype) init __attribute__((unavailable("call ag_timerManager(id token)")));
-+ (instancetype) new __attribute__((unavailable("call ag_timerManager(id token)")));
 
 @end
 

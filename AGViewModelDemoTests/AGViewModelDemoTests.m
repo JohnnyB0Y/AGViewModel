@@ -37,7 +37,7 @@ static NSString * const kUserInfoSecondName = @"kUserInfoSecondName";
     
     // 打印数据
     NSDictionary *menber = @{@"title" : @"🐲", @"desc" : @"xxoo"};
-    NSMutableDictionary *dictM = ag_mutableDict(5);
+    NSMutableDictionary *dictM = ag_newNSMutableDictionary(5);
     dictM[@"class"] = @18;
     dictM[@"imageArr"] = @[@"image1", @"image2", @"image3"];
     dictM[@"user"] = @{@"name" : @"Jack", @"age" : @24.};
@@ -54,11 +54,16 @@ static NSString * const kUserInfoSecondName = @"kUserInfoSecondName";
     }];
 }
 
+- (void) testVMArchive
+{
+    
+}
+
 - (void) testVMPackage
 {
     NSArray *list = self.userInfo[@"data"];
     
-    AGVMManager *vmm = ag_VMManager(1);
+    AGVMManager *vmm = ag_newAGVMManager(1);
     [vmm ag_packageSection:^(AGVMSection * _Nonnull vms) {
         [vms ag_packageItems:list inBlock:^(NSMutableDictionary * _Nonnull package, id  _Nonnull obj, NSInteger idx) {
             package[kUserInfoFirstName] = obj[@"firstName"];

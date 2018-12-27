@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const kCTMediatorParamsKeySwiftTargetModuleName;
+
 @interface CTMediator : NSObject
 
 + (instancetype)sharedInstance;

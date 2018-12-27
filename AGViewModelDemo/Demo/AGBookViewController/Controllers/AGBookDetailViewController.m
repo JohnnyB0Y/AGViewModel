@@ -63,7 +63,7 @@
 #pragma mark - CTAPIManagerParamSourceDelegate
 - (NSDictionary *) paramsForApi:(CTAPIBaseManager *)manager
 {
-    NSMutableDictionary *paramM = ag_mutableDict(5);
+    NSMutableDictionary *paramM = ag_newNSMutableDictionary(5);
     
 //    if ( manager == <#loadingAPIManager#> ) {
 //        // ...

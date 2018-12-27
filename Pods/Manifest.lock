@@ -14,19 +14,19 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AGTimerManager (0.3.6)
-  - AGVerifyManager (0.1.3)
-  - CTMediator (18)
-  - CTNetworking (10):
+  - AGTimerManager (0.4.2)
+  - AGVerifyManager (0.3.0)
+  - CTMediator (25)
+  - CTNetworking (14):
     - AFNetworking
     - CTMediator
   - Masonry (1.1.0)
-  - MJRefresh (3.1.15.3)
-  - RealReachability (1.1.9):
-    - RealReachability/Connection (= 1.1.9)
-    - RealReachability/Ping (= 1.1.9)
-  - RealReachability/Connection (1.1.9)
-  - RealReachability/Ping (1.1.9)
+  - MJRefresh (3.1.15.7)
+  - RealReachability (1.3.0):
+    - RealReachability/Connection (= 1.3.0)
+    - RealReachability/Ping (= 1.3.0)
+  - RealReachability/Connection (1.3.0)
+  - RealReachability/Ping (1.3.0)
   - SAMKeychain (1.5.3)
   - SVProgressHUD (2.2.5)
 
@@ -57,16 +57,16 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AGTimerManager: 60ce565be9eac62bfb0f3615863473376b8b5399
-  AGVerifyManager: 33b27ac7ee828f0742055b5baea8bc9b9aadcb4a
-  CTMediator: 420e9d90f9f1fd740caf2238ed7ed64dc621c5b7
-  CTNetworking: ebbd1b89a20bc9c298399f4523357cc74be29a6a
+  AGTimerManager: 0b40610ecb89fdaf59f59e3655242359c452444a
+  AGVerifyManager: 4c720b59f80df92a62eba6cbb30085897172281c
+  CTMediator: 830c1fc204b3a6abf2a059510c7380f56343da0f
+  CTNetworking: 1d76c25dc81eec59744a31559959522319020b81
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  RealReachability: a8c483900986a0f3305733961effbfbb00637a02
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  RealReachability: eae9c58d2db52fadd8e1cba4b5d4c028454fbc47
   SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
 PODFILE CHECKSUM: 069ee2455e38a7df341b4dee5c41c93a3a309f62
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

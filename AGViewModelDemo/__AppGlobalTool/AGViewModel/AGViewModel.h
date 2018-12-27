@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
-@interface AGViewModel : NSObject <NSCopying, NSMutableCopying>
+@interface AGViewModel : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
 
 @property (nonatomic, weak,   readonly, nullable) UIView<AGVMIncludable> *bindingView;
 @property (nonatomic, strong, readonly) NSMutableDictionary *bindingModel;
@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 默认更新绑定视图（ 其实就是调用 bindingView 的 @selector(setViewModel:) 方法 ）*/
 - (void) ag_setBindingView:(nullable UIView<AGVMIncludable> *)bindingView;
+
 
 #pragma mark 绑定视图可以计算自己的Size，并提供给外界使用。
 /** 获取 bindingView 的 size，从缓存中取。如果有“需要缓存的视图Size”的标记，重新计算并缓存。*/
@@ -45,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 如果有“需要缓存的视图Size”的标记，重新计算并缓存。*/
 - (void) ag_cachedBindingViewSizeIfNeeded;
 
+
 #pragma mark 设置绑定代理
 /** 设置代理 */
 - (void) ag_setDelegate:(nullable id<AGVMDelegate>)delegate
@@ -56,9 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_callDelegateToDoForAction:(nullable SEL)action;
 - (void) ag_callDelegateToDoForAction:(nullable SEL)action info:(nullable AGViewModel *)info;
 
+
 #pragma mark 更新数据、刷新视图
 /** 取数据，下标方法：id obj = vm[key]; */
-- (id) objectForKeyedSubscript:(NSString *)key;
+- (nullable id) objectForKeyedSubscript:(NSString *)key;
 
 /** 更新数据，下标方法：vm[key] = obj; */
 - (void) setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;
@@ -78,6 +81,21 @@ NS_ASSUME_NONNULL_BEGIN
 /** 如果有“需要刷新UI”的标记，马上刷新界面。 */
 - (void) ag_refreshUIIfNeeded;
 
+
+#pragma mark 归档持久化相关
+/** 添加到支持 归档(NSKeyedArchiver)、转Json字符串当中。*/
+- (void) ag_addArchivedObjectKey:(NSString *)key;
+
+/** 从支持 归档(NSKeyedArchiver)、转Json字符串当中 移除。*/
+- (void) ag_removeArchivedObjectKey:(NSString *)key;
+
+/** 清空需要 归档(NSKeyedArchiver)、转Json字符串 的keys。*/
+- (void) ag_removeAllArchivedObjectKeys;
+
+/** 转成字符串（NSString、NSNumber、NSURL、实现 NSFastEnumeration 或 AGVMJSONTransformable 协议对象、{其他类型自行处理}）*/
+- (nullable NSString *) ag_toJSONString;
+
+
 #pragma mark 数据合并相关
 /**
  合并包含 keys 的模型数据
@@ -90,6 +108,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) ag_mergeModelFromViewModel:(AGViewModel *)vm;
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict;
+
 
 #pragma mark 快速初始化实例
 /**
@@ -116,6 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
 
+
 #pragma mark debug 信息
 - (NSString *) ag_debugString;
 
@@ -129,10 +149,4 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AGViewModel (AGVMObserverRegistration) <AGVMObserverRegistration>
 @end
 
-#pragma mark - 数据转换
-@interface AGViewModel (AGVMJSONTransformable) <AGVMJSONTransformable>
-@end
-
 NS_ASSUME_NONNULL_END
-
-

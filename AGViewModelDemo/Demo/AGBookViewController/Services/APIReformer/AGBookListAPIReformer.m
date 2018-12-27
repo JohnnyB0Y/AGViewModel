@@ -19,7 +19,7 @@
 	NSArray *list = ag_safeArray(responseData[@"books"]);
 	if ( [manager isKindOfClass:[AGBookListAPIManager class]] ) {
 		// 书籍列表
-		AGVMManager *vmm = ag_VMManager(1);
+        AGVMManager *vmm = ag_newAGVMManager(1);
 		// 打包书籍
         [vmm ag_packageSectionItems:list packager:self.bookListCellVMP forObject:manager];
 		

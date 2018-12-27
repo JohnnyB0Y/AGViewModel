@@ -58,6 +58,7 @@
 		3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */; };
 		3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3832031437B009F4B29 /* UICollectionViewCell+AGViewModel.m */; };
 		3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */; };
+		3AFD681E21D3F6A6007317E6 /* AGDiskBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFD681D21D3F6A6007317E6 /* AGDiskBookListViewController.m */; };
 		87465D43050D2F2439B7FF87 /* libPods-AGViewModelDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -174,6 +175,8 @@
 		3AE9C3882031437B009F4B29 /* UICollectionViewCell+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C392203143DB009F4B29 /* UIView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AGViewModel.m"; sourceTree = "<group>"; };
+		3AFD681C21D3F6A6007317E6 /* AGDiskBookListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDiskBookListViewController.h; sourceTree = "<group>"; };
+		3AFD681D21D3F6A6007317E6 /* AGDiskBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDiskBookListViewController.m; sourceTree = "<group>"; };
 		50237810C9061914256F6227 /* Pods-AGViewModelDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.release.xcconfig"; sourceTree = "<group>"; };
 		B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AGViewModelDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -365,6 +368,8 @@
 				3A04295620B7AE4B0025D9D5 /* AGBookDetailViewController.h */,
 				3A04295720B7AE4B0025D9D5 /* AGBookDetailViewController.m */,
 				3A04295820B7AE4B0025D9D5 /* AGBookDetailViewController.xib */,
+				3AFD681C21D3F6A6007317E6 /* AGDiskBookListViewController.h */,
+				3AFD681D21D3F6A6007317E6 /* AGDiskBookListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -772,6 +777,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AFD681E21D3F6A6007317E6 /* AGDiskBookListViewController.m in Sources */,
 				3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
 				3A04293920B7AADB0025D9D5 /* GZPSItemDetailCell.m in Sources */,
 				3A04295D20B7B2610025D9D5 /* AGBookHandleReformer.m in Sources */,

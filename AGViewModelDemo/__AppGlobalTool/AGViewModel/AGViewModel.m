@@ -13,6 +13,7 @@
 @interface AGViewModel ()
 
 @property (nonatomic, strong) AGVMNotifier *notifier;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *archivedDictM;
 
 @end
 
@@ -36,14 +37,14 @@
 + (instancetype) newWithModel:(NSDictionary *)bindingModel
                      capacity:(NSInteger)capacity
 {
-    AGViewModel *vm = [[self alloc] initWithModel:ag_mutableDict(capacity)];
+    AGViewModel *vm = [[self alloc] initWithModel:ag_newNSMutableDictionary(capacity)];
     [vm ag_mergeModelFromDictionary:bindingModel];
     return vm;
 }
 
 + (instancetype) newWithModel:(NSDictionary *)bindingModel
 {
-    NSMutableDictionary *dictM = bindingModel ? [bindingModel mutableCopy] : ag_mutableDict(6);
+    NSMutableDictionary *dictM = bindingModel ? [bindingModel mutableCopy] : ag_newNSMutableDictionary(6);
     AGViewModel *vm = [[self alloc] initWithModel:dictM];
     return vm;
 }
@@ -95,7 +96,7 @@
     self.indexPath = indexPath;
 }
 
-#pragma mark 绑定视图后，可以让视图做一些事情
+#pragma mark 绑定视图可以计算自己的Size，并提供给外界使用。
 - (CGSize) ag_sizeOfBindingView
 {
     if ( _cachedBindingViewSizeTag ) {
@@ -170,7 +171,7 @@
     }
 }
 
-#pragma mark help method
+#pragma mark 更新数据，刷新界面
 - (void) ag_refreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
     [self ag_setNeedsRefreshUIModelInBlock:block];
@@ -207,6 +208,7 @@
     }
 }
 
+#pragma mark 数据合并
 /** 合并 bindingModel */
 - (void) ag_mergeModelFromViewModel:(AGViewModel *)vm
 {
@@ -235,7 +237,7 @@
     [self ag_mergeModelFromDictionary:vm.bindingModel byKeys:keys];
 }
 
-#pragma mark - other method
+#pragma mark Other method.
 - (void)ag_callDelegateToDoForInfo:(NSDictionary *)info
 {
     if ( _responeMethod.ag_callDelegateToDoForInfo ) {
@@ -280,18 +282,104 @@
     }
 }
 
-#pragma mark - NSCopying
+#pragma mark NSCopying
 - (id)copyWithZone:(NSZone *)zone
 {
     AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:_bindingModel];
     [vm ag_setBindingView:_bindingView configDataBlock:_configDataBlock];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
+    vm->_archivedDictM = [self->_archivedDictM mutableCopy];
     return vm;
 }
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
     return [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
+}
+
+#pragma mark NSSecureCoding
++ (BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    if ( _archivedDictM ) {
+        
+        NSMutableDictionary *dictM = ag_newNSMutableDictionary(_archivedDictM.count);
+        [_archivedDictM enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            id archiveObj = self->_bindingModel[key];
+            BOOL isConformsToProtocol = [archiveObj conformsToProtocol:@protocol(NSCoding)];
+            NSAssert(isConformsToProtocol, @"Archived object not conform to <NSCoding> protocol.");
+            if ( isConformsToProtocol ) {
+                [dictM setObject:archiveObj forKey:key];
+            }
+        }];
+        
+        [aCoder encodeObject:dictM forKey:kAGVMDictionary];
+    }
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    NSMutableDictionary<NSString *, id> *bm = [[aDecoder decodeObjectOfClass:self.class forKey:kAGVMDictionary] mutableCopy];
+    if ( bm == nil ) {
+        bm = [NSMutableDictionary dictionaryWithCapacity:6];
+    }
+    
+    self = [self initWithModel:bm];
+    if ( self == nil ) return nil;
+    
+    self->_archivedDictM = [NSMutableDictionary dictionaryWithCapacity:bm.count];
+    [bm enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self->_archivedDictM setObject:kAGVMObject forKey:key];
+    }];
+    
+    return self;
+}
+
+/** 更新数据，并添加到支持 归档(NSKeyedArchiver)、转Json字符串当中。*/
+- (void) ag_addArchivedObjectKey:(NSString *)key
+{
+    NSParameterAssert(key);
+    [self.archivedDictM setObject:kAGVMObject forKey:key];
+}
+
+- (void) ag_removeArchivedObjectKey:(NSString *)key
+{
+    NSParameterAssert(key);
+    [_archivedDictM removeObjectForKey:key];
+}
+
+- (void) ag_removeAllArchivedObjectKeys
+{
+    [_archivedDictM removeAllObjects];
+}
+
+#pragma mark AGVMJSONTransformable
+- (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
+                              customTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
+{
+    NSMutableDictionary *dictM = ag_newNSMutableDictionary(_archivedDictM.count);
+    [_archivedDictM enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        id archiveObj = self->_bindingModel[key];
+        if ( [obj conformsToProtocol:@protocol(NSCoding)] ) {
+            [dictM setObject:archiveObj forKey:key];
+        }
+    }];
+    
+    return ag_newJSONStringWithDictionary(dictM, vm, block);
+}
+
+- (NSString *)ag_toJSONStringWithCustomTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
+{
+    return [self ag_toJSONStringWithExchangeKey:nil customTransform:block];
+}
+
+- (NSString *)ag_toJSONString
+{
+    return [self ag_toJSONStringWithCustomTransform:nil];
 }
 
 #pragma mark - ------------ Override Methods --------------
@@ -367,6 +455,14 @@
         _notifier = [[AGVMNotifier alloc] initWithViewModel:self];
     }
     return _notifier;
+}
+
+- (NSMutableDictionary<NSString *,id> *)archivedDictM
+{
+    if (_archivedDictM == nil) {
+        _archivedDictM = ag_newNSMutableDictionary(6);
+    }
+    return _archivedDictM;
 }
 
 @end
@@ -501,7 +597,7 @@
 - (NSString *) ag_safeNumberStringForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetCompletionBlock)block
 {
     id value = self[key];
-    return [self _getNewObject:ag_safeNumberString(value) withObject:value completion:block];
+    return [self _getNewObject:ag_newNSStringWithObj(value) withObject:value completion:block];
 }
 
 
@@ -678,48 +774,29 @@
 @end
 
 
-@implementation AGViewModel (AGVMJSONTransformable)
-- (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
-                              customTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
-{
-    return ag_JSONStringWithDict(_bindingModel, vm, block);
-}
-
-- (NSString *)ag_toJSONStringWithCustomTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
-{
-    return ag_JSONStringWithDict(_bindingModel, nil, block);
-}
-
-- (NSString *)ag_toJSONString
-{
-    return ag_JSONStringWithDict(_bindingModel, nil, nil);
-}
-
-@end
-
 #pragma mark - Fast Funtion
 /** Quickly create AGViewModel instance */
-AGViewModel * ag_viewModel(NSDictionary *bindingModel)
+AGViewModel * ag_newAGViewModel(NSDictionary *bindingModel)
 {
     return [AGViewModel newWithModel:bindingModel];
 }
 
 /** Quickly create mutableDictionary */
-NSMutableDictionary * ag_mutableDict(NSInteger capacity)
+NSMutableDictionary * ag_newNSMutableDictionary(NSInteger capacity)
 {
-    return [NSMutableDictionary dictionaryWithCapacity:capacity];
+    return [[NSMutableDictionary alloc] initWithCapacity:capacity];
 }
 
 /** Quickly create mutableArray */
-NSMutableArray * ag_mutableArray(NSInteger capacity)
+NSMutableArray * ag_newNSMutableArray(NSInteger capacity)
 {
-    return [NSMutableArray arrayWithCapacity:capacity];
+    return [[NSMutableArray alloc] initWithCapacity:capacity];
 }
 
 /** Quickly create 可变数组函数, 包含 Null 对象 */
-NSMutableArray * ag_mutableNullArray(NSInteger capacity)
+NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity)
 {
-    NSMutableArray *arrM = [NSMutableArray arrayWithCapacity:capacity];
+    NSMutableArray *arrM = ag_newNSMutableArray(capacity);
     for (NSInteger i = 0; i < capacity; i++) {
         [arrM addObject:[NSNull null]];
     }
@@ -781,15 +858,25 @@ NSString * ag_safeString(id obj)
 }
 
 /** 验证是否能转换为 NSString 对象；能转：返回 NSString 对象；不能：返回 nil */
-NSString * ag_safeNumberString(id obj)
+NSString * ag_newNSStringWithObj(id obj)
 {
+    NSString *newStr;
 	if ( [obj isKindOfClass:[NSString class]] ) {
-		return obj;
+        newStr = obj;
 	}
 	else if ( [obj isKindOfClass:[NSNumber class]] ) {
-		NSNumber *numObj = obj;
-		return numObj.stringValue;
+		NSNumber *newObj = obj;
+        newStr = newObj.stringValue;
 	}
+    else if ( [obj isKindOfClass:[NSURL class]] ) {
+        NSURL *newObj = obj;
+        newStr = [newObj absoluteString];
+    }
+    
+    if ( newStr ) {
+        return [NSString stringWithString:newStr];
+    }
+    
 	return nil;
 }
 

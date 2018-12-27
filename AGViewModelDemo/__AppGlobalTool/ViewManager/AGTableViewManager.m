@@ -86,7 +86,14 @@ itemClickBlock = _itemClickBlock;
     if ( [_customizableDelegate respondsToSelector:@selector(tableViewManager:classForItemAtIndexPath:)] ) {
         cellClass = [_customizableDelegate tableViewManager:self classForItemAtIndexPath:indexPath];
     }
-    cellClass = vm[kAGVMViewClass] ?: cellClass;
+    
+    Class cls = vm[kAGVMViewClass];
+    if ( cls == nil ) {
+        NSString *className = vm[kAGVMViewClassName];
+        cls = NSClassFromString(className);
+        vm[kAGVMViewClass] = cls;
+    }
+    cellClass = cls ?: cellClass;
     
     // dequeue cell
     UITableViewCell<AGVMIncludable> *cell = [cellClass ag_dequeueCellBy:tableView for:indexPath];
@@ -131,7 +138,13 @@ itemClickBlock = _itemClickBlock;
     if ( [_customizableDelegate respondsToSelector:@selector(tableViewManager:classForHeaderViewAtIndexPath:)] ) {
         headerClass = [_customizableDelegate tableViewManager:self classForHeaderViewAtIndexPath:indexPath];
     }
-    headerClass  = vm[kAGVMViewClass] ?: headerClass;
+    Class cls = vm[kAGVMViewClass];
+    if ( cls == nil ) {
+        NSString *className = vm[kAGVMViewClassName];
+        cls = NSClassFromString(className);
+        vm[kAGVMViewClass] = cls;
+    }
+    headerClass = cls ?: headerClass;
     
     // dequeue header view
     UITableViewHeaderFooterView<AGVMIncludable> *headerView;
@@ -174,7 +187,14 @@ itemClickBlock = _itemClickBlock;
     if ( [_customizableDelegate respondsToSelector:@selector(tableViewManager:classForFooterViewAtIndexPath:)] ) {
         footerClass = [_customizableDelegate tableViewManager:self classForFooterViewAtIndexPath:indexPath];
     }
-    footerClass  = vm[kAGVMViewClass] ?: footerClass;
+    
+    Class cls = vm[kAGVMViewClass];
+    if ( cls == nil ) {
+        NSString *className = vm[kAGVMViewClassName];
+        cls = NSClassFromString(className);
+        vm[kAGVMViewClass] = cls;
+    }
+    footerClass = cls ?: footerClass;
     
     // dequeue footer view
     UITableViewHeaderFooterView<AGVMIncludable> *footerView;
@@ -452,7 +472,7 @@ itemClickBlock = _itemClickBlock;
 - (AGVMManager *)vmm
 {
     if (_vmm == nil) {
-        _vmm = ag_VMManager(1);
+        _vmm = ag_newAGVMManager(1);
         [_vmm ag_packageSection:nil capacity:120];
     }
     return _vmm;

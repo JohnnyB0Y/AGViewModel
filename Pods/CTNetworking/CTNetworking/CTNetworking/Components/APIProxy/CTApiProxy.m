@@ -13,19 +13,19 @@
 #import "NSURLRequest+CTNetworkingMethods.h"
 #import "NSString+AXNetworkingMethods.h"
 #import "NSObject+AXNetworkingMethods.h"
+#import "CTMediator+CTAppContext.h"
 
 static NSString * const kAXApiProxyDispatchItemKeyCallbackSuccess = @"kAXApiProxyDispatchItemCallbackSuccess";
 static NSString * const kAXApiProxyDispatchItemKeyCallbackFail = @"kAXApiProxyDispatchItemCallbackFail";
 
-NSString * const kCTApiProxyValidateResultKeyResponseJSONObject = @"kCTApiProxyValidateResultKeyResponseJSONObject";
-NSString * const kCTApiProxyValidateResultKeyResponseJSONString = @"kCTApiProxyValidateResultKeyResponseJSONString";
-NSString * const kCTApiProxyValidateResultKeyResponseData = @"kCTApiProxyValidateResultKeyResponseData";
+NSString * const kCTApiProxyValidateResultKeyResponseObject = @"kCTApiProxyValidateResultKeyResponseObject";
+NSString * const kCTApiProxyValidateResultKeyResponseString = @"kCTApiProxyValidateResultKeyResponseString";
+//NSString * const kCTApiProxyValidateResultKeyResponseData = @"kCTApiProxyValidateResultKeyResponseData";
 
 @interface CTApiProxy ()
 
 @property (nonatomic, strong) NSMutableDictionary *dispatchTable;
 @property (nonatomic, strong) NSNumber *recordedRequestId;
-@property (nonatomic, strong) AFHTTPSessionManager *sessionManager;
 
 @end
 
@@ -39,15 +39,16 @@ NSString * const kCTApiProxyValidateResultKeyResponseData = @"kCTApiProxyValidat
     return _dispatchTable;
 }
 
-- (AFHTTPSessionManager *)sessionManager
+- (AFHTTPSessionManager *)sessionManagerWithService:(id<CTServiceProtocol>)service
 {
-    if (_sessionManager == nil) {
-        _sessionManager = [AFHTTPSessionManager manager];
-        _sessionManager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        _sessionManager.securityPolicy.allowInvalidCertificates = YES;
-        _sessionManager.securityPolicy.validatesDomainName = NO;
+    AFHTTPSessionManager *sessionManager = nil;
+    if ([service respondsToSelector:@selector(sessionManager)]) {
+        sessionManager = service.sessionManager;
     }
-    return _sessionManager;
+    if (sessionManager == nil) {
+        sessionManager = [AFHTTPSessionManager manager];
+    }
+    return sessionManager;
 }
 
 #pragma mark - life cycle
@@ -81,24 +82,24 @@ NSString * const kCTApiProxyValidateResultKeyResponseData = @"kCTApiProxyValidat
 {
     // 跑到这里的block的时候，就已经是主线程了。
     __block NSURLSessionDataTask *dataTask = nil;
-    dataTask = [self.sessionManager dataTaskWithRequest:request
+    dataTask = [[self sessionManagerWithService:request.service] dataTaskWithRequest:request
                                          uploadProgress:nil
                                        downloadProgress:nil
-                                      completionHandler:^(NSURLResponse * _Nonnull response, NSData * _Nullable responseData, NSError * _Nullable error) {
+                                      completionHandler:^(NSURLResponse * _Nonnull response, id _Nullable responseObject, NSError * _Nullable error) {
         NSNumber *requestID = @([dataTask taskIdentifier]);
         [self.dispatchTable removeObjectForKey:requestID];
         
-        NSDictionary *result = [request.service resultWithResponseData:responseData response:response request:request error:&error];
+        NSDictionary *result = [request.service resultWithResponseObject:responseObject response:response request:request error:&error];
         // 输出返回数据
-        CTURLResponse *CTResponse = [[CTURLResponse alloc] initWithResponseString:result[kCTApiProxyValidateResultKeyResponseJSONString]
+        CTURLResponse *CTResponse = [[CTURLResponse alloc] initWithResponseString:result[kCTApiProxyValidateResultKeyResponseString]
                                                                         requestId:requestID
                                                                           request:request
-                                                                  responseContent:result[kCTApiProxyValidateResultKeyResponseJSONObject]
+                                                                  responseObject:result[kCTApiProxyValidateResultKeyResponseObject]
                                                                             error:error];
 
         CTResponse.logString = [CTLogger logDebugInfoWithResponse:(NSHTTPURLResponse *)response
-                                                  rawResponseData:responseData
-                                                   responseString:result[kCTApiProxyValidateResultKeyResponseJSONString]
+                                                   responseObject:responseObject
+                                                   responseString:result[kCTApiProxyValidateResultKeyResponseString]
                                                           request:request
                                                             error:error];
 

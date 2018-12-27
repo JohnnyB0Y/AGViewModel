@@ -12,6 +12,7 @@
 @interface AGVMManager ()
 
 @property (nonatomic, strong) NSMutableArray<AGVMSection *> *sectionArrM;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *archivedDictM;
 
 @end
 
@@ -34,11 +35,23 @@
 
 - (instancetype)initWithSectionCapacity:(NSInteger)capacity
 {
+    NSMutableArray *sectionArrM = ag_newNSMutableArray(capacity);
+    return [self initWithSections:sectionArrM];
+}
+
++ (instancetype) newWithSections:(NSMutableArray<AGVMSection *> *)sectionArrM
+{
+    return [[self alloc] initWithSections:sectionArrM];
+}
+
+- (instancetype) initWithSections:(NSMutableArray<AGVMSection *> *)sectionArrM
+{
     self = [super init];
-    if (self) {
-        _capacity = capacity;
-        _sectionArrM = ag_mutableArray(capacity);
-    }
+    if ( self == nil ) return nil;
+    
+    _capacity = sectionArrM ? sectionArrM.count : 6;
+    _sectionArrM = sectionArrM ?: [NSMutableArray arrayWithCapacity:_capacity];
+    
     return self;
 }
 
@@ -59,7 +72,7 @@
 /** 拼装 section 数据 capacity */
 - (AGVMSection *) ag_packageSection:(NS_NOESCAPE AGVMPackageSectionBlock)block capacity:(NSInteger)capacity
 {
-    AGVMSection *vms = ag_VMSection(capacity);
+    AGVMSection *vms = ag_newAGVMSection(capacity);
     if ( block ) block(vms);
     [self.sectionArrM addObject:vms];
     return vms;
@@ -108,6 +121,123 @@
         [vmm ag_addSection:[vms mutableCopy]];
     }];
     return vmm;
+}
+
+#pragma mark - NSSecureCoding
++ (BOOL)supportsSecureCoding
+{
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    if ( _archivedDictM.count < 0 ) {
+        NSLog(@"Please add the keys that need to be archived.");
+        return;
+    }
+    
+    NSString *archiveCommonVMKey = self.archivedDictM[kAGVMCommonVM];
+    NSString *archiveSectionArrMKey = self.archivedDictM[kAGVMArray];
+    [aCoder encodeObject:self.archivedDictM forKey:kAGVMDictionary];
+    
+    if ( self->_cvm && archiveCommonVMKey )
+        [aCoder encodeObject:self->_cvm forKey:archiveCommonVMKey];
+    
+    if ( self->_sectionArrM.count > 0 && archiveSectionArrMKey )
+        [aCoder encodeObject:self->_sectionArrM forKey:archiveSectionArrMKey];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    Class selfCls = self.class;
+    NSDictionary *archiveKeyDict = [aDecoder decodeObjectOfClass:selfCls forKey:kAGVMDictionary];
+    NSString *archiveSectionArrMKey = archiveKeyDict[kAGVMArray];
+    
+    NSMutableArray *sectionArrM;
+    if ( archiveSectionArrMKey )
+        sectionArrM = [[aDecoder decodeObjectOfClass:selfCls forKey:archiveSectionArrMKey] mutableCopy];
+    
+    self = [self initWithSections:sectionArrM];
+    if ( self == nil ) return nil;
+    
+    NSString *archiveCommonVMKey = archiveKeyDict[kAGVMCommonVM];
+    
+    if ( archiveCommonVMKey )
+        self->_cvm = [aDecoder decodeObjectOfClass:selfCls forKey:archiveCommonVMKey];
+    
+    if ( archiveKeyDict )
+        self->_archivedDictM = [archiveKeyDict mutableCopy];
+    
+    return self;
+}
+
+/** 添加到支持 归档(NSKeyedArchiver)、转Json字符串当中的 Key。*/
+- (void) ag_addArchivedCommonVMKey:(NSString *)key
+{
+    NSParameterAssert(key);
+    [self.archivedDictM setObject:key forKey:kAGVMCommonVM];
+}
+
+- (void) ag_addArchivedSectionArrMKey:(NSString *)key
+{
+    NSParameterAssert(key);
+    [self.archivedDictM setObject:key forKey:kAGVMArray];
+}
+
+/** 添加到支持 归档(NSKeyedArchiver)、转Json字符串当中的 Key，使用类内置的key */
+- (void) ag_addAllArchivedObjectUseDefaultKeys
+{
+    [self.archivedDictM setObject:kAGVMCommonVM forKey:kAGVMCommonVM];
+    [self.archivedDictM setObject:kAGVMArray forKey:kAGVMArray];
+}
+
+/** 移除要归档和转字符串的 keys */
+- (void) ag_removeArchivedCommonVMKey
+{
+    [_archivedDictM removeObjectForKey:kAGVMCommonVM];
+}
+
+- (void) ag_removeArchivedSectionArrMKey
+{
+    [_archivedDictM removeObjectForKey:kAGVMArray];
+}
+
+- (void) ag_removeAllArchivedObjectKeys
+{
+    [_archivedDictM removeAllObjects];
+}
+
+#pragma mark AGVMJSONTransformable
+- (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
+                              customTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
+{
+    if ( _archivedDictM.count < 0 ) {
+        NSLog(@"Please add the keys that need to transform json.");
+        return nil;
+    }
+    
+    NSString *archiveCommonVMKey = self.archivedDictM[kAGVMCommonVM];
+    NSString *archiveSectionArrMKey = self.archivedDictM[kAGVMArray];
+    
+    NSMutableDictionary *dictM = ag_newNSMutableDictionary(2);
+    
+    if ( archiveCommonVMKey )
+        dictM[archiveCommonVMKey] = _cvm ?: @"{}";
+    
+    if ( archiveSectionArrMKey )
+        dictM[archiveSectionArrMKey] = _sectionArrM ?: @"[]";
+    
+    return ag_newJSONStringWithDictionary(dictM, vm, block);
+}
+
+- (NSString *)ag_toJSONStringWithCustomTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
+{
+    return [self ag_toJSONStringWithExchangeKey:nil customTransform:block];
+}
+
+- (NSString *)ag_toJSONString
+{
+    return [self ag_toJSONStringWithCustomTransform:nil];
 }
 
 #pragma mark - 修改数据
@@ -166,7 +296,7 @@
                         capacity:(NSInteger)capacity
 {
     if ( package ) {
-        AGVMSection *vms = ag_VMSection(capacity);
+        AGVMSection *vms = ag_newAGVMSection(capacity);
         package(vms);
         return [self ag_insertSection:vms atIndex:index];
     }
@@ -195,7 +325,7 @@
 	if (vmm == nil) return;
 	
     if ( vmm.cvm ) {
-        _cvm = _cvm ?: ag_viewModel(nil);
+        _cvm = _cvm ?: ag_newAGViewModel(nil);
     }
     [self.cvm ag_mergeModelFromViewModel:vmm.cvm];
     [self ag_addSectionsFromArray:vmm.sectionArrM];
@@ -300,6 +430,14 @@
     return [self.sectionArrM lastObject];
 }
 
+- (NSMutableDictionary<NSString *,id> *)archivedDictM
+{
+    if (_archivedDictM == nil) {
+        _archivedDictM = ag_newNSMutableDictionary(2);
+    }
+    return _archivedDictM;
+}
+
 #pragma mark - ----------- Override Methods ----------
 - (NSString *)debugDescription
 {
@@ -342,32 +480,8 @@
 @end
 
 
-@implementation AGVMManager (AGVMJSONTransformable)
-- (NSString *) ag_toJSONStringWithExchangeKey:(AGViewModel *)vm
-                              customTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
-{
-    NSMutableDictionary *dictM = ag_mutableDict(2);
-    dictM[kAGVMCommonVM] = _cvm;
-    dictM[kAGVMArray] = _sectionArrM;
-    return ag_JSONStringWithDict(dictM, vm, block);
-}
-
-- (NSString *)ag_toJSONStringWithCustomTransform:(NS_NOESCAPE AGVMJSONTransformBlock)block
-{
-    return [self ag_toJSONStringWithExchangeKey:nil customTransform:block];
-}
-
-- (NSString *)ag_toJSONString
-{
-    return [self ag_toJSONStringWithCustomTransform:nil];
-}
-
-@end
-
 /** Quickly create AGVMManager instance */
-AGVMManager * ag_VMManager(NSInteger capacity)
+AGVMManager * ag_newAGVMManager(NSInteger capacity)
 {
     return [AGVMManager newWithSectionCapacity:capacity];
 }
-
-

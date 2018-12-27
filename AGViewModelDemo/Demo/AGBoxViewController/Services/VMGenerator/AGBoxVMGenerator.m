@@ -14,7 +14,7 @@
 - (AGVMManager *)boxVMManager
 {
     if (_boxVMManager == nil) {
-        _boxVMManager = ag_VMManager(3);
+        _boxVMManager = ag_newAGVMManager(3);
         
         // 公共数据
         [_boxVMManager ag_packageCommonData:^(NSMutableDictionary * _Nonnull package) {

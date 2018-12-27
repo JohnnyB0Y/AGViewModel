@@ -16,7 +16,7 @@
 - (AGVMManager *) documentVMM
 {
     if (_documentVMM == nil) {
-        _documentVMM = ag_VMManager(5);
+        _documentVMM = ag_newAGVMManager(5);
         
         [_documentVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
             
@@ -28,7 +28,7 @@
                 package[kAGVMViewClass] = [GZPSItemHeaderView class];
                 
                 // 数据
-                AGVMSection *subVMS = ag_VMSection(2);
+                AGVMSection *subVMS = ag_newAGVMSection(2);
                 [subVMS ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
                     package[kAGVMItemDetail] = @"折戟沉沙铁未销，自将磨洗认前朝。";
                     package[kAGVMViewClass] = [GZPSItemDetailCell class];
@@ -55,7 +55,7 @@
                 package[kAGVMViewClass] = [GZPSItemHeaderView class];
                 
                 // 数据
-                AGVMSection *subVMS = ag_VMSection(1);
+                AGVMSection *subVMS = ag_newAGVMSection(1);
                 [subVMS ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
                     package[kAGVMItemDetail] = @"本以高难饱，徒劳恨费声。\
                     \n五更疏欲断，一树碧无情。\

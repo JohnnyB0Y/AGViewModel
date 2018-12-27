@@ -76,8 +76,11 @@ static NSString * const kAGVMTargetVCBlock = @"kAGVMTargetVCBlock";
 
 
 #pragma mark - 显示的视图相关
-/** view 实例化 👉Class👈 */
+/** view 类对象 👉Class👈 */
 static NSString * const kAGVMViewClass = @"kAGVMViewClass";
+
+/** view 类名字符串 👉NSString👈 */
+static NSString * const kAGVMViewClassName = @"kAGVMViewClassName";
 
 #pragma mark 标记
 /** view 标记 👉NSNumber👈 */

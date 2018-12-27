@@ -58,6 +58,7 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		instance = [[self alloc] init];
+        instance.tokenMapTable = [NSMapTable weakToStrongObjectsMapTable];
 	});
 	return instance;
 }
@@ -179,7 +180,7 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
 #pragma mark 开始 timer
 - (void) _startTimer:(NSTimer *)timer forMode:(NSRunLoopMode)mode
 {
-	[[NSRunLoop mainRunLoop] addTimer:timer forMode:mode];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:mode];
 }
 
 #pragma mark 获取 timer
@@ -223,7 +224,7 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
 	else {
 		// stop timer
 		[timer invalidate];
-//		NSLog(@"stop timer");
+//        NSLog(@"stop timer %@", [NSThread currentThread]);
 	}
 }
 
@@ -236,29 +237,24 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
 /** 通过 token 获取 timerInfo */
 - (NSMutableDictionary<NSString *,NSMutableDictionary *> *) _timerInfoWithToken:(id)token
 {
-	NSMutableDictionary *timerInfo = [self.tokenMapTable objectForKey:token];
+    if ( token == nil ) return nil;
+    
+    NSMutableDictionary *timerInfo = [self.tokenMapTable objectForKey:token];
 	if ( ! timerInfo ) {
 		timerInfo = [NSMutableDictionary dictionaryWithCapacity:6];
-		[self.tokenMapTable setObject:timerInfo forKey:token];
+        
+        [self.tokenMapTable setObject:timerInfo forKey:token];
 	}
 	return timerInfo;
 }
 
-#pragma mark - ----------- Getter Methods ----------
-- (NSMapTable *)tokenMapTable
-{
-	if (_tokenMapTable == nil) {
-		_tokenMapTable = [NSMapTable weakToStrongObjectsMapTable];
-	}
-	return _tokenMapTable;
-}
-
 @end
+
+
 
 #pragma mark - timer manager
 @interface AGTimerManager ()
 
-@property (nonatomic, strong) id currentToken;
 
 @end
 
@@ -266,12 +262,7 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
 @implementation AGTimerManager
 
 #pragma mark - ----------- Life Cycle ----------
-+ (instancetype) newWithToken:(id)token
-{
-	AGTimerManager *tm = [[self alloc] init];
-	tm.currentToken = token;
-	return tm;
-}
+
 
 #pragma mark - ---------- Public Methods ----------
 #pragma mark - 倒计时⏳
@@ -281,7 +272,7 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
 							countdown:(AGTMCountdownBlock)countdownBlock
 						   completion:(AGTMCompletionBlock)completionBlock
 {
-	return [[__AGTimerManager sharedInstance] ag_startCountdownTimer:self.currentToken
+	return [[__AGTimerManager sharedInstance] ag_startCountdownTimer:self
 															duration:duration
 															interval:ti
 															 forMode:mode
@@ -338,7 +329,7 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
 						   forMode:(NSRunLoopMode)mode
 							repeat:(AGTMRepeatBlock)repeatBlock
 {
-	return [[__AGTimerManager sharedInstance] ag_startRepeatTimer:self.currentToken
+	return [[__AGTimerManager sharedInstance] ag_startRepeatTimer:self
 														 interval:ti
 															delay:delay
 														  forMode:mode
@@ -352,33 +343,29 @@ static NSString * const kAGTMToken   			= @"kAGTMToken";
  */
 - (BOOL) ag_stopTimerForKey:(NSString *)key
 {
-	return [[__AGTimerManager sharedInstance] ag_stopTimer:self.currentToken forKey:key];
+	return [[__AGTimerManager sharedInstance] ag_stopTimer:self forKey:key];
 }
 
 /** 停止所有 timer */
 - (BOOL) ag_stopAllTimers
 {
-	return [[__AGTimerManager sharedInstance] ag_stopAllTimers:self.currentToken];
+	return [[__AGTimerManager sharedInstance] ag_stopAllTimers:self];
 }
 
 #pragma mark - ----------- Override Methods ----------
 - (NSString *) debugDescription
 {
-	__AGTimerManager *tm = [__AGTimerManager sharedInstance];
-    return [NSString stringWithFormat:@"<%@: %p> -- %@", [tm class] , tm, tm.tokenMapTable];
+    return [self description];
 }
 
 - (NSString *)description
 {
 	__AGTimerManager *tm = [__AGTimerManager sharedInstance];
-	return [NSString stringWithFormat:@"<%@: %p> -- %@", [tm class] , tm, tm.tokenMapTable];
+    NSMutableDictionary *timerInfo = [tm.tokenMapTable objectForKey:self];
+	return [NSString stringWithFormat:@"<%@: %p> -- %@", [tm class] , tm, timerInfo];
 }
+
+#pragma mark - ----------- Getter Methods ----------
+
 
 @end
-
-/** 获取 timer manager */
-AGTimerManager * ag_timerManager(id token)
-{
-	return [AGTimerManager newWithToken:token];
-}
-

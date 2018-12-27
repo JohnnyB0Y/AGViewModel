@@ -42,7 +42,7 @@
     [self _networkRequest];
 	
 	// 测试
-	AGVMSection *vms = ag_VMSection(9);
+	AGVMSection *vms = ag_newAGVMSection(9);
 	// 数据准备
 	for (NSInteger i = 0; i<9; i++) {
 		[vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
@@ -174,7 +174,7 @@
 {
     if (_vm == nil) {
         NSDictionary *dict = @{kAGVMViewW : @44};
-        _vm = ag_viewModel(dict);
+        _vm = ag_newAGViewModel(dict);
     }
     return _vm;
 }

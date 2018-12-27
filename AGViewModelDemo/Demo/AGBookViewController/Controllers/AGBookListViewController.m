@@ -8,6 +8,7 @@
 
 #import "AGBookListViewController.h"
 #import "AGBookDetailViewController.h"
+#import "AGDiskBookListViewController.h"
 
 #import "AGTableViewManager.h"
 #import <SVProgressHUD.h>
@@ -70,7 +71,7 @@ AGVMDelegate>
 #pragma mark - CTAPIManagerParamSourceDelegate
 - (NSDictionary *) paramsForApi:(CTAPIBaseManager *)manager
 {
-    NSMutableDictionary *paramM = ag_mutableDict(5);
+    NSMutableDictionary *paramM = ag_newNSMutableDictionary(5);
     
     if ( manager == _bookListAPIManager ) {
         // ... q={}&count={}&start={}
@@ -127,7 +128,16 @@ AGVMDelegate>
 
 
 #pragma mark - ---------- Event Methods ----------
-
+- (void) rightBarButtonItemClick:(UIBarButtonItem *)item
+{
+    // 保存图书列表
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager.vmm];
+    [data writeToURL:[self _archiveURL] atomically:YES];
+    
+    // 跳转到磁盘图书列表视图控制器
+    AGDiskBookListViewController *vc = [[AGDiskBookListViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 
 #pragma mark - ---------- Private Methods ----------
 #pragma mark add SubViews
@@ -185,7 +195,7 @@ AGVMDelegate>
         
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
-            AGViewModel *newVM = ag_viewModel(nil);
+            AGViewModel *newVM = ag_newAGViewModel(nil);
             [newVM ag_mergeModelFromViewModel:vm byKeys:@[ak_AGBook_title, ak_AGBook_isbn]];
             
             AGBookDetailViewController *vc = [AGBookDetailViewController newWithViewModel:newVM];
@@ -193,6 +203,8 @@ AGVMDelegate>
         }
         
     };
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"归档并跳转" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
 }
 
 #pragma mark network request
@@ -208,12 +220,30 @@ AGVMDelegate>
      */
 }
 
+- (NSURL *) _archiveURL {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docsDir = [paths objectAtIndex:0];
+    NSString *archivePath = [docsDir stringByAppendingPathComponent:kAGDiskBookListFileName];
+    return [NSURL fileURLWithPath:archivePath];
+}
+
 #pragma mark - ----------- Getter Methods ----------
 - (AGTableViewManager *)tableViewManager
 {
     if (_tableViewManager == nil) {
         NSArray *cellClasses = @[[AGBookListCell class],];
         _tableViewManager = [[AGTableViewManager alloc] initWithCellClasses:cellClasses originVMManager:nil];
+        AGVMManager *vmm = _tableViewManager.vmm;
+        // 设置归档 key
+        [vmm ag_addAllArchivedObjectUseDefaultKeys];
+        [vmm.fs ag_addAllArchivedObjectUseDefaultKeys];
+//        [vms ag_addArchivedItemArrMKey:@"00000000000000"];
+//        [vms ag_addArchivedHeaderVMKey:@"222header22222"];
+//        [vms ag_addArchivedFooterVMKey:@"222footer22222"];
+//        [vms ag_addArchivedCommonVMKey:@"222common22222"];
+//
+//        [vms ag_removeArchivedItemArrMKey];
+        
         _tableViewManager.vmDelegate = self;
     }
     return _tableViewManager;

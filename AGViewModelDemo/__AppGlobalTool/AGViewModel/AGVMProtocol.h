@@ -674,8 +674,8 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
  @return JSON字符串
  */
-
 - (nullable NSString *) ag_toJSONStringWithCustomTransform:(nullable NS_NOESCAPE AGVMJSONTransformBlock)block;
+
 /**
  转成字符串（NSString、NSNumber、NSURL、实现NSFastEnumeration或AGVMJSONTransformable协议对象、{其他类型自行处理}）
  

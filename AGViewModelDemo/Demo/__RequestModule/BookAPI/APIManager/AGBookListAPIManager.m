@@ -10,7 +10,7 @@
 #import "AGDoubanService.h"
 #import <AGVerifyManager.h>
 
-@interface AGBookListAPIManager () <AGVerifyManagerInjectVerifiable>
+@interface AGBookListAPIManager () <AGVerifyManagerVerifiable>
 
 @property (nonatomic, assign, readwrite) BOOL isFirstPage;
 @property (nonatomic, assign, readwrite) BOOL isLastPage;
@@ -140,26 +140,25 @@
     
     // 判断参数是否有错
     NSString *q = data[@"q"];
-    
-    [ag_verifyManager()
-     .verify_Obj_Msg(self, q, @"搜索关键字错误！")
-     verified:^(AGVerifyError * _Nullable firstError, NSArray<AGVerifyError *> * _Nullable errors) {
-         
-         if ( firstError ) {
-             self.verifyError = firstError;
-             errorType = CTAPIManagerErrorTypeParamsError;
-         }
-         
-     }];
+    [ag_verifyManager() ag_executeVerify:^(id<AGVerifyManagerVerifying>  _Nonnull start) {
+        start.verifyObjMsg(self, q, @"搜索关键字错误！");
+    } completion:^(AGVerifyError * _Nullable firstError, NSArray<AGVerifyError *> * _Nullable errors) {
+        if ( firstError ) {
+            self.verifyError = firstError;
+            errorType = CTAPIManagerErrorTypeParamsError;
+        }
+    }];
     
     return errorType;
 }
 
-#pragma mark - AGVerifyManagerInjectVerifiable
-- (nullable AGVerifyError *)verifyObj:(NSString *)obj {
+#pragma mark - AGVerifyManagerVerifiable
+- (nullable AGVerifyError *)ag_verifyObj:(nonnull id)obj {
+    
     AGVerifyError *error;
     if ( [obj isKindOfClass:[NSString class]] ) {
-        if ( obj.length <= 0 ) {
+        NSString *newObj = obj;
+        if ( newObj.length <= 0 ) {
             error = [AGVerifyError new];
             error.msg = @"字符串不能为空！";
         }
@@ -170,5 +169,6 @@
     }
     return error;
 }
+
 
 @end

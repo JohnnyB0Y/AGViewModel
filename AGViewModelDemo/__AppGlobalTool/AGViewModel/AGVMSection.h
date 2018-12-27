@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AGVMSection : NSObject <NSCopying, NSMutableCopying>
+@interface AGVMSection : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
 /** common vm */
 @property (nonatomic, strong, nullable) AGViewModel *cvm;
 
@@ -36,7 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
  @return vms
  */
 + (instancetype) newWithItemCapacity:(NSInteger)capacity;
-- (instancetype) initWithItemCapacity:(NSInteger)capacity NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithItemCapacity:(NSInteger)capacity;
+
++ (instancetype) newWithItems:(NSMutableArray<AGViewModel *> *)itemArrM;
+- (instancetype) initWithItems:(NSMutableArray<AGViewModel *> *)itemArrM NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - 通过 packager 拼装数据
 /**
@@ -262,6 +265,24 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 
+#pragma mark 归档持久化相关
+/** 添加到支持 归档(NSKeyedArchiver)、转Json字符串当中的 Key。*/
+- (void) ag_addArchivedCommonVMKey:(NSString *)key;
+- (void) ag_addArchivedHeaderVMKey:(NSString *)key;
+- (void) ag_addArchivedFooterVMKey:(NSString *)key;
+- (void) ag_addArchivedItemArrMKey:(NSString *)key;
+
+/** 添加到支持 归档(NSKeyedArchiver)、转Json字符串当中的 Key，使用类内置的key */
+- (void) ag_addAllArchivedObjectUseDefaultKeys;
+
+/** 移除要归档和转字符串的 keys */
+- (void) ag_removeArchivedCommonVMKey;
+- (void) ag_removeArchivedHeaderVMKey;
+- (void) ag_removeArchivedFooterVMKey;
+- (void) ag_removeArchivedItemArrMKey;
+- (void) ag_removeAllArchivedObjectKeys;
+
+
 #pragma mark - map、filter、reduce
 - (AGVMSection *) map:(NS_NOESCAPE AGVMMapBlock)block;
 - (AGVMSection *) filter:(NS_NOESCAPE AGVMFilterBlock)block;
@@ -272,12 +293,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
 - (NSString *) ag_debugString;
-@end
-
-
-#pragma mark - 数据转换
-@interface AGVMSection (AGVMJSONTransformable) <AGVMJSONTransformable>
-
 @end
 
 NS_ASSUME_NONNULL_END

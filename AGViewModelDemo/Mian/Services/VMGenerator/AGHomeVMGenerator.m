@@ -18,7 +18,7 @@
 - (AGVMManager *)homeListVMM
 {
     if (_homeListVMM == nil) {
-        _homeListVMM = ag_VMManager(1);
+        _homeListVMM = ag_newAGVMManager(1);
         
         [_homeListVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
             // ...

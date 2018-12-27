@@ -36,7 +36,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
     if ( items == nil ) return nil;
     NSAssert([items isKindOfClass:[NSArray class]], @"传入的 items 类型错误！");
     
-    NSMutableArray *arrM = ag_mutableArray(items.count);
+    NSMutableArray *arrM = ag_newNSMutableArray(items.count);
     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         AGViewModel *vm =
@@ -242,7 +242,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
  @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
  @return JSON字符串
  */
-NSString * ag_JSONStringWithArray(NSArray *array,
+NSString * ag_newJSONStringWithArray(NSArray *array,
                                   AGViewModel *exchangeKeyVM,
                                   AGVMJSONTransformBlock block)
 {
@@ -275,7 +275,7 @@ NSString * ag_JSONStringWithArray(NSArray *array,
  @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
  @return JSON字符串
  */
-NSString * ag_JSONStringWithDict(NSDictionary *dict,
+NSString * ag_newJSONStringWithDictionary(NSDictionary *dict,
                                  AGViewModel *exchangeKeyVM,
                                  AGVMJSONTransformBlock block)
 {
@@ -351,10 +351,10 @@ NSString * ag_JSONTransformStringWithObject(id obj,
         return [obj absoluteString];
     }
     else if ( [obj isKindOfClass:[NSDictionary class]] ) {
-        return ag_JSONStringWithDict(obj, vm, block);
+        return ag_newJSONStringWithDictionary(obj, vm, block);
     }
     else if ( [obj isKindOfClass:[NSArray class]] ) {
-        return ag_JSONStringWithArray([obj allObjects], vm, block);
+        return ag_newJSONStringWithArray([obj allObjects], vm, block);
     }
     else if ( [obj respondsToSelector:@selector(ag_toJSONStringWithExchangeKey:customTransform:)] ) {
         return [obj ag_toJSONStringWithExchangeKey:vm customTransform:block];
@@ -366,13 +366,13 @@ NSString * ag_JSONTransformStringWithObject(id obj,
         return [obj ag_toJSONString];
     }
     else if ( [obj isKindOfClass:[NSSet class]] ) {
-        return ag_JSONStringWithArray([obj allObjects], vm, block);
+        return ag_newJSONStringWithArray([obj allObjects], vm, block);
     }
     else if ( [obj isKindOfClass:[NSMapTable class]] ) {
-        return ag_JSONStringWithDict([obj dictionaryRepresentation], vm, block);
+        return ag_newJSONStringWithDictionary([obj dictionaryRepresentation], vm, block);
     }
     else if ( [obj isKindOfClass:[NSHashTable class]] ) {
-        return ag_JSONStringWithArray([obj allObjects], vm, block);
+        return ag_newJSONStringWithArray([obj allObjects], vm, block);
     }
     return nil;
 }
@@ -394,6 +394,47 @@ BOOL ag_canJSONTransformStringWithObject(id obj)
     return NO;
 }
 
+NSArray * ag_newNSArrayWithJSONString(NSString *json, NSError **error)
+{
+    json = ag_newJSONStringByWashString(json);
+    if ( ! [json hasPrefix:@"["] && ! [json hasSuffix:@"]"] ) {
+        *error = [NSError errorWithDomain:NSCocoaErrorDomain
+                                     code:24
+                                 userInfo:@{NSLocalizedDescriptionKey: @"Cannot be converted to an NSArray."}];
+        return nil;
+    }
+    
+    NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:error];
+}
+
+NSDictionary * ag_newNSDictionaryWithJSONString(NSString *json, NSError **error)
+{
+    json = ag_newJSONStringByWashString(json);
+    if ( ! [json hasPrefix:@"{"] && ! [json hasSuffix:@"}"] ) {
+        *error = [NSError errorWithDomain:NSCocoaErrorDomain
+                                     code:24
+                                 userInfo:@{NSLocalizedDescriptionKey: @"Cannot be converted to an NSDictionary."}];
+        return nil;
+    }
+    
+    NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:error];
+}
+
+NSString * ag_newJSONStringByWashString(NSString *json)
+{
+    // 去掉首尾空白
+    json = [json stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    // 替换制表符
+    json = [json stringByReplacingOccurrencesOfString:@"\t" withString:@"\\t"];
+    json = [json stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+    json = [json stringByReplacingOccurrencesOfString:@"\r" withString:@"\\r"];
+    json = [json stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
+    
+    return json;
+}
 
 /** 全局 vm packager */
 AGVMPackager * ag_sharedVMPackager(void)

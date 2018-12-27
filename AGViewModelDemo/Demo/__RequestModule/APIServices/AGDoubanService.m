@@ -43,17 +43,30 @@ NSString * const AGDoubanServiceIdentifier = @"AGDoubanService";
     return nil;
 }
 
-- (NSDictionary *)resultWithResponseData:(NSData *)responseData
-                                response:(NSURLResponse *)response
-                                 request:(NSURLRequest *)request
-                                   error:(NSError **)error
+- (BOOL)handleCommonErrorWithResponse:(CTURLResponse *)response manager:(CTAPIBaseManager *)manager errorType:(CTAPIManagerErrorType)errorType
+{
+    return YES;
+}
+
+- (NSDictionary *)resultWithResponseObject:(id)responseObject
+                                  response:(NSURLResponse *)response
+                                   request:(NSURLRequest *)request
+                                     error:(NSError *__autoreleasing *)error
 {
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
-    result[kCTApiProxyValidateResultKeyResponseData] = responseData;
-    result[kCTApiProxyValidateResultKeyResponseJSONString] = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    result[kCTApiProxyValidateResultKeyResponseJSONObject] = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:NULL];
-    return result;
+    if ( [responseObject isKindOfClass:[NSDictionary class]] ) {
+        result[kCTApiProxyValidateResultKeyResponseObject] = responseObject;
+        return result;
+    }
+    
+    if ( [responseObject isKindOfClass:[NSData class]] ) {
+        result[kCTApiProxyValidateResultKeyResponseString] = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        result[kCTApiProxyValidateResultKeyResponseObject] = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:NULL];
+        return result;
+    }
+    return nil;
 }
+
 
 #pragma mark - getters and setters
 - (NSString *)baseURL

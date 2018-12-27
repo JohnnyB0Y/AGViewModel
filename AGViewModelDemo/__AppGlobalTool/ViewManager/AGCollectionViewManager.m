@@ -126,7 +126,13 @@ itemClickBlock = _itemClickBlock;
     if ( _customizableDelegateResponeMethod.ag_classForItemAtIndexPath ) {
         cellClass = [_customizableDelegate collectionViewManager:self classForItemAtIndexPath:indexPath];
     }
-    cellClass = vm[kAGVMViewClass] ?: cellClass;
+    Class cls = vm[kAGVMViewClass];
+    if ( cls == nil ) {
+        NSString *className = vm[kAGVMViewClassName];
+        cls = NSClassFromString(className);
+        vm[kAGVMViewClass] = cls;
+    }
+    cellClass = cls ?: cellClass;
     
     // dequeue cell
     UICollectionViewCell<AGVMIncludable> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
@@ -156,7 +162,13 @@ itemClickBlock = _itemClickBlock;
         if ( _customizableDelegateResponeMethod.ag_classForHeaderViewAtIndexPath ) {
             supplementaryClass = [_customizableDelegate collectionViewManager:self classForHeaderViewAtIndexPath:indexPath];
         }
-        supplementaryClass = vm[kAGVMViewClass] ?: supplementaryClass;
+        Class cls = vm[kAGVMViewClass];
+        if ( cls == nil ) {
+            NSString *className = vm[kAGVMViewClassName];
+            cls = NSClassFromString(className);
+            vm[kAGVMViewClass] = cls;
+        }
+        supplementaryClass = cls ?: supplementaryClass;
         
         // dequeue header view
         supplementary = [supplementaryClass ag_dequeueHeaderViewBy:collectionView for:indexPath];
@@ -174,7 +186,13 @@ itemClickBlock = _itemClickBlock;
         if ( _customizableDelegateResponeMethod.ag_classForFooterViewAtIndexPath ) {
             supplementaryClass = [_customizableDelegate collectionViewManager:self classForFooterViewAtIndexPath:indexPath];
         }
-        supplementaryClass = vm[kAGVMViewClass] ?: supplementaryClass;
+        Class cls = vm[kAGVMViewClass];
+        if ( cls == nil ) {
+            NSString *className = vm[kAGVMViewClassName];
+            cls = NSClassFromString(className);
+            vm[kAGVMViewClass] = cls;
+        }
+        supplementaryClass = cls ?: supplementaryClass;
         
         // dequeue footer view
         supplementary = [supplementaryClass ag_dequeueFooterViewBy:collectionView for:indexPath];
@@ -474,7 +492,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 - (AGVMManager *)vmm
 {
     if (_vmm == nil) {
-        _vmm = ag_VMManager(1);
+        _vmm = ag_newAGVMManager(1);
         [_vmm ag_packageSection:nil capacity:120];
     }
     return _vmm;

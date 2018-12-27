@@ -7,6 +7,7 @@
 //
 
 #import <CTMediator/CTMediator.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface CTMediator (CTAppContext)
 

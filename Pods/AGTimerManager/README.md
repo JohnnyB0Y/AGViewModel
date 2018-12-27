@@ -1,5 +1,6 @@
 # AGTimerManager
-倒计时 - 定时器
+#### 倒计时 - 定时器：
+###### 使用 AGTimerManager 管理一组 Timer，当 AGTimerManager 对象销毁时，自动停止所有 Timer。
 
 ### cocoapods 集成
 ```
@@ -10,21 +11,22 @@ pod 'AGTimerManager'
 
 end
 ```
-## 使用须知
- 1. ag_timerManager(id token)，一个 token 对应一组 Timer；
- 调用 ag_stopAllTimers，会移除该 token 对应的所有 Timer；
- 
- 2. token 必须是 oc 对象，当对象销毁时，定时器会自动停止并移除。一般传 self 就可以了。
- 如果传常量或全局变量作为 token 就要手动管理好定时器了。
- 
- 3. 如果用 LLDB 打印信息，token 传 nil 就好了。传 nil 后调用 ag_stopAllTimers 是移除内部全部 timer。
 
+## 使用须知
+ 1. AGTimerManager 对象管理一组 Timer，当 AGTimerManager 对象销毁时，自动停止所有 Timer。
+ 
+ 2. 调用ag_stopAllTimers( ) 方法停止所有 Timer。
+ 
+ 3. LLDB 打印所有 Timer信息，po timerManager。
+
+ 4. 新增了日期倒计时，方便付款剩余时间、活动结束时间等相关时间换算。
+ 
 
 ## 开始倒计时
 ```objective-c
 __weak typeof(self) weakSelf = self;
 	_countdownKey =
-	[ag_timerManager(self) ag_startCountdownTimer:60 countdown:^BOOL(NSUInteger surplus) {
+	[self.timerManager ag_startCountdownTimer:60 countdown:^BOOL(NSTimeInterval surplus) {
 		
 		// ———————————————— 倒计时显示 ——————————————————
 		__strong typeof(weakSelf) strongSelf = weakSelf;
@@ -44,14 +46,13 @@ __weak typeof(self) weakSelf = self;
 ```
 ### 提前结束倒计时
 ```objective-c
-[ag_sharedTimerManager(self) ag_stopTimer:_countdownKey];
-
+[self.timerManager ag_stopTimerForKey:_countdownKey];
 ```
 
 ## 开始定时任务
 ```objective-c
 __weak typeof(self) weakSelf = self;
-    _timerKey = [ag_timerManager(self) ag_startRepeatTimer:1. repeat:^BOOL{
+    _timerKey = [self.timerManager ag_startRepeatTimer:1. repeat:^BOOL{
         
         // ———————————————— 定时任务调用 ——————————————————
         __strong typeof(weakSelf) strongSelf = weakSelf;
@@ -64,9 +65,35 @@ __weak typeof(self) weakSelf = self;
     }];
 
 ```
-### 结束定时任务
+### 结束所有定时任务
 ```objective-c
-[ag_timerManager(self) ag_stopTimerForKey:_countdownKey];
+[self.timerManager ag_stopAllTimers];
 
 ```
 
+### 开启日期倒计时，活动倒计时（活动时间还剩：03:35:36）
+```objective-c
+// ++++++++++++++++++++++ 日期倒计时 ++++++++++++++++++++
+    // 活动倒计时，未来的日期直接使用。
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:13606.];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.timerManager ag_startCountdownDate:date interval:1. countdown:^BOOL(NSCalendar * _Nonnull calendar, NSDateComponents * _Nonnull comp) {
+        
+        __strong typeof(weakSelf) self = weakSelf;
+        NSDate *outputDate = [calendar dateFromComponents:comp];
+        NSString *showString = [NSString stringWithFormat:@"活动倒计时：%@", [formatter stringFromDate:outputDate]];
+        [self.dateCountDownLabel setText:showString];
+        
+        return YES;
+        
+    } completion:^{
+        
+        __strong typeof(weakSelf) self = weakSelf;
+        [self.dateCountDownLabel setText:@"活动已结束！"];
+        
+    }];
+
+```

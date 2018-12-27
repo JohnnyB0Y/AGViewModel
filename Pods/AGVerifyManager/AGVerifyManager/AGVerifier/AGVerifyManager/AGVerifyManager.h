@@ -9,33 +9,69 @@
 
 #import <Foundation/Foundation.h>
 @class AGVerifyError, AGVerifyManager;
-@protocol AGVerifyManagerVerifiable, AGVerifyManagerInjectVerifiable;
+@protocol AGVerifyManagerVerifiable, AGVerifyManagerVerifying;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^AGVerifyManagerVerifiedBlock)(AGVerifyError * _Nullable firstError,
-                                            NSArray<AGVerifyError *> * _Nullable errors);
+typedef void(^AGVerifyManagerVerifyingBlock)(id<AGVerifyManagerVerifying> start);
+
+typedef void(^AGVerifyManagerCompletionBlock)(AGVerifyError * _Nullable firstError,
+                                              NSArray<AGVerifyError *> * _Nullable errors);
+
+typedef id<AGVerifyManagerVerifying> _Nonnull (^AGVerifyManagerVerifyObjBlock)(id<AGVerifyManagerVerifiable> verifier,
+                                                                               id obj);
+
+typedef id<AGVerifyManagerVerifying> _Nonnull (^AGVerifyManagerVerifyObjMsgBlock)(id<AGVerifyManagerVerifiable> verifier,
+                                                                                  id obj,
+                                                                                  NSString * _Nullable msg);
+
 
 #pragma mark - AGVerifyManager
 @interface AGVerifyManager : NSObject
 
-/** 验证数据，数据由验证器携带 */
-- (AGVerifyManager * (^)(id<AGVerifyManagerVerifiable> verifier)) verify;
+/**
+ 马上执行验证数据
+ （1，单独使用执行验证。）
+ （2，此处Block 不会被保存。）
+ （3，数据验证完成后，不保留结果。）
+
+ @param verifyBlock 执行验证器的 Block
+ @param completionBlock 对验证结果进行处理的 Block
+ */
+- (void) ag_executeVerify:(NS_NOESCAPE AGVerifyManagerVerifyingBlock)verifyBlock
+               completion:(NS_NOESCAPE AGVerifyManagerCompletionBlock)completionBlock;
 
 
-/** 验证数据，数据直接参数传入 */
-- (AGVerifyManager * (^)(id<AGVerifyManagerInjectVerifiable> verifier,
-						 id obj)) verify_Obj;
+/**
+ 准备验证数据 Block
+ （1，与 ag_executeVerify 配合使用。）
+ （2，此处Block 会被保存。）
+ 
+ @param verifyBlock 执行验证器的 Block
+ @param completionBlock 对验证结果进行处理的 Block
+ */
+- (void) ag_prepareVerify:(AGVerifyManagerVerifyingBlock)verifyBlock
+               completion:(AGVerifyManagerCompletionBlock)completionBlock;
 
+/**
+ 执行验证数据 Block
+ （1，与 ag_executeVerify:completion: 配合使用。）
+ （2，可多次执行验证。）
+ （3，数据验证完成后，不保留结果。）
+ */
+- (void) ag_executeVerify;
+
+@end
+
+
+#pragma mark - AGVerifyManagerVerifying
+@protocol AGVerifyManagerVerifying <NSObject>
+
+/** 验证数据，直接传入验证器、数据 */
+@property (nonatomic, copy, readonly) AGVerifyManagerVerifyObjBlock verifyObj;
 
 /** 验证数据，直接传入验证器、数据、错误提示信息 */
-- (AGVerifyManager * (^)(id<AGVerifyManagerInjectVerifiable> verifier,
-						 id obj,
-						 NSString * _Nullable msg)) verify_Obj_Msg;
-
-
-/** 验证完调用 (无循环引用问题) */
-- (AGVerifyManager *) verified:(NS_NOESCAPE AGVerifyManagerVerifiedBlock)verifiedBlock;
+@property (nonatomic, copy, readonly) AGVerifyManagerVerifyObjMsgBlock verifyObjMsg;
 
 @end
 
@@ -43,17 +79,8 @@ typedef void(^AGVerifyManagerVerifiedBlock)(AGVerifyError * _Nullable firstError
 #pragma mark - AGVerifyManagerVerifiable
 @protocol AGVerifyManagerVerifiable <NSObject>
 
-/** 验证数据，数据由验证器携带 */
-- (nullable AGVerifyError *) verify;
-
-@end
-
-
-#pragma mark - AGVerifyManagerInjectVerifiable
-@protocol AGVerifyManagerInjectVerifiable <NSObject>
-
 /** 验证数据，数据直接参数传入 */
-- (nullable AGVerifyError *) verifyObj:(id)obj;
+- (nullable AGVerifyError *) ag_verifyObj:(id)obj;
 
 @end
 
@@ -75,8 +102,9 @@ typedef void(^AGVerifyManagerVerifiedBlock)(AGVerifyError * _Nullable firstError
 
 @end
 
+
 // 快捷构建方法
-AGVerifyManager * ag_verifyManager();
+AGVerifyManager * ag_verifyManager(void);
 
 NS_ASSUME_NONNULL_END
 
