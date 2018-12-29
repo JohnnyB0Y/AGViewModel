@@ -374,14 +374,14 @@
 }
 
 #pragma mark 遍历
-- (void) ag_enumerateSectionsUsingBlock:(void (^NS_NOESCAPE)(AGVMSection * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+- (void) ag_enumerateSectionsUsingBlock:(void (NS_NOESCAPE ^)(AGVMSection * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
     if ( ! block ) return;
     
     [self.sectionArrM enumerateObjectsUsingBlock:block];
 }
 
-- (void) ag_enumerateSectionItemsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
+- (void) ag_enumerateSectionItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
 {
     if ( ! block ) return;
     
@@ -398,7 +398,7 @@
 }
 
 /** 遍历所有 section 的 header、footer vm */
-- (void) ag_enumerateSectionHeaderFooterVMsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
+- (void) ag_enumerateSectionHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
 {
     if ( ! block ) return;
     

@@ -375,13 +375,13 @@
 
 #pragma mark - 增删改查
 #pragma mark 插入
-- (AGVMSection *) ag_insertItemsFromSection:(AGVMSection *)vms atIndex:(NSInteger)index
+- (void) ag_insertItemsFromSection:(AGVMSection *)vms atIndex:(NSInteger)index
 {
     return [self ag_insertItemsFromArray:vms.itemArrM atIndex:index];
 }
 
-- (AGVMSection *) ag_insertItemsFromArray:(NSArray<AGViewModel *> *)vmArr
-                                  atIndex:(NSInteger)index
+- (void) ag_insertItemsFromArray:(NSArray<AGViewModel *> *)vmArr
+                         atIndex:(NSInteger)index
 {
     if ( index == self.count ) {
         [self ag_addItemsFromArray:vmArr];
@@ -391,28 +391,25 @@
         [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, vmArr.count)];
         [self.itemArrM insertObjects:vmArr atIndexes:indexSet];
     }
-    
-    return self;
 }
 
-- (AGVMSection *) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
-                               atIndex:(NSInteger)index
-                              capacity:(NSInteger)capacity
+- (void) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
+                      atIndex:(NSInteger)index
+                     capacity:(NSInteger)capacity
 {
     AGViewModel *vm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return [self ag_insertItem:vm atIndex:index];
 }
 
-- (AGVMSection *) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
-                               atIndex:(NSInteger)index
+- (void) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
+                      atIndex:(NSInteger)index
 {
     return [self ag_insertItemPackage:package atIndex:index capacity:6];
 }
 
-- (AGVMSection *)ag_insertItem:(AGViewModel *)item atIndex:(NSInteger)index
+- (void)ag_insertItem:(AGViewModel *)item atIndex:(NSInteger)index
 {
     item ? [self setObject:item atIndexedSubscript:index] : nil;
-    return self;
 }
 
 - (void)setObject:(AGViewModel *)vm atIndexedSubscript:(NSInteger)idx
@@ -429,77 +426,67 @@
 }
 
 #pragma mark 增加
-- (AGVMSection *) ag_addItemsFromSection:(AGVMSection *)vms
+- (void) ag_addItemsFromSection:(AGVMSection *)vms
 {
-    return [self ag_addItemsFromArray:vms.itemArrM];
+    [self ag_addItemsFromArray:vms.itemArrM];
 }
 
-- (AGVMSection *) ag_addItemsFromArray:(NSArray<AGViewModel *> *)vmArr
+- (void) ag_addItemsFromArray:(NSArray<AGViewModel *> *)vmArr
 {
     vmArr.count > 0 ? [self.itemArrM addObjectsFromArray:vmArr] : nil;
-    return self;
 }
 
-- (AGVMSection *) ag_addItem:(AGViewModel *)item
+- (void) ag_addItem:(AGViewModel *)item
 {
     item ? [self.itemArrM addObject:item] : nil;
-    return self;
 }
 
 #pragma mark 更新
-- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
-                                             atIndex:(NSInteger)index
+- (void) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+                                    atIndex:(NSInteger)index
 {
 	AGViewModel *vm = self[index];
 	vm ? [vm ag_refreshUIByUpdateModelInBlock:block] : nil;
-    return self;
 }
 
-- (AGVMSection *) ag_refreshItemsByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (void) ag_refreshItemsByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
 	[self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
 		[vm ag_refreshUIByUpdateModelInBlock:block];
 	}];
-    return self;
 }
 
 #pragma mark 移除
-- (AGVMSection *) ag_removeAllItems
+- (void) ag_removeAllItems
 {
     [self.itemArrM removeAllObjects];
-    return self;
 }
 
-- (AGVMSection *) ag_removeItemAtIndex:(NSInteger)index
+- (void) ag_removeItemAtIndex:(NSInteger)index
 {
     index < self.count ? [self.itemArrM removeObjectAtIndex:index] : nil;
-    return self;
 }
 
-- (AGVMSection *) ag_removeLastObject
+- (void) ag_removeLastObject
 {
     [self.itemArrM removeLastObject];
-    return self;
 }
 
-- (AGVMSection *) ag_removeItem:(AGViewModel *)vm
+- (void) ag_removeItem:(AGViewModel *)vm
 {
-	if (vm == nil) return self;
+	if (vm == nil) return;
     [self.itemArrM removeObject:vm];
-    return self;
 }
 
-- (AGVMSection *) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr
+- (void) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr
 {
-	if (vmArr == nil) return self;
+	if (vmArr == nil) return;
     [self.itemArrM removeObjectsInArray:vmArr];
-    return self;
 }
 
-- (AGVMSection *) ag_removeItemsFromSection:(AGVMSection *)vms
+- (void) ag_removeItemsFromSection:(AGVMSection *)vms
 {
     [self ag_removeItemsFromArray:vms.itemArrM];
-    return self;
 }
 
 #pragma mark 选中
@@ -509,9 +496,9 @@
 }
 
 #pragma mark 合并
-- (AGVMSection *) ag_mergeFromSection:(AGVMSection *)vms
+- (void) ag_mergeFromSection:(AGVMSection *)vms
 {
-	if (vms == nil) return self;
+	if (vms == nil) return;
     if ( vms.headerVM ) {
         _headerVM = _headerVM ?: ag_newAGViewModel(nil);
     }
@@ -531,46 +518,39 @@
     [self.itemMergeVM ag_mergeModelFromViewModel:vms.itemMergeVM];
     
     [self ag_addItemsFromSection:vms];
-    
-    return self;
 }
 
 #pragma mark 交换
-- (AGVMSection *) ag_exchangeItemAtIndex:(NSInteger)idx1 withItemAtIndex:(NSInteger)idx2
+- (void) ag_exchangeItemAtIndex:(NSInteger)idx1 withItemAtIndex:(NSInteger)idx2
 {
     if ( idx1 < self.count && idx2 < self.count )
         [self.itemArrM exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
-    
-    return self;
 }
 
 #pragma mark 替换
-- (AGVMSection *) ag_replaceItemAtIndex:(NSInteger)index withItem:(AGViewModel *)item
+- (void) ag_replaceItemAtIndex:(NSInteger)index withItem:(AGViewModel *)item
 {
-	if (item == nil) return self;
+	if (item == nil) return;
     index < self.count ? [self.itemArrM replaceObjectAtIndex:index withObject:item] : nil;
-    return self;
 }
 
 #pragma mark 遍历
-- (AGVMSection *) ag_enumerateItemsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+- (void) ag_enumerateItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
-    if ( ! block ) return self;
+    if ( ! block ) return;
 	
     [self.itemArrM enumerateObjectsUsingBlock:block];
-    return self;
 }
 
 /** 遍历所有 section 的 header、footer vm */
-- (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+- (void) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
-    if ( ! block ) return self;
+    if ( ! block ) return;
     
     NSMutableArray *arrM = ag_newNSMutableArray(2);
     _headerVM ? [arrM addObject:_headerVM] : nil;
     _footerVM ? [arrM addObject:_footerVM] : nil;
     [arrM enumerateObjectsUsingBlock:block];
-    return self;
 }
 
 #pragma mark - map、filter、reduce

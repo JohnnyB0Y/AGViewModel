@@ -226,9 +226,9 @@
         return;
     }
     
-    [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSAssert([obj isKindOfClass:[NSString class]], @"Key is not kind of NSString!");
-        self[obj] = dict[obj];
+    [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSAssert([key isKindOfClass:[NSString class]], @"Key is not kind of NSString!");
+        self[key] = dict[key];
     }];
 }
 
@@ -364,7 +364,7 @@
     NSMutableDictionary *dictM = ag_newNSMutableDictionary(_archivedDictM.count);
     [_archivedDictM enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         id archiveObj = self->_bindingModel[key];
-        if ( [obj conformsToProtocol:@protocol(NSCoding)] ) {
+        if ( [archiveObj conformsToProtocol:@protocol(NSCoding)] ) {
             [dictM setObject:archiveObj forKey:key];
         }
     }];
@@ -793,7 +793,6 @@ NSMutableArray * ag_newNSMutableArray(NSInteger capacity)
     return [[NSMutableArray alloc] initWithCapacity:capacity];
 }
 
-/** Quickly create 可变数组函数, 包含 Null 对象 */
 NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity)
 {
     NSMutableArray *arrM = ag_newNSMutableArray(capacity);
@@ -806,22 +805,9 @@ NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity)
 #pragma mark - Safe Convert
 id ag_safeObj(id obj, Class objClass)
 {
-    if ( obj == nil ) {
-        return nil;
-    }
-    else if ( [obj isKindOfClass:objClass] ) {
+    if ( [obj isKindOfClass:objClass] ) {
         return obj;
     }
-    else if ( [obj isKindOfClass:[NSNull class]]) {
-        return nil;
-    }
-    
-//#ifdef DEBUG
-//    NSLog(@"ag_safeObj(<%@: %p> != %@)", obj, obj, NSStringFromClass(objClass));
-//#else
-//
-//#endif
-    
 	return nil;
 }
 
@@ -885,4 +871,3 @@ NSNumber * ag_safeNumber(id obj)
 {
 	return ag_safeObj(obj, [NSNumber class]);
 }
-

@@ -13,7 +13,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
-@interface AGViewModel : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
+@interface AGViewModel : NSObject
+<NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
 
 @property (nonatomic, weak,   readonly, nullable) UIView<AGVMIncludable> *bindingView;
 @property (nonatomic, strong, readonly) NSMutableDictionary *bindingModel;

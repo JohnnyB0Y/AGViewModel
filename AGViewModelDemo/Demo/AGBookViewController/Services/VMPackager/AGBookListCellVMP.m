@@ -17,7 +17,7 @@
     // 组装数据，需要做归档
     AGViewModel *vm = [[AGVMPackager sharedInstance] ag_package:^(NSMutableDictionary * _Nonnull package) {
         // 解析 API 数据
-        package[ak_AGBook_title] = [NSString stringWithFormat:@"  \\\%@", dict[@"title"]];
+        package[ak_AGBook_title] = dict[@"title"];
         package[ak_AGBook_image] = dict[@"image"];
         package[ak_AGBook_summary] = dict[@"summary"];
         package[ak_AGBook_isbn] = dict[@"isbn10"];

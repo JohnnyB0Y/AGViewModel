@@ -127,7 +127,7 @@
 - (BOOL) ag_notifyForKey:(NSString *)key change:(NSDictionary<NSKeyValueChangeKey,id> *)change
 {
     BOOL isNotify = NO;
-    NSAssert(key, @"key can't be nil.");
+    NSParameterAssert(key);
     if ( ! key ) return isNotify;
     
     // observer - block
@@ -157,8 +157,8 @@
 - (void) ag_removeObserver:(NSObject *)observer
                     forKey:(NSString *)key
 {
-    NSAssert(key, @"key can't be nil.");
-    NSAssert(observer, @"observer can't be nil.");
+    NSParameterAssert(key);
+    NSParameterAssert(observer);
     if ( ! key || ! observer ) return;
     
     // observer - block
@@ -227,8 +227,8 @@
                 block:(AGVMNotificationBlock)block
                 readd:(BOOL)readd
 {
-    NSAssert(key, @"key can't be nil.");
-    NSAssert(observer, @"observer can't be nil.");
+    NSParameterAssert(key);
+    NSParameterAssert(observer);
     if ( ! key || ! observer ) return;
     
     // observer - block
@@ -292,5 +292,3 @@
 }
 
 @end
-
-

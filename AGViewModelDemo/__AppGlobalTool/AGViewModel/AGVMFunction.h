@@ -12,6 +12,18 @@
 #ifndef AGVMFunction_h
 #define AGVMFunction_h
 
+#pragma mark - Define
+/** TODO 宏 */
+#define STRINGIFY(S) #S
+#define DEFER_STRINGIFY(S) STRINGIFY(S)
+#define PRAGMA_MESSAGE(MSG) _Pragma(STRINGIFY(message(MSG)))
+#define FORMATTED_MESSAGE(MSG) "[TODO~" DEFER_STRINGIFY(__COUNTER__) "] " MSG " [LINE:" DEFER_STRINGIFY(__LINE__) "]"
+#define AGTODO(MSG) PRAGMA_MESSAGE(FORMATTED_MESSAGE(MSG))
+
+/** 过期提醒 */
+#define AG_DEPRECATED_IOS(message) NS_DEPRECATED_IOS(2_0, 2_0, (message))
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fast Funtion
@@ -67,7 +79,7 @@ NSNumber * ag_safeNumber(id obj);
 /** 验证是否能转换为 NSString 对象；能转：返回 NSString 对象；不能：返回 nil */
 NSString * ag_newNSStringWithObj(id obj);
 
-#pragma mark JSON Transform
+#pragma mark - JSON Transform
 /**
  数组转成字符串 - 可替换自定义key - 可自行处理特殊类型（NSString、NSNumber、NSURL、实现NSFastEnumeration或AGVMJSONTransformable协议对象、{其他类型自行处理}）
  

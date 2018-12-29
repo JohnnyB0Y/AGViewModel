@@ -12,7 +12,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - interface
-@interface AGVMManager : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
+@interface AGVMManager : NSObject
+<NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
+
 /** common vm */
 @property (nonatomic, strong, nullable) AGViewModel *cvm;
 
@@ -141,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setObject:(nullable AGVMSection *)vms atIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 取出
-- (AGVMSection *) objectAtIndexedSubscript:(NSInteger)idx;
+- (nullable AGVMSection *) objectAtIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 交换
 - (void) ag_exchangeSectionAtIndex:(NSInteger)idx1 withSectionAtIndex:(NSInteger)idx2;

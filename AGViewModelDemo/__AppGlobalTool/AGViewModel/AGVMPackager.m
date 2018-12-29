@@ -314,7 +314,7 @@ NSString * ag_newJSONStringWithDictionary(NSDictionary *dict,
         [strM appendString:@"}"];
         return [strM copy];
     }
-    NSCAssert(dict == nil, @"传入的dict 不是 NSDictionary对象.");
+    NSCAssert(NO, @"传入的dict 不是 NSDictionary对象.");
     return nil;
 }
 
@@ -441,4 +441,3 @@ AGVMPackager * ag_sharedVMPackager(void)
 {
     return [AGVMPackager sharedInstance];
 }
-

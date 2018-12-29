@@ -12,14 +12,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AGVMSection : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
+@interface AGVMSection : NSObject
+<NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
+
 /** common vm */
 @property (nonatomic, strong, nullable) AGViewModel *cvm;
 
 @property (nonatomic, strong, nullable) AGViewModel *headerVM;
 @property (nonatomic, strong, nullable) AGViewModel *footerVM;
 
-/** 会合并到 itemArr中的每个viewModel */
+/** 会合并到 itemArr中的每个vm 中 */
 @property (nonatomic, strong, nullable) AGViewModel *itemMergeVM;
 @property (nonatomic, strong, readonly, nullable) NSMutableArray<AGViewModel *> *itemArrM;
 @property (nonatomic, assign, readonly) NSInteger count;
@@ -207,62 +209,62 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 增删改查
 #pragma mark 新增
-- (AGVMSection *) ag_addItem:(nullable AGViewModel *)item;
-- (AGVMSection *) ag_addItemsFromSection:(nullable AGVMSection *)vms;
-- (AGVMSection *) ag_addItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr;
+- (void) ag_addItem:(nullable AGViewModel *)item;
+- (void) ag_addItemsFromSection:(nullable AGVMSection *)vms;
+- (void) ag_addItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr;
 
 #pragma mark 插入
-- (AGVMSection *) ag_insertItem:(nullable AGViewModel *)item
-                        atIndex:(NSInteger)index;
+- (void) ag_insertItem:(nullable AGViewModel *)item
+               atIndex:(NSInteger)index;
 
-- (AGVMSection *) ag_insertItemsFromSection:(nullable AGVMSection *)vms
-                                    atIndex:(NSInteger)index;
+- (void) ag_insertItemsFromSection:(nullable AGVMSection *)vms
+                           atIndex:(NSInteger)index;
 
-- (AGVMSection *) ag_insertItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr
-                                  atIndex:(NSInteger)index;
+- (void) ag_insertItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr
+                         atIndex:(NSInteger)index;
 
-- (AGVMSection *) ag_insertItemPackage:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                               atIndex:(NSInteger)index;
+- (void) ag_insertItemPackage:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+                      atIndex:(NSInteger)index;
 
-- (AGVMSection *) ag_insertItemPackage:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                               atIndex:(NSInteger)index
-                              capacity:(NSInteger)capacity;
+- (void) ag_insertItemPackage:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+                      atIndex:(NSInteger)index
+                     capacity:(NSInteger)capacity;
 
 #pragma mark 移除
-- (AGVMSection *) ag_removeAllItems;
-- (AGVMSection *) ag_removeLastObject;
-- (AGVMSection *) ag_removeItem:(nullable AGViewModel *)vm; //
-- (AGVMSection *) ag_removeItemAtIndex:(NSInteger)index;
-- (AGVMSection *) ag_removeItemsFromSection:(nullable AGVMSection *)vms; //
-- (AGVMSection *) ag_removeItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr; //
+- (void) ag_removeAllItems;
+- (void) ag_removeLastObject;
+- (void) ag_removeItem:(nullable AGViewModel *)vm; //
+- (void) ag_removeItemAtIndex:(NSInteger)index;
+- (void) ag_removeItemsFromSection:(nullable AGVMSection *)vms; //
+- (void) ag_removeItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr; //
 
 #pragma mark 更新
-- (AGVMSection *) ag_refreshItemByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block
+- (void) ag_refreshItemByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block
                                              atIndex:(NSInteger)index;
 
-- (AGVMSection *) ag_refreshItemsByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_refreshItemsByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
 
 - (void) setObject:(nullable AGViewModel *)vm atIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 取出
-- (AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;
+- (nullable AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 合并
 /** 合并 headerVM、 footerVM、 commonVM、itemMergeVM、itemArr */
-- (AGVMSection *) ag_mergeFromSection:(nullable AGVMSection *)vms;
+- (void) ag_mergeFromSection:(nullable AGVMSection *)vms;
 
 #pragma mark 交换
-- (AGVMSection *) ag_exchangeItemAtIndex:(NSInteger)idx1 withItemAtIndex:(NSInteger)idx2;
+- (void) ag_exchangeItemAtIndex:(NSInteger)idx1 withItemAtIndex:(NSInteger)idx2;
 
 #pragma mark 替换
-- (AGVMSection *) ag_replaceItemAtIndex:(NSInteger)index withItem:(nullable AGViewModel *)item;
+- (void) ag_replaceItemAtIndex:(NSInteger)index withItem:(nullable AGViewModel *)item;
 
 #pragma mark 遍历
 /** 遍历所有 item */
-- (AGVMSection *) ag_enumerateItemsUsingBlock:(void (^NS_NOESCAPE)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+- (void) ag_enumerateItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 /** 遍历 header、footer vm */
-- (AGVMSection *) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+- (void) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 
 #pragma mark 归档持久化相关
@@ -293,6 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
 - (NSString *) ag_debugString;
+
 @end
 
 NS_ASSUME_NONNULL_END

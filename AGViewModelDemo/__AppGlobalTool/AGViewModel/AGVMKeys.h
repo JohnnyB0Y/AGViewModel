@@ -137,10 +137,3 @@ static NSString * const kAGVMImageURLText = @"kAGVMImageURLText";
 static NSString * const kAGVMImageURLPlaceholder = @"kAGVMImageURLPlaceholder";
 
 #endif /* AGVMKeys_h */
-
-
-
-
-
-
-
