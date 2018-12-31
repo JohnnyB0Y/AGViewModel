@@ -172,6 +172,19 @@
 }
 
 #pragma mark 更新数据，刷新界面
+/** 删除数据 */
+- (void) ag_removeObjectForKey:(NSString *)key
+{
+    NSParameterAssert(key);
+    [_bindingModel removeObjectForKey:key];
+}
+
+/** 删除所有数据 */
+- (void) ag_removeAllObjects
+{
+    [_bindingModel removeAllObjects];
+}
+
 - (void) ag_refreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
     [self ag_setNeedsRefreshUIModelInBlock:block];
@@ -801,6 +814,13 @@ NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity)
     }
     return arrM;
 }
+
+/** Quickly create block */
+AGVMTargetVCBlock ag_viewModelCopyTargetVCBlock(AGVMTargetVCBlock block)
+{
+    return [block copy];
+}
+
 
 #pragma mark - Safe Convert
 id ag_safeObj(id obj, Class objClass)

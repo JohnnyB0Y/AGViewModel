@@ -46,6 +46,10 @@ NSMutableArray * ag_newNSMutableArray(NSInteger capacity);
 NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity);
 
 
+/** Quickly create block */
+AGVMTargetVCBlock ag_viewModelCopyTargetVCBlock(AGVMTargetVCBlock block);
+
+
 #pragma mark - Safe Convert
 /**
  验证传入对象是否莫类型

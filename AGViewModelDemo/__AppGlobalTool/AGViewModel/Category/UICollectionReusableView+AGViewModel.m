@@ -20,7 +20,7 @@
 {
     // 有特殊需求，请在子类重写。
     if ( [self ag_canAwakeFromNib] ) {
-        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:[self ag_currentBundle]];
         [collectionView registerNib:nib
          forSupplementaryViewOfKind:UICollectionElementKindSectionFooter
                 withReuseIdentifier:[self ag_reuseIdentifier]];

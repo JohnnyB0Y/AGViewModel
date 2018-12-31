@@ -15,6 +15,9 @@
 
 - (void) setViewModel:(AGViewModel *)viewModel NS_REQUIRES_SUPER;
 
+/** 当前 bundle */
++ (NSBundle *) ag_currentBundle;
+
 /** 是否能从nil文件创建视图 */
 + (BOOL) ag_canAwakeFromNib;
 

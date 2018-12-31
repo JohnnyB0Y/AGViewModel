@@ -20,7 +20,7 @@
 {
     // 有特殊需求，请在子类重写。
     if ( [self ag_canAwakeFromNib] ) {
-        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:[self ag_currentBundle]];
         [tableView registerNib:nib forHeaderFooterViewReuseIdentifier:[self ag_reuseIdentifier]];
     }
     else {
@@ -42,15 +42,6 @@
         bvS.height = 34.;
     }
     return bvS;
-}
-
-- (void)setViewModel:(AGViewModel *)viewModel
-{
-    [super setViewModel:viewModel];
-    
-    self.textLabel.text = [viewModel ag_safeStringForKey:kAGVMTitleText];
-    self.detailTextLabel.text = [viewModel ag_safeStringForKey:kAGVMDetailText];
-    
 }
 
 @end

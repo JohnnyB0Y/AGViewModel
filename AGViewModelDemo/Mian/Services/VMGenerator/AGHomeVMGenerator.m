@@ -11,6 +11,8 @@
 #import "AGBoxCollectionViewController.h"
 #import "AGDocumentViewController.h"
 #import "AGBookListViewController.h"
+#import "AGMainCell.h"
+#import "AGMainHeaderFooterView.h"
 
 @implementation AGHomeVMGenerator
 
@@ -22,15 +24,15 @@
         
         [_homeListVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
             // ...
-            UITableViewHeaderFooterView *headerFooterView = [UITableViewHeaderFooterView new];
+            AGMainHeaderFooterView *headerFooterView = [AGMainHeaderFooterView new];
             [[vms ag_packageHeaderData:^(NSMutableDictionary * _Nonnull package) {
-                package[kAGVMViewClass] = UITableViewHeaderFooterView.class;
+                package[kAGVMViewClass] = AGMainHeaderFooterView.class;
                 package[kAGVMTitleText] = @"我是 header view 标题";
             }] ag_cachedSizeByBindingView:headerFooterView]; // 提前计算好高度
             
             // ...
             [vms ag_packageItemMergeData:^(NSMutableDictionary * _Nonnull package) {
-                package[kAGVMViewClass] = UITableViewCell.class;
+                package[kAGVMViewClass] = AGMainCell.class;
             }];
             
             [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
@@ -71,7 +73,7 @@
             
             // ...
             [vms ag_packageFooterData:^(NSMutableDictionary * _Nonnull package) {
-                package[kAGVMViewClass] = UITableViewHeaderFooterView.class;
+                package[kAGVMViewClass] = AGMainHeaderFooterView.class;
                 package[kAGVMTitleText] = @"我是 footer view 标题";
                 package[kAGVMViewH] = @34.;
             }];

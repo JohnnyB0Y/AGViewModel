@@ -20,7 +20,7 @@
 {
     // 有特殊需求，请在子类重写。
     if ( [self ag_canAwakeFromNib] ) {
-        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:[self ag_currentBundle]];
 		[tableView registerNib:nib forCellReuseIdentifier:[self ag_reuseIdentifier]];
 	}
 	else {
@@ -45,17 +45,6 @@
         bvS.height = 44.;
     }
     return bvS;
-}
-
-- (void)setViewModel:(AGViewModel *)viewModel
-{
-    [super setViewModel:viewModel];
-    
-    self.textLabel.text = [viewModel ag_safeStringForKey:kAGVMTitleText];
-    UIImage *image = viewModel[kAGVMImage];
-    if ( [image isKindOfClass:[UIImage class]] ) {
-        self.imageView.image = image;
-    }
 }
 
 @end

@@ -67,6 +67,12 @@ NS_ASSUME_NONNULL_BEGIN
 /** 更新数据，下标方法：vm[key] = obj; */
 - (void) setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;
 
+/** 删除数据 */
+- (void) ag_removeObjectForKey:(NSString *)key;
+
+/** 删除所有数据 */
+- (void) ag_removeAllObjects;
+
 /** 马上更新数据 并 刷新视图 */
 - (void) ag_refreshUIByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
 

@@ -39,6 +39,8 @@
 		3A7FD5E720B77EC300A0787A /* AGBoxVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FD5E420B77EC300A0787A /* AGBoxVMGenerator.m */; };
 		3A7FD5EC20B77F0200A0787A /* AGDocumentVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FD5EA20B77F0200A0787A /* AGDocumentVMGenerator.m */; };
 		3A7FD5F320B7810100A0787A /* AGBookListAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FD5F220B7810100A0787A /* AGBookListAPIManager.m */; };
+		3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A89D45321D99CC300B0779A /* AGMainCell.m */; };
+		3A89D45721D99DB700B0779A /* AGMainHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A89D45621D99DB700B0779A /* AGMainHeaderFooterView.m */; };
 		3AACE8261EACF9100097C4F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8251EACF9100097C4F3 /* main.m */; };
 		3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8281EACF9100097C4F3 /* AppDelegate.m */; };
 		3AACE82F1EACF9100097C4F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE82D1EACF9100097C4F3 /* Main.storyboard */; };
@@ -134,6 +136,10 @@
 		3A7FD5EB20B77F0200A0787A /* AGDocumentVMGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGDocumentVMGenerator.h; sourceTree = "<group>"; };
 		3A7FD5F120B7810100A0787A /* AGBookListAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGBookListAPIManager.h; sourceTree = "<group>"; };
 		3A7FD5F220B7810100A0787A /* AGBookListAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGBookListAPIManager.m; sourceTree = "<group>"; };
+		3A89D45221D99CC300B0779A /* AGMainCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGMainCell.h; sourceTree = "<group>"; };
+		3A89D45321D99CC300B0779A /* AGMainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGMainCell.m; sourceTree = "<group>"; };
+		3A89D45521D99DB700B0779A /* AGMainHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGMainHeaderFooterView.h; sourceTree = "<group>"; };
+		3A89D45621D99DB700B0779A /* AGMainHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGMainHeaderFooterView.m; sourceTree = "<group>"; };
 		3AACE8211EACF9100097C4F3 /* AGViewModelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGViewModelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AACE8251EACF9100097C4F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3AACE8271EACF9100097C4F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -257,8 +263,8 @@
 		3A04292720B7AAB00025D9D5 /* VMGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				3A04292820B7AAB00025D9D5 /* AGHomeVMGenerator.m */,
 				3A04292920B7AAB00025D9D5 /* AGHomeVMGenerator.h */,
+				3A04292820B7AAB00025D9D5 /* AGHomeVMGenerator.m */,
 			);
 			path = VMGenerator;
 			sourceTree = "<group>";
@@ -266,8 +272,8 @@
 		3A04292A20B7AAB00025D9D5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3A04292B20B7AAB00025D9D5 /* ViewController.m */,
 				3A04292C20B7AAB00025D9D5 /* ViewController.h */,
+				3A04292B20B7AAB00025D9D5 /* ViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -485,6 +491,17 @@
 			path = APIManager;
 			sourceTree = "<group>";
 		};
+		3A89D45121D99CA700B0779A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3A89D45221D99CC300B0779A /* AGMainCell.h */,
+				3A89D45321D99CC300B0779A /* AGMainCell.m */,
+				3A89D45521D99DB700B0779A /* AGMainHeaderFooterView.h */,
+				3A89D45621D99DB700B0779A /* AGMainHeaderFooterView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3AACE8181EACF9100097C4F3 = {
 			isa = PBXGroup;
 			children = (
@@ -599,6 +616,7 @@
 		3AC28E061FB847E300578B5D /* Mian */ = {
 			isa = PBXGroup;
 			children = (
+				3A89D45121D99CA700B0779A /* View */,
 				3A04292A20B7AAB00025D9D5 /* Controllers */,
 				3A04292620B7AAB00025D9D5 /* Services */,
 			);
@@ -803,6 +821,8 @@
 				3AACE8261EACF9100097C4F3 /* main.m in Sources */,
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
 				3A04292420B796260025D9D5 /* AGBookListCellVMP.m in Sources */,
+				3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */,
+				3A89D45721D99DB700B0779A /* AGMainHeaderFooterView.m in Sources */,
 				3A03B174205178E40034DC87 /* NSString+AGCalculate.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,

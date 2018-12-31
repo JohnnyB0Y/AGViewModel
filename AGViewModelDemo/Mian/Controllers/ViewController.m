@@ -12,6 +12,8 @@
 #import "AGGlobalVMKeys.h"
 #import "AGHomeVMGenerator.h"
 #import <Masonry/Masonry.h>
+#import "AGMainCell.h"
+#import "AGMainHeaderFooterView.h"
 
 @interface ViewController ()
 
@@ -193,10 +195,10 @@
 - (AGTableViewManager *)tableViewManager
 {
     if (_tableViewManager == nil) {
-        NSArray *cellClasses = @[UITableViewCell.class];
+        NSArray *cellClasses = @[AGMainCell.class];
         _tableViewManager = [[AGTableViewManager alloc] initWithCellClasses:cellClasses originVMManager:nil];
         _tableViewManager.view.contentInset = UIEdgeInsetsMake(24., 0., 24., 0.);
-        [_tableViewManager registerHeaderFooterViewClasses:@[UITableViewHeaderFooterView.class]];
+        [_tableViewManager registerHeaderFooterViewClasses:@[AGMainHeaderFooterView.class]];
         //_tableViewManager.view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return _tableViewManager;

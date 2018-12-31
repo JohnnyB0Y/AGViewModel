@@ -13,10 +13,12 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 
 @implementation UIView (AGViewModel)
 
+#pragma mark - ---------- Public Methods ----------
 + (BOOL)ag_canAwakeFromNib
 {
+    NSBundle *bundle = [self ag_currentBundle];
     NSString *className = NSStringFromClass([self class]);
-    NSString *nibPath = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"];
+    NSString *nibPath = [bundle pathForResource:className ofType:@"nib"];
     return nibPath != nil;
 }
 
@@ -24,10 +26,24 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 {
     // 有特殊需求，请在子类重写。
     if ( [self ag_canAwakeFromNib] ) {
-        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+        NSBundle *bundle = [self ag_currentBundle];
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:bundle];
         return [[nib instantiateWithOwner:self options:nil] firstObject];
     }
     return nil;
+}
+
++ (NSBundle *) ag_currentBundle
+{
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSURL *url = [bundle URLForResource:@"MyLibrary" withExtension:@"bundle"];
+    if ( url == nil ) {
+        url = [bundle URLForResource:@"ResourceFramework" withExtension:@"bundle"];
+    }
+    if ( url ) {
+        bundle = [NSBundle bundleWithURL:url];
+    }
+    return bundle;
 }
 
 #pragma mark - ----------- Getter Setter Methods ----------
