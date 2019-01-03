@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface AGBoxDetailViewController : UIViewController <AGViewControllerProtocol>
+@interface AGBoxDetailViewController : UIViewController
 
 @end
 

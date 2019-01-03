@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface AGDocumentViewController : UIViewController <AGViewControllerProtocol>
+@interface AGDocumentViewController : UIViewController
 
 @end

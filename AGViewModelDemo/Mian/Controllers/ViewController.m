@@ -133,7 +133,7 @@
     
     // VM Notify
     __weak typeof(self) weakSelf = self;
-    [self.vm ag_addObserver:self forKeys:@[kAGVMTargetVCTitle] block:^(AGViewModel * _Nonnull vm, NSString * _Nonnull key, NSDictionary<NSKeyValueChangeKey,id> * _Nonnull change) {
+    [self.vm ag_addObserver:self forKeys:@[kAGVMTargetVCTitle] usingBlock:^(AGViewModel * _Nonnull observedVM, NSString * _Nonnull key, NSDictionary<NSKeyValueChangeKey,id> * _Nonnull change) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         NSString *title = change[NSKeyValueChangeNewKey];
         NSLog(@"模型修改标题 : %@ - %@", title, key);

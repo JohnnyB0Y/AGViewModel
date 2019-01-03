@@ -22,9 +22,7 @@
 @property (nonatomic, strong) AGDocumentVMGenerator *documentVMG;
 @end
 
-@implementation AGDocumentViewController {
-    AGViewModel *_viewModel;
-}
+@implementation AGDocumentViewController
 
 #pragma mark - ----------- Life Cycle ----------
 - (void)viewDidLoad {
@@ -57,14 +55,14 @@
     self = [super init];
     if ( self ) {
         
-        self->_viewModel = vm;
+        [self setContext:vm];
         self.title = vm[kAGVMTargetVCTitle] ?: @"文档";
         
     }
     return self;
 }
 
-+ (instancetype)newWithViewModel:(AGViewModel *)vm
++ (instancetype)newWithContext:(AGViewModel *)vm
 {
 	return [[self alloc] initWithViewModel:vm];
 }

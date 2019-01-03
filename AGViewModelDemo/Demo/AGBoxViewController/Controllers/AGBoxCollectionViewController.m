@@ -63,7 +63,7 @@
     return self;
 }
 
-+ (instancetype)newWithViewModel:(AGViewModel *)vm
++ (instancetype)newWithContext:(AGViewModel *)vm
 {
 	return [[self alloc] initWithViewModel:vm];
 }
@@ -138,7 +138,7 @@
 {
     // 选中
     AGViewModel *vm = self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row];
-    AGBoxDetailViewController *vc = [AGBoxDetailViewController newWithViewModel:vm];
+    AGBoxDetailViewController *vc = [AGBoxDetailViewController newWithContext:vm];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

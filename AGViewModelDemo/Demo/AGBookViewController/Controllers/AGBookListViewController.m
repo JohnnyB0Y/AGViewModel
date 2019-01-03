@@ -37,9 +37,7 @@ AGVMDelegate>
 
 @end
 
-@implementation AGBookListViewController {
-    AGViewModel *_viewModel;
-}
+@implementation AGBookListViewController
 
 #pragma mark - ----------- Life Cycle ----------
 - (void)viewDidLoad {
@@ -65,6 +63,11 @@ AGVMDelegate>
     
     // 移除通知监听
     
+}
+
++ (AGViewControllerFromType)typeOfCreateInstance
+{
+    return AGViewControllerFromCode;
 }
 
 #pragma mark - ---------- Custom Delegate ----------
@@ -195,10 +198,23 @@ AGVMDelegate>
         
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
-            AGViewModel *newVM = ag_newAGViewModel(nil);
-            [newVM ag_mergeModelFromViewModel:vm byKeys:@[ak_AGBook_title, ak_AGBook_isbn]];
+            AGViewModel *context = ag_newAGViewModel(nil);
+            [context ag_mergeModelFromViewModel:vm byKeys:@[ak_AGBook_title, ak_AGBook_isbn]];
             
-            AGBookDetailViewController *vc = [AGBookDetailViewController newWithViewModel:newVM];
+            // 监听删除
+            [context ag_addObserver:self forKey:kAGVMDeleted usingBlock:^(AGViewModel * _Nonnull observedVM, NSString * _Nonnull key, NSDictionary<NSKeyValueChangeKey,id> * _Nonnull change) {
+                
+                BOOL del = [change[NSKeyValueChangeNewKey] boolValue];
+                
+                if ( del ) {
+                    
+                    [self.tableViewManager deleteViewModels:@[vm] withRowAnimation:UITableViewRowAnimationNone];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                
+            }];
+            
+            AGBookDetailViewController *vc = [AGBookDetailViewController newWithContext:context];
             [self.navigationController pushViewController:vc animated:YES];
         }
         

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface AGBoxCollectionViewController : UICollectionViewController <AGViewControllerProtocol>
+@interface AGBoxCollectionViewController : UICollectionViewController
 
 @end

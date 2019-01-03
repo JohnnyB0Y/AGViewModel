@@ -41,6 +41,8 @@
 		3A7FD5F320B7810100A0787A /* AGBookListAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FD5F220B7810100A0787A /* AGBookListAPIManager.m */; };
 		3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A89D45321D99CC300B0779A /* AGMainCell.m */; };
 		3A89D45721D99DB700B0779A /* AGMainHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A89D45621D99DB700B0779A /* AGMainHeaderFooterView.m */; };
+		3AA8036B21DE4B2900515EC8 /* UIViewController+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8036A21DE4B2900515EC8 /* UIViewController+AGViewModel.m */; };
+		3AA8036D21DE6ABC00515EC8 /* AGVMKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8036C21DE6ABC00515EC8 /* AGVMKeys.m */; };
 		3AACE8261EACF9100097C4F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8251EACF9100097C4F3 /* main.m */; };
 		3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8281EACF9100097C4F3 /* AppDelegate.m */; };
 		3AACE82F1EACF9100097C4F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AACE82D1EACF9100097C4F3 /* Main.storyboard */; };
@@ -140,6 +142,9 @@
 		3A89D45321D99CC300B0779A /* AGMainCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGMainCell.m; sourceTree = "<group>"; };
 		3A89D45521D99DB700B0779A /* AGMainHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGMainHeaderFooterView.h; sourceTree = "<group>"; };
 		3A89D45621D99DB700B0779A /* AGMainHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGMainHeaderFooterView.m; sourceTree = "<group>"; };
+		3AA8036921DE4B2900515EC8 /* UIViewController+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AGViewModel.h"; sourceTree = "<group>"; };
+		3AA8036A21DE4B2900515EC8 /* UIViewController+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AGViewModel.m"; sourceTree = "<group>"; };
+		3AA8036C21DE6ABC00515EC8 /* AGVMKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMKeys.m; sourceTree = "<group>"; };
 		3AACE8211EACF9100097C4F3 /* AGViewModelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGViewModelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AACE8251EACF9100097C4F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3AACE8271EACF9100097C4F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -302,10 +307,10 @@
 		3A04293C20B7AAFF0025D9D5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3A04293D20B7AAFF0025D9D5 /* AGBoxDetailViewController.m */,
 				3A04293E20B7AAFF0025D9D5 /* AGBoxCollectionViewController.h */,
-				3A04293F20B7AAFF0025D9D5 /* AGBoxDetailViewController.h */,
 				3A04294020B7AAFF0025D9D5 /* AGBoxCollectionViewController.m */,
+				3A04293F20B7AAFF0025D9D5 /* AGBoxDetailViewController.h */,
+				3A04293D20B7AAFF0025D9D5 /* AGBoxDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -586,6 +591,7 @@
 				3AD8915E1F38965100E86F9F /* AGViewModel.m */,
 				3AE5B11C1FEF984B00C91906 /* AGVMFunction.h */,
 				3AD8915F1F38965100E86F9F /* AGVMKeys.h */,
+				3AA8036C21DE6ABC00515EC8 /* AGVMKeys.m */,
 				3AD891601F38965100E86F9F /* AGVMKit.h */,
 				3AD891641F38965100E86F9F /* AGVMManager.h */,
 				3AD891651F38965100E86F9F /* AGVMManager.m */,
@@ -638,6 +644,8 @@
 				3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */,
 				3AE9C392203143DB009F4B29 /* UIView+AGViewModel.h */,
 				3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */,
+				3AA8036921DE4B2900515EC8 /* UIViewController+AGViewModel.h */,
+				3AA8036A21DE4B2900515EC8 /* UIViewController+AGViewModel.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -693,6 +701,7 @@
 				TargetAttributes = {
 					3AACE8201EACF9100097C4F3 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 3MK3532499;
 						ProvisioningStyle = Automatic;
 					};
 					3AACE8391EACF9110097C4F3 = {
@@ -799,6 +808,7 @@
 				3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
 				3A04293920B7AADB0025D9D5 /* GZPSItemDetailCell.m in Sources */,
 				3A04295D20B7B2610025D9D5 /* AGBookHandleReformer.m in Sources */,
+				3AA8036D21DE6ABC00515EC8 /* AGVMKeys.m in Sources */,
 				3A7FD5D220B779F700A0787A /* AGBookListViewController.m in Sources */,
 				3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */,
 				3A04294C20B7AB000025D9D5 /* AGBoxCollectionViewController.m in Sources */,
@@ -816,6 +826,7 @@
 				3A04294E20B7AB000025D9D5 /* AGBoxBCell.m in Sources */,
 				3A04293820B7AADB0025D9D5 /* GZPSItemHeaderView.m in Sources */,
 				3A04292E20B7AAB00025D9D5 /* ViewController.m in Sources */,
+				3AA8036B21DE4B2900515EC8 /* UIViewController+AGViewModel.m in Sources */,
 				3A04292120B7955D0025D9D5 /* AGBookListAPIReformer.m in Sources */,
 				3A7FD5EC20B77F0200A0787A /* AGDocumentVMGenerator.m in Sources */,
 				3AACE8261EACF9100097C4F3 /* main.m in Sources */,
@@ -993,7 +1004,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3MK3532499;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = AGViewModelDemo/Info.plist;
@@ -1009,7 +1020,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 3MK3532499;
 				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = AGViewModelDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

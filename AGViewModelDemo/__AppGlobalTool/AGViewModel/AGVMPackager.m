@@ -159,7 +159,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
 {
     NSString *newKey;
     // 1.1 把 key 首字母变大写 并 去掉下划线
-    if ( [key containsString:@"_"] ) {
+    if ( [key rangeOfString:@"_"].length > 0 ) {
         newKey = [[key capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@""];
     }
     else {

@@ -12,17 +12,6 @@
 #ifndef AGVMFunction_h
 #define AGVMFunction_h
 
-#pragma mark - Define
-/** TODO 宏 */
-#define STRINGIFY(S) #S
-#define DEFER_STRINGIFY(S) STRINGIFY(S)
-#define PRAGMA_MESSAGE(MSG) _Pragma(STRINGIFY(message(MSG)))
-#define FORMATTED_MESSAGE(MSG) "[TODO~" DEFER_STRINGIFY(__COUNTER__) "] " MSG " [LINE:" DEFER_STRINGIFY(__LINE__) "]"
-#define AGTODO(MSG) PRAGMA_MESSAGE(FORMATTED_MESSAGE(MSG))
-
-/** 过期提醒 */
-#define AG_DEPRECATED_IOS(message) NS_DEPRECATED_IOS(2_0, 2_0, (message))
-
 
 NS_ASSUME_NONNULL_BEGIN
 

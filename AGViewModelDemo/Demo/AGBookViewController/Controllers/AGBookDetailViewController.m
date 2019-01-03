@@ -29,9 +29,7 @@
 
 @end
 
-@implementation AGBookDetailViewController {
-    AGViewModel *_viewModel;
-}
+@implementation AGBookDetailViewController
 
 #pragma mark - ----------- Life Cycle ----------
 - (void)viewDidLoad {
@@ -108,19 +106,14 @@
     
 }
 
-#pragma mark - AGViewControllerProtocol
-+ (instancetype)newWithViewModel:(AGViewModel *)vm
-{
-    AGBookDetailViewController *vc = [[self alloc] initWithNibName:@"AGBookDetailViewController" bundle:nil];
-    vc->_viewModel = vm;
-    return vc;
-}
-
 #pragma mark - ---------- Public Methods ----------
 
 
 #pragma mark - ---------- Event Methods ----------
-
+- (void) rightBarButtonItemClick:(id)sender
+{
+    self.context[kAGVMDeleted] = @(YES);
+}
 
 #pragma mark - ---------- Private Methods ----------
 #pragma mark add SubViews
@@ -139,20 +132,21 @@
 - (void) _setupUI
 {
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = [_viewModel ag_safeStringForKey:ak_AGBook_title];
+    self.title = [self.context ag_safeStringForKey:ak_AGBook_title];
 }
 
 #pragma mark add actions
 - (void) _addActions
 {
     // TODO
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
     
 }
 
 #pragma mark network request
 - (void) _networkRequest
 {
-    self.bookDetailAPIManager.isbn = _viewModel[ak_AGBook_isbn];
+    self.bookDetailAPIManager.isbn = self.context[ak_AGBook_isbn];
     [SVProgressHUD show];
     [self.bookDetailAPIManager loadData];
 }

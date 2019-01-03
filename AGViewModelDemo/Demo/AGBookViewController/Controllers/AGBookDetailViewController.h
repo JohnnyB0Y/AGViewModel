@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface AGBookDetailViewController : UIViewController <AGViewControllerProtocol>
+@interface AGBookDetailViewController : UIViewController
 
 @end

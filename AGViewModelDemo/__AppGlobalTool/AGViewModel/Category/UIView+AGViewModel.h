@@ -13,7 +13,8 @@
 @interface UIView (AGViewModel)
 <AGVMIncludable>
 
-- (void) setViewModel:(AGViewModel *)viewModel NS_REQUIRES_SUPER;
+- (void) setViewModel:(nullable AGViewModel *)viewModel NS_REQUIRES_SUPER;
+- (nullable AGViewModel *) viewModel NS_REQUIRES_SUPER;
 
 /** 当前 bundle */
 + (NSBundle *) ag_currentBundle;

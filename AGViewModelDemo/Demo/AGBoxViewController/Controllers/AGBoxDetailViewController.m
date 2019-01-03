@@ -13,9 +13,7 @@
 
 @end
 
-@implementation AGBoxDetailViewController {
-    AGViewModel *_viewModel;
-}
+@implementation AGBoxDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,14 +33,14 @@
 {
     self = [super init];
     if ( self ) {
-        self->_viewModel = vm;
+        [self setContext:vm];
         self.title = @"盒子";
         self.view.backgroundColor = vm[kAGVMBoxColor];
     }
     return self;
 }
 
-+ (instancetype)newWithViewModel:(AGViewModel *)vm
++ (instancetype)newWithContext:(AGViewModel *)vm
 {
 	return [[self alloc] initWithViewModel:vm];
 }
@@ -51,7 +49,7 @@
 - (void) rightBarButtonItemClick:(UIBarButtonItem *)item
 {
     // 通知修改，上一级界面
-    [[NSNotificationCenter defaultCenter] postNotificationName:kChangeViewModelNoti object:nil userInfo:_viewModel.bindingModel];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kChangeViewModelNoti object:nil userInfo:self.context.bindingModel];
 }
 
 @end

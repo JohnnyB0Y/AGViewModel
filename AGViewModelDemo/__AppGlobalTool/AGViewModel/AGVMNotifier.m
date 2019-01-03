@@ -42,27 +42,27 @@
 #pragma mark - readd observer
 - (void) ag_readdObserver:(NSObject *)observer
                    forKey:(NSString *)key
-                    block:(AGVMNotificationBlock)block
+               usingBlock:(AGVMNotificationBlock)block
 {
     [self ag_readdObserver:observer
                     forKey:key
                    options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
-                     block:block];
+                usingBlock:block];
 }
 
 - (void) ag_readdObserver:(NSObject *)observer
                   forKeys:(NSArray<NSString *> *)keys
-                    block:(AGVMNotificationBlock)block
+               usingBlock:(AGVMNotificationBlock)block
 {
     for (NSString *key in keys) {
-        [self ag_readdObserver:observer forKey:key block:block];
+        [self ag_readdObserver:observer forKey:key usingBlock:block];
     }
 }
 
 - (void) ag_readdObserver:(NSObject *)observer
                    forKey:(NSString *)key
                   options:(NSKeyValueObservingOptions)options
-                    block:(AGVMNotificationBlock)block
+               usingBlock:(AGVMNotificationBlock)block
 {
     [self _addObserver:observer
                 forKey:key
@@ -74,37 +74,37 @@
 - (void)ag_readdObserver:(NSObject *)observer
                  forKeys:(NSArray<NSString *> *)keys
                  options:(NSKeyValueObservingOptions)options
-                   block:(AGVMNotificationBlock)block
+              usingBlock:(AGVMNotificationBlock)block
 {
     for (NSString *key in keys) {
-        [self ag_readdObserver:observer forKey:key options:options block:block];
+        [self ag_readdObserver:observer forKey:key options:options usingBlock:block];
     }
 }
 
 #pragma mark - add observer
 - (void) ag_addObserver:(NSObject *)observer
                  forKey:(NSString *)key
-                  block:(AGVMNotificationBlock)block
+             usingBlock:(AGVMNotificationBlock)block
 {
     [self ag_addObserver:observer
                   forKey:key
                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew
-                   block:block];
+              usingBlock:block];
 }
 
 - (void) ag_addObserver:(NSObject *)observer
                 forKeys:(NSArray<NSString *> *)keys
-                  block:(AGVMNotificationBlock)block
+             usingBlock:(AGVMNotificationBlock)block
 {
     for (NSString *key in keys) {
-        [self ag_addObserver:observer forKey:key block:block];
+        [self ag_addObserver:observer forKey:key usingBlock:block];
     }
 }
 
 - (void) ag_addObserver:(NSObject *)observer
                  forKey:(NSString *)key
                 options:(NSKeyValueObservingOptions)options
-                  block:(AGVMNotificationBlock)block
+             usingBlock:(AGVMNotificationBlock)block
 {
     [self _addObserver:observer
                 forKey:key
@@ -116,10 +116,10 @@
 - (void) ag_addObserver:(NSObject *)observer
                 forKeys:(NSArray<NSString *> *)keys
                 options:(NSKeyValueObservingOptions)options
-                  block:(AGVMNotificationBlock)block
+             usingBlock:(AGVMNotificationBlock)block
 {
     for (NSString *key in keys) {
-        [self ag_addObserver:observer forKey:key options:options block:block];
+        [self ag_addObserver:observer forKey:key options:options usingBlock:block];
     }
 }
 
@@ -229,6 +229,7 @@
 {
     NSParameterAssert(key);
     NSParameterAssert(observer);
+    NSParameterAssert(block);
     if ( ! key || ! observer ) return;
     
     // observer - block

@@ -16,6 +16,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - ------------- enum --------------
+typedef NS_ENUM(NSUInteger, AGViewControllerFromType) {
+    AGViewControllerFromStoryboard, // Storyboard文件创建控制器
+    AGViewControllerFromNib, // Nib文件创建控制器
+    AGViewControllerFromCode // 代码创建控制器
+};
+
 #pragma mark - ------------- typedef block --------------
 #pragma mark quick block
 typedef void (^AGVMTargetVCBlock)
@@ -42,7 +49,7 @@ typedef void(^AGVMUpdateModelBlock)
 
 typedef void (^AGVMNotificationBlock)
 (
-    AGViewModel *vm,
+    AGViewModel *observedVM,
     NSString *key,
     NSDictionary<NSKeyValueChangeKey, id> *change
 );
@@ -157,12 +164,17 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 #pragma mark ViewController Protocol
 @protocol AGViewControllerProtocol <NSObject>
 @required
-+ (instancetype) newWithViewModel:(nullable AGViewModel *)vm;
+/** 负责控制器间（本级控制器与下级控制器之间）参数传递和共享的ViewModel */
+@property (nonatomic, strong, nullable) AGViewModel *context;
+
+/** 创建控制器 和 传递contextVM */
++ (instancetype) newWithContext:(nullable AGViewModel *)context;
 
 @optional
-+ (instancetype) alloc;
-- (instancetype) init NS_UNAVAILABLE;
-+ (instancetype) new NS_UNAVAILABLE;
+/** 0 从Storyboard 优先尝试创建；1 从nib 优先尝试创建；2 直接从代码创建；default是1 */
++ (AGViewControllerFromType) typeOfCreateInstance;
+
++ (instancetype)newWithViewModel:(nullable AGViewModel *)vm NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "use: + newWithContext:");
 
 @end
 
@@ -222,7 +234,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (void) ag_readdObserver:(NSObject *)observer
                    forKey:(NSString *)key
-                    block:(AGVMNotificationBlock)block;
+               usingBlock:(AGVMNotificationBlock)block;
 
 /**
  重新添加观察者 并 移除旧的观察者，观察 bindingModel 键-值变化
@@ -233,7 +245,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (void) ag_readdObserver:(NSObject *)observer
 				  forKeys:(NSArray<NSString *> *)keys
-                    block:(AGVMNotificationBlock)block;
+               usingBlock:(AGVMNotificationBlock)block;
 
 /**
  重新添加观察者 并 移除旧的观察者，观察 bindingModel 键-值变化
@@ -246,7 +258,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 - (void) ag_readdObserver:(NSObject *)observer
                    forKey:(NSString *)key
                   options:(NSKeyValueObservingOptions)options
-                    block:(AGVMNotificationBlock)block;
+               usingBlock:(AGVMNotificationBlock)block;
 
 /**
  重新添加观察者 并 移除旧的观察者，观察 bindingModel 键-值变化
@@ -259,7 +271,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 - (void) ag_readdObserver:(NSObject *)observer
                   forKeys:(NSArray<NSString *> *)keys
                   options:(NSKeyValueObservingOptions)options
-                    block:(AGVMNotificationBlock)block;
+               usingBlock:(AGVMNotificationBlock)block;
 
 #pragma mark add observer
 /**
@@ -271,7 +283,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (void) ag_addObserver:(NSObject *)observer
                  forKey:(NSString *)key
-                  block:(AGVMNotificationBlock)block;
+             usingBlock:(AGVMNotificationBlock)block;
 
 /**
  观察 bindingModel 键-值变化
@@ -282,7 +294,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (void) ag_addObserver:(NSObject *)observer
                 forKeys:(NSArray<NSString *> *)keys
-                  block:(AGVMNotificationBlock)block;
+             usingBlock:(AGVMNotificationBlock)block;
 
 /**
  观察 bindingModel 键-值变化
@@ -295,7 +307,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 - (void) ag_addObserver:(NSObject *)observer
                  forKey:(NSString *)key
                 options:(NSKeyValueObservingOptions)options
-                  block:(AGVMNotificationBlock)block;
+             usingBlock:(AGVMNotificationBlock)block;
 
 /**
  观察 bindingModel 键-值变化
@@ -308,7 +320,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 - (void) ag_addObserver:(NSObject *)observer
                 forKeys:(NSArray<NSString *> *)keys
                 options:(NSKeyValueObservingOptions)options
-                  block:(AGVMNotificationBlock)block;
+             usingBlock:(AGVMNotificationBlock)block;
 
 #pragma mark remove observer
 /**

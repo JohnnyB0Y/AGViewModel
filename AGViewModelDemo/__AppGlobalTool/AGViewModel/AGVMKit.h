@@ -21,6 +21,7 @@
 #import "UIView+AGViewModel.h"
 #import "NSString+AGCalculate.h"
 #import "UITableViewCell+AGViewModel.h"
+#import "UIViewController+AGViewModel.h"
 #import "UICollectionViewCell+AGViewModel.h"
 #import "UICollectionReusableView+AGViewModel.h"
 #import "UITableViewHeaderFooterView+AGViewModel.h"
