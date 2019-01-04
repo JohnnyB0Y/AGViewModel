@@ -196,10 +196,10 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  计算返回 bindingView 的 size
  
  @param vm viewModel
- @param bvS bindingViewSize
+ @param screen mainScreen
  @return 计算后的 Size
  */
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS;
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen;
 
 @end
 

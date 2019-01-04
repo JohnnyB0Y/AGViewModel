@@ -118,7 +118,7 @@
     CGFloat width = [self[kAGVMViewW] floatValue];
     CGSize bvSize = CGSizeMake(width, height);
     if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
-        return [bv ag_viewModel:self sizeForBindingView:bvSize];
+        return [bv ag_viewModel:self sizeForBindingView:[UIScreen mainScreen]];
     }
     else {
         NSAssert(NO, @"绑定视图未实现 AGVMIncludable 协议方法：ag_viewModel:sizeForBindingView:");
@@ -141,7 +141,7 @@
     
     if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
         // new bv size
-        bvSize = [bv ag_viewModel:self sizeForBindingView:bvSize];
+        bvSize = [bv ag_viewModel:self sizeForBindingView:[UIScreen mainScreen]];
         // cache size
         if ( height != bvSize.height ) {
             self[kAGVMViewH] = @(bvSize. height);

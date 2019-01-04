@@ -7,6 +7,7 @@
 //
 
 #import "UICollectionViewCell+AGViewModel.h"
+#import "UIScreen+AGViewModel.h"
 
 @implementation UICollectionViewCell (AGViewModel)
 
@@ -35,13 +36,16 @@
 }
 
 #pragma mark - ----------- AGVMIncludable -----------
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
 {
     // 有特殊需求，请在子类重写。
-    if ( ! vm[kAGVMViewH] ) {
+    CGFloat height = [vm[kAGVMViewH] floatValue];
+    CGFloat width = [vm[kAGVMViewW] floatValue];
+    CGSize bvS = CGSizeMake(width, height);
+    if ( height <= 0 ) {
         bvS.height = 54.;
     }
-    if ( ! vm[kAGVMViewW] ) {
+    if ( width <= 0 ) {
         bvS.width = 54.;
     }
     return bvS;

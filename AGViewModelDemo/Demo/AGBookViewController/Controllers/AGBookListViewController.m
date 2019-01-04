@@ -62,7 +62,7 @@ AGVMDelegate>
     [_bookListAPIManager cancelAllRequests];
     
     // 移除通知监听
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 + (AGViewControllerFromType)typeOfCreateInstance
@@ -79,7 +79,7 @@ AGVMDelegate>
     if ( manager == _bookListAPIManager ) {
         // ... q={}&count={}&start={}
         paramM[@"q"] = @"莎士比亚";
-        paramM[@"count"] = @"5";
+        paramM[@"count"] = @"16";
     }
     
     return [paramM copy];
@@ -142,6 +142,16 @@ AGVMDelegate>
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void) handleDeviceOrientationChange:(NSNotification *)notification
+{
+    NSArray *visibleRows = self.tableViewManager.view.indexPathsForVisibleRows;
+    NSIndexPath *scrollIndexPath = visibleRows.count > 1 ? visibleRows[1] : visibleRows[0];
+    
+    [self.tableViewManager.vmm ag_makeSectionsItemsSetNeedsCachedBindingViewSize];
+    [self.tableViewManager.view reloadData];
+    [self.tableViewManager.view scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
 #pragma mark - ---------- Private Methods ----------
 #pragma mark add SubViews
 - (void) _addSubviews
@@ -194,6 +204,7 @@ AGVMDelegate>
         }
     };
     
+    // cell 点击
     self.tableViewManager.itemClickBlock = ^(UITableView *tableView, NSIndexPath *indexPath, AGViewModel *vm) {
         
         __strong typeof(weakSelf) self = weakSelf;
@@ -221,6 +232,14 @@ AGVMDelegate>
     };
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"归档并跳转" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
+    
+    // 监听屏幕旋转
+    if ( [UIDevice currentDevice].generatesDeviceOrientationNotifications == NO ) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(handleDeviceOrientationChange:)
+                                                name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 #pragma mark network request

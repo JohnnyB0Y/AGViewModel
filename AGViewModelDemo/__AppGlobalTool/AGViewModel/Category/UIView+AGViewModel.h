@@ -1,6 +1,6 @@
 //
 //  UIView+AGViewModel.h
-//  AGViewModelDemo
+//  
 //
 //  Created by JohnnyB0Y on 2018/2/12.
 //  Copyright © 2018年 JohnnyB0Y. All rights reserved.
@@ -12,6 +12,14 @@
 
 @interface UIView (AGViewModel)
 <AGVMIncludable>
+
+@property(nonatomic, assign) CGFloat width;
+@property(nonatomic, assign) CGFloat height;
+@property(nonatomic, assign) CGSize size;
+
+@property(nonatomic, assign) CGFloat x;
+@property(nonatomic, assign) CGFloat y;
+@property(nonatomic, assign) CGPoint origin;
 
 - (void) setViewModel:(nullable AGViewModel *)viewModel NS_REQUIRES_SUPER;
 - (nullable AGViewModel *) viewModel NS_REQUIRES_SUPER;

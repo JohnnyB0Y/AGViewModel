@@ -30,18 +30,9 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-/**
- 计算返回 bindingView 的 size
- 
- @param vm viewModel
- @param bvS bindingViewSize
- @return 计算后的 Size
- */
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
 {
-    bvS.width = 100;
-    bvS.height = 90;
-
+    CGSize bvS = CGSizeMake(100, 90);
     return bvS;
 }
 

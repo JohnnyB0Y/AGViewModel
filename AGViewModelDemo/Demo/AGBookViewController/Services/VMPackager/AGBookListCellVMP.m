@@ -19,7 +19,11 @@
         // 解析 API 数据
         package[ak_AGBook_title] = dict[@"title"];
         package[ak_AGBook_image] = dict[@"image"];
-        package[ak_AGBook_summary] = dict[@"summary"];
+        
+        NSString *summary = dict[@"summary"];
+        summary = [summary stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        package[ak_AGBook_summary] = summary;
+        
         package[ak_AGBook_isbn] = dict[@"isbn10"];
         package[kAGVMViewClass] = AGBookListCell.class;
         package[kAGVMViewClassName] = NSStringFromClass(AGBookListCell.class);

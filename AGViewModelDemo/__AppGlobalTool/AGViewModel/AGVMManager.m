@@ -332,17 +332,36 @@
 }
 
 #pragma mark 更新
-- (void) ag_updateSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
-                         atIndex:(NSInteger)index
+- (void) ag_makeSectionsItemsRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
-    if ( package ) {
-        AGVMSection *vms = self[index];
-        if ( vms ) package(vms);
-    }
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeItemsRefreshUIByUpdateModelInBlock:) withObject:block];
+}
+- (void) ag_makeSectionsHeaderFooterRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+{
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeHeaderFooterRefreshUIByUpdateModelInBlock:) withObject:block];
+}
+
+- (void) ag_makeSectionsItemsSetNeedsCachedBindingViewSize
+{
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeItemsSetNeedsCachedBindingViewSize)];
+}
+- (void) ag_makeSectionsHeaderFooterSetNeedsCachedBindingViewSize
+{
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeHeaderFooterSetNeedsCachedBindingViewSize)];
+}
+
+- (void) ag_makeSectionsItemsSetNeedsRefreshUI
+{
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeItemsSetNeedsRefreshUI)];
+}
+- (void) ag_makeSectionsHeaderFooterSetNeedsRefreshUI
+{
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeHeaderFooterSetNeedsRefreshUI)];
 }
 
 - (void)setObject:(AGVMSection *)vms atIndexedSubscript:(NSInteger)idx
 {
+    NSParameterAssert(vms);
 	if ( vms == nil ) return;
 	
     if ( idx == self.count ) {
@@ -404,7 +423,7 @@
     
     __block BOOL _stop = NO;
     [self ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger section, BOOL * _Nonnull stop) {
-        [vms ag_enumerateHeaderFooterVMsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger item, BOOL * _Nonnull stop) {
+        [vms ag_enumerateHeaderFooterUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger item, BOOL * _Nonnull stop) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             
             block(vm, indexPath, &_stop);

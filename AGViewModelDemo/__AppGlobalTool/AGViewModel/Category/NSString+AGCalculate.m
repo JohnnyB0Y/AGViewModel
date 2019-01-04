@@ -15,11 +15,12 @@
     if ( self.length <= 0 ) return CGSizeZero;
     
     CGSize textS = [self boundingRectWithSize:maxS
-                                      options:(NSStringDrawingTruncatesLastVisibleLine |
-                                               NSStringDrawingUsesLineFragmentOrigin |
+                                      options:(NSStringDrawingUsesLineFragmentOrigin |
                                                NSStringDrawingUsesFontLeading)
                                    attributes:@{NSFontAttributeName : font}
                                       context:nil].size;
+    textS.width = ceilf(textS.width);
+    textS.height = ceilf(textS.height);
     return textS;
 }
 

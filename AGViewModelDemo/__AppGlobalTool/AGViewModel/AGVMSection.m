@@ -442,18 +442,34 @@
 }
 
 #pragma mark 更新
-- (void) ag_refreshItemByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
-                                    atIndex:(NSInteger)index
+- (void) ag_makeItemsRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
-	AGViewModel *vm = self[index];
-	vm ? [vm ag_refreshUIByUpdateModelInBlock:block] : nil;
+    [self.itemArrM makeObjectsPerformSelector:@selector(ag_refreshUIByUpdateModelInBlock:) withObject:block];
+}
+- (void)ag_makeHeaderFooterRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+{
+    [_headerVM ag_refreshUIByUpdateModelInBlock:block];
+    [_footerVM ag_refreshUIByUpdateModelInBlock:block];
 }
 
-- (void) ag_refreshItemsByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (void)ag_makeItemsSetNeedsCachedBindingViewSize
 {
-	[self ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
-		[vm ag_refreshUIByUpdateModelInBlock:block];
-	}];
+    [self.itemArrM makeObjectsPerformSelector:@selector(ag_setNeedsCachedBindingViewSize)];
+}
+- (void)ag_makeHeaderFooterSetNeedsCachedBindingViewSize
+{
+    [_headerVM ag_setNeedsCachedBindingViewSize];
+    [_footerVM ag_setNeedsCachedBindingViewSize];
+}
+
+- (void)ag_makeItemsSetNeedsRefreshUI
+{
+    [self.itemArrM makeObjectsPerformSelector:@selector(ag_setNeedsRefreshUI)];
+}
+- (void)ag_makeHeaderFooterSetNeedsRefreshUI
+{
+    [_headerVM ag_setNeedsRefreshUI];
+    [_footerVM ag_setNeedsRefreshUI];
 }
 
 #pragma mark 移除
@@ -543,7 +559,7 @@
 }
 
 /** 遍历所有 section 的 header、footer vm */
-- (void) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+- (void) ag_enumerateHeaderFooterUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
     if ( ! block ) return;
     

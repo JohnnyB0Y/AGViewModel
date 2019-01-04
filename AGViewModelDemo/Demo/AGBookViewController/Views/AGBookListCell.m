@@ -34,27 +34,23 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
 {
+    CGSize bvS = CGSizeMake(screen.width, 0);
     // 计算视图size
-    if ( bvS.height < 44. ) {
-        // TODO
-        CGFloat topH = 44.;
-        CGFloat bottomH = 16.;
-        
-        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        CGSize maxS = CGSizeMake(width - 32. - 60. - 8., CGFLOAT_MAX);
-        NSString *summary = [vm ag_safeStringForKey:ak_AGBook_summary];
-        CGFloat summaryH = [summary ag_sizeOfFont:self.summaryLabel.font
-                                          maxSize:maxS].height;
-        
-        bvS.height = topH + summaryH + bottomH;
-        
-        if ( bvS.height < 90. ) {
-            bvS.height = 90. + 32.;
-        }
+    CGFloat topH = 44.;
+    CGFloat bottomH = 16.;
+    
+    CGSize maxS = CGSizeMake(screen.width - 32. - 60. - 8., CGFLOAT_MAX);
+    NSString *summary = [vm ag_safeStringForKey:ak_AGBook_summary];
+    CGFloat summaryH = [summary ag_sizeOfFont:self.summaryLabel.font
+                                      maxSize:maxS].height;
+    
+    bvS.height = topH + summaryH + bottomH;
+    
+    if ( bvS.height < 90. ) {
+        bvS.height = 90. + 32.;
     }
-
     return bvS;
 }
 

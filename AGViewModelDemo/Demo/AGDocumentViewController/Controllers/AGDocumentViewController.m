@@ -110,7 +110,11 @@
 
 
 #pragma mark - ---------- Event Methods ----------
-
+- (void) handleDeviceOrientationChange:(NSNotification *)notification
+{
+    [self.tableViewManager.vmm ag_makeSectionsItemsSetNeedsCachedBindingViewSize];
+    [self.tableViewManager.view reloadData];
+}
 
 #pragma mark - ---------- Private Methods ----------
 #pragma mark add SubViews
@@ -140,11 +144,13 @@
 #pragma mark add actions
 - (void) _addActions
 {
-    // TODO
-//    __weak typeof(self) weakSelf = self;
-//    self.tableViewManager.headerRefreshingBlock = ^{
-//        [weakSelf.<#APIManager#> loadData];
-//    };
+    // 监听屏幕旋转
+    if ( [UIDevice currentDevice].generatesDeviceOrientationNotifications == NO ) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+    [[NSNotificationCenter defaultCenter]addObserver:self
+                                            selector:@selector(handleDeviceOrientationChange:)
+                                                name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 #pragma mark network request

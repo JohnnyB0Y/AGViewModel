@@ -1,6 +1,6 @@
 //
 //  UIView+AGViewModel.m
-//  AGViewModelDemo
+//  
 //
 //  Created by JohnnyB0Y on 2018/2/12.
 //  Copyright © 2018年 JohnnyB0Y. All rights reserved.
@@ -55,6 +55,72 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 - (AGViewModel *)viewModel
 {
     return objc_getAssociatedObject(self, kAGViewModelProperty);
+}
+
+- (CGFloat)width
+{
+    return self.frame.size.width;
+}
+
+- (void)setWidth:(CGFloat)width
+{
+    CGRect newFrame = CGRectMake(self.x, self.y, width, self.height);
+    [self setFrame:newFrame];
+}
+
+- (CGFloat)height
+{
+    return self.frame.size.height;
+}
+
+- (void)setHeight:(CGFloat)height
+{
+    CGRect newFrame = CGRectMake(self.x, self.y, self.width, height);
+    [self setFrame:newFrame];
+}
+
+- (CGSize)size
+{
+    return self.frame.size;
+}
+
+- (void)setSize:(CGSize)size
+{
+    CGRect newFrame = CGRectMake(self.x, self.y, size.width, size.height);
+    [self setFrame:newFrame];
+}
+
+- (CGFloat)x
+{
+    return self.frame.origin.x;
+}
+
+- (void)setX:(CGFloat)x
+{
+    CGRect newFrame = CGRectMake(x, self.y, self.width, self.height);
+    [self setFrame:newFrame];
+}
+
+- (CGFloat)y
+{
+    return self.frame.origin.y;
+}
+
+- (void)setY:(CGFloat)y
+{
+    CGRect newFrame = CGRectMake(self.x, y, self.width, self.height);
+    [self setFrame:newFrame];
+}
+
+- (CGPoint)origin
+{
+    return self.frame.origin;
+}
+
+- (void)setOrigin:(CGPoint)origin
+{
+    CGRect newFrame = CGRectMake(origin.x, origin.y, self.width, self.height);
+    [self setFrame:newFrame];
 }
 
 @end

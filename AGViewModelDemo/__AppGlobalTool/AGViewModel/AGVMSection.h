@@ -239,12 +239,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_removeItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr; //
 
 #pragma mark 更新
-- (void) ag_refreshItemByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block
-                                             atIndex:(NSInteger)index;
-
-- (void) ag_refreshItemsByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
-
 - (void) setObject:(nullable AGViewModel *)vm atIndexedSubscript:(NSInteger)idx;
+
+- (void) ag_makeItemsRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_makeHeaderFooterRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+
+- (void) ag_makeItemsSetNeedsCachedBindingViewSize;
+- (void) ag_makeHeaderFooterSetNeedsCachedBindingViewSize;
+
+- (void) ag_makeItemsSetNeedsRefreshUI;
+- (void) ag_makeHeaderFooterSetNeedsRefreshUI;
 
 #pragma mark 取出
 - (nullable AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;
@@ -264,7 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_enumerateItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 /** 遍历 header、footer vm */
-- (void) ag_enumerateHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+- (void) ag_enumerateHeaderFooterUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 
 #pragma mark 归档持久化相关

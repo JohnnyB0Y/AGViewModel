@@ -30,23 +30,14 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-/**
- 计算返回 bindingView 的 size
- 
- @param vm viewModel
- @param bvS bindingViewSize
- @return 计算后的 Size
- */
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
 {
+    CGSize bvS = CGSizeMake(screen.width, 0);
     // 计算
-    if ( bvS.height < 44.) {
-        NSString *detail = vm[kAGVMItemDetail];
-        CGFloat width = [UIScreen mainScreen].bounds.size.width;
-        CGSize maxS = CGSizeMake(width - 30, CGFLOAT_MAX);
-        CGSize textS = [detail ag_sizeOfFont:self.detailLabel.font maxSize:maxS];
-        bvS.height = 33. + textS.height;
-    }
+    NSString *detail = vm[kAGVMItemDetail];
+    CGSize maxS = CGSizeMake(screen.width - 32, CGFLOAT_MAX);
+    CGSize textS = [detail ag_sizeOfFont:self.detailLabel.font maxSize:maxS];
+    bvS.height = 36. + textS.height;
     
     return bvS;
 }

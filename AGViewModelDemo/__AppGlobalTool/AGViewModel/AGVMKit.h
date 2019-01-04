@@ -20,6 +20,7 @@
 
 #import "UIView+AGViewModel.h"
 #import "NSString+AGCalculate.h"
+#import "UIScreen+AGViewModel.h"
 #import "UITableViewCell+AGViewModel.h"
 #import "UIViewController+AGViewModel.h"
 #import "UICollectionViewCell+AGViewModel.h"

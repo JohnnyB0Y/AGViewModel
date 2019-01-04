@@ -137,10 +137,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_mergeFromManager:(nullable AGVMManager *)vmm;
 
 #pragma mark 更新
-- (void) ag_updateSectionPackage:(nullable NS_NOESCAPE AGVMPackageSectionBlock)package
-                         atIndex:(NSInteger)index;
-
 - (void) setObject:(nullable AGVMSection *)vms atIndexedSubscript:(NSInteger)idx;
+
+- (void) ag_makeSectionsItemsRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_makeSectionsHeaderFooterRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+
+- (void) ag_makeSectionsItemsSetNeedsCachedBindingViewSize;
+- (void) ag_makeSectionsHeaderFooterSetNeedsCachedBindingViewSize;
+
+- (void) ag_makeSectionsItemsSetNeedsRefreshUI;
+- (void) ag_makeSectionsHeaderFooterSetNeedsRefreshUI;
 
 #pragma mark 取出
 - (nullable AGVMSection *) objectAtIndexedSubscript:(NSInteger)idx;

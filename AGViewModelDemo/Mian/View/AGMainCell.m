@@ -37,17 +37,6 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-//- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(CGSize)bvS
-//{
-//	// 计算视图size
-//	if ( bvS.height < 44. ) {
-//		// TODO
-//
-//	}
-//
-//	return bvS;
-//}
-
 - (void)setViewModel:(AGViewModel *)viewModel
 {
 	[super setViewModel:viewModel];
