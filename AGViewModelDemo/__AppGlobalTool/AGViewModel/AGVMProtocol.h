@@ -17,10 +17,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - ------------- enum --------------
-typedef NS_ENUM(NSUInteger, AGViewControllerFromType) {
-    AGViewControllerFromStoryboard, // Storyboard文件创建控制器
-    AGViewControllerFromNib, // Nib文件创建控制器
-    AGViewControllerFromCode // 代码创建控制器
+typedef NS_ENUM(NSUInteger, AGResourceFileType) {
+    AGResourceFileTypeStoryboard, // Storyboard文件
+    AGResourceFileTypeNib, // Nib文件
+    AGResourceFileTypeCode // 代码
 };
 
 #pragma mark - ------------- typedef block --------------
@@ -55,21 +55,21 @@ typedef void (^AGVMNotificationBlock)
 );
 
 
-typedef void (^AGVMSafeSetCompletionBlock)
+typedef void (^AGVMSafeSetHandleBlock)
 (
 	 _Nullable id value, // 数据
 	 BOOL safe // 数据是否类型安全
 );
 
 
-typedef _Nullable id (^AGVMSafeGetCompletionBlock)
+typedef _Nullable id (^AGVMSafeGetHandleBlock)
 (
 	 _Nullable id value, // 数据
 	 BOOL safe // 数据是否类型安全
 );
 
 
-typedef NSNumber * _Nullable (^AGVMSafeGetNumberCompletionBlock)
+typedef NSNumber * _Nullable (^AGVMSafeGetNumberHandleBlock)
 (
 	 _Nullable id value, // 数据
 	 BOOL safe // 数据是否类型安全
@@ -171,8 +171,14 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 + (instancetype) newWithContext:(nullable AGViewModel *)context;
 
 @optional
-/** 0 从Storyboard 优先尝试创建；1 从nib 优先尝试创建；2 直接从代码创建；default是1 */
-+ (AGViewControllerFromType) typeOfCreateInstance;
+/** 让 newWithContext: 优先从那些资源文件创建控制器；0 从Storyboard；1 从nib；2 代码；default是1 */
++ (AGResourceFileType) typeOfCreateInstance;
+
+/** 从Storyboard文件创建控制器 和 传递contextVM */
++ (instancetype) newWithStoryboardWithContext:(nullable AGViewModel *)context;
+
+/** 从Nib文件创建控制器 和 传递contextVM */
++ (instancetype) newWithNibWithContext:(nullable AGViewModel *)context;
 
 + (instancetype)newWithViewModel:(nullable AGViewModel *)vm NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "use: + newWithContext:");
 
@@ -386,7 +392,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (nullable id) ag_safeSetNumber:(nullable id)value
                           forKey:(NSString *)key
-                      completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+                          handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 /**
  安全获取 NSNumber对象
 
@@ -395,7 +401,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return NSNumber 或用户返回对象
  */
 - (nullable NSNumber *) ag_safeNumberForKey:(NSString *)key
-                                 completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+                                     handle:(nullable NS_NOESCAPE AGVMSafeGetHandleBlock)block;
 
 
 #pragma mark safe string
@@ -425,7 +431,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (nullable id) ag_safeSetString:(nullable id)value
                           forKey:(NSString *)key
-                      completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+                          handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 
 /**
  安全获取 NSString对象
@@ -435,7 +441,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return NSString 或用户返回对象
  */
 - (nullable NSString *) ag_safeStringForKey:(NSString *)key
-                                 completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+                                     handle:(nullable NS_NOESCAPE AGVMSafeGetHandleBlock)block;
 
 /**
  安全获取 数字字符串对象（NSNumber 自动转化为 NSString）
@@ -454,7 +460,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return NSString 或用户返回对象
  */
 - (NSString *) ag_safeNumberStringForKey:(NSString *)key
-                              completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+                                  handle:(nullable NS_NOESCAPE AGVMSafeGetHandleBlock)block;
 
 
 #pragma mark safe array
@@ -484,7 +490,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (nullable id) ag_safeSetArray:(nullable id)value
                          forKey:(NSString *)key
-                     completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+                         handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 
 /**
  安全获取 NSArray对象
@@ -494,7 +500,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return NSArray 或用户返回对象
  */
 - (nullable NSArray *) ag_safeArrayForKey:(NSString *)key
-                               completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+                                   handle:(nullable NS_NOESCAPE AGVMSafeGetHandleBlock)block;
 
 
 #pragma mark safe dictionary
@@ -524,7 +530,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  */
 - (nullable id) ag_safeSetDictionary:(nullable id)value
                               forKey:(NSString *)key
-                          completion:(nullable NS_NOESCAPE AGVMSafeSetCompletionBlock)block;
+                              handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 
 /**
  安全获取 NSDictionary对象
@@ -534,7 +540,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return NSDictionary 或用户返回对象
  */
 - (nullable NSDictionary *) ag_safeDictionaryForKey:(NSString *)key
-                                         completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+                                             handle:(nullable NS_NOESCAPE AGVMSafeGetHandleBlock)block;
 
 
 #pragma mark safe url
@@ -553,7 +559,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return NSURL 或用户返回的对象
  */
 - (nullable NSURL *) ag_safeURLForKey:(NSString *)key
-                           completion:(nullable NS_NOESCAPE AGVMSafeGetCompletionBlock)block;
+                               handle:(nullable NS_NOESCAPE AGVMSafeGetHandleBlock)block;
 
 
 #pragma mark safe value type
@@ -572,7 +578,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return double类型数据
  */
 - (double) ag_safeDoubleValueForKey:(NSString *)key
-                         completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+                             handle:(nullable NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block;
 
 
 /**
@@ -590,7 +596,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return float类型数据
  */
 - (float) ag_safeFloatValueForKey:(NSString *)key
-                       completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+                           handle:(nullable NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block;
 
 
 /**
@@ -608,7 +614,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return int类型数据
  */
 - (int) ag_safeIntValueForKey:(NSString *)key
-                   completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+                       handle:(nullable NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block;
 
 
 /**
@@ -626,7 +632,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return NSInteger类型数据
  */
 - (NSInteger) ag_safeIntegerValueForKey:(NSString *)key
-                             completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+                                 handle:(nullable NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block;
 
 
 /**
@@ -644,7 +650,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return long long类型数据
  */
 - (long long) ag_safeLongLongValueForKey:(NSString *)key
-                              completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+                                  handle:(nullable NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block;
 
 
 /**
@@ -662,7 +668,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @return BOOL类型数据
  */
 - (BOOL) ag_safeBoolValueForKey:(NSString *)key
-                     completion:(nullable NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block;
+                         handle:(nullable NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block;
 
 
 @end

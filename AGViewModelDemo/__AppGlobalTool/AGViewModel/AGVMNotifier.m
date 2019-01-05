@@ -67,7 +67,7 @@
     [self _addObserver:observer
                 forKey:key
                options:options
-                 block:block
+            usingBlock:block
                  readd:YES];
 }
 
@@ -109,7 +109,7 @@
     [self _addObserver:observer
                 forKey:key
                options:options
-                 block:block
+            usingBlock:block
                  readd:NO];
 }
 
@@ -224,7 +224,7 @@
 - (void) _addObserver:(NSObject *)observer
                forKey:(NSString *)key
               options:(NSKeyValueObservingOptions)options
-                block:(AGVMNotificationBlock)block
+           usingBlock:(AGVMNotificationBlock)block
                 readd:(BOOL)readd
 {
     NSParameterAssert(key);

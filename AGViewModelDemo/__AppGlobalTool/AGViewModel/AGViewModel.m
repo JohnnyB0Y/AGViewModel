@@ -440,7 +440,7 @@
     [bmStrM appendFormat:@"  }"];
     
     [strM appendFormat:@"  _bindingModel (strong) : %@", bmStrM];
-    return [NSString stringWithFormat:@"♦️ <%@: %p> --- {\n%@\n}", [self class] , self, strM];
+    return [NSString stringWithFormat:@"♦️ <%@: %p> ♦️ {\n%@\n}", [self class] , self, strM];
 }
 
 #pragma mark - ----------- Setter Methods ----------
@@ -574,49 +574,49 @@
 #pragma mark safe number
 - (id) ag_safeSetNumber:(id)value forKey:(NSString *)key
 {
-	return [self ag_safeSetNumber:value forKey:key completion:nil];
+	return [self ag_safeSetNumber:value forKey:key handle:nil];
 }
 - (NSNumber *) ag_safeNumberForKey:(NSString *)key
 {
-	return [self ag_safeNumberForKey:key completion:nil];
+	return [self ag_safeNumberForKey:key handle:nil];
 }
-- (id) ag_safeSetNumber:(id)value forKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+- (id) ag_safeSetNumber:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
 	return [self _setNewObject:ag_safeNumber(value) forKey:key withObject:value completion:block];
 }
-- (NSNumber *) ag_safeNumberForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+- (NSNumber *) ag_safeNumberForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
 	id value = self[key];
-	return [self _getNewObject:ag_safeNumber(value) withObject:value completion:block];
+	return [self _getNewObject:ag_safeNumber(value) withObject:value handle:block];
 }
 
 
 #pragma mark safe string
 - (id) ag_safeSetString:(id)value forKey:(NSString *)key
 {
-	return [self ag_safeSetString:value forKey:key completion:nil];
+	return [self ag_safeSetString:value forKey:key handle:nil];
 }
 - (NSString *) ag_safeStringForKey:(NSString *)key
 {
-	return [self ag_safeStringForKey:key completion:nil];
+	return [self ag_safeStringForKey:key handle:nil];
 }
-- (id) ag_safeSetString:(id)value forKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+- (id) ag_safeSetString:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
 	return [self _setNewObject:ag_safeString(value) forKey:key withObject:value completion:block];
 }
-- (NSString *) ag_safeStringForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+- (NSString *) ag_safeStringForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
 	id value = self[key];
-	return [self _getNewObject:ag_safeString(value) withObject:value completion:block];
+	return [self _getNewObject:ag_safeString(value) withObject:value handle:block];
 }
 - (NSString *) ag_safeNumberStringForKey:(NSString *)key
 {
-    return [self ag_safeNumberStringForKey:key completion:nil];
+    return [self ag_safeNumberStringForKey:key handle:nil];
 }
-- (NSString *) ag_safeNumberStringForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+- (NSString *) ag_safeNumberStringForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
     id value = self[key];
-    return [self _getNewObject:ag_newNSStringWithObj(value) withObject:value completion:block];
+    return [self _getNewObject:ag_newNSStringWithObj(value) withObject:value handle:block];
 }
 
 
@@ -624,49 +624,49 @@
 #pragma mark safe array
 - (id) ag_safeSetArray:(id)value forKey:(NSString *)key
 {
-	return [self ag_safeSetArray:value forKey:key completion:nil];
+	return [self ag_safeSetArray:value forKey:key handle:nil];
 }
 - (NSArray *) ag_safeArrayForKey:(NSString *)key
 {
-	return [self ag_safeArrayForKey:key completion:nil];
+	return [self ag_safeArrayForKey:key handle:nil];
 }
-- (id) ag_safeSetArray:(id)value forKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+- (id) ag_safeSetArray:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
 	return [self _setNewObject:ag_safeArray(value) forKey:key withObject:value completion:block];
 }
-- (NSArray *) ag_safeArrayForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+- (NSArray *) ag_safeArrayForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
 	id value = self[key];
-	return [self _getNewObject:ag_safeArray(value) withObject:value completion:block];
+	return [self _getNewObject:ag_safeArray(value) withObject:value handle:block];
 }
 
 
 #pragma mark safe dictionary
 - (id) ag_safeSetDictionary:(id)value forKey:(NSString *)key
 {
-	return [self ag_safeSetDictionary:value forKey:key completion:nil];
+	return [self ag_safeSetDictionary:value forKey:key handle:nil];
 }
 - (NSDictionary *) ag_safeDictionaryForKey:(NSString *)key
 {
-	return [self ag_safeDictionaryForKey:key completion:nil];
+	return [self ag_safeDictionaryForKey:key handle:nil];
 }
-- (id) ag_safeSetDictionary:(id)value forKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeSetCompletionBlock)block
+- (id) ag_safeSetDictionary:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
 	return [self _setNewObject:ag_safeDictionary(value) forKey:key withObject:value completion:block];
 }
-- (NSDictionary *) ag_safeDictionaryForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+- (NSDictionary *) ag_safeDictionaryForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
 	id value = self[key];
-	return [self _getNewObject:ag_safeDictionary(value) withObject:value completion:block];
+	return [self _getNewObject:ag_safeDictionary(value) withObject:value handle:block];
 }
 
 
 #pragma mark safe url
 - (NSURL *) ag_safeURLForKey:(NSString *)key
 {
-	return [self ag_safeURLForKey:key completion:nil];
+	return [self ag_safeURLForKey:key handle:nil];
 }
-- (NSURL *) ag_safeURLForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetCompletionBlock)block
+- (NSURL *) ag_safeURLForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
 	id value = self[key];
 	NSURL *url = ag_safeObj(value, [NSURL class]);
@@ -676,85 +676,85 @@
 			url = [NSURL URLWithString:urlStr];
 		}
 	}
-	return [self _getNewObject:url withObject:value completion:block];
+	return [self _getNewObject:url withObject:value handle:block];
 }
 
 
 #pragma mark safe value type
 - (double) ag_safeDoubleValueForKey:(NSString *)key
 {
-	return [self ag_safeDoubleValueForKey:key completion:nil];
+	return [self ag_safeDoubleValueForKey:key handle:nil];
 }
-- (double) ag_safeDoubleValueForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+- (double) ag_safeDoubleValueForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block
 {
 	id value = self[key];
 	BOOL respond = [value respondsToSelector:@selector(doubleValue)];
-	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	NSNumber *number = [self _getNewNumber:value respond:respond handle:block];
 	return [number doubleValue];
 }
 
 
 - (float) ag_safeFloatValueForKey:(NSString *)key
 {
-	return [self ag_safeFloatValueForKey:key completion:nil];
+	return [self ag_safeFloatValueForKey:key handle:nil];
 }
-- (float) ag_safeFloatValueForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+- (float) ag_safeFloatValueForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block
 {
 	id value = self[key];
 	BOOL respond = [value respondsToSelector:@selector(floatValue)];
-	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	NSNumber *number = [self _getNewNumber:value respond:respond handle:block];
 	return [number floatValue];
 }
 
 
 - (int) ag_safeIntValueForKey:(NSString *)key
 {
-	return [self ag_safeIntValueForKey:key completion:nil];
+	return [self ag_safeIntValueForKey:key handle:nil];
 }
-- (int) ag_safeIntValueForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+- (int) ag_safeIntValueForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block
 {
 	id value = self[key];
 	BOOL respond = [value respondsToSelector:@selector(intValue)];
-	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	NSNumber *number = [self _getNewNumber:value respond:respond handle:block];
 	return [number intValue];
 }
 
 
 - (NSInteger) ag_safeIntegerValueForKey:(NSString *)key
 {
-	return [self ag_safeIntegerValueForKey:key completion:nil];
+	return [self ag_safeIntegerValueForKey:key handle:nil];
 }
-- (NSInteger) ag_safeIntegerValueForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+- (NSInteger) ag_safeIntegerValueForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block
 {
 	id value = self[key];
 	BOOL respond = [value respondsToSelector:@selector(integerValue)];
-	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	NSNumber *number = [self _getNewNumber:value respond:respond handle:block];
 	return [number integerValue];
 }
 
 
 - (long long) ag_safeLongLongValueForKey:(NSString *)key
 {
-	return [self ag_safeLongLongValueForKey:key completion:nil];
+	return [self ag_safeLongLongValueForKey:key handle:nil];
 }
-- (long long) ag_safeLongLongValueForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+- (long long) ag_safeLongLongValueForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block
 {
 	id value = self[key];
 	BOOL respond = [value respondsToSelector:@selector(longLongValue)];
-	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	NSNumber *number = [self _getNewNumber:value respond:respond handle:block];
 	return [number longLongValue];
 }
 
 
 - (BOOL) ag_safeBoolValueForKey:(NSString *)key
 {
-	return [self ag_safeBoolValueForKey:key completion:nil];
+	return [self ag_safeBoolValueForKey:key handle:nil];
 }
-- (BOOL) ag_safeBoolValueForKey:(NSString *)key completion:(NS_NOESCAPE AGVMSafeGetNumberCompletionBlock)block
+- (BOOL) ag_safeBoolValueForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetNumberHandleBlock)block
 {
 	id value = self[key];
 	BOOL respond = [value respondsToSelector:@selector(boolValue)];
-	NSNumber *number = [self _getNewNumber:respond withNumber:value completion:block];
+	NSNumber *number = [self _getNewNumber:value respond:respond handle:block];
 	return [number boolValue];
 }
 
@@ -763,7 +763,7 @@
 - (id) _setNewObject:(id)newObj
               forKey:(NSString *)key
           withObject:(id)obj
-          completion:(AGVMSafeSetCompletionBlock)block
+          completion:(AGVMSafeSetHandleBlock)block
 {
 	self[key] = newObj;
 	block ? block(obj, newObj != nil) : nil;
@@ -772,7 +772,7 @@
 
 - (id) _getNewObject:(id)newObj
 	      withObject:(id)obj
-          completion:(AGVMSafeGetCompletionBlock)block
+              handle:(AGVMSafeGetHandleBlock)block
 {
 	if ( block ) {
 		newObj = block(obj, newObj != nil);
@@ -780,9 +780,9 @@
 	return newObj;
 }
 
-- (NSNumber *) _getNewNumber:(BOOL)respond
-				  withNumber:(id)obj
-				  completion:(AGVMSafeGetNumberCompletionBlock)block
+- (NSNumber *) _getNewNumber:(id)obj
+                     respond:(BOOL)respond
+                      handle:(AGVMSafeGetNumberHandleBlock)block
 {
 	if ( block ) {
 		return block(obj, respond);

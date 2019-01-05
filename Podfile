@@ -11,7 +11,7 @@ pod 'MJRefresh'
 pod 'Masonry'
 pod 'RealReachability'
 pod 'SVProgressHUD'
-pod 'AGTimerManager'
-pod 'AGVerifyManager'
+pod 'AGTimerManager', '~> 0.5.1'
+pod 'AGVerifyManager', '~> 0.3.4'
 
 end

@@ -1,10 +1,20 @@
 # AGViewModel
-### 设计思路
-在实践 casa 的去Model化后，为了解决网络数据获取后如何处理、如何更新、如何监听变化等一系列细节问题，而设计了AGViewModel 一系列模块。
-其主要作用就是简化工作，尽量少做重复事情。
 
-### 类之间的关系
-#### AGViewModel 持有一个通用字典数据模型，并弱引用视图。==> View - ViewModel - Model
+### Cocoapods 集成
+``` objective-c
+platform :ios, '7.0'
+target 'AGViewModel' do
+
+pod 'AGViewModel'
+
+end
+```
+
+### 设计思路
+在实践 casa 的去Model化后，为了解决网络数据获取后如何处理、如何更新、如何监听模型数据变化等一系列细节问题，而设计了AGViewModel。
+其主要作用就是管理视图与数据之间的关系，简化工作，尽量少做重复事情。
+
+#### 持有一个字典数据模型，并弱引用视图。==> View <·· AGViewModel -> Model
 - 用户通过AGViewModel 对字典模型进行数据增删改查。
 - 数据改变后，用户可以通过AGViewModel 通知视图更新自己的Size 或刷新UI界面。
 - 具体怎样计算Size 和怎样显示UI 由视图自己决定。（当需要这么做的时候，AGViewModel会把数据提供给视图）
@@ -14,7 +24,7 @@
 - View-显示UI，接收UI事件；ViewModel-协调视图和控制器干活；Model-🌚；Controller-处理数据和UI事件。
 
 ##### AGViewModel 对视图Size 的管理方法。
-```
+```objective-c
 /** 获取 bindingView 的 size，从缓存中取。如果有“需要缓存的视图Size”的标记，重新计算并缓存。*/
 - (CGSize) ag_sizeOfBindingView;
 
@@ -32,7 +42,7 @@
 
 ```
 ##### AGViewModel 对视图UI 的管理方法。
-```
+```objective-c
 /** 马上更新数据 并 刷新视图 */
 - (void) ag_refreshUIByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
 
@@ -51,7 +61,7 @@
 ```
 
 ##### 视图要做的两件事
-```
+```objective-c
 // 设置模型数据，更新UI
 - (void)setViewModel:(AGViewModel *)viewModel
 {
@@ -60,7 +70,7 @@
   
 }
 
-// 计算返回 bindingView 的 size
+// 计算返回自己的 Size
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
 {
   // size
@@ -68,6 +78,46 @@
 }
 ```
 
+### 还能能做什么？
+#### 作为本级控制器与下级控制器之间的桥梁
+- 传递数据
+- 参考Demo 中删除书本
+
+#### 键值观察 KVO
+- 观察内部字典数据的变化
+- 传递响应事件
+- 参考Demo 中删除书本
+
+#### 数据归档
+- 根据你需要提取的keys，把数据归档写入文件
+
+```objective-c
+NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager.vmm];
+[data writeToURL:[self _archiveURL] atomically:YES];
+
+```
+
+#### Json转换
+- 根据你需要提取的keys，拼接成Json字符串（后台说：你直接扔个Json给我，接口写不动了😅）
+- 根据Json转成字典和数组（提供了C函数）
+
+```objective-c
+    // 取数据
+    NSData *data = [NSData dataWithContentsOfURL:[self _archiveURL]];
+    AGVMManager *vmm = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    // json
+    NSString *json = [vmm ag_toJSONString];
+    NSError *error;
+    NSDictionary *dict = ag_newNSDictionaryWithJSONString(json, &error);
+    
+```
+
+#### 对id类型数据判断处理
+- 对API返回数据的边界判断和处理
+- 参考 AGVMSafeAccessible 协议
+
+### 类之间的关系
 #### AGViewModel 与 AGVMPackagable协议 的关系
 - 遵守AGVMPackagable协议的类（简称VMP），提供了对API数据的处理，并生成 AGViewModel。
 - 一个视图是可以显示多个API数据的，例如一个参与抽奖的用户和参与投票的用户，获取数据的API不同，但显示效果是一致的。
@@ -78,14 +128,15 @@
 - 当然前提是要在前面注册+ag_registerCellBy:
 
 ##### AGVMPackagable协议
-```
+
+``` objective-c
 @protocol AGVMPackagable <NSObject>
 - (AGViewModel *) ag_packageData:(NSDictionary *)dict forObject:(nullable id)obj;
 @end
 ```
 
 ##### 视图复用的一些协议已经在分类中实现（有特殊需求 Override）
-```
+```objective-c
 #pragma mark - ------------- ViewModel 相关协议 --------------
 #pragma mark BaseReusable Protocol
 @protocol AGBaseReusable <NSObject>
@@ -139,9 +190,9 @@
 #### AGViewModel 与 AGVMSection、AGVMManager 的关系
 - 简单来说就是 AGVMSection 管理一组 AGViewModel，AGVMManager 管理多组 AGViewModel（就是管理多个AGVMSection）。
 - 从视图层面说，就是：
-- AGViewModel 管理 TableViewCell 的数据。
-- AGVMSection 管理 一组TableViewCell 和 HeaderView、FooterView 的数据。
-- AGVMManager 管理 整个TableView 的数据；
+- AGViewModel 能够管理 TableViewCell 的数据。
+- AGVMSection 能够管理 一组TableViewCell 和 HeaderView、FooterView 的数据。
+- AGVMManager 能够管理 整个TableView 的数据；
 
 #### AGVMNotifier 与 AGViewModel 的关系
 - 当用户需要监听 AGViewModel 的通用字典数据变化时，后台操作就是由 AGVMNotifier 提供的。
@@ -152,7 +203,7 @@
 - AGVMPackager 可以对数据进行打印，打印出需要的代码。
 
 ##### 打印需要的代码
-```
+```objective-c
 /**
  分解打印 JSON 为常量。（嵌套支持）
  
@@ -163,19 +214,9 @@
                             moduleName:(NSString *)moduleName;
 ```
 
-### Cocoapods 集成
-```
-platform :ios, '7.0'
-target 'AGViewModel' do
-
-pod 'AGViewModel'
-
-end
-```
-
-
-
-### 查看内部数据结构
+### Debug 查看内部数据结构
 <img src="https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131537.imageset/WX20180509-131537%402x.png" width = "516" height = "100" />
 
 <img src="https://raw.githubusercontent.com/JohnnyB0Y/AGViewModel/master/AGViewModelDemo/Assets.xcassets/WX20180509-131441.imageset/WX20180509-131441%402x.png" width = "516" height = "555" />
+
+

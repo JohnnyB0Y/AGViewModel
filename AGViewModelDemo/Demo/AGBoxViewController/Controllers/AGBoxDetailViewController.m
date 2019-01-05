@@ -20,7 +20,7 @@
     // Do any additional setup after loading the view.
     
     //
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"变" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"同类型Cell改成该颜色" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
     
 }
 

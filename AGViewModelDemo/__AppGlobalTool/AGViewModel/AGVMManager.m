@@ -493,7 +493,7 @@
         [strM appendFormat:@"  _sectionArrM - Capacity:%@ - Count:%@ : %@", @(_capacity), @(self.count), _sectionArrM];
     }
     
-    return [NSString stringWithFormat:@"🔵 <%@: %p> --- {\n%@\n}", [self class] , self, strM];
+    return [NSString stringWithFormat:@"🔵 <%@: %p> 🔵 {\n%@\n}", [self class] , self, strM];
 }
 
 @end

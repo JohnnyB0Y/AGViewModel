@@ -13,53 +13,63 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+FOUNDATION_EXTERN NSString * const kAGVerifyManagerVerifyingBlock;
+FOUNDATION_EXTERN NSString * const kAGVerifyManagerCompletionBlock;
+
+
 typedef void(^AGVerifyManagerVerifyingBlock)(id<AGVerifyManagerVerifying> start);
 
 typedef void(^AGVerifyManagerCompletionBlock)(AGVerifyError * _Nullable firstError,
                                               NSArray<AGVerifyError *> * _Nullable errors);
 
-typedef id<AGVerifyManagerVerifying> _Nonnull (^AGVerifyManagerVerifyObjBlock)(id<AGVerifyManagerVerifiable> verifier,
-                                                                               id obj);
 
-typedef id<AGVerifyManagerVerifying> _Nonnull (^AGVerifyManagerVerifyObjMsgBlock)(id<AGVerifyManagerVerifiable> verifier,
-                                                                                  id obj,
-                                                                                  NSString * _Nullable msg);
+typedef id<AGVerifyManagerVerifying> (^AGVerifyManagerVerifyDataBlock)(id<AGVerifyManagerVerifiable> verifier,
+                                                                       id data);
 
+typedef id<AGVerifyManagerVerifying> (^AGVerifyManagerVerifyDataWithContextBlock)(id<AGVerifyManagerVerifiable> verifier,
+                                                                                  id data,
+                                                                                  id _Nullable context);
 
-#pragma mark - AGVerifyManager
+typedef id<AGVerifyManagerVerifying> (^AGVerifyManagerVerifyDataWithMsgBlock)(id<AGVerifyManagerVerifiable> verifier,
+                                                                              id data,
+                                                                              NSString * _Nullable msg);
+
+typedef id<AGVerifyManagerVerifying> (^AGVerifyManagerVerifyDataWithMsgWithContextBlock)(id<AGVerifyManagerVerifiable> verifier,
+                                                                                         id data,
+                                                                                         NSString * _Nullable msg,
+                                                                                         id _Nullable context);
+
 @interface AGVerifyManager : NSObject
 
-/**
- 马上执行验证数据
- （1，单独使用执行验证。）
- （2，此处Block 不会被保存。）
- （3，数据验证完成后，不保留结果。）
-
- @param verifyBlock 执行验证器的 Block
- @param completionBlock 对验证结果进行处理的 Block
- */
-- (void) ag_executeVerify:(NS_NOESCAPE AGVerifyManagerVerifyingBlock)verifyBlock
-               completion:(NS_NOESCAPE AGVerifyManagerCompletionBlock)completionBlock;
+#pragma mark 直接执行验证Block，不保留Block引用。
+- (void) ag_executeVerifying:(NS_NOESCAPE AGVerifyManagerVerifyingBlock)verifyingBlock
+                  completion:(NS_NOESCAPE AGVerifyManagerCompletionBlock)completionBlock;
 
 
-/**
- 准备验证数据 Block
- （1，与 ag_executeVerify 配合使用。）
- （2，此处Block 会被保存。）
- 
- @param verifyBlock 执行验证器的 Block
- @param completionBlock 对验证结果进行处理的 Block
- */
-- (void) ag_prepareVerify:(AGVerifyManagerVerifyingBlock)verifyBlock
-               completion:(AGVerifyManagerCompletionBlock)completionBlock;
+#pragma mark 添加验证Block。
+- (void) ag_addVerifyForKey:(NSString *)key
+                  verifying:(AGVerifyManagerVerifyingBlock)verifyingBlock
+                 completion:(AGVerifyManagerCompletionBlock)completionBlock;
 
-/**
- 执行验证数据 Block
- （1，与 ag_executeVerify:completion: 配合使用。）
- （2，可多次执行验证。）
- （3，数据验证完成后，不保留结果。）
- */
-- (void) ag_executeVerify;
+#pragma mark 更改验证Block。
+- (void) ag_setVerifyForKey:(NSString *)key
+                  verifying:(AGVerifyManagerVerifyingBlock)verifyingBlock;
+
+- (void) ag_setVerifyForKey:(NSString *)key
+                 completion:(AGVerifyManagerCompletionBlock)completionBlock;
+
+#pragma mark 移除验证Block。
+- (void) ag_removeVerifyBlockForKey:(NSString *)key;
+- (void) ag_removeAllVerifyBlocks;
+
+#pragma mark 执行验证Block。
+- (void) ag_executeVerifyBlockForKey:(NSString *)key;
+- (void) ag_executeAllVerifyBlocks;
+
+/** 多线程执行验证Block，verifyingBlock 在其他线程下执行；completionBlock 回到主线程执行。*/
+- (void) ag_executeVerifyBlockInBackgroundForKey:(NSString *)key;
+- (void) ag_executeAllVerifyBlocksInBackground;
 
 @end
 
@@ -67,11 +77,17 @@ typedef id<AGVerifyManagerVerifying> _Nonnull (^AGVerifyManagerVerifyObjMsgBlock
 #pragma mark - AGVerifyManagerVerifying
 @protocol AGVerifyManagerVerifying <NSObject>
 
-/** 验证数据，直接传入验证器、数据 */
-@property (nonatomic, copy, readonly) AGVerifyManagerVerifyObjBlock verifyObj;
+/** 验证数据，传入验证器、数据 */
+@property (nonatomic, copy, readonly) AGVerifyManagerVerifyDataBlock verifyData;
 
-/** 验证数据，直接传入验证器、数据、错误提示信息 */
-@property (nonatomic, copy, readonly) AGVerifyManagerVerifyObjMsgBlock verifyObjMsg;
+/** 验证数据，传入验证器、数据、你想传递的对象（由AGVerifyError对象持有） */
+@property (nonatomic, copy, readonly) AGVerifyManagerVerifyDataWithContextBlock verifyDataWithContext;
+
+/** 验证数据，直传入验证器、数据、错误提示信息 */
+@property (nonatomic, copy, readonly) AGVerifyManagerVerifyDataWithMsgBlock verifyDataWithMsg;
+
+/** 验证数据，传入验证器、数据、错误提示信息、你想传递的对象（由AGVerifyError对象持有） */
+@property (nonatomic, copy, readonly) AGVerifyManagerVerifyDataWithMsgWithContextBlock verifyDataWithMsgWithContext;
 
 @end
 
@@ -80,7 +96,7 @@ typedef id<AGVerifyManagerVerifying> _Nonnull (^AGVerifyManagerVerifyObjMsgBlock
 @protocol AGVerifyManagerVerifiable <NSObject>
 
 /** 验证数据，数据直接参数传入 */
-- (nullable AGVerifyError *) ag_verifyObj:(id)obj;
+- (nullable AGVerifyError *) ag_verifyData:(id)data;
 
 @end
 
@@ -97,14 +113,17 @@ typedef id<AGVerifyManagerVerifying> _Nonnull (^AGVerifyManagerVerifyObjMsgBlock
 /** 错误代码 */
 @property (nonatomic, assign) NSInteger code;
 
-/** 被验证的对象 （传递出去，可以做特殊业务） */
-@property (nonatomic, strong, nullable) id verifyObj;
+/** 由调用方传入的对象，起对象传递作用。*/
+@property (nonatomic, strong, nullable) id context;
 
 @end
 
 
 // 快捷构建方法
-AGVerifyManager * ag_verifyManager(void);
+AGVerifyManager * ag_newAGVerifyManager(void);
+
+AGVerifyManagerVerifyingBlock ag_verifyManagerCopyVerifyingBlock(AGVerifyManagerVerifyingBlock block);
+
+AGVerifyManagerCompletionBlock ag_verifyManagerCopyCompletionBlock(AGVerifyManagerCompletionBlock block);
 
 NS_ASSUME_NONNULL_END
-

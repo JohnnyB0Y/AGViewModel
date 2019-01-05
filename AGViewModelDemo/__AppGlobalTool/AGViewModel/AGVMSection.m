@@ -678,7 +678,7 @@
         [strM appendFormat:@"  _itemArrM - Capacity:%@ - Count:%@ : %@", @(_capacity), @(self.count), _itemArrM];
     }
     
-    return [NSString stringWithFormat:@"🔷 <%@: %p> --- {\n%@\n}", [self class] , self, strM];
+    return [NSString stringWithFormat:@"🔷 <%@: %p> 🔷 {\n%@\n}", [self class] , self, strM];
 }
 
 @end

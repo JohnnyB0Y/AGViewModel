@@ -58,7 +58,7 @@
     UICollectionViewFlowLayout *fl = [[UICollectionViewFlowLayout alloc] init];
     self = [super initWithCollectionViewLayout:fl];
     if ( self ) {
-        self.title = @"多彩盒子";
+        self.title = @"多类型Cell展示";
     }
     return self;
 }
@@ -82,8 +82,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    AGViewModel *vm =
-    self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row];
+    AGViewModel *vm = self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row];
     
     Class<AGCollectionCellReusable> cellClass = vm[kAGVMViewClass];
     UICollectionViewCell<AGVMIncludable> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
@@ -97,26 +96,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AGViewModel *vm =
-    self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row];
-    
-    CGSize cellS = [vm ag_sizeOfBindingView];
-    if ( cellS.height <= 0 || cellS.width <= 0) {
-        // 这里 cell的类型是随机生成的，处理比较麻烦。也可以在 vm generator 时，计算好 cell的 size。
-        UIView<AGVMIncludable> *view;
-        Class<AGCollectionCellReusable> cellClass = vm[kAGVMViewClass];
-        if ( cellClass == [AGBoxACell class] ) {
-            view = [AGBoxACell ag_createFromNib];
-        }
-        else if ( cellClass == [AGBoxBCell class] ) {
-            view = [AGBoxBCell ag_createFromNib];
-        }
-        else if ( cellClass == [AGBoxCCell class] ) {
-            view = [AGBoxCCell ag_createFromNib];
-        }
-        cellS = [vm ag_sizeForBindingView:view];
-    }
-    return cellS;
+    return [self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row] ag_sizeOfBindingView];
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -186,8 +166,6 @@
         }
         
     }];
-    
-    
 }
 
 #pragma mark - ----------- Getter Methods ----------

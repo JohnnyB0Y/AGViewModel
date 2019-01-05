@@ -7,9 +7,13 @@
 //  box viewModel 生成器
 
 #import "AGBoxVMGenerator.h"
+#import "AGVMKit.h"
 
-
-@implementation AGBoxVMGenerator
+@implementation AGBoxVMGenerator {
+    AGBoxACell *_aCell; // 用来计算Cell的size
+    AGBoxBCell *_bCell;
+    AGBoxCCell *_cCell;
+}
 
 - (AGVMManager *)boxVMManager
 {
@@ -45,24 +49,30 @@
                 package[kAGVMBoxTitle] = @"SSS";
             }];
             
+            // 为了提前计算 cell的 Size, 因为这里cell类型是随机生成的，比较蛋疼。
+            Class<AGCollectionCellReusable> cellCls = [self _randClassAtArr:classArr];
+            UICollectionViewCell *cell = [self _cellOfClass:cellCls];
+            
             // 共享数据模型
             [vms ag_packageItemMergeData:^(NSMutableDictionary *package) {
                 // 要实例化的类
-                package[kAGVMViewClass] = [self _randClassAtArr:classArr];
+                package[kAGVMViewClass] = cellCls;
             }];
             
             // 第一个 item
-            [vms ag_packageItemData:^(NSMutableDictionary *package) {
+            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                 package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                 package[kAGVMBoxTitle] = @"我是第一个item！";
-            }];
+            }] ag_cachedSizeByBindingView:cell];
             
             for (NSInteger i = 0; i<9; i++) {
-                [vms ag_packageItemData:^(NSMutableDictionary *package) {
+                cellCls = [self _randClassAtArr:classArr];
+                cell = [self _cellOfClass:cellCls];
+                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"我们是谁？";
-                    package[kAGVMViewClass] = [self _randClassAtArr:classArr];
-                }];
+                    package[kAGVMViewClass] = cellCls;
+                }] ag_cachedSizeByBindingView:cell];
             }
             
         } capacity:10];
@@ -70,73 +80,91 @@
         // 第二组
         [_boxVMManager ag_packageSection:^(AGVMSection *vms) {
             
+            // 为了提前计算 cell的 Size, 因为这里cell类型是随机生成的，比较蛋疼。
+            Class<AGCollectionCellReusable> cellCls = [self _randClassAtArr:classArr];
+            UICollectionViewCell *cell = [self _cellOfClass:cellCls];
+            
             // 第一个 item
-            [vms ag_packageItemData:^(NSMutableDictionary *package) {
+            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                 package[kAGVMBoxColor] = [UIColor blackColor];
                 package[kAGVMBoxTitle] = @"我是第一个item！";
                 // 单独设置要实例化的类
-                package[kAGVMViewClass] = [self _randClassAtArr:classArr];
-            }];
+                package[kAGVMViewClass] = cellCls;
+            }] ag_cachedSizeByBindingView:cell];
             
             // 第二个 item
-            [vms ag_packageItemData:^(NSMutableDictionary *package) {
+            cellCls = [self _randClassAtArr:classArr];
+            cell = [self _cellOfClass:cellCls];
+            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                 package[kAGVMBoxColor] = [UIColor greenColor];
                 package[kAGVMBoxTitle] = @"我是第二个item！";
                 // 单独设置要实例化的类
-                package[kAGVMViewClass] = [self _randClassAtArr:classArr];
-            }];
+                package[kAGVMViewClass] = cellCls;
+            }] ag_cachedSizeByBindingView:cell];
             
             for (NSInteger i = 0; i<5; i++) {
-                [vms ag_packageItemData:^(NSMutableDictionary *package) {
+                cellCls = [self _randClassAtArr:classArr];
+                cell = [self _cellOfClass:cellCls];
+                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"我们是Bosh。";
-                    package[kAGVMViewClass] = [self _randClassAtArr:classArr];
-                }];
+                    package[kAGVMViewClass] = cellCls;
+                }] ag_cachedSizeByBindingView:cell];
             }
             
             // 最后一个 item
-            [vms ag_packageItemData:^(NSMutableDictionary *package) {
+            cellCls = [self _randClassAtArr:classArr];
+            cell = [self _cellOfClass:cellCls];
+            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                 package[kAGVMBoxColor] = [UIColor greenColor];
                 package[kAGVMBoxTitle] = @"我是最后一个item！";
                 // 单独设置要实例化的类
-                package[kAGVMViewClass] = [self _randClassAtArr:classArr];
-            }];
+                package[kAGVMViewClass] = cellCls;
+            }] ag_cachedSizeByBindingView:cell];
             
         } capacity:6];
         
         // 第三组
         [_boxVMManager ag_packageSection:^(AGVMSection *vms) {
             
+            // 为了提前计算 cell的 Size, 因为这里cell类型是随机生成的，比较蛋疼。
+            Class<AGCollectionCellReusable> cellCls = [self _randClassAtArr:classArr];
+            UICollectionViewCell *cell = [self _cellOfClass:cellCls];
+            
             // 共享数据模型
             [vms ag_packageItemMergeData:^(NSMutableDictionary *package) {
                 // 要实例化的类
-                package[kAGVMViewClass] = [self _randClassAtArr:classArr];
+                package[kAGVMViewClass] = cellCls;
                 package[kAGVMBoxTitle] = @"波波维奇。";
                 
             }];
             
             for (NSInteger i = 0; i<3; i++) {
-                [vms ag_packageItemData:^(NSMutableDictionary *package) {
+                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"白云山！";
-                }];
+                }] ag_cachedSizeByBindingView:cell];
             }
             
             
             for (NSInteger i = 0; i<3; i++) {
-                [vms ag_packageItemData:^(NSMutableDictionary *package) {
+                cellCls = [self _randClassAtArr:classArr];
+                cell = [self _cellOfClass:cellCls];
+                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                     package[kAGVMBoxColor] = [UIColor brownColor];
                     package[kAGVMBoxTitle] = @"龙的传人！";
-                    package[kAGVMViewClass] = [self _randClassAtArr:classArr];
-                }];
+                    package[kAGVMViewClass] = cellCls;
+                }] ag_cachedSizeByBindingView:cell];
             }
             
             for (NSInteger i = 0; i<3; i++) {
-                [vms ag_packageItemData:^(NSMutableDictionary *package) {
+                cellCls = [self _randClassAtArr:classArr];
+                cell = [self _cellOfClass:cellCls];
+                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"龙的传人！";
-                    package[kAGVMViewClass] = [self _randClassAtArr:classArr];
-                }];
+                    package[kAGVMViewClass] = cellCls;
+                }] ag_cachedSizeByBindingView:cell];
             }
             
         } capacity:10];
@@ -155,6 +183,20 @@
 {
     int count = (int)arr.count;
     return arr[arc4random_uniform(count)];
+}
+
+- (UICollectionViewCell *) _cellOfClass:(Class)cls
+{
+    if ( cls == [AGBoxACell class] ) {
+        return _aCell ?: [AGBoxACell ag_createFromNib];
+    }
+    else if ( cls == [AGBoxBCell class] ) {
+        return _bCell ?: [AGBoxBCell ag_createFromNib];
+    }
+    else if ( cls == [AGBoxCCell class] ) {
+        return _cCell ?: [AGBoxCCell ag_createFromNib];
+    }
+    return nil;
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  NSString+AGCalculate.h
+//  NSString+AGViewModel.h
 //
 //
 //  Created by JohnnyB0Y on 2017/7/31.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NSString (AGCalculate)
+@interface NSString (AGViewModel)
 
 /** 计算文字 size */
 - (CGSize) ag_sizeOfFont:(UIFont *)font maxSize:(CGSize)maxS;

@@ -65,9 +65,9 @@ AGVMDelegate>
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-+ (AGViewControllerFromType)typeOfCreateInstance
++ (AGResourceFileType)typeOfCreateInstance
 {
-    return AGViewControllerFromCode;
+    return AGResourceFileTypeCode;
 }
 
 #pragma mark - ---------- Custom Delegate ----------
@@ -190,6 +190,7 @@ AGVMDelegate>
     // TODO
     __weak typeof(self) weakSelf = self;
     
+    // tableView 的数据刷新 Block
     self.tableViewManager.headerRefreshingBlock = ^{
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
@@ -209,28 +210,26 @@ AGVMDelegate>
         
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
-            AGViewModel *context = ag_newAGViewModel(nil);
-            [context ag_mergeModelFromViewModel:vm byKeys:@[ak_AGBook_title, ak_AGBook_isbn]];
             
-            // 监听删除
+            // 跳转到下级控制器
+            AGViewModel *context = [vm mutableCopy];
+            AGBookDetailViewController *vc = [AGBookDetailViewController newWithContext:context];
+            [self.navigationController pushViewController:vc animated:YES];
+            
+            // 监听下级控制器的删除操作
             [context ag_addObserver:self forKey:kAGVMDeleted usingBlock:^(AGViewModel * _Nonnull observedVM, NSString * _Nonnull key, NSDictionary<NSKeyValueChangeKey,id> * _Nonnull change) {
                 
-                BOOL del = [change[NSKeyValueChangeNewKey] boolValue];
-                
-                if ( del ) {
+                if ( [change[NSKeyValueChangeNewKey] boolValue] ) {
                     
                     [self.tableViewManager deleteViewModels:@[vm] withRowAnimation:UITableViewRowAnimationNone];
                     [self.navigationController popViewControllerAnimated:YES];
                 }
                 
             }];
-            
-            AGBookDetailViewController *vc = [AGBookDetailViewController newWithContext:context];
-            [self.navigationController pushViewController:vc animated:YES];
         }
-        
     };
     
+    // 导航右上角按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"归档并跳转" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
     
     // 监听屏幕旋转

@@ -30,7 +30,10 @@
 /** 是否能从nil文件创建视图 */
 + (BOOL) ag_canAwakeFromNib;
 
-/** 从 nib 创建实例,没有nib 时返回 nil */
+/** 从 nib 创建实例,没有nib 会崩溃 */
 + (instancetype) ag_createFromNib;
+
+/** 从 nib 创建实例,没有nib 时返回 nil */
++ (instancetype) ag_safeCreateFromNib;
 
 @end

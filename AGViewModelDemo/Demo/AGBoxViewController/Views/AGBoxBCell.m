@@ -32,8 +32,7 @@
 #pragma mark - ----------- AGViewModelIncludable -----------
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
 {
-    CGSize bvS = CGSizeMake(110., 110.);
-    return bvS;
+    return CGSizeMake(110., 110.);
 }
 
 - (void)setViewModel:(AGViewModel *)viewModel

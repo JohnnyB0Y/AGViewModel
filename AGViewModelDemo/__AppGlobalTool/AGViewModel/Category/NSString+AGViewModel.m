@@ -1,14 +1,14 @@
 //
-//  NSString+AGCalculate.m
+//  NSString+AGViewModel.m
 //
 //
 //  Created by JohnnyB0Y on 2017/7/31.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
 //  字符串计算分类
 
-#import "NSString+AGCalculate.h"
+#import "NSString+AGViewModel.h"
 
-@implementation NSString (AGCalculate)
+@implementation NSString (AGViewModel)
 
 - (CGSize) ag_sizeOfFont:(UIFont *)font maxSize:(CGSize)maxS
 {

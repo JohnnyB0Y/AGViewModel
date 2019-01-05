@@ -37,7 +37,7 @@
             
             [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
                 
-                package[kAGVMTitleText] = @"case 1";
+                package[kAGVMTitleText] = @"多类型Cell展示";
                 package[kAGVMTargetVCBlock] = ag_viewModelCopyTargetVCBlock(^(UIViewController * _Nullable targetVC, AGViewModel * _Nullable vm) {
                     // 进入 box 控制器
                     AGBoxCollectionViewController *boxVC

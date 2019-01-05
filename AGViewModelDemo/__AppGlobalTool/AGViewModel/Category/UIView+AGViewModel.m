@@ -11,6 +11,8 @@
 
 static void *kAGViewModelProperty = &kAGViewModelProperty;
 
+static NSBundle *currentBundle;
+
 @implementation UIView (AGViewModel)
 
 #pragma mark - ---------- Public Methods ----------
@@ -24,26 +26,34 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 
 + (instancetype)ag_createFromNib
 {
+    NSBundle *bundle = [self ag_currentBundle];
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:bundle];
+    return [[nib instantiateWithOwner:self options:nil] firstObject];
+}
+
+/** 从 nib 创建实例,没有nib 时返回 nil */
++ (instancetype) ag_safeCreateFromNib
+{
     // 有特殊需求，请在子类重写。
     if ( [self ag_canAwakeFromNib] ) {
-        NSBundle *bundle = [self ag_currentBundle];
-        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:bundle];
-        return [[nib instantiateWithOwner:self options:nil] firstObject];
+        return [self ag_createFromNib];
     }
     return nil;
 }
 
 + (NSBundle *) ag_currentBundle
 {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSURL *url = [bundle URLForResource:@"MyLibrary" withExtension:@"bundle"];
-    if ( url == nil ) {
-        url = [bundle URLForResource:@"ResourceFramework" withExtension:@"bundle"];
+    if ( nil == currentBundle ) {
+        currentBundle = [NSBundle bundleForClass:[self class]];
+        NSURL *url = [currentBundle URLForResource:@"MyLibrary" withExtension:@"bundle"];
+        if ( url == nil ) {
+            url = [currentBundle URLForResource:@"ResourceFramework" withExtension:@"bundle"];
+        }
+        if ( url ) {
+            currentBundle = [NSBundle bundleWithURL:url];
+        }
     }
-    if ( url ) {
-        bundle = [NSBundle bundleWithURL:url];
-    }
-    return bundle;
+    return currentBundle;
 }
 
 #pragma mark - ----------- Getter Setter Methods ----------

@@ -30,7 +30,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
 
 - (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
                                      mergeVM:(AGViewModel *)mergeVM
-                                     inBlock:(__attribute__((noescape)) AGVMPackageDatasBlock)block
+                                     inBlock:(NS_NOESCAPE AGVMPackageDatasBlock)block
                                     capacity:(NSInteger)capacity
 {
     if ( items == nil ) return nil;
@@ -242,9 +242,7 @@ NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block
  @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
  @return JSON字符串
  */
-NSString * ag_newJSONStringWithArray(NSArray *array,
-                                  AGViewModel *exchangeKeyVM,
-                                  AGVMJSONTransformBlock block)
+NSString * ag_newJSONStringWithArray(NSArray *array, AGViewModel *exchangeKeyVM, AGVMJSONTransformBlock block)
 {
     if ([array isKindOfClass:[NSArray class]] ) {
         // 开 {
@@ -275,9 +273,7 @@ NSString * ag_newJSONStringWithArray(NSArray *array,
  @param block 自行处理Block（通过写入 useDefault 来控制采用 返回处理结果 还是 默认处理结果）
  @return JSON字符串
  */
-NSString * ag_newJSONStringWithDictionary(NSDictionary *dict,
-                                 AGViewModel *exchangeKeyVM,
-                                 AGVMJSONTransformBlock block)
+NSString * ag_newJSONStringWithDictionary(NSDictionary *dict, AGViewModel *exchangeKeyVM, AGVMJSONTransformBlock block)
 {
     if ([dict isKindOfClass:[NSDictionary class]] ) {
         // 开 {
@@ -318,10 +314,7 @@ NSString * ag_newJSONStringWithDictionary(NSDictionary *dict,
     return nil;
 }
 
-NSString * ag_JSONTransformStringWithObject(id obj,
-                                            AGVMJSONTransformBlock block,
-                                            AGViewModel *vm,
-                                            BOOL *isString)
+NSString * ag_JSONTransformStringWithObject(id obj, AGVMJSONTransformBlock block, AGViewModel *vm, BOOL *isString)
 {
     // 特殊处理
     if ( block ) {

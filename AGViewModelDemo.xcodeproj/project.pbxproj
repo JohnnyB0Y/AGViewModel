@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A03B174205178E40034DC87 /* NSString+AGCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A03B173205178E40034DC87 /* NSString+AGCalculate.m */; };
+		3A03B174205178E40034DC87 /* NSString+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A03B173205178E40034DC87 /* NSString+AGViewModel.m */; };
 		3A04291420B783EA0025D9D5 /* AGDoubanService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291320B783EA0025D9D5 /* AGDoubanService.m */; };
 		3A04291720B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291520B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m */; };
 		3A04291B20B792100025D9D5 /* Target_CTAppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291920B792100025D9D5 /* Target_CTAppContext.m */; };
@@ -79,8 +79,8 @@
 
 /* Begin PBXFileReference section */
 		0B73F38F0874A936EE14B756 /* Pods-AGViewModelDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		3A03B172205178E40034DC87 /* NSString+AGCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGCalculate.h"; sourceTree = "<group>"; };
-		3A03B173205178E40034DC87 /* NSString+AGCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGCalculate.m"; sourceTree = "<group>"; };
+		3A03B172205178E40034DC87 /* NSString+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGViewModel.h"; sourceTree = "<group>"; };
+		3A03B173205178E40034DC87 /* NSString+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGViewModel.m"; sourceTree = "<group>"; };
 		3A04291220B783EA0025D9D5 /* AGDoubanService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDoubanService.h; sourceTree = "<group>"; };
 		3A04291320B783EA0025D9D5 /* AGDoubanService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDoubanService.m; sourceTree = "<group>"; };
 		3A04291520B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CTAPIBaseManager+WNAPIBaseManager.m"; sourceTree = "<group>"; };
@@ -321,14 +321,14 @@
 		3A04294120B7AB000025D9D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3A04294220B7AB000025D9D5 /* AGBoxBCell.h */,
 				3A04294320B7AB000025D9D5 /* AGBoxACell.h */,
-				3A04294420B7AB000025D9D5 /* AGBoxCCell.h */,
-				3A04294520B7AB000025D9D5 /* AGBoxACell.xib */,
-				3A04294620B7AB000025D9D5 /* AGBoxBCell.m */,
-				3A04294720B7AB000025D9D5 /* AGBoxCCell.m */,
-				3A04294820B7AB000025D9D5 /* AGBoxBCell.xib */,
 				3A04294920B7AB000025D9D5 /* AGBoxACell.m */,
+				3A04294520B7AB000025D9D5 /* AGBoxACell.xib */,
+				3A04294220B7AB000025D9D5 /* AGBoxBCell.h */,
+				3A04294620B7AB000025D9D5 /* AGBoxBCell.m */,
+				3A04294820B7AB000025D9D5 /* AGBoxBCell.xib */,
+				3A04294420B7AB000025D9D5 /* AGBoxCCell.h */,
+				3A04294720B7AB000025D9D5 /* AGBoxCCell.m */,
 				3A04294A20B7AB000025D9D5 /* AGBoxCCell.xib */,
 			);
 			path = Views;
@@ -438,8 +438,8 @@
 		3A7FD5E320B77EC300A0787A /* VMGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				3A7FD5E420B77EC300A0787A /* AGBoxVMGenerator.m */,
 				3A7FD5E520B77EC300A0787A /* AGBoxVMGenerator.h */,
+				3A7FD5E420B77EC300A0787A /* AGBoxVMGenerator.m */,
 			);
 			path = VMGenerator;
 			sourceTree = "<group>";
@@ -635,8 +635,8 @@
 		3AE9C37F2031437B009F4B29 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				3A03B172205178E40034DC87 /* NSString+AGCalculate.h */,
-				3A03B173205178E40034DC87 /* NSString+AGCalculate.m */,
+				3A03B172205178E40034DC87 /* NSString+AGViewModel.h */,
+				3A03B173205178E40034DC87 /* NSString+AGViewModel.m */,
 				3AE9C3872031437B009F4B29 /* UICollectionReusableView+AGViewModel.h */,
 				3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */,
 				3AE9C3882031437B009F4B29 /* UICollectionViewCell+AGViewModel.h */,
@@ -840,7 +840,7 @@
 				3A04292420B796260025D9D5 /* AGBookListCellVMP.m in Sources */,
 				3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */,
 				3A89D45721D99DB700B0779A /* AGMainHeaderFooterView.m in Sources */,
-				3A03B174205178E40034DC87 /* NSString+AGCalculate.m in Sources */,
+				3A03B174205178E40034DC87 /* NSString+AGViewModel.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A7FD5E720B77EC300A0787A /* AGBoxVMGenerator.m in Sources */,
