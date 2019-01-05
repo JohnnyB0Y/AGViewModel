@@ -64,7 +64,9 @@ static void *kAGContextProperty = &kAGContextProperty;
 {
     NSBundle *bundle = [UIView ag_currentBundle];
     NSString *clsName = NSStringFromClass(self);
-    return [self _instanceCreateFromStoryboardWithName:clsName bundle:bundle];
+    UIViewController *vc = [self _instanceCreateFromStoryboardWithName:clsName bundle:bundle];
+    [vc setContext:context];
+    return vc;
 }
 
 /** 从Nib文件创建控制器 和 传递contextVM */
@@ -72,7 +74,16 @@ static void *kAGContextProperty = &kAGContextProperty;
 {
     NSBundle *bundle = [UIView ag_currentBundle];
     NSString *clsName = NSStringFromClass(self);
-    return [self _instanceCreateFromNibWithName:clsName bundle:bundle];
+    UIViewController *vc = [self _instanceCreateFromNibWithName:clsName bundle:bundle];
+    [vc setContext:context];
+    return vc;
+}
+
+- (instancetype) initWithContext:(AGViewModel *)context
+{
+    UIViewController *vc = [self init];
+    [vc setContext:context];
+    return vc;
 }
 
 #pragma mark - ---------- Private Methods ----------

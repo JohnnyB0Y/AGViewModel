@@ -167,17 +167,20 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 /** 负责控制器间（本级控制器与下级控制器之间）参数传递和共享的ViewModel */
 @property (nonatomic, strong, nullable) AGViewModel *context;
 
-/** 创建控制器 和 传递contextVM */
+/** 创建控制器；传递contextVM */
 + (instancetype) newWithContext:(nullable AGViewModel *)context;
 
 @optional
 /** 让 newWithContext: 优先从那些资源文件创建控制器；0 从Storyboard；1 从nib；2 代码；default是1 */
 + (AGResourceFileType) typeOfCreateInstance;
 
-/** 从Storyboard文件创建控制器 和 传递contextVM */
+/** 代码创建控制器；传递contextVM */
+- (instancetype) initWithContext:(nullable AGViewModel *)context;
+
+/** 从Storyboard文件创建控制器；传递contextVM */
 + (instancetype) newWithStoryboardWithContext:(nullable AGViewModel *)context;
 
-/** 从Nib文件创建控制器 和 传递contextVM */
+/** 从Nib文件创建控制器；传递contextVM */
 + (instancetype) newWithNibWithContext:(nullable AGViewModel *)context;
 
 + (instancetype)newWithViewModel:(nullable AGViewModel *)vm NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "use: + newWithContext:");
