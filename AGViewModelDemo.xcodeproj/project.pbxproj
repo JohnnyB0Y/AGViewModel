@@ -42,6 +42,10 @@
 		3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A89D45321D99CC300B0779A /* AGMainCell.m */; };
 		3A89D45721D99DB700B0779A /* AGMainHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A89D45621D99DB700B0779A /* AGMainHeaderFooterView.m */; };
 		3A8C698C21DEC9530021BCB1 /* UIScreen+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C698B21DEC9530021BCB1 /* UIScreen+AGViewModel.m */; };
+		3A8C699021E0ECF70021BCB1 /* AGSwitchControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C698F21E0ECF60021BCB1 /* AGSwitchControl.m */; };
+		3A8C699321E0ED610021BCB1 /* AGLikeButtom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C699221E0ED610021BCB1 /* AGLikeButtom.m */; };
+		3A8C699621E0EDA50021BCB1 /* AGViewStorehouse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C699521E0EDA50021BCB1 /* AGViewStorehouse.m */; };
+		3A8C699921E127CB0021BCB1 /* AGSwitchControlItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8C699821E127CB0021BCB1 /* AGSwitchControlItem.m */; };
 		3AA8036B21DE4B2900515EC8 /* UIViewController+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8036A21DE4B2900515EC8 /* UIViewController+AGViewModel.m */; };
 		3AA8036D21DE6ABC00515EC8 /* AGVMKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA8036C21DE6ABC00515EC8 /* AGVMKeys.m */; };
 		3AACE8261EACF9100097C4F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AACE8251EACF9100097C4F3 /* main.m */; };
@@ -145,6 +149,14 @@
 		3A89D45621D99DB700B0779A /* AGMainHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGMainHeaderFooterView.m; sourceTree = "<group>"; };
 		3A8C698A21DEC9530021BCB1 /* UIScreen+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScreen+AGViewModel.h"; sourceTree = "<group>"; };
 		3A8C698B21DEC9530021BCB1 /* UIScreen+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+AGViewModel.m"; sourceTree = "<group>"; };
+		3A8C698E21E0ECF60021BCB1 /* AGSwitchControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGSwitchControl.h; sourceTree = "<group>"; };
+		3A8C698F21E0ECF60021BCB1 /* AGSwitchControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGSwitchControl.m; sourceTree = "<group>"; };
+		3A8C699121E0ED610021BCB1 /* AGLikeButtom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLikeButtom.h; sourceTree = "<group>"; };
+		3A8C699221E0ED610021BCB1 /* AGLikeButtom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLikeButtom.m; sourceTree = "<group>"; };
+		3A8C699421E0EDA50021BCB1 /* AGViewStorehouse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGViewStorehouse.h; sourceTree = "<group>"; };
+		3A8C699521E0EDA50021BCB1 /* AGViewStorehouse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGViewStorehouse.m; sourceTree = "<group>"; };
+		3A8C699721E127CB0021BCB1 /* AGSwitchControlItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGSwitchControlItem.h; sourceTree = "<group>"; };
+		3A8C699821E127CB0021BCB1 /* AGSwitchControlItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGSwitchControlItem.m; sourceTree = "<group>"; };
 		3AA8036921DE4B2900515EC8 /* UIViewController+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AGViewModel.h"; sourceTree = "<group>"; };
 		3AA8036A21DE4B2900515EC8 /* UIViewController+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AGViewModel.m"; sourceTree = "<group>"; };
 		3AA8036C21DE6ABC00515EC8 /* AGVMKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMKeys.m; sourceTree = "<group>"; };
@@ -510,6 +522,21 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3A8C698D21E0ECEA0021BCB1 /* AGSwitchControl */ = {
+			isa = PBXGroup;
+			children = (
+				3A8C699421E0EDA50021BCB1 /* AGViewStorehouse.h */,
+				3A8C699521E0EDA50021BCB1 /* AGViewStorehouse.m */,
+				3A8C699121E0ED610021BCB1 /* AGLikeButtom.h */,
+				3A8C699221E0ED610021BCB1 /* AGLikeButtom.m */,
+				3A8C698E21E0ECF60021BCB1 /* AGSwitchControl.h */,
+				3A8C698F21E0ECF60021BCB1 /* AGSwitchControl.m */,
+				3A8C699721E127CB0021BCB1 /* AGSwitchControlItem.h */,
+				3A8C699821E127CB0021BCB1 /* AGSwitchControlItem.m */,
+			);
+			path = AGSwitchControl;
+			sourceTree = "<group>";
+		};
 		3AACE8181EACF9100097C4F3 = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +606,7 @@
 		3ABB4B061F2644BA0007255F /* __AppGlobalTool */ = {
 			isa = PBXGroup;
 			children = (
+				3A8C698D21E0ECEA0021BCB1 /* AGSwitchControl */,
 				3AC28DF91FB8179C00578B5D /* ViewManager */,
 				3ABB4B211F2644E50007255F /* AGViewModel */,
 				3AC28E101FB848F600578B5D /* AGGlobalVMKeys.h */,
@@ -810,6 +838,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AFD681E21D3F6A6007317E6 /* AGDiskBookListViewController.m in Sources */,
+				3A8C699321E0ED610021BCB1 /* AGLikeButtom.m in Sources */,
 				3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
 				3A04293920B7AADB0025D9D5 /* GZPSItemDetailCell.m in Sources */,
 				3A04295D20B7B2610025D9D5 /* AGBookHandleReformer.m in Sources */,
@@ -828,6 +857,7 @@
 				3AC28E001FB8179C00578B5D /* AGTableViewManager.m in Sources */,
 				3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */,
 				3A04292D20B7AAB00025D9D5 /* AGHomeVMGenerator.m in Sources */,
+				3A8C699621E0EDA50021BCB1 /* AGViewStorehouse.m in Sources */,
 				3A04294E20B7AB000025D9D5 /* AGBoxBCell.m in Sources */,
 				3A04293820B7AADB0025D9D5 /* GZPSItemHeaderView.m in Sources */,
 				3A04292E20B7AAB00025D9D5 /* ViewController.m in Sources */,
@@ -839,12 +869,14 @@
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
 				3A04292420B796260025D9D5 /* AGBookListCellVMP.m in Sources */,
 				3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */,
+				3A8C699921E127CB0021BCB1 /* AGSwitchControlItem.m in Sources */,
 				3A89D45721D99DB700B0779A /* AGMainHeaderFooterView.m in Sources */,
 				3A03B174205178E40034DC87 /* NSString+AGViewModel.m in Sources */,
 				3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */,
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A7FD5E720B77EC300A0787A /* AGBoxVMGenerator.m in Sources */,
 				3A04291B20B792100025D9D5 /* Target_CTAppContext.m in Sources */,
+				3A8C699021E0ECF70021BCB1 /* AGSwitchControl.m in Sources */,
 				3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */,
 				3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */,
 				3A04294F20B7AB000025D9D5 /* AGBoxCCell.m in Sources */,

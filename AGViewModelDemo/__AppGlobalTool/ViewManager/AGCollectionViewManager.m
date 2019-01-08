@@ -493,7 +493,8 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
     if (_vmm == nil) {
         _vmm = ag_newAGVMManager(1);
-        [_vmm ag_packageSection:nil capacity:120];
+        AGVMSection *vms = ag_newAGVMSection(120);
+        [_vmm ag_addSection:vms];
     }
     return _vmm;
 }

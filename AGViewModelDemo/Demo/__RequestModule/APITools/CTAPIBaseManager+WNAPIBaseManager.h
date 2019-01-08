@@ -8,11 +8,15 @@
 
 #import "CTAPIBaseManager.h"
 #import <AGVerifyManager/AGVerifyManager.h>
+#import "AGVMKit.h"
 #import <CTNetworking.h>
 
 @interface CTAPIBaseManager (WNAPIBaseManager)
 
 /** 过滤器错误信息 */
 @property (nonatomic, strong) AGVerifyError *verifyError;
+
+/** vm */
+@property (nonatomic, strong) AGViewModel *viewModel;
 
 @end

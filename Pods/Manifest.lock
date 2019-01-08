@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AGCategories (0.1.6)
   - AGTimerManager (0.5.1)
   - AGVerifyManager (0.3.4)
   - CTMediator (25)
@@ -32,6 +33,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - AGCategories (~> 0.1.6)
   - AGTimerManager (~> 0.5.1)
   - AGVerifyManager (~> 0.3.4)
   - CTMediator
@@ -45,6 +47,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
+    - AGCategories
     - AGTimerManager
     - AGVerifyManager
     - CTMediator
@@ -57,6 +60,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AGCategories: 1dd0221e4af54fb61834237982d81037c40e4d0f
   AGTimerManager: 26321cb98c200c52bcbac21ebce6f36318ba3927
   AGVerifyManager: dd61d7ee90e1ef41458ff179b99645176c53c163
   CTMediator: 830c1fc204b3a6abf2a059510c7380f56343da0f
@@ -67,6 +71,6 @@ SPEC CHECKSUMS:
   SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 609002d778e7e4598c951882074a738cf247e6a5
+PODFILE CHECKSUM: 8fdbd16fb98ff51e889bfd3a9f5d02cfad960c9c
 
 COCOAPODS: 1.5.3

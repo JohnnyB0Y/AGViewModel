@@ -32,6 +32,12 @@ NSString * const kAGVMFooterVM = @"kAGVMFooterVM";
 /** View Model 的类型 👉NSString👈 */
 NSString * const kAGVMType = @"kAGVMType";
 
+/** 位置信息 👉NSNumber👈 */
+NSString * const kAGVMIndex = @"kAGVMIndex";
+
+/** 容量 👉NSNumber👈 */
+NSString * const kAGVMCapacity = @"kAGVMCapacity";
+
 /** 是否选中？ 👉NSNumber👈 */
 NSString * const kAGVMSelected = @"kAGVMSelected";
 
@@ -64,6 +70,9 @@ NSString * const kAGVMTargetVCBlock = @"kAGVMTargetVCBlock";
 #pragma mark - 显示的视图相关
 /** view 类对象 👉Class👈 */
 NSString * const kAGVMViewClass = @"kAGVMViewClass";
+
+/** view 对象 👉UIView👈 */
+NSString * const kAGVMView = @"kAGVMView";
 
 /** view 类名字符串 👉NSString👈 */
 NSString * const kAGVMViewClassName = @"kAGVMViewClassName";
@@ -102,18 +111,21 @@ NSString * const kAGVMTitleText = @"kAGVMTitleText";
 NSString * const kAGVMTitlePlaceholder = @"kAGVMTitlePlaceholder";
 /** 标题颜色 👉UIColor👈 */
 NSString * const kAGVMTitleColor = @"kAGVMTitleColor";
+NSString * const kAGVMTitleFont = @"kAGVMTitleFont";
 
 /** 子标题内容 👉NSString👈 */
 NSString * const kAGVMSubTitleText = @"kAGVMSubTitleText";
 NSString * const kAGVMSubTitlePlaceholder = @"kAGVMSubTitlePlaceholder";
 /** 子标题颜色 👉UIColor👈 */
 NSString * const kAGVMSubTitleColor = @"kAGVMSubTitleColor";
+NSString * const kAGVMSubTitleFont = @"kAGVMSubTitleFont";
 
 /** 详情内容 👉NSString👈 */
 NSString * const kAGVMDetailText = @"kAGVMDetailText";
 NSString * const kAGVMDetailPlaceholder = @"kAGVMDetailPlaceholder";
 /** 详情颜色 👉UIColor👈 */
 NSString * const kAGVMDetailColor = @"kAGVMDetailColor";
+NSString * const kAGVMDetailFont = @"kAGVMDetailFont";
 
 /** 图片 👉UIImage👈 */
 NSString * const kAGVMImage = @"kAGVMImage";

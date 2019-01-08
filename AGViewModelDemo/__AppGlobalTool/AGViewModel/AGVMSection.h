@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 会合并到 itemArr中的每个vm 中 */
 @property (nonatomic, strong, nullable) AGViewModel *itemMergeVM;
-@property (nonatomic, strong, readonly, nullable) NSMutableArray<AGViewModel *> *itemArrM;
+@property (nonatomic, strong, readonly) NSMutableArray<AGViewModel *> *itemArrM;
 @property (nonatomic, assign, readonly) NSInteger count;
 
 /** first item vm */
@@ -38,10 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return vms
  */
 + (instancetype) newWithItemCapacity:(NSInteger)capacity;
-- (instancetype) initWithItemCapacity:(NSInteger)capacity;
-
-+ (instancetype) newWithItems:(NSMutableArray<AGViewModel *> *)itemArrM;
-- (instancetype) initWithItems:(NSMutableArray<AGViewModel *> *)itemArrM NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithItemCapacity:(NSInteger)capacity NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - 通过 packager 拼装数据
 /**
@@ -52,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return headerVM
  */
-- (AGViewModel *) ag_packageHeaderData:(nullable NSDictionary *)data
+- (AGViewModel *) ag_packageHeaderData:(NSDictionary *)data
 							  packager:(id<AGVMPackagable>)packager
 							 forObject:(nullable id)obj;
 
@@ -64,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return viewModle对象
  */
-- (AGViewModel *) ag_packageItemData:(nullable NSDictionary *)data
+- (AGViewModel *) ag_packageItemData:(NSDictionary *)data
 							packager:(id<AGVMPackagable>)packager
 						   forObject:(nullable id)obj;
 
@@ -76,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return section对象
  */
-- (AGVMSection *) ag_packageItems:(nullable NSArray *)items
+- (AGVMSection *) ag_packageItems:(NSArray *)items
 						 packager:(id<AGVMPackagable>)packager
 						forObject:(nullable id)obj;
 
@@ -88,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param obj 传入的对象
  @return footerVM
  */
-- (AGViewModel *) ag_packageFooterData:(nullable NSDictionary *)data
+- (AGViewModel *) ag_packageFooterData:(NSDictionary *)data
 							  packager:(id<AGVMPackagable>)packager
 							 forObject:(nullable id)obj;
 
@@ -101,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 数据字典每次增量拷贝的内存大小
  @return headerVM
  */
-- (AGViewModel *) ag_packageHeaderData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageHeaderData:(NS_NOESCAPE AGVMPackageDataBlock)package
 							  capacity:(NSInteger)capacity;
 
 /**
@@ -110,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param package 存放数据的字典 Block
  @return headerVM
  */
-- (AGViewModel *) ag_packageHeaderData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageHeaderData:(NS_NOESCAPE AGVMPackageDataBlock)package;
 
 /**
  拼装 item 数据
@@ -119,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 数据字典每次增量拷贝的内存大小
  @return viewModel对象
  */
-- (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageItemData:(NS_NOESCAPE AGVMPackageDataBlock)package
 							capacity:(NSInteger)capacity;
 
 /**
@@ -128,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param package 存放数据的字典 Block
  @return viewModel对象
  */
-- (AGViewModel *) ag_packageItemData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageItemData:(NS_NOESCAPE AGVMPackageDataBlock)package;
 
 /**
  拼装多条 item 数据
@@ -138,8 +135,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 每条 item 中 数据字典每次增量拷贝的内存大小
  @return section对象
  */
-- (AGVMSection *) ag_packageItems:(nullable NSArray *)items
-						  inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
+- (AGVMSection *) ag_packageItems:(NSArray *)items
+						  inBlock:(NS_NOESCAPE AGVMPackageDatasBlock)block
 						 capacity:(NSInteger)capacity;
 
 /**
@@ -149,8 +146,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param block 存放数据的字典 Block
  @return section对象
  */
-- (AGVMSection *) ag_packageItems:(nullable NSArray *)items
-						  inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block;
+- (AGVMSection *) ag_packageItems:(NSArray *)items
+						  inBlock:(NS_NOESCAPE AGVMPackageDatasBlock)block;
 
 /**
  拼装组尾数据
@@ -159,7 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 数据字典每次增量拷贝的内存大小
  @return footerVM
  */
-- (AGViewModel *) ag_packageFooterData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageFooterData:(NS_NOESCAPE AGVMPackageDataBlock)package
 							  capacity:(NSInteger)capacity;
 
 /**
@@ -168,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param package 存放数据的字典 Block
  @return footerVM
  */
-- (AGViewModel *) ag_packageFooterData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageFooterData:(NS_NOESCAPE AGVMPackageDataBlock)package;
 
 /**
  拼装公共数据
@@ -177,7 +174,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 数据字典每次增量拷贝的内存大小
  @return commonVM
  */
-- (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package
 							  capacity:(NSInteger)capacity;
 
 /**
@@ -186,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param package 存放数据的字典 Block
  @return commonVM
  */
-- (AGViewModel *) ag_packageCommonData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package;
 
 /**
  拼装 itemArr 中每个 viewModel 的合并数据模型
@@ -195,7 +192,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 数据字典每次增量拷贝的内存大小
  @return itemMergeVM
  */
-- (AGViewModel *) ag_packageItemMergeData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageItemMergeData:(NS_NOESCAPE AGVMPackageDataBlock)package
 								 capacity:(NSInteger)capacity;
 
 /**
@@ -204,42 +201,42 @@ NS_ASSUME_NONNULL_BEGIN
  @param package 存放数据的字典 Block
  @return itemMergeVM
  */
-- (AGViewModel *) ag_packageItemMergeData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageItemMergeData:(NS_NOESCAPE AGVMPackageDataBlock)package;
 
 
 #pragma mark - 增删改查
 #pragma mark 新增
-- (void) ag_addItem:(nullable AGViewModel *)item;
-- (void) ag_addItemsFromSection:(nullable AGVMSection *)vms;
-- (void) ag_addItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr;
+- (void) ag_addItem:(AGViewModel *)item;
+- (void) ag_addItemsFromSection:(AGVMSection *)vms;
+- (void) ag_addItemsFromArray:(NSArray<AGViewModel *> *)vmArr;
 
 #pragma mark 插入
-- (void) ag_insertItem:(nullable AGViewModel *)item
+- (void) ag_insertItem:(AGViewModel *)item
                atIndex:(NSInteger)index;
 
-- (void) ag_insertItemsFromSection:(nullable AGVMSection *)vms
+- (void) ag_insertItemsFromSection:(AGVMSection *)vms
                            atIndex:(NSInteger)index;
 
-- (void) ag_insertItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr
+- (void) ag_insertItemsFromArray:(NSArray<AGViewModel *> *)vmArr
                          atIndex:(NSInteger)index;
 
-- (void) ag_insertItemPackage:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+- (void) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
                       atIndex:(NSInteger)index;
 
-- (void) ag_insertItemPackage:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+- (void) ag_insertItemPackage:(NS_NOESCAPE AGVMPackageDataBlock)package
                       atIndex:(NSInteger)index
                      capacity:(NSInteger)capacity;
 
 #pragma mark 移除
 - (void) ag_removeAllItems;
 - (void) ag_removeLastObject;
-- (void) ag_removeItem:(nullable AGViewModel *)vm; //
+- (void) ag_removeItem:(AGViewModel *)vm; //
 - (void) ag_removeItemAtIndex:(NSInteger)index;
-- (void) ag_removeItemsFromSection:(nullable AGVMSection *)vms; //
-- (void) ag_removeItemsFromArray:(nullable NSArray<AGViewModel *> *)vmArr; //
+- (void) ag_removeItemsFromSection:(AGVMSection *)vms; //
+- (void) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr; //
 
 #pragma mark 更新
-- (void) setObject:(nullable AGViewModel *)vm atIndexedSubscript:(NSInteger)idx;
+- (void) setObject:(AGViewModel *)vm atIndexedSubscript:(NSInteger)idx;
 
 - (void) ag_makeItemsRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
 - (void) ag_makeHeaderFooterRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
@@ -250,18 +247,24 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_makeItemsSetNeedsRefreshUI;
 - (void) ag_makeHeaderFooterSetNeedsRefreshUI;
 
+- (void) ag_makeItemsPerformSelector:(SEL)aSelector;
+- (void) ag_makeItemsPerformSelector:(SEL)aSelector withObject:(nullable id)argument;
+
+- (void) ag_makeItemsInRange:(NSRange)range performSelector:(SEL)aSelector;
+- (void) ag_makeItemsInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(nullable id)argument;
+
 #pragma mark 取出
 - (nullable AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;
 
 #pragma mark 合并
 /** 合并 headerVM、 footerVM、 commonVM、itemMergeVM、itemArr */
-- (void) ag_mergeFromSection:(nullable AGVMSection *)vms;
+- (void) ag_mergeFromSection:(AGVMSection *)vms;
 
 #pragma mark 交换
 - (void) ag_exchangeItemAtIndex:(NSInteger)idx1 withItemAtIndex:(NSInteger)idx2;
 
 #pragma mark 替换
-- (void) ag_replaceItemAtIndex:(NSInteger)index withItem:(nullable AGViewModel *)item;
+- (void) ag_replaceItemAtIndex:(NSInteger)index withItem:(AGViewModel *)item;
 
 #pragma mark 遍历
 /** 遍历所有 item */

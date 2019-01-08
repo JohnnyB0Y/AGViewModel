@@ -45,6 +45,7 @@
 
 - (void)loadNextPage
 {
+    self.isFirstPage = NO;
     if (self.isLastPage) {
         if ([self.interceptor respondsToSelector:@selector(manager:didReceiveResponse:)]) {
             [self.interceptor manager:self didReceiveResponse:nil];
@@ -97,7 +98,7 @@
 #pragma mark - interceptors
 - (BOOL)beforePerformSuccessWithResponse:(CTURLResponse *)response
 {
-    self.isFirstPage = NO;
+    BOOL result = [super beforePerformSuccessWithResponse:response];
     NSInteger totalPageCount = ceil([response.content[@"total"] doubleValue]/(double)self.pageSize);
     if (self.pageNumber == totalPageCount - 1) {
         self.isLastPage = YES;
@@ -105,7 +106,7 @@
         self.isLastPage = NO;
     }
     self.pageNumber++;
-    return [super beforePerformSuccessWithResponse:response];
+    return result;
 }
 
 #pragma mark - CTAPIManager

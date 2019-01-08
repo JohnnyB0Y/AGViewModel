@@ -31,7 +31,7 @@ AGVMPackager * ag_sharedVMPackager(void);
 NSMutableDictionary * ag_newNSMutableDictionary(NSInteger capacity);
 /** Quickly create mutableArray */
 NSMutableArray * ag_newNSMutableArray(NSInteger capacity);
-/** Quickly create 可变数组函数, 包含 Null 对象 */
+/** Quickly create mutableArray, include NSNull obj */
 NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity);
 
 

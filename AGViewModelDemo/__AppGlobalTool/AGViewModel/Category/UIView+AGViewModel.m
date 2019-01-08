@@ -133,4 +133,24 @@ static NSBundle *currentBundle;
     [self setFrame:newFrame];
 }
 
+- (CGFloat)centerX
+{
+    return self.center.x;
+}
+
+- (void)setCenterX:(CGFloat)centerX
+{
+    [self setCenter:CGPointMake(centerX, self.centerY)];
+}
+
+- (CGFloat)centerY
+{
+    return self.center.y;
+}
+
+- (void)setCenterY:(CGFloat)centerY
+{
+    [self setCenter:CGPointMake(self.centerX, centerY)];
+}
+
 @end

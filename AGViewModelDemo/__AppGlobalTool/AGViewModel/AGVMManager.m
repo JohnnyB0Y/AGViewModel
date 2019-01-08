@@ -35,23 +35,15 @@
 
 - (instancetype)initWithSectionCapacity:(NSInteger)capacity
 {
-    NSMutableArray *sectionArrM = ag_newNSMutableArray(capacity);
-    return [self initWithSections:sectionArrM];
-}
-
-+ (instancetype) newWithSections:(NSMutableArray<AGVMSection *> *)sectionArrM
-{
-    return [[self alloc] initWithSections:sectionArrM];
-}
-
-- (instancetype) initWithSections:(NSMutableArray<AGVMSection *> *)sectionArrM
-{
+    AGAssertIndexRange(0, capacity, NSIntegerMax);
+    if ( capacity <= 0 ) {
+        return nil;
+    }
     self = [super init];
-    if ( self == nil ) return nil;
-    
-    _capacity = sectionArrM ? sectionArrM.count : 6;
-    _sectionArrM = sectionArrM ?: [NSMutableArray arrayWithCapacity:_capacity];
-    
+    if ( self ) {
+        self->_capacity = capacity;
+        self->_sectionArrM = ag_newNSMutableArray(capacity);
+    }
     return self;
 }
 
@@ -72,6 +64,8 @@
 /** 拼装 section 数据 capacity */
 - (AGVMSection *) ag_packageSection:(NS_NOESCAPE AGVMPackageSectionBlock)block capacity:(NSInteger)capacity
 {
+    AGAssertParameter(block);
+    AGAssertIndexRange(0, capacity, NSIntegerMax);
     AGVMSection *vms = ag_newAGVMSection(capacity);
     if ( block ) block(vms);
     [self.sectionArrM addObject:vms];
@@ -80,6 +74,8 @@
 
 - (AGVMSection *)ag_packageSectionItems:(NSArray *)items packager:(id<AGVMPackagable>)packager forObject:(id)obj
 {
+    AGAssertParameter(items);
+    AGAssertParameter(packager);
 	return [self ag_packageSection:^(AGVMSection * _Nonnull vms) {
 		[vms ag_packageItems:items packager:packager forObject:obj];
 	} capacity:items.count];
@@ -88,6 +84,8 @@
 - (AGVMManager *) ag_packageSections:(NSArray *)sections
 							 inBlock:(NS_NOESCAPE AGVMPackageSectionsBlock)block
 {
+    AGAssertParameter(sections);
+    AGAssertParameter(block);
 	return [self ag_packageSections:sections inBlock:block capacity:15];
 }
 
@@ -95,7 +93,9 @@
 							 inBlock:(NS_NOESCAPE AGVMPackageSectionsBlock)block
 							capacity:(NSInteger)capacity
 {
-	NSAssert([sections isKindOfClass:[NSArray class]], @"ag_packageSections: sections 为 nil 或 类型错误！");
+    AGAssertParameter(sections);
+    AGAssertParameter(block);
+    AGAssertIndexRange(0, capacity, NSIntegerMax);
 	[sections enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 		[self ag_packageSection:^(AGVMSection * _Nonnull vms) {
 			block ? block(vms, obj, idx) : nil;
@@ -109,7 +109,9 @@
 {
     AGVMManager *vmm = [[self.class allocWithZone:zone] initWithSectionCapacity:_capacity];
     vmm->_cvm = [_cvm copy];
-    [vmm ag_addSectionsFromManager:self];
+    [self ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger idx, BOOL * _Nonnull stop) {
+        [vmm ag_addSection:[vms copy]];
+    }];
     return vmm;
 }
 
@@ -145,20 +147,23 @@
     
     if ( self->_sectionArrM.count > 0 && archiveSectionArrMKey )
         [aCoder encodeObject:self->_sectionArrM forKey:archiveSectionArrMKey];
+    
+    [aCoder encodeObject:@(_capacity) forKey:kAGVMCapacity];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     Class selfCls = self.class;
+    NSNumber *capacity = [aDecoder decodeObjectOfClass:selfCls forKey:kAGVMCapacity];
+    self = [self initWithSectionCapacity:capacity.integerValue];
+    if ( self == nil ) return nil;
+    
     NSDictionary *archiveKeyDict = [aDecoder decodeObjectOfClass:selfCls forKey:kAGVMDictionary];
     NSString *archiveSectionArrMKey = archiveKeyDict[kAGVMArray];
-    
-    NSMutableArray *sectionArrM;
-    if ( archiveSectionArrMKey )
-        sectionArrM = [[aDecoder decodeObjectOfClass:selfCls forKey:archiveSectionArrMKey] mutableCopy];
-    
-    self = [self initWithSections:sectionArrM];
-    if ( self == nil ) return nil;
+    if ( archiveSectionArrMKey ) {
+        NSArray *sectionArr = [aDecoder decodeObjectOfClass:selfCls forKey:archiveSectionArrMKey];
+        [self ag_addSectionsFromArray:sectionArr];
+    }
     
     NSString *archiveCommonVMKey = archiveKeyDict[kAGVMCommonVM];
     
@@ -244,11 +249,13 @@
 #pragma mark 添加
 - (void) ag_addSection:(AGVMSection *)section
 {
+    AGAssertParameter(section);
     section ? [self.sectionArrM addObject:section] : nil;
 }
 
-- (void) ag_addSectionsFromArray:(NSArray<AGVMSection *> *)sections;
+- (void) ag_addSectionsFromArray:(NSArray<AGVMSection *> *)sections
 {
+    AGAssertParameter(sections);
     sections.count > 0 ? [self.sectionArrM addObjectsFromArray:sections] : nil;
 }
 
@@ -267,12 +274,14 @@
 - (void) ag_insertSectionsFromArray:(NSArray<AGVMSection *> *)vmsArr
                             atIndex:(NSInteger)index
 {
+    AGAssertParameter(vmsArr);
+    AGAssertIndexRange(-1, index, self.count+1);
 	if (vmsArr == nil) return;
 	
     if ( index == self.count ) {
         [self ag_addSectionsFromArray:vmsArr];
     }
-    else if ( index < self.count ) {
+    else if ( AGIsIndexInRange(-1, index, self.count) ) {
         NSIndexSet *indexSet =
         [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, vmsArr.count)];
         [self.sectionArrM insertObjects:vmsArr atIndexes:indexSet];
@@ -282,7 +291,7 @@
 - (void) ag_insertSection:(AGVMSection *)section
                   atIndex:(NSInteger)index
 {
-    section ? [self setObject:section atIndexedSubscript:index] : nil;
+    [self setObject:section atIndexedSubscript:index];
 }
 
 - (void) ag_insertSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
@@ -295,6 +304,7 @@
                          atIndex:(NSInteger)index
                         capacity:(NSInteger)capacity
 {
+    AGAssertParameter(package);
     if ( package ) {
         AGVMSection *vms = ag_newAGVMSection(capacity);
         package(vms);
@@ -315,7 +325,10 @@
 
 - (void) ag_removeSectionAtIndex:(NSInteger)index
 {
-    index < self.count ? [self.sectionArrM removeObjectAtIndex:index] : nil;
+    AGAssertIndexRange(-1, index, self.count);
+    if ( AGIsIndexInRange(-1, index, self.count) ) {
+        [self.sectionArrM removeObjectAtIndex:index];
+    }
 }
 
 #pragma mark 合并
@@ -359,15 +372,40 @@
     [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeHeaderFooterSetNeedsRefreshUI)];
 }
 
+- (void) ag_makeSectionsPerformSelector:(SEL)aSelector
+{
+    [_sectionArrM makeObjectsPerformSelector:aSelector];
+}
+- (void) ag_makeSectionsPerformSelector:(SEL)aSelector withObject:(id)argument
+{
+    [_sectionArrM makeObjectsPerformSelector:aSelector withObject:argument];
+}
+
+- (void) ag_makeSectionsInRange:(NSRange)range performSelector:(SEL)aSelector
+{
+    [self ag_makeSectionsInRange:range performSelector:aSelector withObject:nil];
+}
+- (void) ag_makeSectionsInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(id)argument
+{
+    NSInteger lastIdx = range.length - range.location - 1;
+    AGAssertIndexRange(-1, lastIdx, self.count);
+    
+    if ( AGIsIndexInRange(-1, lastIdx, self.count) ) {
+        NSArray *subArr = [_sectionArrM subarrayWithRange:range];
+        [subArr makeObjectsPerformSelector:aSelector withObject:argument];
+    }
+}
+
 - (void)setObject:(AGVMSection *)vms atIndexedSubscript:(NSInteger)idx
 {
-    NSParameterAssert(vms);
+    AGAssertParameter(vms);
+    AGAssertIndexRange(-1, idx, self.count+1);
 	if ( vms == nil ) return;
 	
     if ( idx == self.count ) {
         [self.sectionArrM addObject:vms];
     }
-    else if ( idx < self.count ) {
+    else if ( AGIsIndexInRange(-1, idx, self.count) ) {
         [self.sectionArrM insertObject:vms atIndex:idx];
     }
 }
@@ -375,26 +413,37 @@
 #pragma mark 取出
 - (AGVMSection *)objectAtIndexedSubscript:(NSInteger)idx
 {
-    return idx < self.count ? [self.sectionArrM objectAtIndex:idx] : nil;
+    AGAssertIndexRange(-1, idx, self.count);
+    if ( AGIsIndexInRange(-1, idx, self.count) ) {
+        return [self.sectionArrM objectAtIndex:idx];
+    }
+    return nil;
 }
 
 #pragma mark 交换
 - (void) ag_exchangeSectionAtIndex:(NSInteger)idx1 withSectionAtIndex:(NSInteger)idx2
 {
-    if ( idx1 < self.count && idx2 < self.count )
+    AGAssertIndexRange(-1, idx1, self.count);
+    AGAssertIndexRange(-1, idx2, self.count);
+    if ( AGIsIndexInRange(-1, idx1, self.count) && AGIsIndexInRange(-1, idx2, self.count) )
         [self.sectionArrM exchangeObjectAtIndex:idx1 withObjectAtIndex:idx2];
 }
 
 #pragma mark 替换
 - (void) ag_replaceSectionAtIndex:(NSInteger)index withSection:(AGVMSection *)section
 {
+    AGAssertParameter(section);
+    AGAssertIndexRange(-1, index, self.count);
 	if (section == nil) return;
-    index < self.count ? [self.sectionArrM replaceObjectAtIndex:index withObject:section] : nil;
+    if ( AGIsIndexInRange(-1, index, self.count) ) {
+        [self.sectionArrM replaceObjectAtIndex:index withObject:section];
+    }
 }
 
 #pragma mark 遍历
 - (void) ag_enumerateSectionsUsingBlock:(void (NS_NOESCAPE ^)(AGVMSection * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
+    AGAssertParameter(block);
     if ( ! block ) return;
     
     [self.sectionArrM enumerateObjectsUsingBlock:block];
@@ -402,6 +451,7 @@
 
 - (void) ag_enumerateSectionItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
 {
+    AGAssertParameter(block);
     if ( ! block ) return;
     
     __block BOOL _stop = NO;
@@ -419,6 +469,7 @@
 /** 遍历所有 section 的 header、footer vm */
 - (void) ag_enumerateSectionHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSIndexPath * _Nonnull, BOOL * _Nonnull))block
 {
+    AGAssertParameter(block);
     if ( ! block ) return;
     
     __block BOOL _stop = NO;

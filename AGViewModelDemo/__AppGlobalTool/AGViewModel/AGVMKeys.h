@@ -19,6 +19,13 @@
 #define FORMATTED_MESSAGE(MSG) "[TODO~" DEFER_STRINGIFY(__COUNTER__) "] " MSG " [LINE:" DEFER_STRINGIFY(__LINE__) "]"
 #define AGTODO(MSG) PRAGMA_MESSAGE(FORMATTED_MESSAGE(MSG))
 
+/** min < idx < max; return BOOL. */
+#define AGIsIndexInRange(min, idx, max) ((min) < (idx)) && ((idx) < (max))
+
+#define AGAssertIndexRange(min, idx, max) NSAssert(AGIsIndexInRange((min), (idx), (max)), @"Index out of range.")
+
+#define AGAssertParameter(parameter) NSParameterAssert((parameter))
+
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
@@ -56,6 +63,12 @@ FOUNDATION_EXTERN NSString * const kAGVMFooterVM;
 /** View Model 的类型 👉NSString👈 */
 FOUNDATION_EXTERN NSString * const kAGVMType;
 
+/** 位置信息 👉NSNumber👈 */
+FOUNDATION_EXTERN NSString * const kAGVMIndex;
+
+/** 容量 👉NSNumber👈 */
+FOUNDATION_EXTERN NSString * const kAGVMCapacity;
+
 /** 是否选中？ 👉NSNumber👈 */
 FOUNDATION_EXTERN NSString * const kAGVMSelected;
 
@@ -88,6 +101,9 @@ FOUNDATION_EXTERN NSString * const kAGVMTargetVCBlock;
 #pragma mark - 显示的视图相关
 /** view 类对象 👉Class👈 */
 FOUNDATION_EXTERN NSString * const kAGVMViewClass;
+
+/** view 对象 👉UIView👈 */
+FOUNDATION_EXTERN NSString * const kAGVMView;
 
 /** view 类名字符串 👉NSString👈 */
 FOUNDATION_EXTERN NSString * const kAGVMViewClassName;
@@ -126,18 +142,24 @@ FOUNDATION_EXTERN NSString * const kAGVMTitleText;
 FOUNDATION_EXTERN NSString * const kAGVMTitlePlaceholder;
 /** 标题颜色 👉UIColor👈 */
 FOUNDATION_EXTERN NSString * const kAGVMTitleColor;
+/** 标题字体大小 👉UIFont👈 */
+FOUNDATION_EXTERN NSString * const kAGVMTitleFont;
 
 /** 子标题内容 👉NSString👈 */
 FOUNDATION_EXTERN NSString * const kAGVMSubTitleText;
 FOUNDATION_EXTERN NSString * const kAGVMSubTitlePlaceholder;
 /** 子标题颜色 👉UIColor👈 */
 FOUNDATION_EXTERN NSString * const kAGVMSubTitleColor;
+/** 子标题字体大小 👉UIFont👈 */
+FOUNDATION_EXTERN NSString * const kAGVMSubTitleFont;
 
 /** 详情内容 👉NSString👈 */
 FOUNDATION_EXTERN NSString * const kAGVMDetailText;
 FOUNDATION_EXTERN NSString * const kAGVMDetailPlaceholder;
 /** 详情颜色 👉UIColor👈 */
 FOUNDATION_EXTERN NSString * const kAGVMDetailColor;
+/** 详情字体大小 👉UIFont👈 */
+FOUNDATION_EXTERN NSString * const kAGVMDetailFont;
 
 /** 图片 👉UIImage👈 */
 FOUNDATION_EXTERN NSString * const kAGVMImage;

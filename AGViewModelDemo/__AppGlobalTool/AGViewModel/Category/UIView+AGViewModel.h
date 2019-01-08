@@ -21,6 +21,9 @@
 @property(nonatomic, assign) CGFloat y;
 @property(nonatomic, assign) CGPoint origin;
 
+@property (nonatomic, assign) CGFloat centerX;
+@property (nonatomic, assign) CGFloat centerY;
+
 - (void) setViewModel:(nullable AGViewModel *)viewModel NS_REQUIRES_SUPER;
 - (nullable AGViewModel *) viewModel NS_REQUIRES_SUPER;
 
