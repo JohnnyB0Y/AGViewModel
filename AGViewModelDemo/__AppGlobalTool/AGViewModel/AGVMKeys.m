@@ -74,6 +74,9 @@ NSString * const kAGVMViewClass = @"kAGVMViewClass";
 /** view 对象 👉UIView👈 */
 NSString * const kAGVMView = @"kAGVMView";
 
+/** hidden 隐藏 👉NSNumber👈 */
+NSString * const kAGVMViewHidden = @"kAGVMViewHidden";
+
 /** view 类名字符串 👉NSString👈 */
 NSString * const kAGVMViewClassName = @"kAGVMViewClassName";
 

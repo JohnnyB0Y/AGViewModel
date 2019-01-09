@@ -44,8 +44,8 @@
         textS.height += edge.top + edge.bottom;
     }
     else {
-        textS.width += 16.;
-        textS.height += 15.;
+        textS.width += 12.;
+        textS.height += 8.;
     }
     
     return textS;
@@ -91,8 +91,6 @@
 {
     // ...
     self.titleLabel = [UILabel new];
-//    self.titleLabel.hidden = YES;
-//    self.contentView.backgroundColor = [UIColor orangeColor];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:self.titleLabel];
     

@@ -307,7 +307,11 @@
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
-    return [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
+    AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
+    [vm ag_setBindingView:_bindingView configDataBlock:_configDataBlock];
+    [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
+    vm->_archivedDictM = [self->_archivedDictM mutableCopy];
+    return vm;
 }
 
 #pragma mark NSSecureCoding

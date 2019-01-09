@@ -105,6 +105,9 @@ FOUNDATION_EXTERN NSString * const kAGVMViewClass;
 /** view 对象 👉UIView👈 */
 FOUNDATION_EXTERN NSString * const kAGVMView;
 
+/** hidden 隐藏 👉NSNumber👈 */
+FOUNDATION_EXTERN NSString * const kAGVMViewHidden;
+
 /** view 类名字符串 👉NSString👈 */
 FOUNDATION_EXTERN NSString * const kAGVMViewClassName;
 

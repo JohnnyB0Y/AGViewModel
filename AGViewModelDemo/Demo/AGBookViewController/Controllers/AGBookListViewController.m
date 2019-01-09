@@ -117,15 +117,19 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         
         NSLog(@"%ld - %@ - count:%ld", index, vm[kAGVMTitleText], vmm.fs.count);
         
-        [tvm handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
-            if ( self.bookListAPIManager.isFirstPage ) {
-                [originVmm.fs ag_removeAllItems];
-            }
-            [originVmm.fs ag_addItemsFromSection:vmm.fs];
-        }];
+        AGVMManager *cache = vm[kAGVMManager];
+        if ( self.bookListAPIManager.isFirstPage ) { // 第一页数据
+            cache = [vmm copy];
+            vm[kAGVMManager] = cache; // 缓存到vm
+        }
+        else { // 后续页面数据
+            [cache.fs ag_addItemsFromSection:vmm.fs]; // 拼接到后面
+        }
         
-        // 缓存到vm
-        vm[kAGVMManager] = [tvm.vmm copy];
+        [tvm handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
+            [originVmm.fs ag_removeAllItems];
+            [originVmm.fs ag_addItemsFromSection:cache.fs];
+        }];
     }
 }
 
@@ -522,7 +526,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
             
             switchControl.dataSource = self;
             switchControl.delegate = self;
-            switchControl.titleCollectionViewH = 54.;
+            switchControl.titleSwitchViewH = 54.;
             switchControl.underlineBottomMargin = 4.;
             switchControl.currentIndex = 1;
             switchControl.titleAnimation = YES;
@@ -539,7 +543,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
                 make.edges.mas_equalTo(targetView);
             }];
             
-            label.text = @"豆瓣图书";
+            label.text = @"刷不出数据，IP可能被限";
             
             return CGSizeMake(200., 44.);
         }];

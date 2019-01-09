@@ -11,7 +11,7 @@
 #import "AGSwitchControlItem.h"
 
 @protocol AGSwitchControlDelegate, AGSwitchControlDataSource, AGSwitchControlSettable;
-@class AGSwitchControl;
+@class AGSwitchControl, AGSwitchCollectionView;
 /** 
  
  // 待优化 ---
@@ -22,25 +22,31 @@
  
  */
 
+typedef NS_ENUM(NSUInteger, AGSwitchControlNextItemDirection) {
+    AGSwitchControlNextItemDirectionUnkonw = -1, // 不知道
+    AGSwitchControlNextItemDirectionRight = 0,
+    AGSwitchControlNextItemDirectionLeft = 1,
+};
+
 typedef CGSize (^AGSwitchControlSetupUIBlock)(UIView *targetView);
 typedef void (^AGSwitchControlSetupCollectionViewBlock)(UICollectionView *collectionView);
 typedef void (^AGSwitchControlSetupSwitchControlBlock)(AGSwitchControl<AGSwitchControlSettable> *switchControl);
+typedef void (^AGSwitchControlAnimationBlock)(AGSwitchControl *switchControl, AGSwitchCollectionView *animateView);
 
 @interface AGSwitchControl : UIView
 
 @property (nonatomic, weak, readonly) id<AGSwitchControlDelegate> delegate;
 @property (nonatomic, weak, readonly) id<AGSwitchControlDataSource> dataSource;
 
-@property (nonatomic, assign, readonly) CGFloat selectedOffsetX;
-@property (nonatomic, assign, readonly) CGFloat titleCollectionViewH;
+@property (nonatomic, assign, readonly) CGFloat startScrollOffsetX;
+@property (nonatomic, assign, readonly) CGFloat titleSwitchViewH;
 @property (nonatomic, assign, readonly) CGFloat underlineBottomMargin;
 
 @property (nonatomic, assign, readonly) BOOL titleAnimation;
 @property (nonatomic, assign, readonly) NSInteger currentIndex;
-@property (nonatomic, assign, readonly, getter=isItemToLeft) BOOL itemToLeft;
 
-@property (nonatomic, strong, readonly) UICollectionView *titleCollectionView;
-@property (nonatomic, strong, readonly) UICollectionView *detailCollectionView;
+@property (nonatomic, strong, readonly) AGSwitchCollectionView *titleSwitchView;
+@property (nonatomic, strong, readonly) AGSwitchCollectionView *detailSwitchView;
 
 #pragma mark 添加视图
 - (void) ag_setupHeaderViewUsingBlock:(NS_NOESCAPE AGSwitchControlSetupUIBlock)block; // 头视图
@@ -107,7 +113,7 @@ typedef void (^AGSwitchControlSetupSwitchControlBlock)(AGSwitchControl<AGSwitchC
 /** 数据源代理 */
 @property (nonatomic, weak) id<AGSwitchControlDataSource> dataSource;
 
-@property (nonatomic, assign) CGFloat titleCollectionViewH;
+@property (nonatomic, assign) CGFloat titleSwitchViewH;
 
 @property (nonatomic, assign) NSInteger currentIndex;
 /** title动画 */
@@ -117,10 +123,31 @@ typedef void (^AGSwitchControlSetupSwitchControlBlock)(AGSwitchControl<AGSwitchC
 @property (nonatomic, assign) CGFloat underlineBottomMargin;
 
 /** 选中偏移 */
-@property (nonatomic, assign) CGFloat selectedOffsetX;
+@property (nonatomic, assign) CGFloat startScrollOffsetX;
 
 @end
 
 @interface AGSwitchCollectionView : UICollectionView
+
+/** 开始滚动的.x坐标偏移量 */
+@property (nonatomic, assign, readonly) CGFloat startScrollOffsetX;
+/** 需要滚动的.x坐标偏移量 */
+@property (nonatomic, assign, readonly) CGFloat needsScrollOffsetX;
+/** 需要滚动吗？滚动前判断 */
+@property (nonatomic, assign, readonly) BOOL needsToScroll;
+
+/** 当前选中的item */
+@property (nonatomic, strong, readonly) UICollectionViewCell *currentItem;
+@property (nonatomic, assign, readonly) NSInteger currentItemIndex;
+@property (nonatomic, assign, readonly) CGRect currentItemRect;
+
+/** 想移动到的item */
+@property (nonatomic, strong, readonly) UICollectionViewCell *nextItem;
+@property (nonatomic, assign, readonly) NSInteger nextItemIndex;
+@property (nonatomic, assign, readonly) CGRect nextItemRect;
+
+
+- (void) ag_moveToNextItemWithDirection:(AGSwitchControlNextItemDirection)direction
+                          withAnimation:(AGSwitchControlAnimationBlock)block;
 
 @end
