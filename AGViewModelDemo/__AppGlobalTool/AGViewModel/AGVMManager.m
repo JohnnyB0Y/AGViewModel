@@ -548,10 +548,3 @@
 }
 
 @end
-
-
-/** Quickly create AGVMManager instance */
-AGVMManager * ag_newAGVMManager(NSInteger capacity)
-{
-    return [AGVMManager newWithSectionCapacity:capacity];
-}

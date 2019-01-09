@@ -25,17 +25,17 @@
         [_homeListVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
             // ...
             AGMainHeaderFooterView *headerFooterView = [AGMainHeaderFooterView new];
-            [[vms ag_packageHeaderData:^(NSMutableDictionary * _Nonnull package) {
+            [[vms ag_packageHeaderData:^(AGViewModel * _Nonnull package) {
                 package[kAGVMViewClass] = AGMainHeaderFooterView.class;
                 package[kAGVMTitleText] = @"我是 header view 标题";
             }] ag_cachedSizeByBindingView:headerFooterView]; // 提前计算好高度
             
             // ...
-            [vms ag_packageItemMergeData:^(NSMutableDictionary * _Nonnull package) {
+            [vms ag_packageItemMergeData:^(AGViewModel * _Nonnull package) {
                 package[kAGVMViewClass] = AGMainCell.class;
             }];
             
-            [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
+            [vms ag_packageItemData:^(AGViewModel * _Nonnull package) {
                 
                 package[kAGVMTitleText] = @"多类型Cell展示";
                 package[kAGVMTargetVCBlock] = ag_viewModelCopyTargetVCBlock(^(UIViewController * _Nullable targetVC, AGViewModel * _Nullable vm) {
@@ -46,7 +46,7 @@
                 });
             }];
             
-            [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
+            [vms ag_packageItemData:^(AGViewModel * _Nonnull package) {
                 
                 package[kAGVMTitleText] = @"古诗";
                 package[kAGVMTargetVCBlock] = ag_viewModelCopyTargetVCBlock(^(UIViewController * _Nullable targetVC, AGViewModel * _Nullable vm) {
@@ -57,7 +57,7 @@
                 });
             }];
             
-            [vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
+            [vms ag_packageItemData:^(AGViewModel * _Nonnull package) {
                 
                 package[kAGVMTitleText] = @"豆瓣图书";
                 package[kAGVMTargetVCBlock] = ag_viewModelCopyTargetVCBlock(^(UIViewController * _Nullable targetVC, AGViewModel * _Nullable vm) {
@@ -68,7 +68,7 @@
             }];
             
             // ...
-            [vms ag_packageFooterData:^(NSMutableDictionary * _Nonnull package) {
+            [vms ag_packageFooterData:^(AGViewModel * _Nonnull package) {
                 package[kAGVMViewClass] = AGMainHeaderFooterView.class;
                 package[kAGVMTitleText] = @"我是 footer view 标题";
                 package[kAGVMViewH] = @34.;

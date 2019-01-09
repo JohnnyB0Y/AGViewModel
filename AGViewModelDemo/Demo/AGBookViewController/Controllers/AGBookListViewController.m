@@ -111,7 +111,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         // ...
         NSInteger index = [manager.response.originRequestParams[kAGVMIndex] integerValue];
         AGViewModel *vm = self.itemsData[index];
-        AGTableViewManager *tvm = vm[kAGVMObject];
+        AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
         
         AGVMManager *vmm = [manager fetchDataWithReformer:self.bookListAPIReformer];
         
@@ -144,7 +144,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     
     NSInteger index = [manager.response.originRequestParams[kAGVMIndex] integerValue];
     AGViewModel *vm = self.itemsData[index];
-    AGTableViewManager *tvm = vm[kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
     // 停止刷新
     [tvm stopRefresh];
 }
@@ -178,7 +178,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
      viewForDetailItemAtIndex:(NSInteger)index
 {
     AGViewModel *vm = self.itemsData[index];
-    AGTableViewManager *tvm = vm[kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
     return tvm.view;
 }
 
@@ -211,7 +211,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 - (void) rightBarButtonItemClick:(UIBarButtonItem *)item
 {
     AGViewModel *vm = self.itemsData[self.switchControl.currentIndex];
-    AGTableViewManager *tvm = vm[kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
     
     // 保存图书列表
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tvm.vmm];
@@ -281,7 +281,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         
         if ( [change[NSKeyValueChangeNewKey] boolValue] ) {
             AGViewModel *itemModel = self.itemsData[self.switchControl.currentIndex];
-            AGTableViewManager *tvm = itemModel[kAGVMObject];
+            AGTableViewManager *tvm = [itemModel ag_weakRefObjectForKey:kAGVMObject];
             [tvm deleteViewModels:@[data] withRowAnimation:UITableViewRowAnimationNone];
             
             // 更新缓存数据
@@ -298,7 +298,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     if ( NO == hasCachedData ) {
         // 刷新数据
         if ( animation ) {
-            AGTableViewManager *tvm = vm[kAGVMObject];
+            AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
             [tvm startRefresh];
         }
         else {
@@ -310,7 +310,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 - (BOOL) _resetTableViewManagerCachedDataIfNeedsWithViewModel:(AGViewModel *)vm
 {
     AGVMManager *vmm = vm[kAGVMManager];
-    AGTableViewManager *tvm = vm[kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
     if ( vmm.fs.count > 0 ) {
         // 赋值数据
         [tvm handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
@@ -494,20 +494,22 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     if (_itemsData == nil) {
         _itemsData = ag_newAGVMSection(12);
         
-        NSArray *listViews = @[self.tableViewManager, self.tableViewManager1, self.tableViewManager2];
+        NSArray *listViewManagers = @[self.tableViewManager, self.tableViewManager1, self.tableViewManager2];
         NSArray *titles = @[@"莎士比亚", @"傅雷", @"春上春树", @"鲁迅", @"德鲁克", @"矛盾", @"巴金", @"陈春花", @"富兰克林", @"洛克菲勒"];
         
-        [_itemsData ag_packageItemMergeData:^(NSMutableDictionary * _Nonnull package) {
+        [_itemsData ag_packageItemMergeData:^(AGViewModel * _Nonnull package) {
             package[kAGVMViewClass] = AGSwitchControlItem.class;
             package[kAGVMTitleColor] = [UIColor blackColor];
             package[kAGVMTitleFont] = [UIFont systemFontOfSize:14.];
         }];
         
         for (NSInteger i = 0; i<titles.count; i++) {
-            [_itemsData ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
+            [_itemsData ag_packageItemData:^(AGViewModel * _Nonnull package) {
                 
                 package[kAGVMTitleText] = titles[i];
-                package[kAGVMObject] = listViews[i % listViews.count];
+                
+                id viewManager = listViewManagers[i % listViewManagers.count];
+                [package ag_setWeakRefObject:viewManager forKey:kAGVMObject];
             }];
         }
         

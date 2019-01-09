@@ -7,7 +7,6 @@
 //  分段切换控制视图
 
 #import "AGSwitchControl.h"
-#import "AGSwitchControlItem.h"
 
 @interface AGSwitchCollectionView ()
 /** 开始滚动的.x坐标偏移量 */

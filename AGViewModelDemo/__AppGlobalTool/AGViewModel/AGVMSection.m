@@ -747,10 +747,3 @@
 }
 
 @end
-
-
-/** Quickly create AGVMSection instance */
-AGVMSection * ag_newAGVMSection(NSInteger capacity)
-{
-    return [AGVMSection newWithItemCapacity:capacity];
-}

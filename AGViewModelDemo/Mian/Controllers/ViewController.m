@@ -47,7 +47,7 @@
 	AGVMSection *vms = ag_newAGVMSection(9);
 	// 数据准备
 	for (NSInteger i = 0; i<9; i++) {
-		[vms ag_packageItemData:^(NSMutableDictionary * _Nonnull package) {
+		[vms ag_packageItemData:^(AGViewModel * _Nonnull package) {
 			package[kAGVMItemTitle] = [NSString stringWithFormat:@"test: %@", @(i)];
 			package[kAGVMItemArrowIsOpen] = @(i % 2);
 			package[kAGVMViewTag] = @(i);

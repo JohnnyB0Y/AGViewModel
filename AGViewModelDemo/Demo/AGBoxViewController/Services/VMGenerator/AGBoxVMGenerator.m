@@ -21,7 +21,7 @@
         _boxVMManager = ag_newAGVMManager(3);
         
         // 公共数据
-        [_boxVMManager ag_packageCommonData:^(NSMutableDictionary * _Nonnull package) {
+        [_boxVMManager ag_packageCommonData:^(AGViewModel * _Nonnull package) {
             package[kAGVMBoxTitle] = @"boxTitle";
         }];
         
@@ -45,7 +45,7 @@
         [_boxVMManager ag_packageSection:^(AGVMSection *vms) {
             
             // 公共数据
-            [vms ag_packageCommonData:^(NSMutableDictionary * _Nonnull package) {
+            [vms ag_packageCommonData:^(AGViewModel * _Nonnull package) {
                 package[kAGVMBoxTitle] = @"SSS";
             }];
             
@@ -54,13 +54,13 @@
             UICollectionViewCell *cell = [self _cellOfClass:cellCls];
             
             // 共享数据模型
-            [vms ag_packageItemMergeData:^(NSMutableDictionary *package) {
+            [vms ag_packageItemMergeData:^(AGViewModel *package) {
                 // 要实例化的类
                 package[kAGVMViewClass] = cellCls;
             }];
             
             // 第一个 item
-            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+            [[vms ag_packageItemData:^(AGViewModel *package) {
                 package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                 package[kAGVMBoxTitle] = @"我是第一个item！";
             }] ag_cachedSizeByBindingView:cell];
@@ -68,7 +68,7 @@
             for (NSInteger i = 0; i<9; i++) {
                 cellCls = [self _randClassAtArr:classArr];
                 cell = [self _cellOfClass:cellCls];
-                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+                [[vms ag_packageItemData:^(AGViewModel *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"我们是谁？";
                     package[kAGVMViewClass] = cellCls;
@@ -85,7 +85,7 @@
             UICollectionViewCell *cell = [self _cellOfClass:cellCls];
             
             // 第一个 item
-            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+            [[vms ag_packageItemData:^(AGViewModel *package) {
                 package[kAGVMBoxColor] = [UIColor blackColor];
                 package[kAGVMBoxTitle] = @"我是第一个item！";
                 // 单独设置要实例化的类
@@ -95,7 +95,7 @@
             // 第二个 item
             cellCls = [self _randClassAtArr:classArr];
             cell = [self _cellOfClass:cellCls];
-            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+            [[vms ag_packageItemData:^(AGViewModel *package) {
                 package[kAGVMBoxColor] = [UIColor greenColor];
                 package[kAGVMBoxTitle] = @"我是第二个item！";
                 // 单独设置要实例化的类
@@ -105,7 +105,7 @@
             for (NSInteger i = 0; i<5; i++) {
                 cellCls = [self _randClassAtArr:classArr];
                 cell = [self _cellOfClass:cellCls];
-                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+                [[vms ag_packageItemData:^(AGViewModel *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"我们是Bosh。";
                     package[kAGVMViewClass] = cellCls;
@@ -115,7 +115,7 @@
             // 最后一个 item
             cellCls = [self _randClassAtArr:classArr];
             cell = [self _cellOfClass:cellCls];
-            [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+            [[vms ag_packageItemData:^(AGViewModel *package) {
                 package[kAGVMBoxColor] = [UIColor greenColor];
                 package[kAGVMBoxTitle] = @"我是最后一个item！";
                 // 单独设置要实例化的类
@@ -132,7 +132,7 @@
             UICollectionViewCell *cell = [self _cellOfClass:cellCls];
             
             // 共享数据模型
-            [vms ag_packageItemMergeData:^(NSMutableDictionary *package) {
+            [vms ag_packageItemMergeData:^(AGViewModel *package) {
                 // 要实例化的类
                 package[kAGVMViewClass] = cellCls;
                 package[kAGVMBoxTitle] = @"波波维奇。";
@@ -140,7 +140,7 @@
             }];
             
             for (NSInteger i = 0; i<3; i++) {
-                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+                [[vms ag_packageItemData:^(AGViewModel *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"白云山！";
                 }] ag_cachedSizeByBindingView:cell];
@@ -150,7 +150,7 @@
             for (NSInteger i = 0; i<3; i++) {
                 cellCls = [self _randClassAtArr:classArr];
                 cell = [self _cellOfClass:cellCls];
-                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+                [[vms ag_packageItemData:^(AGViewModel *package) {
                     package[kAGVMBoxColor] = [UIColor brownColor];
                     package[kAGVMBoxTitle] = @"龙的传人！";
                     package[kAGVMViewClass] = cellCls;
@@ -160,7 +160,7 @@
             for (NSInteger i = 0; i<3; i++) {
                 cellCls = [self _randClassAtArr:classArr];
                 cell = [self _cellOfClass:cellCls];
-                [[vms ag_packageItemData:^(NSMutableDictionary *package) {
+                [[vms ag_packageItemData:^(AGViewModel *package) {
                     package[kAGVMBoxColor] = [self _randColorAtArr:colorArr];
                     package[kAGVMBoxTitle] = @"龙的传人！";
                     package[kAGVMViewClass] = cellCls;

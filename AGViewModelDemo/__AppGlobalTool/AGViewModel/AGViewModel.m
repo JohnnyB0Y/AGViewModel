@@ -233,7 +233,7 @@
     dict.count > 0 ? [_bindingModel addEntriesFromDictionary:dict] : nil;
 }
 
-- (void) ag_mergeModelFromDictionary:(NSDictionary *)dict byKeys:(NSArray<NSString *> *)keys
+- (void) ag_mergeModelFromDictionary:(NSDictionary *)dict forKeys:(NSArray<NSString *> *)keys
 {
     if ( dict.count <= 0 ) {
         return;
@@ -245,9 +245,9 @@
     }];
 }
 
-- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm byKeys:(NSArray<NSString *> *)keys
+- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm forKeys:(NSArray<NSString *> *)keys
 {
-    [self ag_mergeModelFromDictionary:vm.bindingModel byKeys:keys];
+    [self ag_mergeModelFromDictionary:vm.bindingModel forKeys:keys];
 }
 
 #pragma mark Other method.
@@ -298,7 +298,7 @@
 #pragma mark NSCopying
 - (id)copyWithZone:(NSZone *)zone
 {
-    AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:_bindingModel];
+    AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
     [vm ag_setBindingView:_bindingView configDataBlock:_configDataBlock];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
     vm->_archivedDictM = [self->_archivedDictM mutableCopy];
@@ -570,6 +570,7 @@
 {
 	[self.notifier ag_removeAllObservers];
 }
+
 @end
 
 #pragma mark -
@@ -586,7 +587,7 @@
 }
 - (id) ag_safeSetNumber:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
-	return [self _setNewObject:ag_safeNumber(value) forKey:key withObject:value completion:block];
+	return [self _setNewObject:ag_safeNumber(value) forKey:key withObject:value handle:block];
 }
 - (NSNumber *) ag_safeNumberForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
@@ -606,7 +607,7 @@
 }
 - (id) ag_safeSetString:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
-	return [self _setNewObject:ag_safeString(value) forKey:key withObject:value completion:block];
+	return [self _setNewObject:ag_safeString(value) forKey:key withObject:value handle:block];
 }
 - (NSString *) ag_safeStringForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
@@ -636,7 +637,7 @@
 }
 - (id) ag_safeSetArray:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
-	return [self _setNewObject:ag_safeArray(value) forKey:key withObject:value completion:block];
+	return [self _setNewObject:ag_safeArray(value) forKey:key withObject:value handle:block];
 }
 - (NSArray *) ag_safeArrayForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
@@ -656,7 +657,7 @@
 }
 - (id) ag_safeSetDictionary:(id)value forKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeSetHandleBlock)block
 {
-	return [self _setNewObject:ag_safeDictionary(value) forKey:key withObject:value completion:block];
+	return [self _setNewObject:ag_safeDictionary(value) forKey:key withObject:value handle:block];
 }
 - (NSDictionary *) ag_safeDictionaryForKey:(NSString *)key handle:(NS_NOESCAPE AGVMSafeGetHandleBlock)block
 {
@@ -762,12 +763,11 @@
 	return [number boolValue];
 }
 
-
 #pragma mark - ---------- Private Methods ----------
 - (id) _setNewObject:(id)newObj
               forKey:(NSString *)key
           withObject:(id)obj
-          completion:(AGVMSafeSetHandleBlock)block
+              handle:(AGVMSafeSetHandleBlock)block
 {
 	self[key] = newObj;
 	block ? block(obj, newObj != nil) : nil;
@@ -797,107 +797,35 @@
 @end
 
 
-#pragma mark - Fast Funtion
-/** Quickly create AGViewModel instance */
-AGViewModel * ag_newAGViewModel(NSDictionary *bindingModel)
+static NSString * const kAGViewModelStrongToWeakMapTable = @"kAGViewModelStrongToWeakMapTable";
+@implementation AGViewModel (AGWeakly)
+
+- (void)ag_setWeakRefObject:(id)obj forKey:(NSString *)key
 {
-    return [AGViewModel newWithModel:bindingModel];
+    AGAssertParameter(key);
+    [[self _strongToWeakMapTable] setObject:obj forKey:key];
 }
 
-/** Quickly create mutableDictionary */
-NSMutableDictionary * ag_newNSMutableDictionary(NSInteger capacity)
+- (void)ag_removeWeakRefObjectForKey:(NSString *)key
 {
-    return [[NSMutableDictionary alloc] initWithCapacity:capacity];
+    AGAssertParameter(key);
+    [[self _strongToWeakMapTable] removeObjectForKey:key];
 }
 
-/** Quickly create mutableArray */
-NSMutableArray * ag_newNSMutableArray(NSInteger capacity)
+- (id)ag_weakRefObjectForKey:(NSString *)key
 {
-    return [[NSMutableArray alloc] initWithCapacity:capacity];
+    AGAssertParameter(key);
+    return [[self _strongToWeakMapTable] objectForKey:key];
 }
 
-NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity)
+- (NSMapTable *) _strongToWeakMapTable
 {
-    NSMutableArray *arrM = ag_newNSMutableArray(capacity);
-    for (NSInteger i = 0; i < capacity; i++) {
-        [arrM addObject:[NSNull null]];
+    NSMapTable *mt = _bindingModel[kAGViewModelStrongToWeakMapTable];
+    if ( nil == mt ) {
+        mt = [NSMapTable strongToWeakObjectsMapTable];
+        [_bindingModel setObject:mt forKey:kAGViewModelStrongToWeakMapTable];
     }
-    return arrM;
+    return mt;
 }
 
-/** Quickly create block */
-AGVMTargetVCBlock ag_viewModelCopyTargetVCBlock(AGVMTargetVCBlock block)
-{
-    return [block copy];
-}
-
-
-#pragma mark - Safe Convert
-id ag_safeObj(id obj, Class objClass)
-{
-    if ( [obj isKindOfClass:objClass] ) {
-        return obj;
-    }
-	return nil;
-}
-
-#pragma mark 字典、数组
-/** 验证是否为NSDictionary对象；是：返回原对象；否：返回nil */
-NSDictionary * ag_safeDictionary(id obj)
-{
-	return ag_safeObj(obj, [NSDictionary class]);
-}
-
-/** 验证是否为NSMutableDictionary对象；是：返回原对象；否：返回nil */
-NSMutableDictionary * ag_safeMutableDictionary(id obj)
-{
-	return ag_safeObj(obj, [NSMutableDictionary class]);
-}
-
-/** 验证是否为NSArray对象；是：返回原对象；否：返回nil */
-NSArray * ag_safeArray(id obj)
-{
-	return ag_safeObj(obj, [NSArray class]);
-}
-
-/** 验证是否为NSMutableArray对象；是：返回原对象；否：返回nil */
-NSMutableArray * ag_safeMutableArray(id obj)
-{
-	return ag_safeObj(obj, [NSMutableArray class]);
-}
-
-#pragma mark 字符串、数字
-/** 验证是否为NSString对象；是：返回原对象；否：返回nil */
-NSString * ag_safeString(id obj)
-{
-	return ag_safeObj(obj, [NSString class]);
-}
-
-/** 验证是否能转换为 NSString 对象；能转：返回 NSString 对象；不能：返回 nil */
-NSString * ag_newNSStringWithObj(id obj)
-{
-    NSString *newStr;
-	if ( [obj isKindOfClass:[NSString class]] ) {
-        newStr = obj;
-	}
-	else if ( [obj isKindOfClass:[NSNumber class]] ) {
-		NSNumber *newObj = obj;
-        newStr = newObj.stringValue;
-	}
-    else if ( [obj isKindOfClass:[NSURL class]] ) {
-        NSURL *newObj = obj;
-        newStr = [newObj absoluteString];
-    }
-    
-    if ( newStr ) {
-        return [NSString stringWithString:newStr];
-    }
-    
-	return nil;
-}
-
-/** 验证是否为NSNumber对象；是：返回原对象；否：返回nil */
-NSNumber * ag_safeNumber(id obj)
-{
-	return ag_safeObj(obj, [NSNumber class]);
-}
+@end

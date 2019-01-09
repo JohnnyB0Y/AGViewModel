@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AGVMProtocol.h"
 @class AGVMPackager, AGViewModel, AGVMSection, AGVMManager;
 
 #ifndef AGVMFunction_h

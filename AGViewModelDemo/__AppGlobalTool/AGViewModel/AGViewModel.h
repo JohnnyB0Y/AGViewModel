@@ -74,10 +74,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_removeAllObjects;
 
 /** 马上更新数据 并 刷新视图 */
-- (void) ag_refreshUIByUpdateModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_refreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
 
 /** 更新数据，并对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
-- (void) ag_setNeedsRefreshUIModelInBlock:(nullable NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_setNeedsRefreshUIModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
 
 /** 对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
 - (void) ag_setNeedsRefreshUI;
@@ -110,8 +110,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param dict 待合并的字典
  @param keys 要合并数据的keys
  */
-- (void) ag_mergeModelFromDictionary:(NSDictionary *)dict byKeys:(NSArray<NSString *> *)keys;
-- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm byKeys:(NSArray<NSString *> *)keys;
+- (void) ag_mergeModelFromDictionary:(NSDictionary *)dict forKeys:(NSArray<NSString *> *)keys;
+- (void) ag_mergeModelFromViewModel:(AGViewModel *)vm forKeys:(NSArray<NSString *> *)keys;
 
 - (void) ag_mergeModelFromViewModel:(AGViewModel *)vm;
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict;
@@ -154,6 +154,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 键值观察
 @interface AGViewModel (AGVMObserverRegistration) <AGVMObserverRegistration>
+@end
+
+#pragma mark - 弱引用存取
+@interface AGViewModel (AGWeakly)
+
+/** 添加弱引用的对象 */
+- (void)ag_setWeakRefObject:(nullable id)obj forKey:(NSString *)key;
+
+/** 获取弱引用的对象 */
+- (nullable id) ag_weakRefObjectForKey:(NSString *)key;
+
+/** 移除弱引用的对象 */
+- (void) ag_removeWeakRefObjectForKey:(NSString *)key;
+
 @end
 
 NS_ASSUME_NONNULL_END

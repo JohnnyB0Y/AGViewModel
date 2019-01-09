@@ -80,7 +80,7 @@ typedef id _Nullable (^AGVMJSONTransformBlock)
 (
 	 _Nullable id obj, // 数据对象
 	 BOOL *useDefault // 是否跳过block处理，使用默认处理方式：*useDefault = YES;
- );
+);
 
 #pragma mark viewModelManager block
 typedef void(^AGVMPackageSectionBlock)
@@ -98,12 +98,12 @@ typedef void(^AGVMPackageSectionsBlock)
 #pragma mark viewModelPackage block
 typedef void (^AGVMPackageDataBlock)
 (
-    NSMutableDictionary *package
+    AGViewModel *package
 );
 
 typedef void (^AGVMPackageDatasBlock)
 (
-    NSMutableDictionary *package,
+    AGViewModel *package,
     id obj,
     NSInteger idx
 );
@@ -376,7 +376,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param key 字典键
  @return NSNumber 或nil
  */
-- (nullable id) ag_safeSetNumber:(nullable id)value
+- (nullable id) ag_safeSetNumber:(id)value
                           forKey:(NSString *)key;
 /**
  安全获取 NSNumber对象
@@ -393,7 +393,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param block 完成后对结果进行处理的block
  @return NSNumber 或nil
  */
-- (nullable id) ag_safeSetNumber:(nullable id)value
+- (nullable id) ag_safeSetNumber:(id)value
                           forKey:(NSString *)key
                           handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 /**
@@ -414,7 +414,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param key 字典键
  @return NSString 或nil
  */
-- (nullable id) ag_safeSetString:(nullable id)value
+- (nullable id) ag_safeSetString:(id)value
                           forKey:(NSString *)key;
 /**
  安全获取 NSString对象
@@ -432,7 +432,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param block 完成后对结果进行处理的block
  @return NSString 或nil
  */
-- (nullable id) ag_safeSetString:(nullable id)value
+- (nullable id) ag_safeSetString:(id)value
                           forKey:(NSString *)key
                           handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 
@@ -473,7 +473,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param key 字典键
  @return NSArray 或nil
  */
-- (nullable id) ag_safeSetArray:(nullable id)value
+- (nullable id) ag_safeSetArray:(id)value
                          forKey:(NSString *)key;
 /**
  安全获取 NSArray对象
@@ -491,7 +491,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param block 完成后对结果进行处理的block
  @return NSArray 或nil
  */
-- (nullable id) ag_safeSetArray:(nullable id)value
+- (nullable id) ag_safeSetArray:(id)value
                          forKey:(NSString *)key
                          handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 
@@ -513,7 +513,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param key 字典键
  @return NSDictionary 或nil
  */
-- (nullable id) ag_safeSetDictionary:(nullable id)value
+- (nullable id) ag_safeSetDictionary:(id)value
                               forKey:(NSString *)key;
 /**
  安全获取 NSDictionary对象
@@ -531,7 +531,7 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param block 完成后对结果进行处理的block
  @return NSDictionary 或nil
  */
-- (nullable id) ag_safeSetDictionary:(nullable id)value
+- (nullable id) ag_safeSetDictionary:(id)value
                               forKey:(NSString *)key
                               handle:(nullable NS_NOESCAPE AGVMSafeSetHandleBlock)block;
 
