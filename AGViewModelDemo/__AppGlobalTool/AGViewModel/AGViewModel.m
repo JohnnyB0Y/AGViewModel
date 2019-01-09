@@ -403,20 +403,15 @@
 - (id)objectForKeyedSubscript:(NSString *)key;
 {
     NSParameterAssert(key);
-    return key ? _bindingModel[key] : nil;
+    if ( ! key ) return nil;
+    return [_bindingModel objectForKeyedSubscript:key];
 }
 
 - (void)setObject:(id)obj forKeyedSubscript:(NSString *)key;
 {
     NSParameterAssert(key);
     if ( ! key ) return;
-    
-    if ( obj ) {
-        _bindingModel[key] = obj;
-    }
-    else {
-        [_bindingModel removeObjectForKey:key];
-    }
+    [_bindingModel setObject:obj forKeyedSubscript:key];
 }
 
 - (NSString *)debugDescription

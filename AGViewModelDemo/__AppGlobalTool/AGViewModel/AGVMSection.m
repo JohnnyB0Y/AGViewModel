@@ -401,11 +401,7 @@
 {
     AGAssertParameter(vmArr);
     AGAssertIndexRange(-1, index, self.count+1);
-    
-    if ( index == self.count ) {
-        [self ag_addItemsFromArray:vmArr];
-    }
-    else if ( AGIsIndexInRange(-1, index, self.count) ) {
+    if ( AGIsIndexInRange(-1, index, self.count+1) ) {
         NSIndexSet *indexSet =
         [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, vmArr.count)];
         [self.itemArrM insertObjects:vmArr atIndexes:indexSet];
@@ -417,7 +413,7 @@
                      capacity:(NSInteger)capacity
 {
     AGAssertParameter(package);
-    AGAssertIndexRange(-1, index, self.count);
+    AGAssertIndexRange(-1, index, self.count+1);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
     AGViewModel *vm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
     return [self ag_insertItem:vm atIndex:index];
@@ -429,20 +425,21 @@
     return [self ag_insertItemPackage:package atIndex:index capacity:6];
 }
 
-- (void)ag_insertItem:(AGViewModel *)item atIndex:(NSInteger)index
+- (void)ag_insertItem:(AGViewModel *)item atIndex:(NSInteger)idx
 {
-    [self setObject:item atIndexedSubscript:index];
+    AGAssertParameter(item);
+    AGAssertIndexRange(-1, idx, self.count+1);
+    if ( item && AGIsIndexInRange(-1, idx, self.count+1) ) {
+        [self.itemArrM insertObject:item atIndex:idx];
+    }
 }
 
 - (void)setObject:(AGViewModel *)vm atIndexedSubscript:(NSInteger)idx
 {
     AGAssertParameter(vm);
     AGAssertIndexRange(-1, idx, self.count);
-    if ( idx == self.count ) {
-        [self.itemArrM addObject:vm];
-    }
-    else if ( AGIsIndexInRange(-1, idx, self.count) ) {
-        [self.itemArrM insertObject:vm atIndex:idx];
+    if ( vm && AGIsIndexInRange(-1, idx, self.count) ) {
+        [self.itemArrM setObject:vm atIndexedSubscript:idx];
     }
 }
 
@@ -562,9 +559,8 @@
 #pragma mark 选中
 - (AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx
 {
-    AGAssertIndexRange(-1, idx, self.count);
     if ( AGIsIndexInRange(-1, idx, self.count) ) {
-        return [self.itemArrM objectAtIndex:idx];
+        return [self.itemArrM objectAtIndexedSubscript:idx];
     }
     return nil;
 }

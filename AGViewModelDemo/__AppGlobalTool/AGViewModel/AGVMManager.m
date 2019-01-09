@@ -276,12 +276,7 @@
 {
     AGAssertParameter(vmsArr);
     AGAssertIndexRange(-1, index, self.count+1);
-	if (vmsArr == nil) return;
-	
-    if ( index == self.count ) {
-        [self ag_addSectionsFromArray:vmsArr];
-    }
-    else if ( AGIsIndexInRange(-1, index, self.count) ) {
+    if ( vmsArr && AGIsIndexInRange(-1, index, self.count+1) ) {
         NSIndexSet *indexSet =
         [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index, vmsArr.count)];
         [self.sectionArrM insertObjects:vmsArr atIndexes:indexSet];
@@ -291,7 +286,12 @@
 - (void) ag_insertSection:(AGVMSection *)section
                   atIndex:(NSInteger)index
 {
-    [self setObject:section atIndexedSubscript:index];
+    AGAssertParameter(section);
+    AGAssertIndexRange(-1, index, self.count+1);
+    if ( section && AGIsIndexInRange(-1, index, self.count+1) ) {
+        [self.sectionArrM insertObject:section atIndex:index];
+    }
+    
 }
 
 - (void) ag_insertSectionPackage:(NS_NOESCAPE AGVMPackageSectionBlock)package
@@ -399,23 +399,17 @@
 - (void)setObject:(AGVMSection *)vms atIndexedSubscript:(NSInteger)idx
 {
     AGAssertParameter(vms);
-    AGAssertIndexRange(-1, idx, self.count+1);
-	if ( vms == nil ) return;
-	
-    if ( idx == self.count ) {
-        [self.sectionArrM addObject:vms];
-    }
-    else if ( AGIsIndexInRange(-1, idx, self.count) ) {
-        [self.sectionArrM insertObject:vms atIndex:idx];
+    AGAssertIndexRange(-1, idx, self.count);
+    if ( vms && AGIsIndexInRange(-1, idx, self.count) ) {
+        [self.sectionArrM setObject:vms atIndexedSubscript:idx];
     }
 }
 
 #pragma mark 取出
 - (AGVMSection *)objectAtIndexedSubscript:(NSInteger)idx
 {
-    AGAssertIndexRange(-1, idx, self.count);
     if ( AGIsIndexInRange(-1, idx, self.count) ) {
-        return [self.sectionArrM objectAtIndex:idx];
+        return [self.sectionArrM objectAtIndexedSubscript:idx];
     }
     return nil;
 }
