@@ -502,20 +502,20 @@
     [_itemArrM makeObjectsPerformSelector:aSelector withObject:argument];
 }
 
-- (void) ag_makeItemsInRange:(NSRange)range performSelector:(SEL)aSelector
+- (void) ag_makeItemsIfInRange:(NSRange)range performSelector:(SEL)aSelector
 {
-    [self ag_makeItemsInRange:range performSelector:aSelector withObject:nil];
+    [self ag_makeItemsIfInRange:range performSelector:aSelector withObject:nil];
 }
 
-- (void) ag_makeItemsInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(id)argument
+- (void) ag_makeItemsIfInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(id)argument
 {
-    NSInteger lastIdx = range.length - range.location - 1;
-    AGAssertIndexRange(-1, lastIdx, self.count);
+    if ( range.location >= self.count ) return;
     
-    if ( AGIsIndexInRange(-1, lastIdx, self.count) ) {
-        NSArray *subArr = [_itemArrM subarrayWithRange:range];
-        [subArr makeObjectsPerformSelector:aSelector withObject:argument];
+    if ( range.length > self.count - range.location ) {
+        range.length = self.count - range.location;
     }
+    NSArray *subArr = [_itemArrM subarrayWithRange:range];
+    [subArr makeObjectsPerformSelector:aSelector withObject:argument];
 }
 
 #pragma mark 移除

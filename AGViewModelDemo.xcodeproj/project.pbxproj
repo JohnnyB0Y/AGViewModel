@@ -63,7 +63,7 @@
 		3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891651F38965100E86F9F /* AGVMManager.m */; };
 		3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891671F38965100E86F9F /* AGVMSection.m */; };
 		3ADD780921E637F90054437D /* AGVMFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD780821E637F90054437D /* AGVMFunction.m */; };
-		3ADD780D21E668680054437D /* AGBookListVMG.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD780C21E668680054437D /* AGBookListVMG.m */; };
+		3ADD781121E687A10054437D /* AGBookListVMG.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD781021E687A10054437D /* AGBookListVMG.m */; };
 		3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3802031437B009F4B29 /* UITableViewCell+AGViewModel.m */; };
 		3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */; };
 		3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */; };
@@ -193,8 +193,8 @@
 		3AD891661F38965100E86F9F /* AGVMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGVMSection.h; sourceTree = "<group>"; };
 		3AD891671F38965100E86F9F /* AGVMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGVMSection.m; sourceTree = "<group>"; };
 		3ADD780821E637F90054437D /* AGVMFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMFunction.m; sourceTree = "<group>"; };
-		3ADD780B21E668680054437D /* AGBookListVMG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AGBookListVMG.h; path = AGViewModelDemo/__AppGlobalTool/AGViewModel/AGBookListVMG.h; sourceTree = SOURCE_ROOT; };
-		3ADD780C21E668680054437D /* AGBookListVMG.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AGBookListVMG.m; path = AGViewModelDemo/__AppGlobalTool/AGViewModel/AGBookListVMG.m; sourceTree = SOURCE_ROOT; };
+		3ADD780F21E687A10054437D /* AGBookListVMG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBookListVMG.h; sourceTree = "<group>"; };
+		3ADD781021E687A10054437D /* AGBookListVMG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBookListVMG.m; sourceTree = "<group>"; };
 		3AE5B11C1FEF984B00C91906 /* AGVMFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMFunction.h; sourceTree = "<group>"; };
 		3AE9C3802031437B009F4B29 /* UITableViewCell+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+AGViewModel.m"; sourceTree = "<group>"; };
 		3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+AGViewModel.m"; sourceTree = "<group>"; };
@@ -408,7 +408,7 @@
 		3A7FD5CC20B779AD00A0787A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				3ADD780A21E6681E0054437D /* VMGenerator */,
+				3ADD780E21E687A10054437D /* VMGenerator */,
 				3A04292520B798300025D9D5 /* AGBookAPIKeys.h */,
 				3A7FD5CE20B779AD00A0787A /* APIReformer */,
 				3A7FD5CF20B779AD00A0787A /* VMPackager */,
@@ -659,11 +659,11 @@
 			path = Mian;
 			sourceTree = "<group>";
 		};
-		3ADD780A21E6681E0054437D /* VMGenerator */ = {
+		3ADD780E21E687A10054437D /* VMGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				3ADD780B21E668680054437D /* AGBookListVMG.h */,
-				3ADD780C21E668680054437D /* AGBookListVMG.m */,
+				3ADD780F21E687A10054437D /* AGBookListVMG.h */,
+				3ADD781021E687A10054437D /* AGBookListVMG.m */,
 			);
 			path = VMGenerator;
 			sourceTree = "<group>";
@@ -888,7 +888,7 @@
 				3A8C699021E0ECF70021BCB1 /* AGSwitchControl.m in Sources */,
 				3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */,
 				3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */,
-				3ADD780D21E668680054437D /* AGBookListVMG.m in Sources */,
+				3ADD781121E687A10054437D /* AGBookListVMG.m in Sources */,
 				3A04294F20B7AB000025D9D5 /* AGBoxCCell.m in Sources */,
 				3A04291420B783EA0025D9D5 /* AGDoubanService.m in Sources */,
 				3AD8916B1F38965100E86F9F /* AGVMPackager.m in Sources */,

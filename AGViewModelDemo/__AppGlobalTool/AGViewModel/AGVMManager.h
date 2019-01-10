@@ -148,8 +148,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_makeSectionsPerformSelector:(SEL)aSelector;
 - (void) ag_makeSectionsPerformSelector:(SEL)aSelector withObject:(nullable id)argument;
 
-- (void) ag_makeSectionsInRange:(NSRange)range performSelector:(SEL)aSelector;
-- (void) ag_makeSectionsInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(nullable id)argument;
+- (void) ag_makeSectionsIfInRange:(NSRange)range performSelector:(SEL)aSelector;
+- (void) ag_makeSectionsIfInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(nullable id)argument;
 
 #pragma mark 取出
 - (nullable AGVMSection *) objectAtIndexedSubscript:(NSInteger)idx;

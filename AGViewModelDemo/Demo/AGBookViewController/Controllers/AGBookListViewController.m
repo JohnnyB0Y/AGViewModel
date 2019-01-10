@@ -515,7 +515,8 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         
         // 缓存 Size
         AGSwitchControlItem *item = [AGSwitchControlItem new];
-        [_itemsData ag_makeItemsPerformSelector:@selector(ag_cachedSizeByBindingView:) withObject:item];
+        //[_itemsData ag_makeItemsPerformSelector:@selector(ag_cachedSizeByBindingView:) withObject:item];
+        [_itemsData ag_makeItemsIfInRange:NSMakeRange(0, 8) performSelector:@selector(ag_cachedSizeByBindingView:) withObject:item];
         
     }
     return _itemsData;

@@ -250,8 +250,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_makeItemsPerformSelector:(SEL)aSelector;
 - (void) ag_makeItemsPerformSelector:(SEL)aSelector withObject:(nullable id)argument;
 
-- (void) ag_makeItemsInRange:(NSRange)range performSelector:(SEL)aSelector;
-- (void) ag_makeItemsInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(nullable id)argument;
+- (void) ag_makeItemsIfInRange:(NSRange)range performSelector:(SEL)aSelector;
+- (void) ag_makeItemsIfInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(nullable id)argument;
 
 #pragma mark 取出
 - (nullable AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;

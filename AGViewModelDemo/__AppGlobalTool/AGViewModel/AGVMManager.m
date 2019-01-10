@@ -381,19 +381,21 @@
     [_sectionArrM makeObjectsPerformSelector:aSelector withObject:argument];
 }
 
-- (void) ag_makeSectionsInRange:(NSRange)range performSelector:(SEL)aSelector
+- (void) ag_makeSectionsIfInRange:(NSRange)range performSelector:(SEL)aSelector
 {
-    [self ag_makeSectionsInRange:range performSelector:aSelector withObject:nil];
+    [self ag_makeSectionsIfInRange:range performSelector:aSelector withObject:nil];
 }
-- (void) ag_makeSectionsInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(id)argument
+- (void) ag_makeSectionsIfInRange:(NSRange)range performSelector:(SEL)aSelector withObject:(id)argument
 {
-    NSInteger lastIdx = range.length - range.location - 1;
-    AGAssertIndexRange(-1, lastIdx, self.count);
+    // loc=5 len=5
+    // count = 5 idx = 0 ~ 4
+    if ( range.location >= self.count ) return;
     
-    if ( AGIsIndexInRange(-1, lastIdx, self.count) ) {
-        NSArray *subArr = [_sectionArrM subarrayWithRange:range];
-        [subArr makeObjectsPerformSelector:aSelector withObject:argument];
+    if ( range.length > self.count - range.location ) {
+        range.length = self.count - range.location;
     }
+    NSArray *subArr = [_sectionArrM subarrayWithRange:range];
+    [subArr makeObjectsPerformSelector:aSelector withObject:argument];
 }
 
 - (void)setObject:(AGVMSection *)vms atIndexedSubscript:(NSInteger)idx
