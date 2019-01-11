@@ -119,6 +119,9 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 @required
 + (NSString *) ag_reuseIdentifier;
 
+@optional
+/** 如果使用默认 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。*/
++ (NSBundle *) ag_resourceBundle;
 @end
 
 #pragma mark CollectionViewCell Protocol
@@ -167,21 +170,21 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 /** 负责控制器间（本级控制器与下级控制器之间）参数传递和共享的ViewModel */
 @property (nonatomic, strong, nullable) AGViewModel *context;
 
-/** 创建控制器；传递contextVM */
+/** 代码创建控制器；传递contextVM */
 + (instancetype) newWithContext:(nullable AGViewModel *)context;
 
 @optional
-/** 让 newWithContext: 优先从那些资源文件创建控制器；0 从Storyboard；1 从nib；2 代码；default是1 */
-+ (AGResourceFileType) typeOfCreateInstance;
+/** 如果使用默认 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。*/
++ (NSBundle *) ag_resourceBundle;
 
 /** 代码创建控制器；传递contextVM */
 - (instancetype) initWithContext:(nullable AGViewModel *)context;
 
 /** 从Storyboard文件创建控制器；传递contextVM */
-+ (instancetype) newWithStoryboardWithContext:(nullable AGViewModel *)context;
++ (instancetype) newFromStoryboardWithContext:(nullable AGViewModel *)context;
 
 /** 从Nib文件创建控制器；传递contextVM */
-+ (instancetype) newWithNibWithContext:(nullable AGViewModel *)context;
++ (instancetype) newFromNibWithContext:(nullable AGViewModel *)context;
 
 + (instancetype)newWithViewModel:(nullable AGViewModel *)vm NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "use: + newWithContext:");
 

@@ -188,13 +188,13 @@
 - (UICollectionViewCell *) _cellOfClass:(Class)cls
 {
     if ( cls == [AGBoxACell class] ) {
-        return _aCell ?: [AGBoxACell ag_createFromNib];
+        return _aCell ?: [AGBoxACell ag_createFromNibInBundle:nil];
     }
     else if ( cls == [AGBoxBCell class] ) {
-        return _bCell ?: [AGBoxBCell ag_createFromNib];
+        return _bCell ?: [AGBoxBCell ag_createFromNibInBundle:nil];
     }
     else if ( cls == [AGBoxCCell class] ) {
-        return _cCell ?: [AGBoxCCell ag_createFromNib];
+        return _cCell ?: [AGBoxCCell ag_createFromNibInBundle:nil];
     }
     return nil;
 }

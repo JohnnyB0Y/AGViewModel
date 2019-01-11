@@ -11,50 +11,41 @@
 
 static void *kAGViewModelProperty = &kAGViewModelProperty;
 
-static NSBundle *currentBundle;
-
 @implementation UIView (AGViewModel)
 
 #pragma mark - ---------- Public Methods ----------
-+ (BOOL)ag_canAwakeFromNib
++ (NSString *)ag_reuseIdentifier
 {
-    NSBundle *bundle = [self ag_currentBundle];
+    return NSStringFromClass(self);
+}
+
++ (BOOL)ag_canAwakeNibInBundle:(NSBundle *)bundle
+{
+    if ( nil == bundle ) {
+        bundle = [self ag_resourceBundle];
+    }
     NSString *className = NSStringFromClass([self class]);
     NSString *nibPath = [bundle pathForResource:className ofType:@"nib"];
+    if ( nil == nibPath ) {
+        nibPath = [bundle pathForResource:className ofType:@"xib"];
+    }
     return nibPath != nil;
 }
 
-+ (instancetype)ag_createFromNib
++ (instancetype)ag_createFromNibInBundle:(NSBundle *)bundle
 {
-    NSBundle *bundle = [self ag_currentBundle];
+    if ( nil == bundle ) {
+        bundle = [self ag_resourceBundle];
+    }
     UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:bundle];
     return [[nib instantiateWithOwner:self options:nil] firstObject];
 }
 
-/** 从 nib 创建实例,没有nib 时返回 nil */
-+ (instancetype) ag_safeCreateFromNib
++ (NSBundle *)ag_resourceBundle
 {
-    // 有特殊需求，请在子类重写。
-    if ( [self ag_canAwakeFromNib] ) {
-        return [self ag_createFromNib];
-    }
-    return nil;
+    return [NSBundle mainBundle];
 }
 
-+ (NSBundle *) ag_currentBundle
-{
-    if ( nil == currentBundle ) {
-        currentBundle = [NSBundle bundleForClass:[self class]];
-        NSURL *url = [currentBundle URLForResource:@"MyLibrary" withExtension:@"bundle"];
-        if ( url == nil ) {
-            url = [currentBundle URLForResource:@"ResourceFramework" withExtension:@"bundle"];
-        }
-        if ( url ) {
-            currentBundle = [NSBundle bundleWithURL:url];
-        }
-    }
-    return currentBundle;
-}
 
 #pragma mark - ----------- Getter Setter Methods ----------
 - (void)setViewModel:(AGViewModel *)viewModel

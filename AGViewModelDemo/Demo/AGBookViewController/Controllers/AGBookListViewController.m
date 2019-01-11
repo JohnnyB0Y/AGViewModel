@@ -270,7 +270,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 {
     // 跳转到下级控制器
     AGViewModel *context = [data mutableCopy];
-    AGBookDetailViewController *vc = [AGBookDetailViewController newWithContext:context];
+    AGBookDetailViewController *vc = [AGBookDetailViewController newFromNibWithContext:context];
     [self.navigationController pushViewController:vc animated:YES];
     
     // 监听下级控制器的删除操作

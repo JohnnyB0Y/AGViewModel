@@ -7,7 +7,6 @@
 //
 
 #import "UIViewController+AGViewModel.h"
-#import "UIView+AGViewModel.h"
 #import <objc/runtime.h>
 
 static void *kAGContextProperty = &kAGContextProperty;
@@ -18,51 +17,13 @@ static void *kAGContextProperty = &kAGContextProperty;
 #pragma mark - ----------- Life Cycle ----------
 + (instancetype)newWithContext:(AGViewModel *)context
 {
-    NSBundle *bundle = [UIView ag_currentBundle];
-    NSString *clsName = NSStringFromClass(self);
-    UIViewController *viewController = nil;
-    
-    switch ( [self typeOfCreateInstance] ) {
-        case AGResourceFileTypeStoryboard: {
-            viewController = [self _instanceCreateFromStoryboardWithName:clsName bundle:bundle];
-            if ( viewController == nil ) {
-                viewController = [self _instanceCreateFromNibWithName:clsName bundle:bundle];
-                if ( viewController == nil ) {
-                    viewController = [self _instanceCreateFromCode];
-                }
-            }
-            
-        } break;
-            
-        case AGResourceFileTypeNib: {
-            viewController = [self _instanceCreateFromNibWithName:clsName bundle:bundle];
-            if ( viewController == nil ) {
-                viewController = [self _instanceCreateFromStoryboardWithName:clsName bundle:bundle];
-                if ( viewController == nil ) {
-                    viewController = [self _instanceCreateFromCode];
-                }
-            }
-            
-        } break;
-            
-        case AGResourceFileTypeCode: {
-            viewController = [self _instanceCreateFromCode];
-            
-        } break;
-    }
-    
-    if ( context && viewController ) {
-        [viewController setContext:context];
-        return viewController;
-    }
-    
-    return viewController;
+    return [[self alloc] initWithContext:context];
 }
 
 /** 从Storyboard文件创建控制器 和 传递contextVM */
-+ (instancetype) newWithStoryboardWithContext:(nullable AGViewModel *)context
++ (instancetype) newFromStoryboardWithContext:(nullable AGViewModel *)context
 {
-    NSBundle *bundle = [UIView ag_currentBundle];
+    NSBundle *bundle = [self ag_resourceBundle];
     NSString *clsName = NSStringFromClass(self);
     UIViewController *vc = [self _instanceCreateFromStoryboardWithName:clsName bundle:bundle];
     [vc setContext:context];
@@ -70,9 +31,9 @@ static void *kAGContextProperty = &kAGContextProperty;
 }
 
 /** 从Nib文件创建控制器 和 传递contextVM */
-+ (instancetype) newWithNibWithContext:(nullable AGViewModel *)context
++ (instancetype) newFromNibWithContext:(nullable AGViewModel *)context
 {
-    NSBundle *bundle = [UIView ag_currentBundle];
+    NSBundle *bundle = [self ag_resourceBundle];
     NSString *clsName = NSStringFromClass(self);
     UIViewController *vc = [self _instanceCreateFromNibWithName:clsName bundle:bundle];
     [vc setContext:context];
@@ -108,16 +69,10 @@ static void *kAGContextProperty = &kAGContextProperty;
     return nil;
 }
 
-+ (instancetype) _instanceCreateFromCode
-{
-    // 代码创建
-    return [[self alloc] init];
-}
-
 #pragma mark override methods
-+ (AGResourceFileType)typeOfCreateInstance
++ (NSBundle *)ag_resourceBundle
 {
-    return AGResourceFileTypeNib;
+    return [NSBundle mainBundle];
 }
 
 #pragma mark - ----------- Getter Methods ----------

@@ -20,8 +20,8 @@
 + (void) ag_registerCellBy:(UICollectionView *)collectionView
 {
     // 有特殊需求，请在子类重写。
-    if ( [self ag_canAwakeFromNib] ) {
-        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:[self ag_currentBundle]];
+    if ( [self ag_canAwakeNibInBundle:[self ag_resourceBundle]] ) {
+        UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:[self ag_resourceBundle]];
 		[collectionView registerNib:nib forCellWithReuseIdentifier:[self ag_reuseIdentifier]];
 	}
 	else {

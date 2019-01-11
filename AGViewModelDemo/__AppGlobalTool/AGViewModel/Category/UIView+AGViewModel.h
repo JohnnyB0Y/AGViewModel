@@ -27,16 +27,14 @@
 - (void) setViewModel:(nullable AGViewModel *)viewModel NS_REQUIRES_SUPER;
 - (nullable AGViewModel *) viewModel NS_REQUIRES_SUPER;
 
-/** 当前 bundle */
-+ (NSBundle *) ag_currentBundle;
 
-/** 是否能从nil文件创建视图 */
-+ (BOOL) ag_canAwakeFromNib;
+/** 如果你使用 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。*/
++ (NSBundle *) ag_resourceBundle; // 默认 main bundle
 
-/** 从 nib 创建实例,没有nib 会崩溃 */
-+ (instancetype) ag_createFromNib;
+/** 能否从nil文件创建视图,bundle=nil,从main bundle加载. */
++ (BOOL) ag_canAwakeNibInBundle:(NSBundle *)bundle;
 
-/** 从 nib 创建实例,没有nib 时返回 nil */
-+ (instancetype) ag_safeCreateFromNib;
+/** 从 nib 创建实例,bundle=nil,从main bundle加载. */
++ (instancetype) ag_createFromNibInBundle:(NSBundle *)bundle;
 
 @end
