@@ -32,7 +32,7 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
     return nibPath != nil;
 }
 
-+ (instancetype)ag_createFromNibInBundle:(NSBundle *)bundle
++ (instancetype)ag_newFromNibInBundle:(NSBundle *)bundle
 {
     if ( nil == bundle ) {
         bundle = [self ag_resourceBundle];

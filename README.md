@@ -143,6 +143,9 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager
 @required
 + (NSString *) ag_reuseIdentifier;
 
+@optional
+/** 如果使用默认 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。*/
++ (NSBundle *) ag_resourceBundle;
 @end
 
 #pragma mark CollectionViewCell Protocol

@@ -70,7 +70,7 @@
     AGAssertParameter(items);
     AGAssertParameter(block);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
-	NSArray *arr = [ag_sharedVMPackager() ag_packageItems:items
+	NSArray *arr = [ag_sharedVMPackager() ag_packageDatas:items
 												  mergeVM:_itemMergeVM
 												  inBlock:block
 												 capacity:capacity];
@@ -93,7 +93,7 @@
 {
     AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
-    _headerVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    _headerVM = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _headerVM;
 }
 
@@ -102,7 +102,7 @@
 {
     AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
-    AGViewModel *vm = [ag_sharedVMPackager() ag_package:package mergeVM:_itemMergeVM capacity:capacity];
+    AGViewModel *vm = [ag_sharedVMPackager() ag_packageData:package mergeVM:_itemMergeVM capacity:capacity];
     if (vm) [self.itemArrM addObject:vm];
     return vm;
 }
@@ -112,7 +112,7 @@
 {
     AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
-    _footerVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    _footerVM = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _footerVM;
 }
 
@@ -121,7 +121,7 @@
 {
     AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
-    _cvm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    _cvm = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _cvm;
 }
 
@@ -131,7 +131,7 @@
 {
     AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
-    _itemMergeVM = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    _itemMergeVM = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _itemMergeVM;
 }
 
@@ -415,7 +415,7 @@
     AGAssertParameter(package);
     AGAssertIndexRange(-1, index, self.count+1);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
-    AGViewModel *vm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    AGViewModel *vm = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return [self ag_insertItem:vm atIndex:index];
 }
 
@@ -532,7 +532,7 @@
     }
 }
 
-- (void) ag_removeLastObject
+- (void) ag_removeLastItem
 {
     [self.itemArrM removeLastObject];
 }

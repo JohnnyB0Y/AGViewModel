@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
                         capacity:(NSInteger)capacity;
 
 #pragma mark 移除
-- (void) ag_removeLastObject;
+- (void) ag_removeLastSection;
 - (void) ag_removeAllSections;
 - (void) ag_removeSectionAtIndex:(NSInteger)index;
 

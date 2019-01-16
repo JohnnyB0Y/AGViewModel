@@ -56,7 +56,7 @@
 - (AGViewModel *)ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package
                              capacity:(NSInteger)capacity
 {
-    _cvm = [ag_sharedVMPackager() ag_package:package capacity:capacity];
+    _cvm = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _cvm;
 }
 
@@ -318,7 +318,7 @@
     [self.sectionArrM removeAllObjects];
 }
 
-- (void) ag_removeLastObject
+- (void) ag_removeLastSection
 {
     [self.sectionArrM removeLastObject];
 }

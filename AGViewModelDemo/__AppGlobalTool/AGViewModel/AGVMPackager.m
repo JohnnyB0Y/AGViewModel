@@ -23,16 +23,16 @@
     return sharedInstance;
 }
 
-- (NSArray<AGViewModel *> *) ag_packageItems:(NSArray *)items
+- (NSArray<AGViewModel *> *) ag_packageDatas:(NSArray *)datas
                                      mergeVM:(AGViewModel *)mergeVM
                                      inBlock:(NS_NOESCAPE AGVMPackageDatasBlock)block
                                     capacity:(NSInteger)capacity
 {
-    if ( items == nil ) return nil;
-    NSAssert([items isKindOfClass:[NSArray class]], @"传入的 items 类型错误！");
+    if ( datas == nil ) return nil;
+    NSAssert([datas isKindOfClass:[NSArray class]], @"传入的 items 类型错误！");
     
-    NSMutableArray *arrM = ag_newNSMutableArray(items.count);
-    [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSMutableArray *arrM = ag_newNSMutableArray(datas.count);
+    [datas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
         AGViewModel *vm =
         [AGViewModel newWithModel:mergeVM.bindingModel
@@ -52,9 +52,9 @@
  @param capacity 字典每次增量拷贝的内存大小
  @return ViewModel
  */
-- (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package
-                     mergeVM:(AGViewModel *)mergeVM
-                    capacity:(NSInteger)capacity
+- (AGViewModel *) ag_packageData:(NS_NOESCAPE AGVMPackageDataBlock)package
+                         mergeVM:(AGViewModel *)mergeVM
+                        capacity:(NSInteger)capacity
 {
     AGViewModel *vm =
     [AGViewModel newWithModel:mergeVM.bindingModel
@@ -63,15 +63,15 @@
     return vm;
 }
 
-- (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package
-                    capacity:(NSInteger)capacity
+- (AGViewModel *) ag_packageData:(NS_NOESCAPE AGVMPackageDataBlock)package
+                        capacity:(NSInteger)capacity
 {
-    return [self ag_package:package mergeVM:nil capacity:capacity];
+    return [self ag_packageData:package mergeVM:nil capacity:capacity];
 }
 
-- (AGViewModel *) ag_package:(NS_NOESCAPE AGVMPackageDataBlock)package
+- (AGViewModel *) ag_packageData:(NS_NOESCAPE AGVMPackageDataBlock)package
 {
-    return [self ag_package:package capacity:6];
+    return [self ag_packageData:package capacity:6];
 }
 
 /**

@@ -35,6 +35,6 @@
 + (BOOL) ag_canAwakeNibInBundle:(NSBundle *)bundle;
 
 /** 从 nib 创建实例,bundle=nil,从main bundle加载. */
-+ (instancetype) ag_createFromNibInBundle:(NSBundle *)bundle;
++ (instancetype) ag_newFromNibInBundle:(NSBundle *)bundle;
 
 @end

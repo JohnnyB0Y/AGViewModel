@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype) sharedInstance;
 
-- (NSArray<AGViewModel *> *) ag_packageItems:(nullable NSArray *)items
+- (NSArray<AGViewModel *> *) ag_packageDatas:(nullable NSArray *)datas
                                      mergeVM:(nullable AGViewModel *)mergeVM
                                      inBlock:(nullable NS_NOESCAPE AGVMPackageDatasBlock)block
                                     capacity:(NSInteger)capacity;
@@ -28,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 字典每次增量拷贝的内存大小
  @return ViewModel
  */
-- (AGViewModel *) ag_package:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                     mergeVM:(nullable AGViewModel *)mergeVM
-                    capacity:(NSInteger)capacity;
+- (AGViewModel *) ag_packageData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+                         mergeVM:(nullable AGViewModel *)mergeVM
+                        capacity:(NSInteger)capacity;
 
 /**
  组装 ViewModel
@@ -39,8 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param capacity 字典每次增量拷贝的内存大小
  @return ViewModel
  */
-- (AGViewModel *) ag_package:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
-                    capacity:(NSInteger)capacity;
+- (AGViewModel *) ag_packageData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package
+                        capacity:(NSInteger)capacity;
 
 /**
  组装 ViewModel, 字典每次增量拷贝的内存大小为 6.
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param package 赋值数据的 Block
  @return ViewModel
  */
-- (AGViewModel *) ag_package:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
+- (AGViewModel *) ag_packageData:(nullable NS_NOESCAPE AGVMPackageDataBlock)package;
 
 /**
  分解打印 JSON 为常量。（嵌套支持）
