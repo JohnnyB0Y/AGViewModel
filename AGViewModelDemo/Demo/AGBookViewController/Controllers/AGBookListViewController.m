@@ -149,16 +149,21 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     [tvm stopRefresh];
 }
 
-#pragma mark - AGVMDelegate
+#pragma mark - AGVMDelegate 你点击了图书封面
 - (void)ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(SEL)action
 {
-//    if ([vm.bindingView isKindOfClass:[<#Class#> class]] ) {
-//        <#Class#> *cell = (<#Class#> *)vm.bindingView;
-//        if ( sel_isEqual(cell.<#SEL#>, action) ) {
-//            // ...
-//            
-//        }
-//    }
+    if ([vm.bindingView isKindOfClass:[AGBookListCell class]] ) { // 1. 判断是哪个cell
+        if ( sel_isEqual(@selector(coverImageViewTap:), action) ) { // 2. 判断是哪个方法签名
+            // ...图书封面点击
+            [SVProgressHUD showInfoWithStatus:@"你点击了图书封面"]; // 3. 可以确定具体操作
+            
+            // 更新数据
+            vm[kAGVMSelected] = @( ! [vm ag_safeBoolValueForKey:kAGVMSelected] );
+            
+            // 刷新UI
+            [vm ag_refreshUI];
+        }
+    }
 }
 
 #pragma mark AGSwitchControlDataSource <NSObject>
@@ -355,7 +360,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"图书列表";
-    
+    [SVProgressHUD setMaximumDismissTimeInterval:1.5];
 //    _currentOrientation = [UIDevice currentDevice].orientation;
 //
 //    self.tableViewManager.view.backgroundColor = [UIColor blueColor];

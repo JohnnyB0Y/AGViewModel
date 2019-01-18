@@ -11,5 +11,6 @@
 
 @interface AGBookListCell : UITableViewCell
 
+- (void) coverImageViewTap:(UITapGestureRecognizer *)tap;
 
 @end

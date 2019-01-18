@@ -58,6 +58,7 @@
 {
 	[super setViewModel:viewModel];
 	// TODO
+    // 把解析好的 API数据，赋值给视图。
     NSString *title = [viewModel ag_safeStringForKey:ak_AGBook_title];
     NSURL *imageURL = [viewModel ag_safeURLForKey:ak_AGBook_image];
     NSString *summary = [viewModel ag_safeStringForKey:ak_AGBook_summary];
@@ -65,10 +66,19 @@
     [self.titleLabel setText:title];
     [self.coverImageView setImageWithURL:imageURL];
     [self.summaryLabel setText:summary];
+    
+    // ...
+    BOOL isSelected = [viewModel ag_safeBoolValueForKey:kAGVMSelected];
+    UIColor *titleColor = isSelected ? [UIColor redColor] : [UIColor blackColor];
+    [self.titleLabel setTextColor:titleColor];
 }
 
 #pragma mark - ----------- Event Methods -----------
-
+- (void) coverImageViewTap:(UITapGestureRecognizer *)tap
+{
+    // 传递消息给控制器
+    [self.viewModel ag_callDelegateToDoForAction:_cmd];
+}
 
 
 #pragma mark - ---------- Private Methods ----------
@@ -88,13 +98,15 @@
 - (void) _setupUI
 {
     // ...
-    
+    self.coverImageView.userInteractionEnabled = YES;
 }
 
 - (void) _addActions
 {
 	// ...
-	
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(coverImageViewTap:)];
+    
+    [self.coverImageView addGestureRecognizer:tap];
 }
 
 #pragma mark - ----------- Getter Methods ----------
