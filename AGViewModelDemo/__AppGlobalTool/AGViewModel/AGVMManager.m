@@ -445,8 +445,7 @@
     [self.sectionArrM enumerateObjectsUsingBlock:block];
 }
 
-/** 遍历 Range内的所有item */
-- (void) ag_enumerateSectionsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block
+- (void) ag_enumerateSectionsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGVMSection *vms, NSUInteger idx, BOOL *stop))block
 {
     AGAssertParameter(block);
     if ( ! block ) return;

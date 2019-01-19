@@ -164,8 +164,8 @@ NS_ASSUME_NONNULL_BEGIN
 /** 遍历所有 section */
 - (void) ag_enumerateSectionsUsingBlock:(void(NS_NOESCAPE^)(AGVMSection *vms, NSUInteger idx, BOOL *stop))block;
 
-/** 遍历 Range内的所有item */
-- (void) ag_enumerateSectionsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+/** 遍历 Range内的所有section */
+- (void) ag_enumerateSectionsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGVMSection *vms, NSUInteger idx, BOOL *stop))block;
 
 /** 遍历所有 section 的 item */
 - (void) ag_enumerateSectionsItemUsingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSIndexPath *indexPath, BOOL *stop))block;
