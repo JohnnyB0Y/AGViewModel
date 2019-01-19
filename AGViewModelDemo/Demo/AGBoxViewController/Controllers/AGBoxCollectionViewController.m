@@ -130,7 +130,7 @@
     
     AGVMManager *boxVMManager = self.boxVMGenerator.boxVMManager;
     
-    [boxVMManager ag_enumerateSectionItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
+    [boxVMManager ag_enumerateSectionsItemUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
         
         // 所有 Class A 选中猴子
         Class cellClass = vm[kAGVMViewClass];
@@ -154,7 +154,7 @@
     
     AGVMManager *boxVMManager = self.boxVMGenerator.boxVMManager;
     
-    [boxVMManager ag_enumerateSectionItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
+    [boxVMManager ag_enumerateSectionsItemUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
         
         // 改变对应类的颜色
         if ( vm[kAGVMViewClass] == selectedCellClass ) {

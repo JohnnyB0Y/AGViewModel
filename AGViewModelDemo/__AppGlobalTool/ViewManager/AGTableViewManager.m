@@ -371,10 +371,19 @@ itemClickBlock = _itemClickBlock;
     }
     
     if ( indexPathsM.count > 0 ) {
+        // 插入数据
         [vms ag_insertItemsFromArray:viewModels atIndex:indexPath.row];
+        
+        // 更新后面items的 indexPath
+        NSRange range = NSMakeRange([viewModels lastObject].indexPath.row, 24);
+        [vms ag_enumerateItemsIfInRange:range usingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
+            vm.indexPath = [NSIndexPath indexPathForRow:range.location + idx inSection:indexPath.section];
+        }];
+        
+        // 插入动画
         [self.view insertRowsAtIndexPaths:indexPathsM
                          withRowAnimation:animation];
-        
+        // 滚动到指定区域
         scrollIndexPath = scrollIndexPath ?: [indexPathsM lastObject];
         [self.view scrollToRowAtIndexPath:scrollIndexPath
                          atScrollPosition:scrollPosition
@@ -395,29 +404,41 @@ itemClickBlock = _itemClickBlock;
 - (BOOL)deleteViewModels:(NSArray<AGViewModel *> *)viewModels
         withRowAnimation:(UITableViewRowAnimation)animation
 {
-    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:viewModels.count];
+    NSMutableArray *delIndexPath = [NSMutableArray arrayWithCapacity:viewModels.count];
+    NSMutableSet *delSectionSet = [NSMutableSet set];
     [viewModels enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSIndexPath *indexPath = obj.indexPath ?: [self.view indexPathForCell:(UITableViewCell *)obj.bindingView];
         
-        NSAssert(indexPath, @"can not get indexPath！");
+        NSAssert(indexPath, @"Can not get indexPath！");
         if ( indexPath ) {
-            [indexPaths addObject:indexPath];
+            [delIndexPath addObject:indexPath];
+            [delSectionSet addObject:@(indexPath.section)];
         }
+    }];
+    
+    // 删数据
+    [delIndexPath enumerateObjectsUsingBlock:^(NSIndexPath *indexPath, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        AGVMSection *vms = self.vmm[indexPath.section];
+        [vms ag_removeItemAtIndex:indexPath.row];
         
     }];
     
-    for (NSInteger i = indexPaths.count - 1; i>=0; i--) {
-        NSIndexPath *indexPath = indexPaths[i];
-        if ( indexPath ) {
-            // 删数据
-            AGVMSection *vms = self.vmm[indexPath.section];
-            [vms ag_removeItemAtIndex:indexPath.row];
-        }
-    }
+    // 更新后面items的 indexPath
+    [delSectionSet enumerateObjectsUsingBlock:^(NSNumber *delSection, BOOL * _Nonnull stop) {
+        
+        NSInteger section = delSection.integerValue;
+        AGVMSection *vms = self.vmm[section];
+        [vms ag_enumerateItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ( vm.indexPath.row != idx ) {
+                vm.indexPath = [NSIndexPath indexPathForRow:idx inSection:section];
+            }
+        }];
+    }];
     
-    if ( indexPaths.count > 0 ) {
+    if ( delIndexPath.count > 0 ) {
         // 更新界面
-        [self.view deleteRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+        [self.view deleteRowsAtIndexPaths:delIndexPath withRowAnimation:animation];
         return YES;
     }
     return NO;
@@ -436,7 +457,7 @@ itemClickBlock = _itemClickBlock;
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:viewModels.count];
     [viewModels enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSIndexPath *indexPath = obj.indexPath ?: [self.view indexPathForCell:(UITableViewCell *)obj.bindingView];
-        NSAssert(indexPath, @"can not get indexPath！");
+        NSAssert(indexPath, @"Can not get indexPath！");
         if ( indexPath ) {
             [indexPaths addObject:indexPath];
         }

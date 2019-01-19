@@ -78,7 +78,7 @@ static NSString * const kUserInfoSecondName = @"kUserInfoSecondName";
     XCTAssertTrue(vmm.fs.count == list.count, @"section 中 item 个数不对!");
     
     // 验证 数据是否正确
-    [vmm ag_enumerateSectionItemsUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
+    [vmm ag_enumerateSectionsItemUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
         // 原数据
         NSDictionary *user = list[indexPath.item];
         NSString *firstName = user[@"firstName"];

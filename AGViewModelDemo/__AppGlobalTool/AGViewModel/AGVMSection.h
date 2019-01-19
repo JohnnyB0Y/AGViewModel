@@ -268,10 +268,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 遍历
 /** 遍历所有 item */
-- (void) ag_enumerateItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+- (void) ag_enumerateItemsUsingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+
+/** 遍历 Range内的所有item */
+- (void) ag_enumerateItemsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 /** 遍历 header、footer vm */
-- (void) ag_enumerateHeaderFooterUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+- (void) ag_enumerateHeaderFooterUsingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 
 #pragma mark 归档持久化相关

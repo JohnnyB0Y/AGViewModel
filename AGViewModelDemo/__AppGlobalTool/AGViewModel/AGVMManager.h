@@ -162,13 +162,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 遍历
 /** 遍历所有 section */
-- (void) ag_enumerateSectionsUsingBlock:(void (NS_NOESCAPE ^)(AGVMSection *vms, NSUInteger idx, BOOL *stop))block;
+- (void) ag_enumerateSectionsUsingBlock:(void(NS_NOESCAPE^)(AGVMSection *vms, NSUInteger idx, BOOL *stop))block;
+
+/** 遍历 Range内的所有item */
+- (void) ag_enumerateSectionsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 /** 遍历所有 section 的 item */
-- (void) ag_enumerateSectionItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSIndexPath *indexPath, BOOL *stop))block;
+- (void) ag_enumerateSectionsItemUsingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSIndexPath *indexPath, BOOL *stop))block;
 
 /** 遍历所有 section 的 header、footer vm */
-- (void) ag_enumerateSectionHeaderFooterVMsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel *vm, NSIndexPath *indexPath, BOOL *stop))block;
+- (void) ag_enumerateSectionsHeaderFooterUsingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSIndexPath *indexPath, BOOL *stop))block;
 
 
 #pragma mark 归档持久化相关

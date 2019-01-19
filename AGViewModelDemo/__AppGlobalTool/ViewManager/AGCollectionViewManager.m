@@ -531,7 +531,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
     }
     
     // 加上 头尾视图
-    [self.vmm ag_enumerateSectionHeaderFooterVMsUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
+    [self.vmm ag_enumerateSectionsHeaderFooterUsingBlock:^(AGViewModel * _Nonnull vm, NSIndexPath * _Nonnull indexPath, BOOL * _Nonnull stop) {
         
         height += [vm ag_sizeOfBindingView].height;
         

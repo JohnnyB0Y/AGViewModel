@@ -68,7 +68,8 @@
 #pragma mark 设置绑定视图
 - (void) ag_setBindingView:(UIView<AGVMIncludable> *)bindingView
 {
-    [self ag_setBindingView:bindingView configDataBlock:nil];
+    // 这里为了性能考虑，不再判断 respondsToSelector:@selector(setViewModel:)
+    _bindingView = bindingView;
 }
 
 - (void) ag_setBindingView:(UIView<AGVMIncludable> *)bindingView
@@ -76,15 +77,6 @@
 {
     _bindingView        = bindingView;
     _configDataBlock    = [configDataBlock copy];
-    
-    // 判断 bv 是否实现方法
-    if (!_configDataBlock && [bindingView respondsToSelector:@selector(setViewModel:)])
-    {
-        _configDataBlock =
-        ^( AGViewModel *vm, UIView<AGVMIncludable> *bv, NSMutableDictionary *bm ){
-            [bv setViewModel:vm];
-        };
-    }
 }
 
 #pragma mark 设置绑定代理
@@ -207,10 +199,18 @@
 /** 刷新UI界面。*/
 - (void) ag_refreshUI
 {
-    if ( _configDataBlock && _bindingView.viewModel == self ) {
-        _configDataBlock( self, _bindingView, _bindingModel );
-        _refreshUITag = NO;
+    if ( _bindingView.viewModel != self ) {
+        return;
     }
+    
+    if ( _configDataBlock ) {
+        _configDataBlock( self, _bindingView, _bindingModel );
+    }
+    else {
+        [_bindingView setViewModel:self];
+    }
+    
+    _refreshUITag = NO;
 }
 
 /** 如果有“需要刷新UI”的标记，马上刷新界面。 */
@@ -299,7 +299,8 @@
 - (id)copyWithZone:(NSZone *)zone
 {
     AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
-    [vm ag_setBindingView:_bindingView configDataBlock:_configDataBlock];
+    vm->_bindingView = _bindingView;
+    vm->_configDataBlock = [_configDataBlock copy];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
     vm->_archivedDictM = [self->_archivedDictM mutableCopy];
     return vm;
@@ -308,7 +309,8 @@
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
     AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
-    [vm ag_setBindingView:_bindingView configDataBlock:_configDataBlock];
+    vm->_bindingView = _bindingView;
+    vm->_configDataBlock = [_configDataBlock copy];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
     vm->_archivedDictM = [self->_archivedDictM mutableCopy];
     return vm;
@@ -445,19 +447,28 @@
 #pragma mark - ----------- Setter Methods ----------
 - (void)setDelegate:(id<AGVMDelegate>)delegate
 {
-    _delegate = delegate;
-    
-    _responeMethod.ag_callDelegateToDoForInfo
-    = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForInfo:)];
-    
-    _responeMethod.ag_callDelegateToDoForViewModel
-    = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForViewModel:)];
-    
-    _responeMethod.ag_callDelegateToDoForAction
-    = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:)];
-    
-    _responeMethod.ag_callDelegateToDoForActionInfo
-    = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:info:)];
+    if ( _delegate != delegate ) {
+        _delegate = delegate;
+        
+        _responeMethod.ag_callDelegateToDoForInfo
+        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForInfo:)];
+        
+        _responeMethod.ag_callDelegateToDoForViewModel
+        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForViewModel:)];
+        
+        _responeMethod.ag_callDelegateToDoForAction
+        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:)];
+        
+        _responeMethod.ag_callDelegateToDoForActionInfo
+        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:info:)];
+    }
+}
+
+- (void)setIndexPath:(NSIndexPath *)indexPath
+{
+    if ( _indexPath != indexPath ) {
+        _indexPath = indexPath;
+    }
 }
 
 #pragma mark - ----------- Getter Methods ----------

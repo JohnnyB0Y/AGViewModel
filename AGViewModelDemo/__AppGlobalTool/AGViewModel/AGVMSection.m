@@ -618,6 +618,20 @@
     [self.itemArrM enumerateObjectsUsingBlock:block];
 }
 
+/** 遍历 Range内的所有item */
+- (void) ag_enumerateItemsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block
+{
+    AGAssertParameter(block);
+    if ( ! block ) return;
+    if ( range.location >= self.count ) return;
+    
+    if ( range.length > self.count - range.location ) {
+        range.length = self.count - range.location;
+    }
+    NSArray *subArr = [_itemArrM subarrayWithRange:range];
+    [subArr enumerateObjectsUsingBlock:block];
+}
+
 /** 遍历所有 section 的 header、footer vm */
 - (void) ag_enumerateHeaderFooterUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
