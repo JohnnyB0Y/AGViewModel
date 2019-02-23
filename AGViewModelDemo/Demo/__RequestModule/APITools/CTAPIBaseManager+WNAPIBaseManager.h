@@ -16,7 +16,4 @@
 /** 过滤器错误信息 */
 @property (nonatomic, strong) AGVerifyError *verifyError;
 
-/** vm */
-@property (nonatomic, strong) AGViewModel *viewModel;
-
 @end

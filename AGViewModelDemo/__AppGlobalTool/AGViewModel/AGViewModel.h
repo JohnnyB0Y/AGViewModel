@@ -6,7 +6,6 @@
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
 //  视图-模型 绑定
 
-#import <UIKit/UIKit.h>
 #import "AGVMKeys.h"
 #import "AGVMProtocol.h"
 
@@ -160,13 +159,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AGViewModel (AGWeakly)
 
 /** 添加弱引用的对象 */
-- (void)ag_setWeakRefObject:(nullable id)obj forKey:(NSString *)key;
+- (void)ag_setWeaklyObject:(nullable id)obj forKey:(NSString *)key;
 
 /** 获取弱引用的对象 */
-- (nullable id) ag_weakRefObjectForKey:(NSString *)key;
+- (nullable id) ag_weaklyObjectForKey:(NSString *)key;
 
 /** 移除弱引用的对象 */
-- (void) ag_removeWeakRefObjectForKey:(NSString *)key;
+- (void) ag_removeWeaklyObjectForKey:(NSString *)key;
 
 @end
 

@@ -11,17 +11,14 @@
 #import <CTNetworking.h>
 #import <UIImageView+AFNetworking.h>
 
-#import "AGBookDetailAPIManager.h"
-#import "AGBookHandleReformer.h"
+#import "AGBookAPICaller.h"
 #import "AGBookAPIKeys.h"
 
 @interface AGBookDetailViewController ()
 <CTAPIManagerParamSource, CTAPIManagerCallBackDelegate>
 
-/** 图书详情 */
-@property (nonatomic, strong) AGBookDetailAPIManager *bookDetailAPIManager;
-/**  */
-@property (nonatomic, strong) AGBookHandleReformer *bookHandleReformer;
+/** book api caller */
+@property (nonatomic, strong) AGBookAPICaller *bookAPICaller;
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -80,9 +77,9 @@
 {
     [SVProgressHUD dismiss];
     
-    if ( manager == _bookDetailAPIManager ) {
+    if ( manager == _bookAPICaller.detailAPIManager ) {
         // ...
-        AGViewModel *vm = [manager fetchDataWithReformer:self.bookHandleReformer];
+        AGViewModel *vm = [manager fetchDataWithReformer:self.bookAPICaller.handleReformer];
         
         NSString *title = [vm ag_safeStringForKey:ak_AGBook_title];
         NSURL *imageURL = [vm ag_safeURLForKey:ak_AGBook_image];
@@ -146,28 +143,19 @@
 #pragma mark network request
 - (void) _networkRequest
 {
-    self.bookDetailAPIManager.isbn = self.context[ak_AGBook_isbn];
+    self.bookAPICaller.detailAPIManager.isbn = self.context[ak_AGBook_isbn];
     [SVProgressHUD show];
-    [self.bookDetailAPIManager loadData];
+    [self.bookAPICaller.detailAPIManager loadData];
 }
 
 #pragma mark - ----------- Getter Methods ----------
-- (AGBookDetailAPIManager *)bookDetailAPIManager
+- (AGBookAPICaller *)bookAPICaller
 {
-    if (_bookDetailAPIManager == nil) {
-        _bookDetailAPIManager = [AGBookDetailAPIManager new];
-        _bookDetailAPIManager.delegate = self;
-        _bookDetailAPIManager.paramSource = self;
+    if (_bookAPICaller == nil) {
+        _bookAPICaller = [AGBookAPICaller newWithAPIDelegate:self];
     }
-    return _bookDetailAPIManager;
+    return _bookAPICaller;
 }
 
-- (AGBookHandleReformer *)bookHandleReformer
-{
-    if (_bookHandleReformer == nil) {
-        _bookHandleReformer = [AGBookHandleReformer new];
-    }
-    return _bookHandleReformer;
-}
 
 @end

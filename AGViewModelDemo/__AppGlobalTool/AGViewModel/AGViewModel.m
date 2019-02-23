@@ -806,19 +806,19 @@
 static NSString * const kAGViewModelStrongToWeakMapTable = @"kAGViewModelStrongToWeakMapTable";
 @implementation AGViewModel (AGWeakly)
 
-- (void)ag_setWeakRefObject:(id)obj forKey:(NSString *)key
+- (void)ag_setWeaklyObject:(id)obj forKey:(NSString *)key
 {
     AGAssertParameter(key);
     [[self _strongToWeakMapTable] setObject:obj forKey:key];
 }
 
-- (void)ag_removeWeakRefObjectForKey:(NSString *)key
+- (void)ag_removeWeaklyObjectForKey:(NSString *)key
 {
     AGAssertParameter(key);
     [[self _strongToWeakMapTable] removeObjectForKey:key];
 }
 
-- (id)ag_weakRefObjectForKey:(NSString *)key
+- (id)ag_weaklyObjectForKey:(NSString *)key
 {
     AGAssertParameter(key);
     return [[self _strongToWeakMapTable] objectForKey:key];

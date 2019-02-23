@@ -10,7 +10,6 @@
 #import <objc/runtime.h>
 
 static void *kWNAPIBaseManagerVerifyError = &kWNAPIBaseManagerVerifyError;
-static void *kWNAPIBaseManagerViewModel = &kWNAPIBaseManagerViewModel;
 
 @implementation CTAPIBaseManager (WNAPIBaseManager)
 
@@ -22,16 +21,6 @@ static void *kWNAPIBaseManagerViewModel = &kWNAPIBaseManagerViewModel;
 - (AGVerifyError *)verifyError
 {
     return objc_getAssociatedObject(self, kWNAPIBaseManagerVerifyError);
-}
-
-- (void)setViewModel:(AGViewModel *)viewModel
-{
-    objc_setAssociatedObject(self, kWNAPIBaseManagerViewModel, viewModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (AGViewModel *)viewModel
-{
-    return objc_getAssociatedObject(self, kWNAPIBaseManagerViewModel);
 }
 
 @end

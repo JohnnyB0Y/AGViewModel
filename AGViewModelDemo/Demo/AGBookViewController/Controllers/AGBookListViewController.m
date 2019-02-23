@@ -19,8 +19,7 @@
 #import "AGSwitchControl.h"
 
 #import "AGBookListCell.h"
-#import "AGBookListAPIManager.h"
-#import "AGBookListAPIReformer.h"
+#import "AGBookAPICaller.h"
 #import "AGBookAPIKeys.h"
 
 
@@ -33,11 +32,8 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 @property (nonatomic, strong) AGTableViewManager *tableViewManager1;
 @property (nonatomic, strong) AGTableViewManager *tableViewManager2;
 
-/** 图书列表 */
-@property (nonatomic, strong) AGBookListAPIManager *bookListAPIManager;
-
-/** 图书列表数据过滤器 */
-@property (nonatomic, strong) AGBookListAPIReformer *bookListAPIReformer;
+/** book api caller */
+@property (nonatomic, strong) AGBookAPICaller *bookAPICaller;
 
 /** switch control */
 @property (nonatomic, strong) AGSwitchControl *switchControl;
@@ -71,7 +67,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     [SVProgressHUD dismiss];
     
     // 取消挂起的网络请求
-    [_bookListAPIManager cancelAllRequests];
+    [self.bookAPICaller cancelAllRequests];
     
     // 移除通知监听
 //    [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -88,7 +84,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 {
     NSMutableDictionary *paramM = ag_newNSMutableDictionary(5);
     
-    if ( manager == _bookListAPIManager ) {
+    if ( manager == self.bookAPICaller.listAPIManager ) {
         // ... q={}&count={}&start={}
         
         AGViewModel *vm = self.itemsData[self.switchControl.currentIndex];
@@ -107,18 +103,18 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 {
     [SVProgressHUD dismiss];
     
-    if ( manager == _bookListAPIManager ) {
+    if ( manager == self.bookAPICaller.listAPIManager ) {
         // ...
         NSInteger index = [manager.response.originRequestParams[kAGVMIndex] integerValue];
         AGViewModel *vm = self.itemsData[index];
-        AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
+        AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
         
-        AGVMManager *vmm = [manager fetchDataWithReformer:self.bookListAPIReformer];
+        AGVMManager *vmm = [manager fetchDataWithReformer:self.bookAPICaller.listReformer];
         
         NSLog(@"%ld - %@ - count:%ld", index, vm[kAGVMTitleText], vmm.fs.count);
         
         AGVMManager *cache = vm[kAGVMManager];
-        if ( self.bookListAPIManager.isFirstPage ) { // 第一页数据
+        if ( self.bookAPICaller.listAPIManager.isFirstPage ) { // 第一页数据
             cache = [vmm copy];
             vm[kAGVMManager] = cache; // 缓存到vm
         }
@@ -144,7 +140,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     
     NSInteger index = [manager.response.originRequestParams[kAGVMIndex] integerValue];
     AGViewModel *vm = self.itemsData[index];
-    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
     // 停止刷新
     [tvm stopRefresh];
 }
@@ -183,7 +179,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
      viewForDetailItemAtIndex:(NSInteger)index
 {
     AGViewModel *vm = self.itemsData[index];
-    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
     return tvm.view;
 }
 
@@ -216,7 +212,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 - (void) rightBarButtonItemClick:(UIBarButtonItem *)item
 {
     AGViewModel *vm = self.itemsData[self.switchControl.currentIndex];
-    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
     
     // 保存图书列表
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tvm.vmm];
@@ -286,7 +282,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         
         if ( [change[NSKeyValueChangeNewKey] boolValue] ) {
             AGViewModel *itemModel = self.itemsData[self.switchControl.currentIndex];
-            AGTableViewManager *tvm = [itemModel ag_weakRefObjectForKey:kAGVMObject];
+            AGTableViewManager *tvm = [itemModel ag_weaklyObjectForKey:kAGVMObject];
             [tvm deleteViewModels:@[data] withRowAnimation:UITableViewRowAnimationNone];
             
             // 更新缓存数据
@@ -303,11 +299,11 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     if ( NO == hasCachedData ) {
         // 刷新数据
         if ( animation ) {
-            AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
+            AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
             [tvm startRefresh];
         }
         else {
-            [self.bookListAPIManager loadData];
+            [self.bookAPICaller.listAPIManager loadData];
         }
     }
 }
@@ -315,7 +311,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 - (BOOL) _resetTableViewManagerCachedDataIfNeedsWithViewModel:(AGViewModel *)vm
 {
     AGVMManager *vmm = vm[kAGVMManager];
-    AGTableViewManager *tvm = [vm ag_weakRefObjectForKey:kAGVMObject];
+    AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
     if ( vmm.fs.count > 0 ) {
         // 赋值数据
         [tvm handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
@@ -377,14 +373,14 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     self.tableViewManager.headerRefreshingBlock = ^{
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
-            [self.bookListAPIManager loadData];
+            [self.bookAPICaller.listAPIManager loadData];
         }
     };
 
     self.tableViewManager.footerRefreshingBlock = ^{
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
-            [self.bookListAPIManager loadNextPage];
+            [self.bookAPICaller.listAPIManager loadNextPage];
         }
     };
 
@@ -476,22 +472,12 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     return _tableViewManager2;
 }
 
-- (AGBookListAPIManager *)bookListAPIManager
+- (AGBookAPICaller *)bookAPICaller
 {
-    if (_bookListAPIManager == nil) {
-        _bookListAPIManager = [AGBookListAPIManager new];
-        _bookListAPIManager.delegate = self;
-        _bookListAPIManager.paramSource = self;
+    if (_bookAPICaller == nil) {
+        _bookAPICaller = [AGBookAPICaller newWithAPIDelegate:self];
     }
-    return _bookListAPIManager;
-}
-
-- (AGBookListAPIReformer *)bookListAPIReformer
-{
-    if (_bookListAPIReformer == nil) {
-        _bookListAPIReformer = [AGBookListAPIReformer new];
-    }
-    return _bookListAPIReformer;
+    return _bookAPICaller;
 }
 
 - (AGVMSection *)itemsData
@@ -514,7 +500,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
                 package[kAGVMTitleText] = titles[i];
                 
                 id viewManager = listViewManagers[i % listViewManagers.count];
-                [package ag_setWeakRefObject:viewManager forKey:kAGVMObject];
+                [package ag_setWeaklyObject:viewManager forKey:kAGVMObject];
             }];
         }
         
