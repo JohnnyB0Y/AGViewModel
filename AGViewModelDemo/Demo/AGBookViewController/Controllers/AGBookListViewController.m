@@ -146,7 +146,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 }
 
 #pragma mark - AGVMDelegate 你点击了图书封面
-- (void)ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(SEL)action
+- (void)ag_viewModel:(AGViewModel *)vm handleAction:(SEL)action
 {
     if ([vm.bindingView isKindOfClass:[AGBookListCell class]] ) { // 1. 判断是哪个cell
         if ( sel_isEqual(@selector(coverImageViewTap:), action) ) { // 2. 判断是哪个方法签名

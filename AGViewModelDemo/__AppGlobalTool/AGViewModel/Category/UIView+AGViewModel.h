@@ -11,7 +11,7 @@
 #import "AGVMProtocol.h"
 
 @interface UIView (AGViewModel)
-<AGVMIncludable>
+<AGVMResponsive>
 
 @property(nonatomic, assign) CGFloat width;
 @property(nonatomic, assign) CGFloat height;

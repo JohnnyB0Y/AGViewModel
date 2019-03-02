@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AGViewModel : NSObject
 <NSCopying, NSMutableCopying, NSSecureCoding, AGVMJSONTransformable>
 
-@property (nonatomic, weak,   readonly, nullable) UIView<AGVMIncludable> *bindingView;
+@property (nonatomic, weak,   readonly, nullable) UIView<AGVMResponsive> *bindingView;
 @property (nonatomic, strong, readonly) NSMutableDictionary *bindingModel;
 
 @property (nonatomic, weak, nullable) id<AGVMDelegate> delegate;
@@ -23,11 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 设置绑定视图
 /** 自定义更新绑定视图 */
-- (void) ag_setBindingView:(UIView<AGVMIncludable> *)bindingView
+- (void) ag_setBindingView:(UIView<AGVMResponsive> *)bindingView
            configDataBlock:(nullable AGVMConfigDataBlock)configDataBlock;
 
 /** 默认更新绑定视图（ 其实就是调用 bindingView 的 @selector(setViewModel:) 方法 ）*/
-- (void) ag_setBindingView:(nullable UIView<AGVMIncludable> *)bindingView;
+- (void) ag_setBindingView:(nullable UIView<AGVMResponsive> *)bindingView;
 
 
 #pragma mark 绑定视图可以计算自己的Size，并提供给外界使用。
@@ -35,10 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGSize) ag_sizeOfBindingView;
 
 /** 直接传进去计算并返回视图Size，如果有“需要缓存的视图Size”的标记，重新计算并缓存。*/
-- (CGSize) ag_sizeForBindingView:(UIView<AGVMIncludable> *)bv;
+- (CGSize) ag_sizeForBindingView:(UIView<AGVMResponsive> *)bv;
 
 /** 计算并缓存绑定视图的Size */
-- (CGSize) ag_cachedSizeByBindingView:(UIView<AGVMIncludable> *)bv;
+- (CGSize) ag_cachedSizeByBindingView:(UIView<AGVMResponsive> *)bv;
 
 /** 对“需要缓存的视图Size”进行标记；当调用获取视图Size的方法时，从视图中取。*/
 - (void) ag_setNeedsCachedBindingViewSize;
@@ -53,10 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
            forIndexPath:(nullable NSIndexPath *)indexPath;
 
 #pragma mark 通知 delegate 根据信息或类型做某事（ 让 view 传递信息给 controller ）
-- (void) ag_callDelegateToDoForInfo:(nullable NSDictionary *)info;
-- (void) ag_callDelegateToDoForViewModel:(nullable AGViewModel *)info;
-- (void) ag_callDelegateToDoForAction:(nullable SEL)action;
-- (void) ag_callDelegateToDoForAction:(nullable SEL)action info:(nullable AGViewModel *)info;
+- (void) ag_makeDelegateHandleAction:(nullable SEL)action;
+- (void) ag_makeDelegateHandleAction:(nullable SEL)action info:(nullable AGViewModel *)info;
 
 
 #pragma mark 更新数据、刷新视图

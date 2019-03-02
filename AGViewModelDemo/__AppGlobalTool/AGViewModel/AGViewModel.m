@@ -22,8 +22,6 @@
     AGVMConfigDataBlock _configDataBlock;
     
     struct AGResponeMethods {
-        unsigned int ag_callDelegateToDoForInfo         : 1;
-        unsigned int ag_callDelegateToDoForViewModel    : 1;
         unsigned int ag_callDelegateToDoForAction       : 1;
         unsigned int ag_callDelegateToDoForActionInfo   : 1;
     } _responeMethod;
@@ -66,13 +64,13 @@
 
 #pragma mark - ---------- Public Methods ----------
 #pragma mark 设置绑定视图
-- (void) ag_setBindingView:(UIView<AGVMIncludable> *)bindingView
+- (void) ag_setBindingView:(UIView<AGVMResponsive> *)bindingView
 {
     // 这里为了性能考虑，不再判断 respondsToSelector:@selector(setViewModel:)
     _bindingView = bindingView;
 }
 
-- (void) ag_setBindingView:(UIView<AGVMIncludable> *)bindingView
+- (void) ag_setBindingView:(UIView<AGVMResponsive> *)bindingView
            configDataBlock:(AGVMConfigDataBlock)configDataBlock
 {
     _bindingView        = bindingView;
@@ -100,7 +98,7 @@
     return CGSizeMake(width, height);
 }
 
-- (CGSize) ag_sizeForBindingView:(UIView<AGVMIncludable> *)bv
+- (CGSize) ag_sizeForBindingView:(UIView<AGVMResponsive> *)bv
 {
     if ( _cachedBindingViewSizeTag ) {
         return [self ag_cachedSizeByBindingView:bv];
@@ -109,8 +107,8 @@
     CGFloat height = [self[kAGVMViewH] floatValue];
     CGFloat width = [self[kAGVMViewW] floatValue];
     CGSize bvSize = CGSizeMake(width, height);
-    if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
-        return [bv ag_viewModel:self sizeForBindingView:[UIScreen mainScreen]];
+    if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForLayout:)] ) {
+        return [bv ag_viewModel:self sizeForLayout:[UIScreen mainScreen]];
     }
     else {
         NSAssert(NO, @"绑定视图未实现 AGVMIncludable 协议方法：ag_viewModel:sizeForBindingView:");
@@ -119,7 +117,7 @@
 }
 
 /** 计算并缓存绑定视图的Size */
-- (CGSize) ag_cachedSizeByBindingView:(UIView<AGVMIncludable> *)bv
+- (CGSize) ag_cachedSizeByBindingView:(UIView<AGVMResponsive> *)bv
 {
     // old bv size
     CGFloat height = [self[kAGVMViewH] floatValue];
@@ -131,9 +129,9 @@
         return bvSize;
     }
     
-    if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForBindingView:)] ) {
+    if ( [bv respondsToSelector:@selector(ag_viewModel:sizeForLayout:)] ) {
         // new bv size
-        bvSize = [bv ag_viewModel:self sizeForBindingView:[UIScreen mainScreen]];
+        bvSize = [bv ag_viewModel:self sizeForLayout:[UIScreen mainScreen]];
         // cache size
         if ( height != bvSize.height ) {
             self[kAGVMViewH] = @(bvSize. height);
@@ -251,46 +249,24 @@
 }
 
 #pragma mark Other method.
-- (void)ag_callDelegateToDoForInfo:(NSDictionary *)info
-{
-    if ( _responeMethod.ag_callDelegateToDoForInfo ) {
-        [_delegate ag_viewModel:self callDelegateToDoForInfo:info];
-    }
-    else {
-        SEL sel = @selector(ag_viewModel:callDelegateToDoForInfo:);
-        NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
-    }
-}
-
-- (void)ag_callDelegateToDoForViewModel:(AGViewModel *)info
-{
-    if ( _responeMethod.ag_callDelegateToDoForViewModel ) {
-        [_delegate ag_viewModel:self callDelegateToDoForViewModel:info];
-    }
-    else {
-        SEL sel = @selector(ag_viewModel:callDelegateToDoForViewModel:);
-        NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
-    }
-}
-
-- (void)ag_callDelegateToDoForAction:(SEL)action
+- (void)ag_makeDelegateHandleAction:(SEL)action
 {
     if ( _responeMethod.ag_callDelegateToDoForAction ) {
-        [_delegate ag_viewModel:self callDelegateToDoForAction:action];
+        [_delegate ag_viewModel:self handleAction:action];
     }
     else {
-        SEL sel = @selector(ag_viewModel:callDelegateToDoForAction:);
+        SEL sel = @selector(ag_viewModel:handleAction:);
         NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
     }
 }
 
-- (void)ag_callDelegateToDoForAction:(SEL)action info:(AGViewModel *)info
+- (void)ag_makeDelegateHandleAction:(SEL)action info:(AGViewModel *)info
 {
     if ( _responeMethod.ag_callDelegateToDoForActionInfo ) {
-        [_delegate ag_viewModel:self callDelegateToDoForAction:action info:info];
+        [_delegate ag_viewModel:self handleAction:action info:info];
     }
     else {
-        SEL sel = @selector(ag_viewModel:callDelegateToDoForAction:info:);
+        SEL sel = @selector(ag_viewModel:handleAction:info:);
         NSLog(@"Delegate not implementation %@!", NSStringFromSelector(sel));
     }
 }
@@ -450,17 +426,11 @@
     if ( _delegate != delegate ) {
         _delegate = delegate;
         
-        _responeMethod.ag_callDelegateToDoForInfo
-        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForInfo:)];
-        
-        _responeMethod.ag_callDelegateToDoForViewModel
-        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForViewModel:)];
-        
         _responeMethod.ag_callDelegateToDoForAction
-        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:)];
+        = [_delegate respondsToSelector:@selector(ag_viewModel:handleAction:)];
         
         _responeMethod.ag_callDelegateToDoForActionInfo
-        = [_delegate respondsToSelector:@selector(ag_viewModel:callDelegateToDoForAction:info:)];
+        = [_delegate respondsToSelector:@selector(ag_viewModel:handleAction:info:)];
     }
 }
 

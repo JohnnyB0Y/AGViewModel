@@ -36,7 +36,7 @@
     NSLog(@"%@: 我什么都没有做!", self);
 }
 
-- (CGFloat) estimateHeightWithItem:(UIView<AGVMIncludable> *)item
+- (CGFloat) estimateHeightWithItem:(UIView<AGVMResponsive> *)item
 {
     NSLog(@"%@: 我什么都没有做!", self);
     return 0.;

@@ -128,13 +128,13 @@ typedef NS_ENUM(NSUInteger, AGCollectionLayoutDirection) {
  @param indexPath 位置
  @return 对应cell 的Class
  */
-- (Class<AGVMIncludable, AGCollectionCellReusable>) collectionViewManager:(AGCollectionViewManager *)manager
+- (Class<AGVMResponsive, AGCollectionCellReusable>) collectionViewManager:(AGCollectionViewManager *)manager
                                                   classForItemAtIndexPath:(NSIndexPath *)indexPath;
 
-- (Class<AGVMIncludable, AGCollectionHeaderViewReusable>) collectionViewManager:(AGCollectionViewManager *)manager
+- (Class<AGVMResponsive, AGCollectionHeaderViewReusable>) collectionViewManager:(AGCollectionViewManager *)manager
                                                   classForHeaderViewAtIndexPath:(NSIndexPath *)indexPath;
 
-- (Class<AGVMIncludable, AGCollectionFooterViewReusable>) collectionViewManager:(AGCollectionViewManager *)manager
+- (Class<AGVMResponsive, AGCollectionFooterViewReusable>) collectionViewManager:(AGCollectionViewManager *)manager
                                                   classForFooterViewAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

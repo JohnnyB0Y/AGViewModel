@@ -173,13 +173,13 @@ AGTableViewManagerScrollDelegate;
  @param indexPath 位置
  @return 对应cell 的Class
  */
-- (Class<AGVMIncludable, AGTableCellReusable>) tableViewManager:(AGTableViewManager *)manager
+- (Class<AGVMResponsive, AGTableCellReusable>) tableViewManager:(AGTableViewManager *)manager
                                         classForItemAtIndexPath:(NSIndexPath *)indexPath;
 
-- (Class<AGVMIncludable, AGTableHeaderFooterViewReusable>) tableViewManager:(AGTableViewManager *)manager
+- (Class<AGVMResponsive, AGTableHeaderFooterViewReusable>) tableViewManager:(AGTableViewManager *)manager
                                               classForHeaderViewAtIndexPath:(NSIndexPath *)indexPath;
 
-- (Class<AGVMIncludable, AGTableHeaderFooterViewReusable>) tableViewManager:(AGTableViewManager *)manager
+- (Class<AGVMResponsive, AGTableHeaderFooterViewReusable>) tableViewManager:(AGTableViewManager *)manager
                                               classForFooterViewAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

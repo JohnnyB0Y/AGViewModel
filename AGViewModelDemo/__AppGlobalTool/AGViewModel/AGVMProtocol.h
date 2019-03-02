@@ -11,7 +11,7 @@
 
 #import <UIKit/UIKit.h>
 @class AGViewModel, AGVMSection;
-@protocol AGVMIncludable;
+@protocol AGVMResponsive;
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -36,7 +36,7 @@ typedef void (^AGVMTargetVCBlock)
 typedef void(^AGVMConfigDataBlock)
 (
     AGViewModel *vm,
-    UIView<AGVMIncludable> *bv,
+    UIView<AGVMResponsive> *bv,
     NSMutableDictionary *bm
 );
 
@@ -197,8 +197,8 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 @end
 
 
-#pragma mark AGViewModelIncludable
-@protocol AGVMIncludable <NSObject>
+#pragma mark AGVMResponsive
+@protocol AGVMResponsive <NSObject>
 @required
 /** 持有的 viewModel */
 @property (nonatomic, strong, nullable) AGViewModel *viewModel;
@@ -211,25 +211,21 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
  @param screen mainScreen
  @return 计算后的 Size
  */
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen;
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen;
 
 @end
 
-#pragma mark AGViewModelDelegate
+#pragma mark AGVMDelegate
 @protocol AGVMDelegate <NSObject>
 
 /**
- 通过 viewModel 的 @selector(ag_callDelegateToDoForInfo:)          方法通知 delegate 做事。
- 通过 viewModel 的 @selector(ag_callDelegateToDoForViewModel:)     方法通知 delegate 做事。
- 通过 viewModel 的 @selector(ag_callDelegateToDoForAction:)        方法通知 delegate 做事。
- 通过 viewModel 的 @selector(ag_callDelegateToDoForAction:info:)   方法通知 delegate 做事。
+ 通过 viewModel 的 @selector(ag_makeDelegateHandleAction:)        方法通知 delegate 做事。
+ 通过 viewModel 的 @selector(ag_makeDelegateHandleAction:info:)   方法通知 delegate 做事。
  */
 
 @optional
-- (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForInfo:(nullable NSDictionary *)info;
-- (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForViewModel:(nullable AGViewModel *)info;
-- (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(nullable SEL)action;
-- (void) ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(nullable SEL)action info:(nullable AGViewModel *)info;
+- (void) ag_viewModel:(AGViewModel *)vm handleAction:(nullable SEL)action;
+- (void) ag_viewModel:(AGViewModel *)vm handleAction:(nullable SEL)action info:(nullable AGViewModel *)info;
 
 @end
 

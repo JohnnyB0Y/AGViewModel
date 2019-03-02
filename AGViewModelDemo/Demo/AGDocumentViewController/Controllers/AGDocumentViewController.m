@@ -68,7 +68,7 @@
 }
 
 #pragma mark - AGVMDelegate
-- (void)ag_viewModel:(AGViewModel *)vm callDelegateToDoForAction:(SEL)action
+- (void)ag_viewModel:(AGViewModel *)vm handleAction:(SEL)action
 {
     UITableView *tableView = self.tableViewManager.view;
     if ([vm.bindingView isKindOfClass:[GZPSItemHeaderView class]] ) {

@@ -60,7 +60,7 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 
 - (CGFloat)width
 {
-    return self.frame.size.width;
+    return CGRectGetWidth(self.frame);
 }
 
 - (void)setWidth:(CGFloat)width
@@ -71,7 +71,7 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 
 - (CGFloat)height
 {
-    return self.frame.size.height;
+    return CGRectGetHeight(self.frame);
 }
 
 - (void)setHeight:(CGFloat)height

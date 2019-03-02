@@ -34,7 +34,7 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
     CGSize bvS = CGSizeMake(screen.width, 0);
     // 计算视图size
@@ -77,7 +77,7 @@
 - (void) coverImageViewTap:(UITapGestureRecognizer *)tap
 {
     // 传递消息给控制器
-    [self.viewModel ag_callDelegateToDoForAction:_cmd];
+    [self.viewModel ag_makeDelegateHandleAction:_cmd];
 }
 
 

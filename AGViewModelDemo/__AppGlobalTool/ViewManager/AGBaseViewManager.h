@@ -77,6 +77,6 @@ typedef void(^ATVMManagerHandleBlock)
  @param item view
  @return 高度
  */
-- (CGFloat) estimateHeightWithItem:(UIView<AGVMIncludable> *)item;
+- (CGFloat) estimateHeightWithItem:(UIView<AGVMResponsive> *)item;
 
 @end

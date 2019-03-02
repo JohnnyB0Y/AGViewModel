@@ -176,7 +176,7 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                            cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell<AGVMIncludable> *cell;
+    UICollectionViewCell<AGVMResponsive> *cell;
     if ( collectionView == _titleSwitchView ) {
         // 标题
         AGViewModel *vm = [self.dataSource ag_switchControl:self viewModelForTitleItemAtIndex:indexPath.row];

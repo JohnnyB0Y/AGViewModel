@@ -30,7 +30,7 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
     return CGSizeMake(100, 90);
 }

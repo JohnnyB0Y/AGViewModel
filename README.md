@@ -71,7 +71,7 @@ end
 }
 
 // 计算返回自己的 Size
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(UIScreen *)screen
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
   // size
   
@@ -79,6 +79,25 @@ end
 ```
 
 ### 还能能做什么？
+#### 把视图的各种用户操作传递给代理处理（一般都是Controller）
+- 传递事件
+- 参考Demo 中点击书本封面
+
+```objective-c
+@protocol AGVMDelegate <NSObject>
+
+/**
+ 通过 viewModel 的 @selector(ag_makeDelegateHandleAction:)        方法通知 delegate 做事。
+ 通过 viewModel 的 @selector(ag_makeDelegateHandleAction:info:)   方法通知 delegate 做事。
+ */
+
+@optional
+- (void) ag_viewModel:(AGViewModel *)vm handleAction:(nullable SEL)action;
+- (void) ag_viewModel:(AGViewModel *)vm handleAction:(nullable SEL)action info:(nullable AGViewModel *)info;
+
+@end
+```
+
 #### 作为本级控制器与下级控制器之间的桥梁
 - 传递数据
 - 参考Demo 中删除书本

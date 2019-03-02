@@ -31,7 +31,7 @@
 }
 
 #pragma mark - ----------- AGViewModelIncludable -----------
-- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForBindingView:(nonnull UIScreen *)screen
+- (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(nonnull UIScreen *)screen
 {
     NSString *title = vm[kAGVMTitleText];
     NSString *edgeStr = vm[kAGVMViewEdgeInsets];

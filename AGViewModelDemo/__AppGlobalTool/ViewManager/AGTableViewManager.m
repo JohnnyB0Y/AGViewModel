@@ -96,7 +96,7 @@ itemClickBlock = _itemClickBlock;
     cellClass = cls ?: cellClass;
     
     // dequeue cell
-    UITableViewCell<AGVMIncludable> *cell = [cellClass ag_dequeueCellBy:tableView for:indexPath];
+    UITableViewCell<AGVMResponsive> *cell = [cellClass ag_dequeueCellBy:tableView for:indexPath];
     NSAssert(cell, @"AGTableViewManager error: tableViewCell can not be nil!");
     
     // setup cell
@@ -147,7 +147,7 @@ itemClickBlock = _itemClickBlock;
     headerClass = cls ?: headerClass;
     
     // dequeue header view
-    UITableViewHeaderFooterView<AGVMIncludable> *headerView;
+    UITableViewHeaderFooterView<AGVMResponsive> *headerView;
     if ( headerClass ) {
         headerView = [headerClass ag_dequeueHeaderFooterViewBy:tableView];
         /** 断点在这!!!
@@ -197,7 +197,7 @@ itemClickBlock = _itemClickBlock;
     footerClass = cls ?: footerClass;
     
     // dequeue footer view
-    UITableViewHeaderFooterView<AGVMIncludable> *footerView;
+    UITableViewHeaderFooterView<AGVMResponsive> *footerView;
     if ( footerClass ) {
         footerView = [footerClass ag_dequeueHeaderFooterViewBy:tableView];
         /** 断点在这!!!
@@ -311,7 +311,7 @@ itemClickBlock = _itemClickBlock;
     }];
 }
 
-- (CGFloat) estimateHeightWithItem:(UIView<AGVMIncludable> *)item
+- (CGFloat) estimateHeightWithItem:(UIView<AGVMResponsive> *)item
 {
     __block CGFloat height = 0;
     [self.vmm ag_enumerateSectionsUsingBlock:^(AGVMSection * _Nonnull vms, NSUInteger idx, BOOL * _Nonnull stop) {

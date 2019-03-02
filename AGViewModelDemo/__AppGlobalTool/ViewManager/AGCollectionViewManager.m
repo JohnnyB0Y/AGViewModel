@@ -135,7 +135,7 @@ itemClickBlock = _itemClickBlock;
     cellClass = cls ?: cellClass;
     
     // dequeue cell
-    UICollectionViewCell<AGVMIncludable> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
+    UICollectionViewCell<AGVMResponsive> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
     
     NSAssert(cell, @"AGCollectionViewManager error: collectionViewCell can not be nil!");
     
@@ -147,7 +147,7 @@ itemClickBlock = _itemClickBlock;
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionReusableView<AGVMIncludable> *supplementary;
+    UICollectionReusableView<AGVMResponsive> *supplementary;
     AGViewModel *vm;
     
     if ( kind == UICollectionElementKindSectionHeader ) {

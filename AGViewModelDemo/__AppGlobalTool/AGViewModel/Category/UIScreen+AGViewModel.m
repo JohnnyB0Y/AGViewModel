@@ -13,12 +13,12 @@
 #pragma mark - ----------- Getter Methods ----------
 - (CGFloat)width
 {
-    return self.bounds.size.width;
+    return CGRectGetWidth(self.bounds);
 }
 
 - (CGFloat)height
 {
-    return self.bounds.size.height;
+    return CGRectGetHeight(self.bounds);
 }
 
 - (UIDeviceOrientation)deviceOrientation

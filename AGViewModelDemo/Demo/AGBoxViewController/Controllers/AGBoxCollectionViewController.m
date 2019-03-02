@@ -85,7 +85,7 @@
     AGViewModel *vm = self.boxVMGenerator.boxVMManager[indexPath.section][indexPath.row];
     
     Class<AGCollectionCellReusable> cellClass = vm[kAGVMViewClass];
-    UICollectionViewCell<AGVMIncludable> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
+    UICollectionViewCell<AGVMResponsive> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
     
     [cell setViewModel:vm];
     [vm ag_setBindingView:cell];

@@ -56,7 +56,7 @@
 - (void) cellTap:(UITapGestureRecognizer *)tap
 {
     _cellTap = _cmd;
-    [self.viewModel ag_callDelegateToDoForAction:_cmd];
+    [self.viewModel ag_makeDelegateHandleAction:_cmd];
 }
 
 #pragma mark - ---------- Private Methods ----------
