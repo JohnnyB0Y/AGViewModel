@@ -96,7 +96,7 @@ itemClickBlock = _itemClickBlock;
     cellClass = cls ?: cellClass;
     
     // dequeue cell
-    UITableViewCell<AGVMResponsive> *cell = [cellClass ag_dequeueCellBy:tableView for:indexPath];
+    UITableViewCell<AGVMResponsive> *cell = [tableView ag_dequeueCellWithClass:cellClass for:indexPath];
     NSAssert(cell, @"AGTableViewManager error: tableViewCell can not be nil!");
     
     // setup cell
@@ -149,7 +149,7 @@ itemClickBlock = _itemClickBlock;
     // dequeue header view
     UITableViewHeaderFooterView<AGVMResponsive> *headerView;
     if ( headerClass ) {
-        headerView = [headerClass ag_dequeueHeaderFooterViewBy:tableView];
+        headerView = [tableView ag_dequeueHeaderFooterViewWithClass:headerClass];
         /** 断点在这!!!
          1.headerView 是否已注册。
          2.headerView 是否正确实现 AGTableHeaderFooterViewReusable 协议。
@@ -199,7 +199,7 @@ itemClickBlock = _itemClickBlock;
     // dequeue footer view
     UITableViewHeaderFooterView<AGVMResponsive> *footerView;
     if ( footerClass ) {
-        footerView = [footerClass ag_dequeueHeaderFooterViewBy:tableView];
+        footerView = [tableView ag_dequeueHeaderFooterViewWithClass:footerClass];
         /** 断点在这!!!
          1.footerView 是否已注册。
          2.footerView 是否正确实现 AGTableHeaderFooterViewReusable 协议。

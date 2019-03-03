@@ -114,8 +114,8 @@ typedef BOOL (^AGVMFilterBlock)(AGViewModel *vm);
 typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 
 #pragma mark - ------------- ViewModel 相关协议 --------------
-#pragma mark BaseReusable Protocol
-@protocol AGBaseReusable <NSObject>
+#pragma mark AGViewReusable Protocol
+@protocol AGViewReusable <NSObject>
 @required
 + (NSString *) ag_reuseIdentifier;
 
@@ -125,42 +125,38 @@ typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
 @end
 
 #pragma mark CollectionViewCell Protocol
-@protocol AGCollectionCellReusable <AGBaseReusable>
+@protocol AGCollectionCellReusable <AGViewReusable>
 @required
 + (void) ag_registerCellBy:(UICollectionView *)collectionView;
-+ (__kindof UICollectionViewCell *) ag_dequeueCellBy:(UICollectionView *)collectionView
-                                                 for:(nullable NSIndexPath *)indexPath;
++ (instancetype) ag_dequeueCellBy:(UICollectionView *)collectionView for:(NSIndexPath *)indexPath;
 @end
 
 #pragma mark HeaderViewReusable Protocol
-@protocol AGCollectionHeaderViewReusable <AGBaseReusable>
+@protocol AGCollectionHeaderViewReusable <AGViewReusable>
 @required
 + (void) ag_registerHeaderViewBy:(UICollectionView *)collectionView;
-+ (__kindof UICollectionReusableView *) ag_dequeueHeaderViewBy:(UICollectionView *)collectionView
-                                                           for:(nullable NSIndexPath *)indexPath;
++ (instancetype) ag_dequeueHeaderViewBy:(UICollectionView *)collectionView for:(NSIndexPath *)indexPath;
 @end
 
 #pragma mark FooterViewReusable Protocol
-@protocol AGCollectionFooterViewReusable <AGBaseReusable>
+@protocol AGCollectionFooterViewReusable <AGViewReusable>
 @required
 + (void) ag_registerFooterViewBy:(UICollectionView *)collectionView;
-+ (__kindof UICollectionReusableView *) ag_dequeueFooterViewBy:(UICollectionView *)collectionView
-                                                           for:(nullable NSIndexPath *)indexPath;
++ (instancetype) ag_dequeueFooterViewBy:(UICollectionView *)collectionView for:(NSIndexPath *)indexPath;
 @end
 
 #pragma mark TableViewCell Protocol
-@protocol AGTableCellReusable <AGBaseReusable>
+@protocol AGTableCellReusable <AGViewReusable>
 @required
 + (void) ag_registerCellBy:(UITableView *)tableView;
-+ (__kindof UITableViewCell *) ag_dequeueCellBy:(UITableView *)tableView
-                                            for:(nullable NSIndexPath *)indexPath;
++ (instancetype) ag_dequeueCellBy:(UITableView *)tableView for:(nullable NSIndexPath *)indexPath;
 @end
 
 #pragma mark HeaderFooterViewReusable Protocol
-@protocol AGTableHeaderFooterViewReusable <AGBaseReusable>
+@protocol AGTableHeaderFooterViewReusable <AGViewReusable>
 @required
 + (void) ag_registerHeaderFooterViewBy:(UITableView *)tableView;
-+ (__kindof UITableViewHeaderFooterView *) ag_dequeueHeaderFooterViewBy:(UITableView *)tableView;
++ (instancetype) ag_dequeueHeaderFooterViewBy:(UITableView *)tableView;
 
 @end
 

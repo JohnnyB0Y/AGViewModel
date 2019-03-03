@@ -135,7 +135,7 @@ itemClickBlock = _itemClickBlock;
     cellClass = cls ?: cellClass;
     
     // dequeue cell
-    UICollectionViewCell<AGVMResponsive> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
+    UICollectionViewCell<AGVMResponsive> *cell = [collectionView ag_dequeueCellWithClass:cellClass for:indexPath];
     
     NSAssert(cell, @"AGCollectionViewManager error: collectionViewCell can not be nil!");
     
@@ -171,7 +171,7 @@ itemClickBlock = _itemClickBlock;
         supplementaryClass = cls ?: supplementaryClass;
         
         // dequeue header view
-        supplementary = [supplementaryClass ag_dequeueHeaderViewBy:collectionView for:indexPath];
+        supplementary = [collectionView ag_dequeueHeaderViewWithClass:supplementaryClass for:indexPath];
         
     }
     else if ( kind == UICollectionElementKindSectionFooter ) {
@@ -195,13 +195,12 @@ itemClickBlock = _itemClickBlock;
         supplementaryClass = cls ?: supplementaryClass;
         
         // dequeue footer view
-        supplementary = [supplementaryClass ag_dequeueFooterViewBy:collectionView for:indexPath];
+        supplementary = [collectionView ag_dequeueFooterViewWithClass:supplementaryClass for:indexPath];
         
     }
     
     if ( supplementary && vm ) {
         [supplementary setViewModel:vm];
-        [vm setDelegate:self.vmDelegate];
         [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
         [vm ag_setBindingView:supplementary];
     }

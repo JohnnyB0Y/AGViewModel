@@ -38,7 +38,7 @@
     return [tableView dequeueReusableCellWithIdentifier:[self ag_reuseIdentifier]];
 }
 
-#pragma mark - ----------- AGVMIncludable -----------
+#pragma mark - ----------- AGVMResponsive -----------
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
     // 有特殊需求，请在子类重写。

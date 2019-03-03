@@ -27,4 +27,7 @@
 #import "UICollectionReusableView+AGViewModel.h"
 #import "UITableViewHeaderFooterView+AGViewModel.h"
 
+#import "UITableView+AGViewModel.h"
+#import "UICollectionView+AGViewModel.h"
+
 #endif /* AGVMKit_h */

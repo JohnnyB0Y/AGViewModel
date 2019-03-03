@@ -111,7 +111,7 @@
         return [bv ag_viewModel:self sizeForLayout:[UIScreen mainScreen]];
     }
     else {
-        NSAssert(NO, @"绑定视图未实现 AGVMIncludable 协议方法：ag_viewModel:sizeForBindingView:");
+        NSAssert(NO, @"绑定视图未实现 AGVMResponsive 协议方法：ag_viewModel:sizeForBindingView:");
     }
     return bvSize;
 }
@@ -144,7 +144,7 @@
         _cachedBindingViewSizeTag = NO;
     }
     else {
-        NSAssert(NO, @"绑定视图未实现 AGVMIncludable 协议方法：ag_viewModel:sizeForBindingView:");
+        NSAssert(NO, @"绑定视图未实现 AGVMResponsive 协议方法：ag_viewModel:sizeForBindingView:");
     }
     return bvSize;
 }

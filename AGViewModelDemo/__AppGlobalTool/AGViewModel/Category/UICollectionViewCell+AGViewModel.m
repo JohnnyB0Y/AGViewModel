@@ -29,13 +29,13 @@
 	}
 }
 
-+ (__kindof UICollectionViewCell *) ag_dequeueCellBy:(UICollectionView *)collectionView for:(NSIndexPath *)indexPath
++ (instancetype) ag_dequeueCellBy:(UICollectionView *)collectionView for:(NSIndexPath *)indexPath
 {
     // 如果在此处奔溃，请优先检查视图是否已注册到 collectionView。
 	return [collectionView dequeueReusableCellWithReuseIdentifier:[self ag_reuseIdentifier] forIndexPath:indexPath];
 }
 
-#pragma mark - ----------- AGVMIncludable -----------
+#pragma mark - ----------- AGVMResponsive -----------
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
     // 有特殊需求，请在子类重写。
