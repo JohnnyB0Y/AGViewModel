@@ -10,6 +10,8 @@
 #import "AGViewModel.h"
 #import "AGVMProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIView (AGViewModel)
 <AGVMResponsive>
 
@@ -32,9 +34,11 @@
 + (NSBundle *) ag_resourceBundle; // 默认 main bundle
 
 /** 能否从nil文件创建视图,bundle=nil,从main bundle加载. */
-+ (BOOL) ag_canAwakeNibInBundle:(NSBundle *)bundle;
++ (BOOL) ag_canAwakeNibInBundle:(nullable NSBundle *)bundle;
 
 /** 从 nib 创建实例,bundle=nil,从main bundle加载. */
-+ (instancetype) ag_newFromNibInBundle:(NSBundle *)bundle;
++ (instancetype) ag_newFromNibInBundle:(nullable NSBundle *)bundle;
 
 @end
+
+NS_ASSUME_NONNULL_END

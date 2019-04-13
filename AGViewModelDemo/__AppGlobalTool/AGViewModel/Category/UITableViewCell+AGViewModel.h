@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "UIView+AGViewModel.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UITableViewCell (AGViewModel)
 <AGTableCellReusable>
 
 @end
+
+NS_ASSUME_NONNULL_END
