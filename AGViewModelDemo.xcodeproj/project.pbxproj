@@ -824,7 +824,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo-resources.sh",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_ROOT}/SAMKeychain/Support/SAMKeychain.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
@@ -837,7 +837,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		37A8226586239C281DC8627E /* [CP] Check Pods Manifest.lock */ = {

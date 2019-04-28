@@ -2,6 +2,16 @@
 ### 一些常用的分类。
 对自己以前创建的分类进行总结记录。
 
+### cocoapods 集成
+```
+platform :ios, '8.0'
+target 'AGCategoriesDemo' do
+
+pod 'AGCategories', '~> 0.1.8'
+
+end
+```
+
 #### UIImage
 - 图片缩放、旋转、拉伸；
 - 图片的压缩。转换成字符串；
@@ -31,13 +41,8 @@
 - 数字、英文、中文、Emoji表情，字符判断与长度计算；
 - 手机号、邮箱、QQ号判断。
 
-### cocoapods 集成
-```
-platform :ios, '8.0'
-target 'AGCategoriesDemo' do
-
-pod 'AGCategories'
-
-end
-```
+#### NSFileManager
+- 统计文件夹 Size；
+- 删除文件夹；
+- 获取沙盒路径。
 

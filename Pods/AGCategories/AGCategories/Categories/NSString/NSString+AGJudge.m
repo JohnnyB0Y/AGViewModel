@@ -25,7 +25,7 @@ BOOL ag_isEmojiUnichar(const unichar hs, const unichar ls, int strLen);
 #pragma mark - ---------- Public Methods ----------
 - (NSUInteger) ag_lengthOfCharacter
 {
-    if ( self.length <= 0 ) return NO;
+    if ( self.length <= 0 ) return 0;
     
     __block NSUInteger count = 0;
     [self enumerateSubstringsInRange:NSMakeRange(0, self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
@@ -183,7 +183,7 @@ BOOL ag_isEmojiUnichar(const unichar hs, const unichar ls, int strLen);
 
 - (NSInteger) _lengthOfXXXCharacterWithCFunction:(AGIsXXXCharacterFunc)func
 {
-    if ( self.length <= 0 ) return NO;
+    if ( self.length <= 0 ) return 0;
     
     __block NSInteger count = 0;
     [self enumerateSubstringsInRange:NSMakeRange(0, self.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
