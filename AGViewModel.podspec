@@ -9,8 +9,8 @@
 
 Pod::Spec.new do |s|
   s.name         = "AGViewModel" # 项目名称
-  s.version      = "0.6.18"        # 版本号 与 你仓库的 标签号 对应
-  s.license      = "Apache-2.0"          # 开源证书
+  s.version      = "0.6.19"      # 版本号 与 你仓库的 标签号 对应
+  s.license      = "Apache-2.0"  # 开源证书
   s.summary      = "MVVM 简化版，结合 casa 的 APIManager 、APIReformer 使用效果更佳。" # 项目简介
 
   s.homepage     = "https://github.com/JohnnyB0Y/AGViewModel" # 你的主页
