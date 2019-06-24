@@ -60,6 +60,35 @@ AGVMTargetVCBlock ag_viewModelCopyTargetVCBlock(AGVMTargetVCBlock block)
 }
 
 
+/** 获取 vmm 中 item 的 indexPath */
+NSIndexPath * ag_indexPathForTableView(AGVMManager *vmm, AGViewModel *item)
+{
+    __block NSIndexPath *indexPath;
+    [vmm.sectionArrM enumerateObjectsUsingBlock:^(AGVMSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger currentIdx = [obj.itemArrM indexOfObjectIdenticalTo:item];
+        if ( currentIdx < obj.itemArrM.count && idx >= 0 ) {
+            *stop = YES;
+            indexPath = [NSIndexPath indexPathForRow:currentIdx inSection:idx];
+        }
+    }];
+    return indexPath;
+}
+
+/** 获取 vmm 中 item 的 indexPath */
+NSIndexPath * ag_indexPathForCollectionView(AGVMManager *vmm, AGViewModel *item)
+{
+    __block NSIndexPath *indexPath;
+    [vmm.sectionArrM enumerateObjectsUsingBlock:^(AGVMSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger currentIdx = [obj.itemArrM indexOfObjectIdenticalTo:item];
+        if ( currentIdx < obj.itemArrM.count && idx >= 0 ) {
+            *stop = YES;
+            indexPath = [NSIndexPath indexPathForItem:currentIdx inSection:idx];
+        }
+    }];
+    return indexPath;
+}
+
+
 #pragma mark - Safe Convert
 id ag_safeObj(id obj, Class objClass)
 {

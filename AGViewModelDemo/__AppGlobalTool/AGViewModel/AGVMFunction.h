@@ -40,6 +40,12 @@ NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity);
 AGVMTargetVCBlock ag_viewModelCopyTargetVCBlock(AGVMTargetVCBlock block);
 
 
+/** 获取 vmm 中 item 的 indexPath */
+NSIndexPath * _Nullable ag_indexPathForTableView(AGVMManager *vmm, AGViewModel *item);
+/** 获取 vmm 中 item 的 indexPath */
+NSIndexPath * _Nullable ag_indexPathForCollectionView(AGVMManager *vmm, AGViewModel *item);
+
+
 #pragma mark - Safe Convert
 /**
  验证传入对象是否莫类型

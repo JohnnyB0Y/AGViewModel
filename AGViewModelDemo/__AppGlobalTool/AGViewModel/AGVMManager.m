@@ -331,6 +331,31 @@
     }
 }
 
+- (void)ag_removeSectionsUsingBlock:(BOOL (NS_NOESCAPE ^)(AGVMSection * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+{
+    if ( self.sectionArrM.count <= 0 ) return;
+    if ( nil == block ) return;
+    
+    NSMutableIndexSet *idxSetM = [NSMutableIndexSet indexSet];
+    [self.sectionArrM enumerateObjectsUsingBlock:^(AGVMSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( block(obj, idx, stop) ) {
+            [idxSetM addIndex:idx];
+        }
+    }];
+    
+    [self.sectionArrM removeObjectsAtIndexes:idxSetM];
+}
+
+- (void)ag_removeSectionItemsUsingBlock:(BOOL (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+{
+    if ( self.sectionArrM.count <= 0 ) return;
+    if ( nil == block ) return;
+    
+    [self.sectionArrM enumerateObjectsUsingBlock:^(AGVMSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj ag_removeItemsUsingBlock:block];
+    }];
+}
+
 #pragma mark 合并
 /** 合并 commonVM、sectionArrM */
 - (void) ag_mergeFromManager:(AGVMManager *)vmm

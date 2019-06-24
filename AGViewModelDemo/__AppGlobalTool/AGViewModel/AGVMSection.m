@@ -556,6 +556,30 @@
     [self ag_removeItemsFromArray:vms.itemArrM];
 }
 
+- (void) ag_removeItemsUsingBlock:(BOOL (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+{
+    if ( self.itemArrM.count <= 0 ) return;
+    if ( nil == block ) return;
+    
+    NSMutableIndexSet *idxSetM = [NSMutableIndexSet indexSet];
+    [self.itemArrM enumerateObjectsUsingBlock:^(AGViewModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( block(obj, idx, stop) ) {
+            [idxSetM addIndex:idx];
+        }
+    }];
+    
+    [self.itemArrM removeObjectsAtIndexes:idxSetM];
+}
+
+- (void) ag_removeItemsWithOptions:(NSEnumerationOptions)opts usingBlock:(BOOL (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+{
+    if ( self.itemArrM.count <= 0 ) return;
+    if ( nil == block ) return;
+    
+    NSIndexSet *idxSet = [self.itemArrM indexesOfObjectsWithOptions:opts passingTest:block];
+    [self.itemArrM removeObjectsAtIndexes:idxSet];
+}
+
 #pragma mark 选中
 - (AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx
 {
