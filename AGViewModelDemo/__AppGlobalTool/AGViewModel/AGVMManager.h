@@ -130,6 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_removeSectionAtIndex:(NSInteger)index;
 - (void) ag_removeSectionsUsingBlock:(BOOL(NS_NOESCAPE^)(AGVMSection *vm, NSUInteger idx, BOOL *stop))block;
 - (void) ag_removeSectionItemsUsingBlock:(BOOL(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+- (void) ag_removeSectionItemsWithOptions:(NSEnumerationOptions)opts usingBlock:(BOOL(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 #pragma mark 合并
 /** 合并 commonVM、sectionArrM */

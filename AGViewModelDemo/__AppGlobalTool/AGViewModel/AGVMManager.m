@@ -356,6 +356,17 @@
     }];
 }
 
+- (void)ag_removeSectionItemsWithOptions:(NSEnumerationOptions)opts usingBlock:(nonnull BOOL (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
+{
+    if ( self.sectionArrM.count <= 0 ) return;
+    if ( nil == block ) return;
+    
+    [self.sectionArrM enumerateObjectsWithOptions:opts usingBlock:^(AGVMSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSIndexSet *idxSet = [obj.itemArrM indexesOfObjectsWithOptions:opts passingTest:block];
+        [obj.itemArrM removeObjectsAtIndexes:idxSet];
+    }];
+}
+
 #pragma mark 合并
 /** 合并 commonVM、sectionArrM */
 - (void) ag_mergeFromManager:(AGVMManager *)vmm

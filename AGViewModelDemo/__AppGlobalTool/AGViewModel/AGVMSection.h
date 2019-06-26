@@ -235,7 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_removeItemsFromSection:(AGVMSection *)vms; //
 - (void) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr; //
 - (void) ag_removeItemsUsingBlock:(BOOL(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
-- (void) ag_removeItemsWithOptions:(NSEnumerationOptions)opts usingBlock:(BOOL(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger, BOOL *stop))block;
+- (void) ag_removeItemsWithOptions:(NSEnumerationOptions)opts usingBlock:(BOOL(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
 
 #pragma mark 更新
 - (void) setObject:(AGViewModel *)vm atIndexedSubscript:(NSInteger)idx;
