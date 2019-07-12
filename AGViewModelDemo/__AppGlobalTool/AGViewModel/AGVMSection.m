@@ -67,8 +67,6 @@
 						  inBlock:(NS_NOESCAPE AGVMPackageDatasBlock)block
 						 capacity:(NSInteger)capacity
 {
-    AGAssertParameter(items);
-    AGAssertParameter(block);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
 	NSArray *arr = [ag_sharedVMPackager() ag_packageDatas:items
 												  mergeVM:_itemMergeVM
@@ -91,7 +89,6 @@
 - (AGViewModel *) ag_packageHeaderData:(NS_NOESCAPE AGVMPackageDataBlock)package
                               capacity:(NSInteger)capacity
 {
-    AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
     _headerVM = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _headerVM;
@@ -100,7 +97,6 @@
 - (AGViewModel *) ag_packageItemData:(NS_NOESCAPE AGVMPackageDataBlock)package
                             capacity:(NSInteger)capacity
 {
-    AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
     AGViewModel *vm = [ag_sharedVMPackager() ag_packageData:package mergeVM:_itemMergeVM capacity:capacity];
     if (vm) [self.itemArrM addObject:vm];
@@ -110,7 +106,6 @@
 - (AGViewModel *) ag_packageFooterData:(NS_NOESCAPE AGVMPackageDataBlock)package
                               capacity:(NSInteger)capacity
 {
-    AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
     _footerVM = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _footerVM;
@@ -119,7 +114,6 @@
 - (AGViewModel *)ag_packageCommonData:(NS_NOESCAPE AGVMPackageDataBlock)package
                              capacity:(NSInteger)capacity
 {
-    AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
     _cvm = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _cvm;
@@ -129,7 +123,6 @@
 - (AGViewModel *) ag_packageItemMergeData:(NS_NOESCAPE AGVMPackageDataBlock)package
                                  capacity:(NSInteger)capacity
 {
-    AGAssertParameter(package);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
     _itemMergeVM = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
     return _itemMergeVM;
@@ -146,8 +139,6 @@
                               packager:(id<AGVMPackagable>)packager
                              forObject:(id)obj
 {
-    AGAssertParameter(data);
-    AGAssertParameter(packager);
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         _headerVM = [packager ag_packageData:data forObject:(id)obj];
     }
@@ -159,8 +150,6 @@
                             packager:(id<AGVMPackagable>)packager
                            forObject:(id)obj
 {
-    AGAssertParameter(data);
-    AGAssertParameter(packager);
     AGViewModel *vm;
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         vm = [packager ag_packageData:data forObject:obj];
@@ -173,8 +162,6 @@
 						packager:(id<AGVMPackagable>)packager
 					   forObject:(id)obj
 {
-    AGAssertParameter(items);
-    AGAssertParameter(packager);
 	for (NSDictionary *dict in items) {
 		[self ag_packageItemData:dict packager:packager forObject:obj];
 	}
@@ -186,8 +173,6 @@
                               packager:(id<AGVMPackagable>)packager
                              forObject:(id)obj
 {
-    AGAssertParameter(data);
-    AGAssertParameter(packager);
     if ( [packager respondsToSelector:@selector(ag_packageData:forObject:)] ) {
         _footerVM = [packager ag_packageData:data forObject:obj];
     }
@@ -399,7 +384,6 @@
 - (void) ag_insertItemsFromArray:(NSArray<AGViewModel *> *)vmArr
                          atIndex:(NSInteger)index
 {
-    AGAssertParameter(vmArr);
     AGAssertIndexRange(-1, index, self.count+1);
     if ( AGIsIndexInRange(-1, index, self.count+1) ) {
         NSIndexSet *indexSet =
@@ -412,7 +396,6 @@
                       atIndex:(NSInteger)index
                      capacity:(NSInteger)capacity
 {
-    AGAssertParameter(package);
     AGAssertIndexRange(-1, index, self.count+1);
     AGAssertIndexRange(0, capacity, NSIntegerMax);
     AGViewModel *vm = [ag_sharedVMPackager() ag_packageData:package capacity:capacity];
@@ -427,7 +410,6 @@
 
 - (void)ag_insertItem:(AGViewModel *)item atIndex:(NSInteger)idx
 {
-    AGAssertParameter(item);
     AGAssertIndexRange(-1, idx, self.count+1);
     if ( item && AGIsIndexInRange(-1, idx, self.count+1) ) {
         [self.itemArrM insertObject:item atIndex:idx];
@@ -436,7 +418,6 @@
 
 - (void)setObject:(AGViewModel *)vm atIndexedSubscript:(NSInteger)idx
 {
-    AGAssertParameter(vm);
     AGAssertIndexRange(-1, idx, self.count);
     if ( vm && AGIsIndexInRange(-1, idx, self.count) ) {
         [self.itemArrM setObject:vm atIndexedSubscript:idx];
@@ -451,13 +432,11 @@
 
 - (void) ag_addItemsFromArray:(NSArray<AGViewModel *> *)vmArr
 {
-    AGAssertParameter(vmArr);
     vmArr.count > 0 ? [self.itemArrM addObjectsFromArray:vmArr] : nil;
 }
 
 - (void) ag_addItem:(AGViewModel *)item
 {
-    AGAssertParameter(item);
     item ? [self.itemArrM addObject:item] : nil;
 }
 
@@ -539,14 +518,12 @@
 
 - (void) ag_removeItem:(AGViewModel *)vm
 {
-    AGAssertParameter(vm);
 	if (vm == nil) return;
     [self.itemArrM removeObject:vm];
 }
 
 - (void) ag_removeItemsFromArray:(NSArray<AGViewModel *> *)vmArr
 {
-    AGAssertParameter(vmArr);
 	if (vmArr == nil) return;
     [self.itemArrM removeObjectsInArray:vmArr];
 }
@@ -636,7 +613,6 @@
 #pragma mark 遍历
 - (void) ag_enumerateItemsUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
-    AGAssertParameter(block);
     if ( ! block ) return;
 	
     [self.itemArrM enumerateObjectsUsingBlock:block];
@@ -645,7 +621,6 @@
 /** 遍历 Range内的所有item */
 - (void) ag_enumerateItemsIfInRange:(NSRange)range usingBlock:(void(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block
 {
-    AGAssertParameter(block);
     if ( ! block ) return;
     if ( range.location >= self.count ) return;
     
@@ -659,7 +634,6 @@
 /** 遍历所有 section 的 header、footer vm */
 - (void) ag_enumerateHeaderFooterUsingBlock:(void (NS_NOESCAPE ^)(AGViewModel * _Nonnull, NSUInteger, BOOL * _Nonnull))block
 {
-    AGAssertParameter(block);
     if ( ! block ) return;
     
     NSMutableArray *arrM = ag_newNSMutableArray(2);
