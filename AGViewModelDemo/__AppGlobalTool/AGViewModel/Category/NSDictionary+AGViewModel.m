@@ -7,7 +7,7 @@
 //
 
 #import "NSDictionary+AGViewModel.h"
-#import "AGVMFunction.h"
+#import "AGVMKit.h"
 
 @implementation NSDictionary (AGViewModel)
 
@@ -34,6 +34,21 @@
 - (nullable NSDictionary *) ag_safeDictionaryForKey:(NSString *)key
 {
     return ag_safeDictionary(self[key]);
+}
+
+- (nullable AGViewModel *) ag_safeViewModelForKey:(NSString *)key
+{
+    return ag_safeObj(self[key], [AGViewModel class]);
+}
+
+- (nullable AGVMSection *) ag_safeVMSectionForKey:(NSString *)key
+{
+    return ag_safeObj(self[key], [AGVMSection class]);
+}
+
+- (nullable AGVMManager *) ag_safeVMManagerForKey:(NSString *)key
+{
+    return ag_safeObj(self[key], [AGVMManager class]);
 }
 
 @end

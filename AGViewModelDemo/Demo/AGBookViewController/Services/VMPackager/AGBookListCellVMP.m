@@ -15,7 +15,7 @@
 - (AGViewModel *) ag_packageData:(NSDictionary *)dict forObject:(id)obj
 {
     // 组装数据，需要做归档
-    AGViewModel *vm = [[AGVMPackager sharedInstance] ag_packageData:^(AGViewModel * _Nonnull package) {
+    AGViewModel *vm = [ag_sharedVMPackager() ag_packageData:^(AGViewModel * _Nonnull package) {
         // 解析 API 数据
         package[ak_AGBook_title] = dict[@"title"];
         package[ak_AGBook_image] = dict[@"image"];

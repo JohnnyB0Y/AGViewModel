@@ -8,7 +8,7 @@
 
 #import "AGVMProtocol.h"
 #import "AGViewModel.h"
-#import "AGVMPackager.h"
+#import "AGVMSharedPackager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

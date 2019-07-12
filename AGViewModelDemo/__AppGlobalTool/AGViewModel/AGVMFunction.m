@@ -367,7 +367,7 @@ NSString * ag_newJSONStringByWashString(NSString *json)
 }
 
 /** 全局 vm packager */
-AGVMPackager * ag_sharedVMPackager(void)
+AGVMSharedPackager * ag_sharedVMPackager(void)
 {
-    return [AGVMPackager sharedInstance];
+    return [AGVMSharedPackager sharedInstance];
 }

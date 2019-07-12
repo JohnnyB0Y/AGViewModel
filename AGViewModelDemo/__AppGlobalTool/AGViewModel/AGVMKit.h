@@ -15,8 +15,8 @@
 
 #import "AGVMManager.h"
 #import "AGVMSection.h"
-#import "AGVMPackager.h"
 #import "AGViewModel.h"
+#import "AGVMSharedPackager.h"
 
 #import "UIView+AGViewModel.h"
 #import "NSString+AGViewModel.h"
@@ -27,7 +27,17 @@
 #import "UICollectionReusableView+AGViewModel.h"
 #import "UITableViewHeaderFooterView+AGViewModel.h"
 
+#import "NSDictionary+AGViewModel.h"
+#import "NSArray+AGViewModel.h"
+
 #import "UITableView+AGViewModel.h"
 #import "UICollectionView+AGViewModel.h"
+
+#import "AGVMView.h"
+#import "AGVMPackager.h"
+#import "AGVMTableViewCell.h"
+#import "AGVMCollectionViewCell.h"
+#import "AGVMCollectionReusableView.h"
+#import "AGVMTableViewHeaderFooterView.h"
 
 #endif /* AGVMKit_h */

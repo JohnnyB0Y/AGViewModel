@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AGVMProtocol.h"
-@class AGVMPackager, AGViewModel, AGVMSection, AGVMManager;
+@class AGVMSharedPackager, AGViewModel, AGVMSection, AGVMManager;
 
 #ifndef AGVMFunction_h
 #define AGVMFunction_h
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT AGVMManager * ag_newAGVMManager(NSInteger capacity);
 FOUNDATION_EXPORT AGVMSection * ag_newAGVMSection(NSInteger capacity);
 FOUNDATION_EXPORT AGViewModel * ag_newAGViewModel(NSDictionary * _Nullable bindingModel);
-FOUNDATION_EXPORT AGVMPackager * ag_sharedVMPackager(void);
+FOUNDATION_EXPORT AGVMSharedPackager * ag_sharedVMPackager(void);
 
 
 FOUNDATION_EXPORT NSMutableDictionary * ag_newNSMutableDictionary(NSInteger capacity);

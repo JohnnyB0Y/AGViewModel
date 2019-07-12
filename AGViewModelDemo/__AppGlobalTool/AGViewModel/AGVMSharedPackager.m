@@ -1,17 +1,17 @@
 //
-//  AGVMPackager.m
+//  AGVMSharedPackager.m
 //  Architecture
 //
 //  Created by JohnnyB0Y on 2017/6/9.
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
 //  View Model 包装者
 
-#import "AGVMPackager.h"
+#import "AGVMSharedPackager.h"
 #import "AGVMFunction.h"
 #import "AGVMSection.h"
 #import "AGVMManager.h"
 
-@implementation AGVMPackager
+@implementation AGVMSharedPackager
 
 + (instancetype) sharedInstance
 {

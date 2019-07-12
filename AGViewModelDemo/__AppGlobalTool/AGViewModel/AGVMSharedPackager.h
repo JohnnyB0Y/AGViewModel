@@ -1,5 +1,5 @@
 //
-//  AGVMPackager.h
+//  AGVMSharedPackager.h
 //  Architecture
 //
 //  Created by JohnnyB0Y on 2017/6/9.
@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - @interface
-@interface AGVMPackager : NSObject
+@interface AGVMSharedPackager : NSObject
 
 + (instancetype) sharedInstance;
 
