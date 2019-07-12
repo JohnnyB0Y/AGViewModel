@@ -19,20 +19,6 @@
 @end
 
 @implementation AGBookListCell
-#pragma mark - ----------- Life Cycle -----------
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // TODO
-    // 添加子视图
-    [self _addSubviews];
-    // 添加子视图约束
-    [self _addSubviewCons];
-    // 设置UI
-    [self _setupUI];
-	// 添加actions
-	[self _addActions];
-}
-
 #pragma mark - ----------- AGViewModelIncludable -----------
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
@@ -83,26 +69,29 @@
 
 #pragma mark - ---------- Private Methods ----------
 // 添加子视图
-- (void) _addSubviews
+- (void) ag_addSubviews
 {
-    
+    [super ag_addSubviews];
 }
 
 // 添加子视图约束
-- (void) _addSubviewCons
+- (void) ag_layoutSubviews
 {
+    [super ag_layoutSubviews];
     
 }
 
 // 设置UI
-- (void) _setupUI
+- (void) ag_setupUI
 {
+    [super ag_setupUI];
     // ...
     self.coverImageView.userInteractionEnabled = YES;
 }
 
-- (void) _addActions
+- (void) ag_addActions
 {
+    [super ag_addActions];
 	// ...
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(coverImageViewTap:)];
     

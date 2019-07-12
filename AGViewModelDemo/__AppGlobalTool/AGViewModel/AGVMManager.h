@@ -48,6 +48,14 @@ NS_ASSUME_NONNULL_BEGIN
 						   capacity:(NSInteger)capacity;
 
 /**
+ 拼装 section 数据
+ 
+ @param block 传递 section 的 block
+ @return section对象
+ */
+- (AGVMSection *) ag_packageSection:(NS_NOESCAPE AGVMPackageSectionBlock)block;
+
+/**
  通过 packager 拼装 section 数据
  
  @param items 一组数据

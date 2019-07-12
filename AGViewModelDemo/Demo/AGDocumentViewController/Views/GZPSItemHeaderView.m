@@ -21,21 +21,6 @@
 @end
 
 @implementation GZPSItemHeaderView
-#pragma mark - ----------- Life Cycle -----------
-- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithReuseIdentifier:reuseIdentifier];
-    if ( self ) {
-        // 添加子视图
-        [self _addSubviews];
-        // 添加子视图约束
-        [self _addSubviewCons];
-        // 设置UI
-        [self _setupUI];
-    }
-    return self;
-}
-
 #pragma mark - ----------- AGViewModelIncludable -----------
 - (void)setViewModel:(AGViewModel *)viewModel
 {
@@ -61,8 +46,9 @@
 
 #pragma mark - ---------- Private Methods ----------
 // 添加子视图
-- (void) _addSubviews
+- (void) ag_addSubviews
 {
+    [super ag_addSubviews];
     // ...
     [self.contentView addSubview:self.headerLine];
     [self.contentView addSubview:self.titleLabel];
@@ -71,8 +57,9 @@
 }
 
 // 添加子视图约束
-- (void) _addSubviewCons
+- (void) ag_layoutSubviews
 {
+    [super ag_layoutSubviews];
     // ...
     [self.headerLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.mas_equalTo(self.contentView);
@@ -97,8 +84,9 @@
 }
 
 // 设置UI
-- (void) _setupUI
+- (void) ag_setupUI
 {
+    [super ag_setupUI];
     // ...
     UIView *bgView = [UIView new];
     bgView.backgroundColor = [UIColor whiteColor];

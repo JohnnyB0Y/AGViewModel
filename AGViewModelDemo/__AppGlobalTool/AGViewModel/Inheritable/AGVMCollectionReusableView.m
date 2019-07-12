@@ -7,6 +7,7 @@
 //
 
 #import "AGVMCollectionReusableView.h"
+#import "UIView+AGViewModel.h"
 
 @implementation AGVMCollectionReusableView
 - (instancetype)initWithFrame:(CGRect)frame
@@ -30,27 +31,6 @@
     [self ag_layoutSubviews];
     [self ag_setupUI];
     [self ag_addActions];
-    
-}
-
-#pragma mark Override Methods
-- (void)ag_addSubviews
-{
-    
-}
-
-- (void)ag_layoutSubviews
-{
-    
-}
-
-- (void)ag_setupUI
-{
-    
-}
-
-- (void)ag_addActions
-{
     
 }
 

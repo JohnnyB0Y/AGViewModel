@@ -43,6 +43,7 @@
 		3A4EDEDE22D8E5030088625D /* AGVMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EDEDD22D8E5030088625D /* AGVMView.m */; };
 		3A4EDEE122D8E6DD0088625D /* AGVMPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EDEE022D8E6DD0088625D /* AGVMPackager.m */; };
 		3A4EDEE422D8EC6C0088625D /* NSArray+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EDEE322D8EC6C0088625D /* NSArray+AGViewModel.m */; };
+		3A4EDEF322D92F750088625D /* AGVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EDEF222D92F750088625D /* AGVMGenerator.m */; };
 		3A7FD5D220B779F700A0787A /* AGBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FD5D120B779F700A0787A /* AGBookListViewController.m */; };
 		3A7FD5D620B77C6200A0787A /* AGBookListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7FD5D420B77C6200A0787A /* AGBookListCell.m */; };
 		3A7FD5D720B77C6200A0787A /* AGBookListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A7FD5D520B77C6200A0787A /* AGBookListCell.xib */; };
@@ -165,6 +166,8 @@
 		3A4EDEE022D8E6DD0088625D /* AGVMPackager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMPackager.m; sourceTree = "<group>"; };
 		3A4EDEE222D8EC6C0088625D /* NSArray+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+AGViewModel.h"; sourceTree = "<group>"; };
 		3A4EDEE322D8EC6C0088625D /* NSArray+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AGViewModel.m"; sourceTree = "<group>"; };
+		3A4EDEF122D92F750088625D /* AGVMGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMGenerator.h; sourceTree = "<group>"; };
+		3A4EDEF222D92F750088625D /* AGVMGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMGenerator.m; sourceTree = "<group>"; };
 		3A7FD5D020B779F700A0787A /* AGBookListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGBookListViewController.h; sourceTree = "<group>"; };
 		3A7FD5D120B779F700A0787A /* AGBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGBookListViewController.m; sourceTree = "<group>"; };
 		3A7FD5D320B77C6200A0787A /* AGBookListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGBookListCell.h; sourceTree = "<group>"; };
@@ -424,6 +427,8 @@
 				3A4EDEDD22D8E5030088625D /* AGVMView.m */,
 				3A4EDEDF22D8E6DD0088625D /* AGVMPackager.h */,
 				3A4EDEE022D8E6DD0088625D /* AGVMPackager.m */,
+				3A4EDEF122D92F750088625D /* AGVMGenerator.h */,
+				3A4EDEF222D92F750088625D /* AGVMGenerator.m */,
 			);
 			path = Inheritable;
 			sourceTree = "<group>";
@@ -932,6 +937,7 @@
 				3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */,
 				3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */,
 				3A4EDED222D8E1430088625D /* AGVMTableViewCell.m in Sources */,
+				3A4EDEF322D92F750088625D /* AGVMGenerator.m in Sources */,
 				3A04291720B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m in Sources */,
 				3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */,
 				3A04291E20B793960025D9D5 /* Target_AGDoubanService.m in Sources */,

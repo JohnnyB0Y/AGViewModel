@@ -18,17 +18,6 @@
 @end
 
 @implementation AGBoxACell
-#pragma mark - ----------- Life Cycle -----------
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // TODO
-    // 添加子视图
-    [self _addSubviews];
-    // 添加子视图约束
-    [self _addSubviewCons];
-    
-}
-
 #pragma mark - ----------- AGViewModelIncludable -----------
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
@@ -49,28 +38,6 @@
     }
     
 }
-
-#pragma mark - ----------- Event Methods -----------
-
-
-
-#pragma mark - ---------- Private Methods ----------
-// 添加子视图
-- (void) _addSubviews
-{
-    
-}
-
-// 添加子视图约束
-- (void) _addSubviewCons
-{
-    
-}
-
-#pragma mark - ----------- Getter Methods ----------
-
-
-
 
 @end
 

@@ -45,13 +45,13 @@
 - (AGViewModel *) ag_safeViewModelAtIndex:(NSInteger)idx
 {
     if ( NO == AGIsIndexInRange(-1, idx, self.count) ) return nil;
-    return ag_safeObj(self[idx], [AGVMManager class]);
+    return ag_safeObj(self[idx], [AGViewModel class]);
 }
 
 - (AGVMSection *) ag_safeVMSectionAtIndex:(NSInteger)idx
 {
     if ( NO == AGIsIndexInRange(-1, idx, self.count) ) return nil;
-    return ag_safeObj(self[idx], [AGVMManager class]);
+    return ag_safeObj(self[idx], [AGVMSection class]);
 }
 
 - (AGVMManager *) ag_safeVMManagerAtIndex:(NSInteger)idx

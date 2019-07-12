@@ -17,18 +17,6 @@
 @end
 
 @implementation GZPSItemDetailCell
-#pragma mark - ----------- Life Cycle -----------
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // TODO
-    // 添加子视图
-    [self _addSubviews];
-    // 添加子视图约束
-    [self _addSubviewCons];
-    // 设置UI
-    [self _setupUI];
-}
-
 #pragma mark - ----------- AGViewModelIncludable -----------
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
@@ -49,33 +37,5 @@
     NSString *detail = viewModel[kAGVMItemDetail];
     [self.detailLabel setText:detail];
 }
-
-#pragma mark - ----------- Event Methods -----------
-
-
-
-#pragma mark - ---------- Private Methods ----------
-// 添加子视图
-- (void) _addSubviews
-{
-    
-}
-
-// 添加子视图约束
-- (void) _addSubviewCons
-{
-    
-}
-
-// 设置UI
-- (void) _setupUI
-{
-    // ...
-    
-}
-
-#pragma mark - ----------- Getter Methods ----------
-
-
 
 @end

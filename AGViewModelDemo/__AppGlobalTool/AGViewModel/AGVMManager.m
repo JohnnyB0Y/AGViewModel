@@ -71,6 +71,11 @@
     return vms;
 }
 
+- (AGVMSection *)ag_packageSection:(NS_NOESCAPE AGVMPackageSectionBlock)block
+{
+    return [self ag_packageSection:block capacity:15];
+}
+
 - (AGVMSection *)ag_packageSectionItems:(NSArray *)items packager:(id<AGVMPackagable>)packager forObject:(id)obj
 {
 	return [self ag_packageSection:^(AGVMSection * _Nonnull vms) {

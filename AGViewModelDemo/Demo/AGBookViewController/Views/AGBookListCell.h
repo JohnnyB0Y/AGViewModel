@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface AGBookListCell : UITableViewCell
+@interface AGBookListCell : AGVMTableViewCell
 
 - (void) coverImageViewTap:(UITapGestureRecognizer *)tap;
 

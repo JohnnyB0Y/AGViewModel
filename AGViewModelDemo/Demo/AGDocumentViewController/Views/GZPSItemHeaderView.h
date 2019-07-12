@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface GZPSItemHeaderView : UITableViewHeaderFooterView
+@interface GZPSItemHeaderView : AGVMTableViewHeaderFooterView
 
 /** tap */
 @property (nonatomic, assign) SEL cellTap;
