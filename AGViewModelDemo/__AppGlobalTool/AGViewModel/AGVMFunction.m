@@ -44,7 +44,7 @@ NSMutableArray * ag_newNSMutableArray(NSInteger capacity)
     return [[NSMutableArray alloc] initWithCapacity:capacity];
 }
 
-NSMutableArray * ag_newNSMutableArrayWithNull(NSInteger capacity)
+NSMutableArray * ag_newNSMutableArrayWithNSNull(NSInteger capacity)
 {
     NSMutableArray *arrM = ag_newNSMutableArray(capacity);
     for (NSInteger i = 0; i < capacity; i++) {
@@ -150,6 +150,17 @@ NSString * ag_newNSStringWithObj(id obj)
         return [NSString stringWithString:newStr];
     }
     
+    return nil;
+}
+
+NSURL * ag_safeURL(id obj)
+{
+    if ( [obj isKindOfClass:[NSURL class]] ) {
+        return obj;
+    }
+    if ( [obj isKindOfClass:[NSString class]] ) {
+        return [NSURL URLWithString:obj];
+    }
     return nil;
 }
 
