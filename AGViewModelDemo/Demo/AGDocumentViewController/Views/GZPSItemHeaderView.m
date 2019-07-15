@@ -21,6 +21,20 @@
 @end
 
 @implementation GZPSItemHeaderView
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithReuseIdentifier:reuseIdentifier];
+    
+    if ( self ) {
+        [self ag_addSubviews];
+        [self ag_layoutSubviews];
+        [self ag_setupUI];
+        [self ag_addActions];
+    }
+    
+    return self;
+}
+
 #pragma mark - ----------- AGViewModelIncludable -----------
 - (void)setViewModel:(AGViewModel *)viewModel
 {

@@ -33,11 +33,4 @@
 #import "UITableView+AGViewModel.h"
 #import "UICollectionView+AGViewModel.h"
 
-#import "AGVMView.h"
-#import "AGVMPackager.h"
-#import "AGVMTableViewCell.h"
-#import "AGVMCollectionViewCell.h"
-#import "AGVMCollectionReusableView.h"
-#import "AGVMTableViewHeaderFooterView.h"
-
 #endif /* AGVMKit_h */

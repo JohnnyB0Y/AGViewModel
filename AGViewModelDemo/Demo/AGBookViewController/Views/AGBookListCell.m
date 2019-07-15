@@ -20,6 +20,29 @@
 
 @implementation AGBookListCell
 #pragma mark - ----------- AGViewModelIncludable -----------
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    if ( self ) {
+        [self ag_addSubviews];
+        [self ag_layoutSubviews];
+        [self ag_setupUI];
+        [self ag_addActions];
+    }
+    
+    return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self ag_addSubviews];
+    [self ag_layoutSubviews];
+    [self ag_setupUI];
+    [self ag_addActions];
+}
+
 - (CGSize) ag_viewModel:(AGViewModel *)vm sizeForLayout:(UIScreen *)screen
 {
     CGSize bvS = CGSizeMake(screen.width, 0);

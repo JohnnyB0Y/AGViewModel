@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "AGVMKit.h"
 
-@interface GZPSItemDetailCell : AGVMTableViewCell
+@interface GZPSItemDetailCell : UITableViewCell
 
 @end
