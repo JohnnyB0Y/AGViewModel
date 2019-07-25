@@ -51,7 +51,7 @@ static NSString * const kAGVMNumberMinus = @"kAGVMNumberMinus";
     
     [vm ag_setComputeBlock:^id _Nullable(AGViewModel * _Nonnull viewModel) {
         
-        NSNumber *plus = vm[kAGVMNumberPlus];
+        NSNumber *plus = viewModel[kAGVMNumberPlus];
         NSNumber *num1 = viewModel[kAGVMNumber1];
         NSNumber *num2 = viewModel[kAGVMNumber2];
         
@@ -70,9 +70,9 @@ static NSString * const kAGVMNumberMinus = @"kAGVMNumberMinus";
         
         NSNumber *num1 = viewModel[kAGVMNumber1];
         NSNumber *num2 = viewModel[kAGVMNumber2];
-        NSNumber *plus2 = vm2[kAGVMNumberPlus]; // 累计
+        NSNumber *plus = viewModel[kAGVMNumberPlus]; // 累计
         
-        return @(plus2.integerValue + num1.integerValue + num2.integerValue);
+        return @(plus.integerValue + num1.integerValue + num2.integerValue);
         
     } forKey:kAGVMNumberPlus];
     
