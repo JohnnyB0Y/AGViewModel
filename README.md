@@ -5,7 +5,7 @@
 platform :ios, '7.0'
 target 'AGViewModel' do
 
-pod 'AGViewModel'
+pod 'AGViewModel', '~> 0.6.23'
 
 end
 ```
@@ -132,6 +132,39 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager
     
 ```
 
+#### AGWeakly 弱引用存取
+- 不想强引用对象的时候，可以使用。
+
+```objective-c
+/** 添加弱引用的对象 */
+- (void)ag_setWeaklyObject:(nullable id)obj forKey:(NSString *)key;
+
+/** 获取弱引用的对象 */
+- (nullable id) ag_weaklyObjectForKey:(NSString *)key;
+
+/** 移除弱引用的对象 */
+- (void) ag_removeWeaklyObjectForKey:(NSString *)key;
+    
+```
+
+#### AGComputable 可计算存取
+- 当需要根据几个会变化的属性，计算拿到最后的结果值时，可以使用可计算存取。
+
+```objective-c
+/** 添加计算 block */
+- (void)ag_setComputeBlock:(AGVMComputableBlock)block forKey:(NSString *)key;
+
+/** 执行计算 block（每次都计算）*/
+- (nullable id) ag_executeComputeBlockForKey:(NSString *)key;
+
+/** 获取计算结果（有值取值，无值执行计算）*/
+- (nullable id) ag_computeResultForKey:(NSString *)key;
+
+/** 移除计算 block */
+- (void) ag_removeComputeBlockForKey:(NSString *)key;
+    
+```
+
 #### 对id类型数据判断处理
 - 对API返回数据的边界判断和处理
 - 参考 AGVMSafeAccessible 协议
@@ -220,9 +253,9 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager
 - 当用户需要监听 AGViewModel 的通用字典数据变化时，后台操作就是由 AGVMNotifier 提供的。
 -AGVMNotifier 是通过KVO 来处理监听事件的。AGVMNotifier 同时也处理了KVO的崩溃问题。
 
-#### AGVMPackager 与 AGViewModel 的关系
-- AGVMPackager 就是方便打包AGViewModel 数据的单例。
-- AGVMPackager 可以对数据进行打印，打印出需要的代码。
+#### AGVMSharedPackager 与 AGViewModel 的关系
+- AGVMSharedPackager 就是方便打包AGViewModel 数据的单例。
+- AGVMSharedPackager 可以对数据进行打印，打印出需要的代码。
 
 ##### 打印需要的代码
 ```objective-c
