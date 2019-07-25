@@ -62,6 +62,10 @@
 - (void)dealloc
 {
     _configDataBlock = nil;
+    _notifier = nil;
+    _archivedDictM = nil;
+    _computeBlockDictM = nil;
+    _weaklyMT = nil;
 }
 
 #pragma mark - ---------- Public Methods ----------
@@ -289,9 +293,9 @@
     vm->_bindingView = _bindingView;
     vm->_configDataBlock = [_configDataBlock copy];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
-    vm->_archivedDictM = [self->_archivedDictM mutableCopy];
-    vm->_weaklyMT = [self->_weaklyMT mutableCopy];
-    vm->_computeBlockDictM = [self->_computeBlockDictM mutableCopy];
+    vm->_archivedDictM = [_archivedDictM mutableCopy];
+    vm->_weaklyMT = [_weaklyMT mutableCopy];
+    vm->_computeBlockDictM = [_computeBlockDictM mutableCopy];
     return vm;
 }
 
@@ -447,7 +451,7 @@
 #pragma mark - ----------- Getter Methods ----------
 - (AGVMNotifier *)notifier
 {
-    if (_notifier == nil) {
+    if ( nil == _notifier ) {
         _notifier = [[AGVMNotifier alloc] initWithViewModel:self];
     }
     return _notifier;
@@ -531,23 +535,23 @@
 - (void) ag_removeObserver:(NSObject *)observer
 					forKey:(NSString *)key
 {
-	[self.notifier ag_removeObserver:observer forKey:key];
+	[_notifier ag_removeObserver:observer forKey:key];
 }
 
 - (void) ag_removeObserver:(NSObject *)observer
 				   forKeys:(NSArray<NSString *> *)keys
 {
-	[self.notifier ag_removeObserver:observer forKeys:keys];
+	[_notifier ag_removeObserver:observer forKeys:keys];
 }
 
 - (void) ag_removeObserver:(NSObject *)observer
 {
-	[self.notifier ag_removeObserver:observer];
+	[_notifier ag_removeObserver:observer];
 }
 
 - (void) ag_removeAllObservers
 {
-	[self.notifier ag_removeAllObservers];
+	[_notifier ag_removeAllObservers];
 }
 
 @end
@@ -787,13 +791,13 @@
 - (void)ag_removeWeaklyObjectForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    [self.weaklyMT removeObjectForKey:key];
+    [_weaklyMT removeObjectForKey:key];
 }
 
 - (id)ag_weaklyObjectForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    return [self.weaklyMT objectForKey:key];
+    return [_weaklyMT objectForKey:key];
 }
 
 - (NSMapTable *)weaklyMT
@@ -819,14 +823,24 @@
 - (void)ag_removeComputeBlockForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    [self.computeBlockDictM removeObjectForKey:key];
+    [_computeBlockDictM removeObjectForKey:key];
 }
 
-- (id)ag_computeForKey:(NSString *)key
+- (id)ag_executeComputeBlockForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    AGVMComputableBlock block = [self.computeBlockDictM objectForKey:key];
-    return block ? block(self) : nil;
+    id object = nil;
+    AGVMComputableBlock block = [_computeBlockDictM objectForKey:key];
+    if ( block && ( object = block(self) ) ) { // 每次计算都存一次
+        [_bindingModel setObject:object forKeyedSubscript:key];
+    }
+    return object;
+}
+
+- (id)ag_computeResultForKey:(NSString *)key
+{
+    AGAssertParameter(key);
+    return [_bindingModel objectForKeyedSubscript:key] ?: [self ag_executeComputeBlockForKey:key];
 }
 
 - (NSMutableDictionary<NSString *,id> *)computeBlockDictM

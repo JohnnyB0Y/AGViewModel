@@ -173,8 +173,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** 添加可计算block */
 - (void)ag_setComputeBlock:(AGVMComputableBlock)block forKey:(NSString *)key;
 
-/** 执行可计算block */
-- (nullable id) ag_computeForKey:(NSString *)key;
+/** 执行可计算block（每次都计算）*/
+- (nullable id) ag_executeComputeBlockForKey:(NSString *)key;
+
+/** 获取计算返回结果（无值才执行计算）*/
+- (nullable id) ag_computeResultForKey:(NSString *)key;
 
 /** 移除可计算block */
 - (void) ag_removeComputeBlockForKey:(NSString *)key;
