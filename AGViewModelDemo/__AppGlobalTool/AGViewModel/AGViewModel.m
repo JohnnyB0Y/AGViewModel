@@ -13,7 +13,9 @@
 @interface AGViewModel ()
 
 @property (nonatomic, strong) AGVMNotifier *notifier;
-@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *archivedDictM;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *archivedDictM; ///< 归档字典
+@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *computeBlockDictM; ///< 可计算block字典
+@property (nonatomic, strong) NSMapTable *weaklyMT; ///< 弱引用 map
 
 @end
 
@@ -278,7 +280,6 @@
     vm->_bindingView = _bindingView;
     vm->_configDataBlock = [_configDataBlock copy];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
-    vm->_archivedDictM = [self->_archivedDictM mutableCopy];
     return vm;
 }
 
@@ -289,6 +290,8 @@
     vm->_configDataBlock = [_configDataBlock copy];
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
     vm->_archivedDictM = [self->_archivedDictM mutableCopy];
+    vm->_weaklyMT = [self->_weaklyMT mutableCopy];
+    vm->_computeBlockDictM = [self->_computeBlockDictM mutableCopy];
     return vm;
 }
 
@@ -452,8 +455,8 @@
 
 - (NSMutableDictionary<NSString *,id> *)archivedDictM
 {
-    if (_archivedDictM == nil) {
-        _archivedDictM = ag_newNSMutableDictionary(6);
+    if ( nil == _archivedDictM ) {
+        _archivedDictM = [NSMutableDictionary dictionaryWithCapacity:6];
     }
     return _archivedDictM;
 }
@@ -773,35 +776,65 @@
 @end
 
 
-static NSString * const kAGViewModelStrongToWeakMapTable = @"kAGViewModelStrongToWeakMapTable";
 @implementation AGViewModel (AGWeakly)
 
 - (void)ag_setWeaklyObject:(id)obj forKey:(NSString *)key
 {
     AGAssertParameter(key);
-    [[self _strongToWeakMapTable] setObject:obj forKey:key];
+    [self.weaklyMT setObject:obj forKey:key];
 }
 
 - (void)ag_removeWeaklyObjectForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    [[self _strongToWeakMapTable] removeObjectForKey:key];
+    [self.weaklyMT removeObjectForKey:key];
 }
 
 - (id)ag_weaklyObjectForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    return [[self _strongToWeakMapTable] objectForKey:key];
+    return [self.weaklyMT objectForKey:key];
 }
 
-- (NSMapTable *) _strongToWeakMapTable
+- (NSMapTable *)weaklyMT
 {
-    NSMapTable *mt = _bindingModel[kAGViewModelStrongToWeakMapTable];
-    if ( nil == mt ) {
-        mt = [NSMapTable strongToWeakObjectsMapTable];
-        [_bindingModel setObject:mt forKey:kAGViewModelStrongToWeakMapTable];
+    if ( nil == _weaklyMT ) {
+        _weaklyMT = [NSMapTable strongToWeakObjectsMapTable];
     }
-    return mt;
+    return _weaklyMT;
+}
+
+@end
+
+
+@implementation AGViewModel (AGComputable)
+
+- (void)ag_setComputeBlock:(AGVMComputableBlock)block forKey:(NSString *)key
+{
+    AGAssertParameter(key);
+    AGAssertParameter(block);
+    [self.computeBlockDictM setObject:block forKey:key];
+}
+
+- (void)ag_removeComputeBlockForKey:(NSString *)key
+{
+    AGAssertParameter(key);
+    [self.computeBlockDictM removeObjectForKey:key];
+}
+
+- (id)ag_computeForKey:(NSString *)key
+{
+    AGAssertParameter(key);
+    AGVMComputableBlock block = [self.computeBlockDictM objectForKey:key];
+    return block ? block(self) : nil;
+}
+
+- (NSMutableDictionary<NSString *,id> *)computeBlockDictM
+{
+    if ( nil == _computeBlockDictM ) {
+        _computeBlockDictM = [NSMutableDictionary dictionaryWithCapacity:6];
+    }
+    return _computeBlockDictM;
 }
 
 @end

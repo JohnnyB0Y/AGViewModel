@@ -108,6 +108,11 @@ typedef void (^AGVMPackageDatasBlock)
     NSInteger idx
 );
 
+typedef id _Nullable (^AGVMComputableBlock)
+(
+    AGViewModel *viewModel
+);
+
 #pragma mark map、filter、reduce
 typedef void (^AGVMMapBlock)(AGViewModel *vm);
 typedef BOOL (^AGVMFilterBlock)(AGViewModel *vm);

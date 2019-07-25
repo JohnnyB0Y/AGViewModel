@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (AGViewModel)
 
+@property (nonatomic, assign, readonly, getter=isEmpty) BOOL empty;
+
 /** 计算文字 size */
 - (CGSize) ag_sizeOfFont:(UIFont *)font maxSize:(CGSize)maxS;
 - (CGSize) ag_sizeOfFontSize:(CGFloat)fontSize maxSize:(CGSize)maxS;

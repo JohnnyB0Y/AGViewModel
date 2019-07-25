@@ -32,5 +32,10 @@
     return [self ag_sizeOfFont:font maxSize:maxS];
 }
 
+- (BOOL)isEmpty
+{
+    return self.length <= 0;
+}
+
 @end
 

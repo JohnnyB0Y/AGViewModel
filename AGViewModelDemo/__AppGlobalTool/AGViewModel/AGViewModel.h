@@ -167,4 +167,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - 可计算存取
+@interface AGViewModel (AGComputable)
+
+/** 添加可计算block */
+- (void)ag_setComputeBlock:(AGVMComputableBlock)block forKey:(NSString *)key;
+
+/** 执行可计算block */
+- (nullable id) ag_computeForKey:(NSString *)key;
+
+/** 移除可计算block */
+- (void) ag_removeComputeBlockForKey:(NSString *)key;
+
+@end
+
 NS_ASSUME_NONNULL_END
