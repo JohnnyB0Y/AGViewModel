@@ -9,14 +9,14 @@
 #import "AGViewModel.h"
 #import "AGVMFunction.h"
 #import "AGVMNotifier.h"
+#import "AGVMCommand.h"
 
-static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
 
 @interface AGViewModel ()
 
 @property (nonatomic, strong) AGVMNotifier *notifier;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, id> *archivedDictM; ///< 归档字典
-@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *computeBlockDictM; ///< 可计算block字典
+@property (nonatomic, strong) NSMutableDictionary<NSString *, AGVMCommand *> *commandDictM; ///< 命令字典
 @property (nonatomic, strong) NSMapTable *weaklyMT; ///< 弱引用 map
 
 @end
@@ -68,7 +68,7 @@ static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
     _configDataBlock = nil;
     _notifier = nil;
     _archivedDictM = nil;
-    _computeBlockDictM = nil;
+    _commandDictM = nil;
     _weaklyMT = nil;
 }
 
@@ -299,7 +299,7 @@ static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
     [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
     vm->_archivedDictM = [_archivedDictM mutableCopy];
     vm->_weaklyMT = [_weaklyMT mutableCopy];
-    vm->_computeBlockDictM = [_computeBlockDictM mutableCopy];
+    vm->_commandDictM = [_commandDictM mutableCopy];
     return vm;
 }
 
@@ -469,12 +469,12 @@ static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
     return _archivedDictM;
 }
 
-- (NSMutableDictionary<NSString *,id> *)computeBlockDictM
+- (NSMutableDictionary<NSString *, AGVMCommand *> *)commandDictM
 {
-    if ( nil == _computeBlockDictM ) {
-        _computeBlockDictM = [NSMutableDictionary dictionaryWithCapacity:6];
+    if ( nil == _commandDictM ) {
+        _commandDictM = [NSMutableDictionary dictionaryWithCapacity:6];
     }
-    return _computeBlockDictM;
+    return _commandDictM;
 }
 
 - (NSMapTable *)weaklyMT
@@ -800,7 +800,7 @@ static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
 @end
 
 
-@implementation AGViewModel (AGWeakly)
+@implementation AGViewModel (AGVMWeakly)
 
 - (void)ag_setWeaklyObject:(id)obj forKey:(NSString *)key
 {
@@ -823,30 +823,43 @@ static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
 @end
 
 
-@implementation AGViewModel (AGComputable)
+@implementation AGViewModel (AGVMCommandExecutable)
 
-- (void)ag_setComputeBlock:(AGVMComputableBlock)block forKey:(NSString *)key
+- (void)ag_setCommandBlock:(AGVMCommandExecutableBlock)block forKey:(NSString *)key
 {
     AGAssertParameter(key);
     AGAssertParameter(block);
-    [self.computeBlockDictM setObject:block forKey:[self ag_tagKeyWithKey:key]]; // 标记
-    [self.computeBlockDictM setObject:block forKey:key];
+    
+    if ( key && block ) {
+        AGVMCommand *cmd = [AGVMCommand newWithExecuteBlock:block undoBlock:nil];
+        [self.commandDictM setObject:cmd forKey:key];
+    }
 }
 
-- (void)ag_removeComputeBlockForKey:(NSString *)key
+- (void)ag_setCommand:(AGVMCommand *)command forKey:(NSString *)key
 {
     AGAssertParameter(key);
-    [_computeBlockDictM removeObjectForKey:key];
+    AGAssertParameter(command);
+    
+    [self.commandDictM setObject:command forKey:key];
 }
 
-- (id)ag_executeComputeBlockForKey:(NSString *)key
+- (void)ag_removeCommandForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    [_computeBlockDictM removeObjectForKey:[self ag_tagKeyWithKey:key]]; // 取消标记
-    AGVMComputableBlock block = [_computeBlockDictM objectForKey:key];
-    if ( block ) {
-        id object = block(self);
-        if ( object ) { // 每次计算都存一次
+    [_commandDictM removeObjectForKey:key];
+}
+
+- (id)ag_executeCommandForKey:(NSString *)key
+{
+    AGAssertParameter(key);
+    
+    AGVMCommand *cmd = [_commandDictM objectForKey:key];
+    if ( cmd ) {
+        cmd.executable = YES;
+        id object = [cmd ag_execute:self];
+        cmd.executable = NO;
+        if ( object ) { // 每次执行都存一次结果
             [_bindingModel setObject:object forKey:key];
         }
         else {
@@ -857,28 +870,29 @@ static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
     return [_bindingModel objectForKey:key]; // 执行到这里，说明 Block 不存在了，直接返回保存的数据。
 }
 
-- (void)ag_setNeedsExecuteComputeBlockForKey:(NSString *)key
+- (void)ag_setNeedsExecuteCommandForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    AGVMComputableBlock block = [_computeBlockDictM objectForKey:key];
-    if ( block ) {
-        [_computeBlockDictM setObject:block forKey:[self ag_tagKeyWithKey:key]];// 标记
-    }
+    [_commandDictM objectForKey:key].executable = YES;
 }
 
-- (id)ag_executeComputeBlockIfNeededForKey:(NSString *)key
+- (id)ag_executeCommandIfNeededForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    AGVMComputableBlock block = [_computeBlockDictM objectForKey:[self ag_tagKeyWithKey:key]];
-    if ( block ) {
-        return [self ag_executeComputeBlockForKey:key]; // 执行计算
+    
+    AGVMCommand *cmd = [_commandDictM objectForKey:key];
+    if ( cmd.isExecutable ) {
+        id object = [cmd ag_execute:self];
+        cmd.executable = NO;
+        if ( object ) { // 每次执行都存一次结果
+            [_bindingModel setObject:object forKey:key];
+        }
+        else {
+            [_bindingModel removeObjectForKey:key];
+        }
+        return object;
     }
     return [_bindingModel objectForKey:key]; // 直接取值
-}
-
-- (NSString *)ag_tagKeyWithKey:(NSString *)key
-{
-    return [NSString stringWithFormat:@"K%@2%@4", kAGVMIfNeededTags, key];
 }
 
 @end

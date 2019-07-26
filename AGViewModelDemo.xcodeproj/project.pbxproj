@@ -35,6 +35,7 @@
 		3A31B617222B8DA90015B424 /* UITableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B616222B8DA90015B424 /* UITableView+AGViewModel.m */; };
 		3A31B61A222B94E60015B424 /* UICollectionView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B619222B94E60015B424 /* UICollectionView+AGViewModel.m */; };
 		3A4045FC22E9FCE000EF706C /* AGViewModelComputableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4045FB22E9FCE000EF706C /* AGViewModelComputableTests.m */; };
+		3A4045FF22EAA0FE00EF706C /* AGVMCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4045FE22EAA0FE00EF706C /* AGVMCommand.m */; };
 		3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A409D8A1F606A1700845767 /* AGVMNotifier.m */; };
 		3A4EDECE22D8DE900088625D /* NSDictionary+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EDECC22D8DE8F0088625D /* NSDictionary+AGViewModel.m */; };
 		3A4EDEE422D8EC6C0088625D /* NSArray+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4EDEE322D8EC6C0088625D /* NSArray+AGViewModel.m */; };
@@ -143,6 +144,8 @@
 		3A31B618222B94E60015B424 /* UICollectionView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+AGViewModel.h"; sourceTree = "<group>"; };
 		3A31B619222B94E60015B424 /* UICollectionView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+AGViewModel.m"; sourceTree = "<group>"; };
 		3A4045FB22E9FCE000EF706C /* AGViewModelComputableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGViewModelComputableTests.m; sourceTree = "<group>"; };
+		3A4045FD22EAA0FE00EF706C /* AGVMCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMCommand.h; sourceTree = "<group>"; };
+		3A4045FE22EAA0FE00EF706C /* AGVMCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMCommand.m; sourceTree = "<group>"; };
 		3A409D891F606A1700845767 /* AGVMNotifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGVMNotifier.h; sourceTree = "<group>"; };
 		3A409D8A1F606A1700845767 /* AGVMNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGVMNotifier.m; sourceTree = "<group>"; };
 		3A4EDECC22D8DE8F0088625D /* NSDictionary+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+AGViewModel.m"; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 				3AD891611F38965100E86F9F /* AGVMProtocol.h */,
 				3AD891661F38965100E86F9F /* AGVMSection.h */,
 				3AD891671F38965100E86F9F /* AGVMSection.m */,
+				3A4045FD22EAA0FE00EF706C /* AGVMCommand.h */,
+				3A4045FE22EAA0FE00EF706C /* AGVMCommand.m */,
 			);
 			path = AGViewModel;
 			sourceTree = "<group>";
@@ -890,6 +895,7 @@
 				3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */,
 				3A04294C20B7AB000025D9D5 /* AGBoxCollectionViewController.m in Sources */,
 				3A7FD5D620B77C6200A0787A /* AGBookListCell.m in Sources */,
+				3A4045FF22EAA0FE00EF706C /* AGVMCommand.m in Sources */,
 				3A7FD5F320B7810100A0787A /* AGBookListAPIManager.m in Sources */,
 				3A31B61A222B94E60015B424 /* UICollectionView+AGViewModel.m in Sources */,
 				3A4EDEE422D8EC6C0088625D /* NSArray+AGViewModel.m in Sources */,

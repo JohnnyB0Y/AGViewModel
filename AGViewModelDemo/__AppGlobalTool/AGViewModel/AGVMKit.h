@@ -10,6 +10,7 @@
 #define AGVMKit_h
 
 #import "AGVMKeys.h"
+#import "AGVMCommand.h"
 #import "AGVMProtocol.h"
 #import "AGVMFunction.h"
 

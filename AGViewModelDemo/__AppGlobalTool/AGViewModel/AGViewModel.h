@@ -154,7 +154,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - 弱引用存取
-@interface AGViewModel (AGWeakly)
+@interface AGViewModel (AGVMWeakly)
+// 不想强引用对象的时候，可以使用。
+
 
 /** 添加弱引用的对象 */
 - (void)ag_setWeaklyObject:(nullable id)obj forKey:(NSString *)key;
@@ -167,23 +169,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - 可计算存取
-@interface AGViewModel (AGComputable)
+#pragma mark - 命令编程
+@interface AGViewModel (AGVMCommandExecutable)
+// 当需要根据几个变化属性，拿到结果时，可以使用命令编程。
 
-/** 添加计算 */
-- (void)ag_setComputeBlock:(AGVMComputableBlock)block forKey:(NSString *)key;
 
-/** 移除计算 */
-- (void) ag_removeComputeBlockForKey:(NSString *)key;
+- (void)ag_setCommand:(AGVMCommand *)command forKey:(NSString *)key; ///< 添加命令
+- (void)ag_setCommandBlock:(AGVMCommandExecutableBlock)block forKey:(NSString *)key; ///< 添加命令Block
+- (void) ag_removeCommandForKey:(NSString *)key; ///< 移除命令
 
-/** 标记需要重新计算 */
-- (void) ag_setNeedsExecuteComputeBlockForKey:(NSString *)key;
 
-/** 获取计算结果，每次执行都计算 */
-- (nullable id) ag_executeComputeBlockForKey:(NSString *)key;
+- (nullable id) ag_executeCommandForKey:(NSString *)key; ///< 获取命令执行结果，直接执行
+- (void) ag_setNeedsExecuteCommandForKey:(NSString *)key; ///< 标记命令待执行
+- (nullable id) ag_executeCommandIfNeededForKey:(NSString *)key; ///< 获取命令执行结果，有标记才执行命令，否则直接从字典中取
 
-/** 获取计算结果，有标记重新计算 */
-- (nullable id) ag_executeComputeBlockIfNeededForKey:(NSString *)key;
 
 @end
 

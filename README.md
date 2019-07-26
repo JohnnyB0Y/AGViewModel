@@ -5,7 +5,7 @@
 platform :ios, '7.0'
 target 'AGViewModel' do
 
-pod 'AGViewModel', '~> 0.6.23'
+pod 'AGViewModel', '~> 0.6.24'
 
 end
 ```
@@ -14,7 +14,7 @@ end
 在实践 casa 的去Model化后，为了解决网络数据获取后如何处理、如何更新、如何监听模型数据变化等一系列细节问题，而设计了AGViewModel。
 其主要作用就是管理视图与数据之间的关系，简化工作，尽量少做重复事情。
 
-#### 持有一个字典数据模型，并弱引用视图。==> View <·· AGViewModel -> Model
+#### 持有一个字典数据模型，并弱引用视图【 View <·· AGViewModel -> Model 】
 - 用户通过AGViewModel 对字典模型进行数据增删改查。
 - 数据改变后，用户可以通过AGViewModel 通知视图更新自己的Size 或刷新UI界面。
 - 具体怎样计算Size 和怎样显示UI 由视图自己决定。（当需要这么做的时候，AGViewModel会把数据提供给视图）
@@ -132,7 +132,7 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager
     
 ```
 
-#### AGWeakly 弱引用存取
+#### AGVMWeakly 弱引用存取
 - 不想强引用对象的时候，可以使用。
 
 ```objective-c
@@ -147,21 +147,23 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager
     
 ```
 
-#### AGComputable 可计算存取
-- 当需要根据几个会变化的属性，计算拿到最后的结果值时，可以使用可计算存取。
+#### AGVMCommandExecutable 命令编程
+- 当需要根据几个变化属性，拿到结果时，可以使用命令编程。
 
 ```objective-c
-/** 添加计算 block */
-- (void)ag_setComputeBlock:(AGVMComputableBlock)block forKey:(NSString *)key;
+/** 添加命令 */
+- (void)ag_setCommand:(AGVMCommand *)command forKey:(NSString *)key;
+/** 添加命令Block */
+- (void)ag_setCommandBlock:(AGVMCommandExecutableBlock)block forKey:(NSString *)key;
+/** 移除命令 */
+- (void) ag_removeCommandForKey:(NSString *)key;
 
-/** 执行计算 block（每次都计算）*/
-- (nullable id) ag_executeComputeBlockForKey:(NSString *)key;
-
-/** 获取计算结果（有值取值，无值执行计算）*/
-- (nullable id) ag_computeResultForKey:(NSString *)key;
-
-/** 移除计算 block */
-- (void) ag_removeComputeBlockForKey:(NSString *)key;
+/** 获取命令执行结果，直接执行 */
+- (nullable id) ag_executeCommandForKey:(NSString *)key;
+/** 标记命令待执行 */
+- (void) ag_setNeedsExecuteCommandForKey:(NSString *)key;
+/** 获取命令执行结果，有标记才执行命令，否则直接从字典中取 */
+- (nullable id) ag_executeCommandIfNeededForKey:(NSString *)key;
     
 ```
 
@@ -187,7 +189,47 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager
 @end
 ```
 
-##### 视图复用的一些协议已经在分类中实现（有特殊需求 Override）
+#### 视图复用的一些协议已经在分类中实现（有特殊需求 Override）
+``` objective-c
+@interface UITableView (AGViewModel)
+
+#pragma mark - table view cell
+- (void) ag_registerCellForClass:(Class<AGViewReusable>)cls;
+- (void) ag_registerNibCellForClass:(Class<AGViewReusable>)cls;
+- (__kindof UITableViewCell *) ag_dequeueCellWithClass:(Class<AGViewReusable>)cls for:(nullable NSIndexPath *)indexPath;
+
+
+#pragma mark - table view header footer view
+- (void) ag_registerHeaderFooterViewForClass:(Class<AGViewReusable>)cls;
+- (void) ag_registerNibHeaderFooterViewForClass:(Class<AGViewReusable>)cls;
+- (__kindof UITableViewHeaderFooterView *) ag_dequeueHeaderFooterViewWithClass:(Class<AGViewReusable>)cls;
+
+@end
+
+
+@interface UICollectionView (AGViewModel)
+
+#pragma mark collection view cell
+- (void) ag_registerCellForClass:(Class<AGViewReusable>)cls;
+- (void) ag_registerNibCellForClass:(Class<AGViewReusable>)cls;
+- (__kindof UICollectionViewCell *) ag_dequeueCellWithClass:(Class<AGViewReusable>)cls for:(NSIndexPath *)indexPath;
+
+
+#pragma mark collection view footer view
+- (void) ag_registerFooterViewForClass:(Class<AGViewReusable>)cls;
+- (void) ag_registerNibFooterViewForClass:(Class<AGViewReusable>)cls;
+- (__kindof UICollectionReusableView *) ag_dequeueFooterViewWithClass:(Class<AGViewReusable>)cls for:(NSIndexPath *)indexPath;
+
+
+#pragma mark collection view header view
+- (void) ag_registerHeaderViewForClass:(Class<AGViewReusable>)cls;
+- (void) ag_registerNibHeaderViewForClass:(Class<AGViewReusable>)cls;
+- (__kindof UICollectionReusableView *) ag_dequeueHeaderViewWithClass:(Class<AGViewReusable>)cls for:(NSIndexPath *)indexPath;
+
+@end
+
+```
+
 ```objective-c
 #pragma mark - ------------- ViewModel 相关协议 --------------
 #pragma mark BaseReusable Protocol
