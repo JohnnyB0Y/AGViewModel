@@ -46,7 +46,8 @@ static NSString * const kAGVMNumberMinus = @"kAGVMNumberMinus";
     NSNumber *plus = vm[kAGVMNumberPlus];
     XCTAssertTrue(plus == nil, @"返回数据不对!");
     
-    plus = [vm ag_computeResultForKey:kAGVMNumberPlus];
+    [vm ag_setNeedsExecuteComputeBlockForKey:kAGVMNumberPlus];
+    plus = [vm ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus];
     XCTAssertTrue(plus.integerValue == 3, @"返回数据不对!");
     
     [vm ag_setComputeBlock:^id _Nullable(AGViewModel * _Nonnull viewModel) {
@@ -79,10 +80,10 @@ static NSString * const kAGVMNumberMinus = @"kAGVMNumberMinus";
     NSNumber *plus2 = vm2[kAGVMNumberPlus];
     XCTAssertTrue(plus2 == nil, @"返回数据不对!");
     
-    plus2 = [vm2 ag_computeResultForKey:kAGVMNumberPlus];
+    plus2 = [vm2 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus];
     XCTAssertTrue(plus2.integerValue == 3, @"返回数据不对!");
     
-    plus2 = [vm2 ag_computeResultForKey:kAGVMNumberPlus];
+    plus2 = [vm2 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus];
     XCTAssertTrue(plus2.integerValue == 3, @"返回数据不对!");
     
     plus2 = [vm2 ag_executeComputeBlockForKey:kAGVMNumberPlus];
@@ -91,11 +92,42 @@ static NSString * const kAGVMNumberMinus = @"kAGVMNumberMinus";
     plus2 = [vm2 ag_executeComputeBlockForKey:kAGVMNumberPlus];
     XCTAssertTrue(plus2.integerValue == 9, @"返回数据不对!");
     
-    plus2 = [vm2 ag_computeResultForKey:kAGVMNumberPlus];
+    plus2 = [vm2 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus];
     XCTAssertTrue(plus2.integerValue == 9, @"返回数据不对!");
     
     plus2 = vm2[kAGVMNumberPlus];
     XCTAssertTrue(plus2.integerValue == 9, @"返回数据不对!");
+    
+    [vm2 ag_setNeedsExecuteComputeBlockForKey:kAGVMNumberPlus];
+    plus2 = [vm2 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus];
+    XCTAssertTrue(plus2.integerValue == 12, @"返回数据不对!");
+    
+    plus2 = [vm2 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus];
+    XCTAssertTrue(plus2.integerValue == 12, @"返回数据不对!");
+    
+    plus2 = [vm2 ag_executeComputeBlockForKey:kAGVMNumberPlus];
+    XCTAssertTrue(plus2.integerValue == 15, @"返回数据不对!");
+    
+    AGViewModel *vm3 = [vm2 mutableCopy];
+    
+    // vm2 删除
+    [vm2 ag_removeComputeBlockForKey:kAGVMNumberPlus];
+    plus2 = [vm2 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus]; // 移除后，就直接取值
+    XCTAssertTrue(plus2.integerValue == 15, @"返回数据不对!");
+    plus2 = [vm2 ag_executeComputeBlockForKey:kAGVMNumberPlus]; // 移除后，就直接取值
+    XCTAssertTrue(plus2.integerValue == 15, @"返回数据不对!");
+    
+    // vm3 删除
+    [vm3 ag_setNeedsExecuteComputeBlockForKey:kAGVMNumberPlus];
+    NSNumber *plus3 = [vm3 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus];
+    XCTAssertTrue(plus3.integerValue == 18, @"返回数据不对!");
+    
+    [vm3 ag_setNeedsExecuteComputeBlockForKey:kAGVMNumberPlus];
+    [vm3 ag_removeComputeBlockForKey:kAGVMNumberPlus];
+    plus3 = [vm3 ag_executeComputeBlockIfNeededForKey:kAGVMNumberPlus]; // 移除后，就直接取值
+    XCTAssertTrue(plus3.integerValue == 18, @"返回数据不对!");
+    plus3 = [vm3 ag_executeComputeBlockForKey:kAGVMNumberPlus]; // 移除后，就直接取值
+    XCTAssertTrue(plus3.integerValue == 18, @"返回数据不对!");
     
 }
 

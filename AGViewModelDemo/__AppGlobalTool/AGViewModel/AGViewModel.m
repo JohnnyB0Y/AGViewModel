@@ -10,6 +10,8 @@
 #import "AGVMFunction.h"
 #import "AGVMNotifier.h"
 
+static NSString * const kAGVMIfNeededTags = @"kAGVMIfNeededTags";
+
 @interface AGViewModel ()
 
 @property (nonatomic, strong) AGVMNotifier *notifier;
@@ -28,9 +30,11 @@
         unsigned int ag_callDelegateToDoForActionInfo   : 1;
     } _responeMethod;
     
-    BOOL _cachedBindingViewSizeTag;
+    struct AGIfNeededTags {
+        unsigned int ag_cachedBindingViewSize           : 1;
+        unsigned int ag_refreshUI                       : 1;
+    } _ifNeededTags;
     
-    BOOL _refreshUITag;
 }
 
 #pragma mark - ----------- Life Cycle ----------
@@ -54,7 +58,7 @@
     self = [super init];
     if (self) {
         _bindingModel = bindingModel;
-        _cachedBindingViewSizeTag = YES;
+        _ifNeededTags.ag_cachedBindingViewSize = YES;
     }
     return self;
 }
@@ -95,7 +99,7 @@
 #pragma mark 绑定视图可以计算自己的Size，并提供给外界使用。
 - (CGSize) ag_sizeOfBindingView
 {
-    if ( _cachedBindingViewSizeTag ) {
+    if ( _ifNeededTags.ag_cachedBindingViewSize ) {
         return [self ag_cachedSizeByBindingView:_bindingView];
     }
     
@@ -106,7 +110,7 @@
 
 - (CGSize) ag_sizeForBindingView:(UIView<AGVMResponsive> *)bv
 {
-    if ( _cachedBindingViewSizeTag ) {
+    if ( _ifNeededTags.ag_cachedBindingViewSize ) {
         return [self ag_cachedSizeByBindingView:bv];
     }
     
@@ -147,7 +151,7 @@
             self[kAGVMViewW] = @(bvSize. width);
         }
         // cached
-        _cachedBindingViewSizeTag = NO;
+        _ifNeededTags.ag_cachedBindingViewSize = NO;
     }
     else {
         NSAssert(NO, @"绑定视图未实现 AGVMResponsive 协议方法：ag_viewModel:sizeForBindingView:");
@@ -157,12 +161,12 @@
 
 - (void) ag_setNeedsCachedBindingViewSize
 {
-    _cachedBindingViewSizeTag = YES;
+    _ifNeededTags.ag_cachedBindingViewSize = YES;
 }
 
 - (void) ag_cachedBindingViewSizeIfNeeded
 {
-    if ( _cachedBindingViewSizeTag ) {
+    if ( _ifNeededTags.ag_cachedBindingViewSize ) {
         [self ag_cachedSizeByBindingView:_bindingView];
     }
 }
@@ -197,7 +201,7 @@
 /** 对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
 - (void) ag_setNeedsRefreshUI
 {
-    _refreshUITag = YES;
+    _ifNeededTags.ag_refreshUI = YES;
 }
 
 /** 刷新UI界面。*/
@@ -214,13 +218,13 @@
         [_bindingView setViewModel:self];
     }
     
-    _refreshUITag = NO;
+    _ifNeededTags.ag_refreshUI = NO;
 }
 
 /** 如果有“需要刷新UI”的标记，马上刷新界面。 */
 - (void) ag_refreshUIIfNeeded
 {
-    if ( _refreshUITag ) {
+    if ( _ifNeededTags.ag_refreshUI ) {
         [self ag_refreshUI];
     }
 }
@@ -463,6 +467,22 @@
         _archivedDictM = [NSMutableDictionary dictionaryWithCapacity:6];
     }
     return _archivedDictM;
+}
+
+- (NSMutableDictionary<NSString *,id> *)computeBlockDictM
+{
+    if ( nil == _computeBlockDictM ) {
+        _computeBlockDictM = [NSMutableDictionary dictionaryWithCapacity:6];
+    }
+    return _computeBlockDictM;
+}
+
+- (NSMapTable *)weaklyMT
+{
+    if ( nil == _weaklyMT ) {
+        _weaklyMT = [NSMapTable strongToWeakObjectsMapTable];
+    }
+    return _weaklyMT;
 }
 
 @end
@@ -800,14 +820,6 @@
     return [_weaklyMT objectForKey:key];
 }
 
-- (NSMapTable *)weaklyMT
-{
-    if ( nil == _weaklyMT ) {
-        _weaklyMT = [NSMapTable strongToWeakObjectsMapTable];
-    }
-    return _weaklyMT;
-}
-
 @end
 
 
@@ -817,6 +829,7 @@
 {
     AGAssertParameter(key);
     AGAssertParameter(block);
+    [self.computeBlockDictM setObject:block forKey:[self ag_tagKeyWithKey:key]]; // 标记
     [self.computeBlockDictM setObject:block forKey:key];
 }
 
@@ -829,26 +842,43 @@
 - (id)ag_executeComputeBlockForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    id object = nil;
+    [_computeBlockDictM removeObjectForKey:[self ag_tagKeyWithKey:key]]; // 取消标记
     AGVMComputableBlock block = [_computeBlockDictM objectForKey:key];
-    if ( block && ( object = block(self) ) ) { // 每次计算都存一次
-        [_bindingModel setObject:object forKeyedSubscript:key];
+    if ( block ) {
+        id object = block(self);
+        if ( object ) { // 每次计算都存一次
+            [_bindingModel setObject:object forKey:key];
+        }
+        else {
+            [_bindingModel removeObjectForKey:key];
+        }
+        return object;
     }
-    return object;
+    return [_bindingModel objectForKey:key]; // 执行到这里，说明 Block 不存在了，直接返回保存的数据。
 }
 
-- (id)ag_computeResultForKey:(NSString *)key
+- (void)ag_setNeedsExecuteComputeBlockForKey:(NSString *)key
 {
     AGAssertParameter(key);
-    return [_bindingModel objectForKeyedSubscript:key] ?: [self ag_executeComputeBlockForKey:key];
+    AGVMComputableBlock block = [_computeBlockDictM objectForKey:key];
+    if ( block ) {
+        [_computeBlockDictM setObject:block forKey:[self ag_tagKeyWithKey:key]];// 标记
+    }
 }
 
-- (NSMutableDictionary<NSString *,id> *)computeBlockDictM
+- (id)ag_executeComputeBlockIfNeededForKey:(NSString *)key
 {
-    if ( nil == _computeBlockDictM ) {
-        _computeBlockDictM = [NSMutableDictionary dictionaryWithCapacity:6];
+    AGAssertParameter(key);
+    AGVMComputableBlock block = [_computeBlockDictM objectForKey:[self ag_tagKeyWithKey:key]];
+    if ( block ) {
+        return [self ag_executeComputeBlockForKey:key]; // 执行计算
     }
-    return _computeBlockDictM;
+    return [_bindingModel objectForKey:key]; // 直接取值
+}
+
+- (NSString *)ag_tagKeyWithKey:(NSString *)key
+{
+    return [NSString stringWithFormat:@"K%@2%@4", kAGVMIfNeededTags, key];
 }
 
 @end
