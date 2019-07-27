@@ -88,8 +88,7 @@
     UICollectionViewCell<AGVMResponsive> *cell = [cellClass ag_dequeueCellBy:collectionView for:indexPath];
     
     [cell setViewModel:vm];
-    [vm ag_setBindingView:cell];
-    [vm ag_setDelegate:self forIndexPath:indexPath];
+    vm.setBindingView(cell).setDelegate(self).setIndexPath(indexPath);
     
     return cell;
 }
@@ -136,8 +135,8 @@
         Class cellClass = vm[kAGVMViewClass];
         if ( cellClass == [AGBoxACell class] ) {
             //
-            [vm ag_refreshUIByUpdateModelInBlock:^(NSMutableDictionary *bm) {
-                bm[kAGBoxACellSegmentedControlSelectedIndex] = @( selected );
+            [vm ag_refreshUIByUpdateModelInBlock:^(AGViewModel *viewModel) {
+                viewModel[kAGBoxACellSegmentedControlSelectedIndex] = @( selected );
             }];
             
             NSLog(@"indexPath : %ld - %ld", (long)indexPath.section, (long)indexPath.item);
@@ -159,8 +158,8 @@
         // 改变对应类的颜色
         if ( vm[kAGVMViewClass] == selectedCellClass ) {
             // 选中类名的 cell
-            [vm ag_refreshUIByUpdateModelInBlock:^(NSMutableDictionary *bm) {
-                bm[kAGVMBoxColor] = selectedCellColor;
+            [vm ag_refreshUIByUpdateModelInBlock:^(AGViewModel *viewModel) {
+                viewModel[kAGVMBoxColor] = selectedCellColor;
             }];
             
         }

@@ -28,22 +28,21 @@ typedef NS_ENUM(NSUInteger, AGResourceFileType) {
 typedef void (^AGVMTargetVCBlock)
 (
     UIViewController * _Nullable targetVC,
-    AGViewModel * _Nullable vm
+    AGViewModel * _Nullable viewModel
 );
 
 
 #pragma mark viewModel block
 typedef void(^AGVMConfigDataBlock)
 (
-    AGViewModel *vm,
-    UIView<AGVMResponsive> *bv,
-    NSMutableDictionary *bm
+    AGViewModel *viewModel,
+    UIView<AGVMResponsive> *bv
 );
 
 
 typedef void(^AGVMUpdateModelBlock)
 (
-    NSMutableDictionary *bm
+    AGViewModel *viewModel
 );
 
 
@@ -120,10 +119,21 @@ typedef id _Nullable (^AGVMCommandExecutableBlock)
     AGViewModel *viewModel
 );
 
+typedef AGViewModel * _Nonnull (^AGVMSetObjectForKeyBlock)
+(
+    _Nullable id object,
+    NSString *key
+);
+
+typedef AGViewModel * _Nonnull (^AGVMRemoveObjectForKeyBlock)
+(
+    NSString *key
+);
+
 #pragma mark map、filter、reduce
-typedef void (^AGVMMapBlock)(AGViewModel *vm);
-typedef BOOL (^AGVMFilterBlock)(AGViewModel *vm);
-typedef void (^AGVMReduceBlock)(AGViewModel *vm, NSInteger idx);
+typedef void (^AGVMMapBlock)(AGViewModel *viewModel);
+typedef BOOL (^AGVMFilterBlock)(AGViewModel *viewModel);
+typedef void (^AGVMReduceBlock)(AGViewModel *viewModel, NSInteger idx);
 
 #pragma mark - ------------- ViewModel 相关协议 --------------
 #pragma mark AGViewReusable Protocol

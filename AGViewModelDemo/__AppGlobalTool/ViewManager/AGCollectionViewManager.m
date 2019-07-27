@@ -139,8 +139,7 @@ itemClickBlock = _itemClickBlock;
     
     NSAssert(cell, @"AGCollectionViewManager error: collectionViewCell can not be nil!");
     
-    [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
-    [vm ag_setBindingView:cell];
+    vm.setBindingView(cell).setDelegate(self.vmDelegate).setIndexPath(indexPath);
     [cell setViewModel:vm];
     return  cell;
 }
@@ -201,8 +200,7 @@ itemClickBlock = _itemClickBlock;
     
     if ( supplementary && vm ) {
         [supplementary setViewModel:vm];
-        [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
-        [vm ag_setBindingView:supplementary];
+        vm.setBindingView(supplementary).setDelegate(self.vmDelegate).setIndexPath(indexPath);
     }
     
     return supplementary;

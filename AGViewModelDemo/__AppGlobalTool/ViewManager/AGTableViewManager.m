@@ -100,8 +100,7 @@ itemClickBlock = _itemClickBlock;
     NSAssert(cell, @"AGTableViewManager error: tableViewCell can not be nil!");
     
     // setup cell
-    [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
-    [vm ag_setBindingView:cell];
+    vm.setBindingView(cell).setDelegate(self.vmDelegate).setIndexPath(indexPath);
     [cell setViewModel:vm];
     return  cell;
 }
@@ -157,8 +156,7 @@ itemClickBlock = _itemClickBlock;
         NSAssert(headerView, @"AGTableViewManager error: headerView can not be nil!");
         
         // setup header view
-        [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
-        [vm ag_setBindingView:headerView];
+        vm.setBindingView(headerView).setDelegate(self.vmDelegate).setIndexPath(indexPath);
         [headerView setViewModel:vm];
     }
     
@@ -207,8 +205,7 @@ itemClickBlock = _itemClickBlock;
         NSAssert(footerView, @"AGTableViewManager error: footerView can not be nil!");
         
         // setup footer view
-        [vm ag_setDelegate:self.vmDelegate forIndexPath:indexPath];
-        [vm ag_setBindingView:footerView];
+        vm.setBindingView(footerView).setDelegate(self.vmDelegate).setIndexPath(indexPath);
         [footerView setViewModel:vm];
     }
     

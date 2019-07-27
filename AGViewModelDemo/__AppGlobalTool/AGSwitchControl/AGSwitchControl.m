@@ -190,7 +190,7 @@
         }
         cell.tag = indexPath.row;
         [cell setViewModel:vm];
-        [vm ag_setBindingView:cell];
+        vm.setBindingView(cell);
     }
     else if ( collectionView == _detailSwitchView ) {
         // 详情

@@ -73,29 +73,6 @@
 }
 
 #pragma mark - ---------- Public Methods ----------
-#pragma mark 设置绑定视图
-- (void) ag_setBindingView:(UIView<AGVMResponsive> *)bindingView
-{
-    // 这里为了性能考虑，不再判断 respondsToSelector:@selector(setViewModel:)
-    _bindingView = bindingView;
-}
-
-- (void) ag_setBindingView:(UIView<AGVMResponsive> *)bindingView
-           configDataBlock:(AGVMConfigDataBlock)configDataBlock
-{
-    _bindingView        = bindingView;
-    _configDataBlock    = [configDataBlock copy];
-}
-
-#pragma mark 设置绑定代理
-/** 设置代理 */
-- (void) ag_setDelegate:(id<AGVMDelegate>)delegate
-           forIndexPath:(NSIndexPath *)indexPath
-{
-    self.delegate = delegate;
-    self.indexPath = indexPath;
-}
-
 #pragma mark 绑定视图可以计算自己的Size，并提供给外界使用。
 - (CGSize) ag_sizeOfBindingView
 {
@@ -194,7 +171,7 @@
 /** 更新数据，并对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
 - (void) ag_setNeedsRefreshUIModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
-    if ( block ) block( _bindingModel );
+    if ( block ) block( self );
     [self ag_setNeedsRefreshUI];
 }
 
@@ -212,7 +189,7 @@
     }
     
     if ( _configDataBlock ) {
-        _configDataBlock( self, _bindingView, _bindingModel );
+        _configDataBlock( self, _bindingView );
     }
     else {
         [_bindingView setViewModel:self];
@@ -238,17 +215,14 @@
 
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict
 {
-    dict.count > 0 ? [_bindingModel addEntriesFromDictionary:dict] : nil;
+    if ( dict.count <= 0 ) return;
+    [_bindingModel addEntriesFromDictionary:dict];
 }
 
 - (void) ag_mergeModelFromDictionary:(NSDictionary *)dict forKeys:(NSArray<NSString *> *)keys
 {
-    if ( dict.count <= 0 ) {
-        return;
-    }
-    
+    if ( dict.count <= 0 ) return;
     [keys enumerateObjectsUsingBlock:^(NSString * _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSAssert([key isKindOfClass:[NSString class]], @"Key is not kind of NSString!");
         self[key] = dict[key];
     }];
 }
@@ -287,7 +261,8 @@
     AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
     vm->_bindingView = _bindingView;
     vm->_configDataBlock = [_configDataBlock copy];
-    [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
+    vm->_delegate = _delegate;
+    vm->_indexPath = _indexPath;
     return vm;
 }
 
@@ -296,7 +271,8 @@
     AGViewModel *vm = [[self.class allocWithZone:zone] initWithModel:[_bindingModel mutableCopy]];
     vm->_bindingView = _bindingView;
     vm->_configDataBlock = [_configDataBlock copy];
-    [vm ag_setDelegate:_delegate forIndexPath:_indexPath];
+    vm->_delegate = _delegate;
+    vm->_indexPath = _indexPath;
     vm->_archivedDictM = [_archivedDictM mutableCopy];
     vm->_weaklyMT = [_weaklyMT mutableCopy];
     vm->_commandDictM = [_commandDictM mutableCopy];
@@ -893,6 +869,138 @@
         return object;
     }
     return [_bindingModel objectForKey:key]; // 直接取值
+}
+
+@end
+
+@implementation AGViewModel (AGVMMethodChaining)
+
+- (AGVMSetObjectForKeyBlock)setObjectForKey
+{
+    return ^AGViewModel * _Nonnull(id  _Nullable object, NSString * _Nonnull forKey) {
+        [self setObject:object forKeyedSubscript:forKey];
+        return self;
+    };
+}
+
+- (AGVMRemoveObjectForKeyBlock)removeObjectForKey
+{
+    return ^AGViewModel * _Nonnull(NSString * _Nonnull key) {
+        [self ag_removeObjectForKey:key];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(NSDictionary * _Nonnull))mergeDictionary
+{
+    return ^AGViewModel * _Nonnull(NSDictionary * _Nonnull dict) {
+        [self ag_mergeModelFromDictionary:dict];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(NSDictionary * _Nonnull, NSArray<NSString *> * _Nonnull))mergeDictionaryForKeys
+{
+    return ^AGViewModel * _Nonnull(NSDictionary * _Nonnull dict, NSArray<NSString *> * _Nonnull keys) {
+        [self ag_mergeModelFromDictionary:dict forKeys:keys];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(AGViewModel * _Nonnull))mergeViewModel
+{
+    return ^AGViewModel * _Nonnull(AGViewModel * _Nonnull vm) {
+        [self ag_mergeModelFromViewModel:vm];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(AGViewModel * _Nonnull, NSArray<NSString *> * _Nonnull))mergeViewModelForKeys
+{
+    return ^AGViewModel * _Nonnull(AGViewModel * _Nonnull vm, NSArray<NSString *> * _Nonnull keys) {
+        [self ag_mergeModelFromViewModel:vm forKeys:keys];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(NSIndexPath * _Nullable))setIndexPath
+{
+    return ^AGViewModel * _Nonnull(NSIndexPath * _Nullable indexPath) {
+        self.indexPath = indexPath;
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(id<AGVMDelegate> _Nullable))setDelegate
+{
+    return ^AGViewModel * _Nonnull(id<AGVMDelegate> _Nullable delegate) {
+        self.delegate = delegate;
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(UIView<AGVMResponsive> * _Nullable))setBindingView
+{
+    return ^AGViewModel * _Nonnull(UIView<AGVMResponsive> * _Nullable view) {
+        self->_bindingView = view;
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(AGVMConfigDataBlock _Nonnull))setBindingViewConfigDataBlock
+{
+    return ^AGViewModel * _Nonnull(AGVMConfigDataBlock _Nonnull configDataBlock) {
+        self->_configDataBlock = [configDataBlock copy];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(AGVMCommand * _Nonnull, NSString * _Nonnull))setCommandForKey
+{
+    return ^AGViewModel * _Nonnull(AGVMCommand * _Nonnull command, NSString * _Nonnull key) {
+        [self ag_setCommand:command forKey:key];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(NSString * _Nonnull))removeCommandForKey
+{
+    return ^AGViewModel * _Nonnull(NSString * _Nonnull key) {
+        [self ag_removeCommandForKey:key];
+        return self;
+    };
+}
+
+- (AGVMSetObjectForKeyBlock)setWeaklyForKey
+{
+    return ^AGViewModel * _Nonnull(id  _Nullable object, NSString * _Nonnull key) {
+        [self ag_setWeaklyObject:object forKey:key];
+        return self;
+    };
+}
+
+- (AGVMRemoveObjectForKeyBlock)removeWeaklyForKey
+{
+    return ^AGViewModel * _Nonnull(NSString * _Nonnull key) {
+        [self ag_removeWeaklyObjectForKey:key];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(NSString * _Nonnull))addArchivedKey
+{
+    return ^AGViewModel * _Nonnull(NSString * _Nonnull key) {
+        [self ag_addArchivedObjectKey:key];
+        return self;
+    };
+}
+
+- (AGViewModel * _Nonnull (^)(NSString * _Nonnull))removeArchivedKey
+{
+    return ^AGViewModel * _Nonnull(NSString * _Nonnull key) {
+        [self ag_removeArchivedObjectKey:key];
+        return self;
+    };
 }
 
 @end

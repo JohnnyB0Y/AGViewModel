@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "AGVMProtocol.h"
-@class AGVMCommand, AGViewModel;
 
 NS_ASSUME_NONNULL_BEGIN
 

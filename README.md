@@ -5,7 +5,7 @@
 platform :ios, '7.0'
 target 'AGViewModel' do
 
-pod 'AGViewModel', '~> 0.6.24'
+pod 'AGViewModel', '~> 0.6.25'
 
 end
 ```
@@ -166,6 +166,9 @@ NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.tableViewManager
 - (nullable id) ag_executeCommandIfNeededForKey:(NSString *)key;
     
 ```
+
+#### AGVMMethodChaining 链式方法
+- 支持一些方便的链式方法调用
 
 #### 对id类型数据判断处理
 - 对API返回数据的边界判断和处理
