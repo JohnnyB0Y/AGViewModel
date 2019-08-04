@@ -4,6 +4,7 @@ target 'AGViewModelDemo' do
 inhibit_all_warnings!
 
     pod 'AFNetworking', '~> 3.1.0'
+    pod 'AspectsV1.4.2', '~> 1.4.2'
     pod 'CTNetworking'
     pod 'CTMediator'
     pod 'SAMKeychain'

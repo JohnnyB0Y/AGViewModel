@@ -17,6 +17,7 @@ PODS:
   - AGCategories (0.1.8)
   - AGTimerManager (0.5.1)
   - AGVerifyManager (0.3.4)
+  - AspectsV1.4.2 (1.4.2)
   - CTMediator (25)
   - CTNetworking (14):
     - AFNetworking
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - AGCategories (~> 0.1.6)
   - AGTimerManager (~> 0.5.1)
   - AGVerifyManager (~> 0.3.4)
+  - AspectsV1.4.2 (~> 1.4.2)
   - CTMediator
   - CTNetworking
   - Masonry
@@ -50,6 +52,7 @@ SPEC REPOS:
     - AGCategories
     - AGTimerManager
     - AGVerifyManager
+    - AspectsV1.4.2
     - CTMediator
     - CTNetworking
     - Masonry
@@ -63,6 +66,7 @@ SPEC CHECKSUMS:
   AGCategories: 1fcd073caad1c6f369521234cff7abf095e21c29
   AGTimerManager: 26321cb98c200c52bcbac21ebce6f36318ba3927
   AGVerifyManager: dd61d7ee90e1ef41458ff179b99645176c53c163
+  AspectsV1.4.2: a8b168606776215f5ba4790b95ff315df336aca9
   CTMediator: 830c1fc204b3a6abf2a059510c7380f56343da0f
   CTNetworking: 1d76c25dc81eec59744a31559959522319020b81
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
@@ -71,6 +75,6 @@ SPEC CHECKSUMS:
   SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 8fdbd16fb98ff51e889bfd3a9f5d02cfad960c9c
+PODFILE CHECKSUM: 17ec7c031426e6a83e18726b26f323fe424be6ec
 
 COCOAPODS: 1.6.1
