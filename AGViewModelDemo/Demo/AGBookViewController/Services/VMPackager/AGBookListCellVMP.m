@@ -30,11 +30,11 @@
     }];
     
     // 并添加到归档中
-    [vm ag_addArchivedObjectKey:ak_AGBook_title];
-    [vm ag_addArchivedObjectKey:ak_AGBook_image];
-    [vm ag_addArchivedObjectKey:ak_AGBook_summary];
-    [vm ag_addArchivedObjectKey:ak_AGBook_isbn];
-    [vm ag_addArchivedObjectKey:kAGVMViewClassName];
+    [vm ag_addArchivedKey:ak_AGBook_title];
+    [vm ag_addArchivedKey:ak_AGBook_image];
+    [vm ag_addArchivedKey:ak_AGBook_summary];
+    [vm ag_addArchivedKey:ak_AGBook_isbn];
+    [vm ag_addArchivedKey:kAGVMViewClassName];
     
     return vm;
 }

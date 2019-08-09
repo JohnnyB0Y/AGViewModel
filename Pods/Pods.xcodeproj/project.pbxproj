@@ -334,7 +334,7 @@
 		0EFD630C841519503792BFD5DD91758E /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		0FF24EB8EEEDDD04E9FB25372907998D /* MJRefreshBackFooter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshBackFooter.m; path = MJRefresh/Base/MJRefreshBackFooter.m; sourceTree = "<group>"; };
 		11425F71D2A51CDCFF587D442F5B7CE8 /* CTLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CTLogger.m; path = CTNetworking/CTNetworking/Components/LogComponents/CTLogger.m; sourceTree = "<group>"; };
-		11B2485A7D832866F306991BAAB6C9D7 /* libAGCategories.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAGCategories.a; path = libAGCategories.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		11B2485A7D832866F306991BAAB6C9D7 /* libAGCategories.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAGCategories.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D68957BA14107FAAE27CA87E587953 /* UIView+MJExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIView+MJExtension.m"; path = "MJRefresh/UIView+MJExtension.m"; sourceTree = "<group>"; };
 		1273083A3D58DB595A65800C00EE4523 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		12BF1668EA084E871318D34ABAB02E0B /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 		2C18B62B56D16D4F42D3BD17F0A5D0D2 /* SVProgressHUD.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SVProgressHUD.xcconfig; sourceTree = "<group>"; };
 		2C824C6EA30A4E054298A6B969B144FC /* CTApiProxy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTApiProxy.h; path = CTNetworking/CTNetworking/Components/APIProxy/CTApiProxy.h; sourceTree = "<group>"; };
 		2E5FC307633A3D839150D24AB8AC7A1A /* MJRefreshAutoNormalFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoNormalFooter.h; path = MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h; sourceTree = "<group>"; };
-		303353093820625E7067EBC3B18EC0B7 /* libAGTimerManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAGTimerManager.a; path = libAGTimerManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		303353093820625E7067EBC3B18EC0B7 /* libAGTimerManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAGTimerManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		30922B0E18ED7D90EC0C1EB50351A023 /* NSMutableString+AXNetworkingMethods.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSMutableString+AXNetworkingMethods.h"; path = "CTNetworking/CTNetworking/Categories/String/NSMutableString+AXNetworkingMethods.h"; sourceTree = "<group>"; };
 		30A94A244C0A897040E9505B245EBE1D /* ReachStateWWAN.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ReachStateWWAN.h; path = RealReachability/FSM/ReachStateWWAN.h; sourceTree = "<group>"; };
 		310C76040E9099FFA0366333B0682807 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
@@ -402,7 +402,7 @@
 		575B38D95FD9944122304BDCDF493BA0 /* ReachStateLoading.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ReachStateLoading.h; path = RealReachability/FSM/ReachStateLoading.h; sourceTree = "<group>"; };
 		57C45C5DAC98D6F626066BF66971F4FA /* UIScrollView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+MJExtension.h"; path = "MJRefresh/UIScrollView+MJExtension.h"; sourceTree = "<group>"; };
 		57D1269F7B166B727206EC202CB3C182 /* NSURLRequest+CTNetworkingMethods.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+CTNetworkingMethods.m"; path = "CTNetworking/CTNetworking/Categories/NSURLRequest/NSURLRequest+CTNetworkingMethods.m"; sourceTree = "<group>"; };
-		57D4978CDE4DE9C54F6A39A2D6E6CA85 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSVProgressHUD.a; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		57D4978CDE4DE9C54F6A39A2D6E6CA85 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A98F1AF2BA6C6BE28412522D90AAA34 /* MJRefresh.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MJRefresh.xcconfig; sourceTree = "<group>"; };
 		5C4C6157CD672E725A09879A06C17329 /* AGTimerManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AGTimerManager-dummy.m"; sourceTree = "<group>"; };
 		5C9C4CFC3E66D3E8EDC9AEA4CC502A85 /* NSObject+AXNetworkingMethods.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+AXNetworkingMethods.h"; path = "CTNetworking/CTNetworking/Categories/NSObject/NSObject+AXNetworkingMethods.h"; sourceTree = "<group>"; };
@@ -447,20 +447,20 @@
 		7BF1532F52187872A4635BCAA24CC7DD /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIKit+AFNetworking.h"; path = "UIKit+AFNetworking/UIKit+AFNetworking.h"; sourceTree = "<group>"; };
 		7C99CA8C2C7BF189F8EC2B93897877E2 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshAutoFooter.h; path = MJRefresh/Base/MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		7D1F036A96C6C660F44AC0BCB71B95FE /* ReachStateWIFI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ReachStateWIFI.h; path = RealReachability/FSM/ReachStateWIFI.h; sourceTree = "<group>"; };
-		80041A01377A3EB697C0340BB79C4CFD /* libAspectsV1.4.2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAspectsV1.4.2.a; path = libAspectsV1.4.2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		80041A01377A3EB697C0340BB79C4CFD /* libAspectsV1.4.2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAspectsV1.4.2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		801F35F1E2011DE27C674ED0EF3ED4E0 /* CTURLResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CTURLResponse.m; path = CTNetworking/CTNetworking/Components/URLResponse/CTURLResponse.m; sourceTree = "<group>"; };
-		804ADE4BC29930A563092711FF93FF94 /* libRealReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRealReachability.a; path = libRealReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		804ADE4BC29930A563092711FF93FF94 /* libRealReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRealReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		806D0A2564841CACC6C03F0C6415F94C /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		80CFA64D2524114211BB73EF3900D886 /* MJRefreshGifHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshGifHeader.h; path = MJRefresh/Custom/Header/MJRefreshGifHeader.h; sourceTree = "<group>"; };
 		8287C1CE7526F3AD0479D8BA7D1E08E0 /* AGTimerManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AGTimerManager-prefix.pch"; sourceTree = "<group>"; };
 		82CC5F44BB3D6B10BBB8C3C3294E4337 /* MJRefreshNormalHeader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJRefreshNormalHeader.m; path = MJRefresh/Custom/Header/MJRefreshNormalHeader.m; sourceTree = "<group>"; };
-		836BFECA4EED757FDF8FE96BC1B5C33C /* libCTMediator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCTMediator.a; path = libCTMediator.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		836BFECA4EED757FDF8FE96BC1B5C33C /* libCTMediator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCTMediator.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8468D1A80CFB2A213DD875E2E443CE2F /* CTMemoryCachedRecord.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTMemoryCachedRecord.h; path = CTNetworking/CTNetworking/Components/CacheComponents/MemCacheDataCenter/MemoryCachedRecord/CTMemoryCachedRecord.h; sourceTree = "<group>"; };
-		84AA8FC4160C5AFEB78F338781442690 /* libPods-AGViewModelDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-AGViewModelDemo.a"; path = "libPods-AGViewModelDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84AA8FC4160C5AFEB78F338781442690 /* libPods-AGViewModelDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AGViewModelDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85AB99DCA0F67F73402B03508005D91B /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
 		85B9285986183A0FCF9ADA3DE61FCE09 /* MJRefreshBackGifFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshBackGifFooter.h; path = MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h; sourceTree = "<group>"; };
-		86F53FD69E36462AF47B9A1E78EAE26F /* libMJRefresh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMJRefresh.a; path = libMJRefresh.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		898D90D3F85D871BB653FB3056F494B2 /* libMasonry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libMasonry.a; path = libMasonry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		86F53FD69E36462AF47B9A1E78EAE26F /* libMJRefresh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMJRefresh.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		898D90D3F85D871BB653FB3056F494B2 /* libMasonry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMasonry.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		89A32E37347D6A709564C6503C122D24 /* CTCacheCenter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTCacheCenter.h; path = CTNetworking/CTNetworking/Components/CacheComponents/CTCacheCenter.h; sourceTree = "<group>"; };
 		8B7D88D9649CA033377ACDF3BD4666AE /* PingFoundation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PingFoundation.h; path = RealReachability/Ping/PingFoundation.h; sourceTree = "<group>"; };
 		8B96543DAA447E009787FB192EA09A54 /* ReachStateUnloaded.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ReachStateUnloaded.m; path = RealReachability/FSM/ReachStateUnloaded.m; sourceTree = "<group>"; };
@@ -468,7 +468,7 @@
 		8F348981A2248B6E18EA9589EF951007 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
 		8F4708AC04626378140B9B62513D74F2 /* CTLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTLogger.h; path = CTNetworking/CTNetworking/Components/LogComponents/CTLogger.h; sourceTree = "<group>"; };
 		8FB502BD029F2AE76D6FBE11D508CD50 /* Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-prefix.pch"; sourceTree = "<group>"; };
-		8FBEEC4DF4D3867C9C0516440BEBF473 /* libAGVerifyManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAGVerifyManager.a; path = libAGVerifyManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FBEEC4DF4D3867C9C0516440BEBF473 /* libAGVerifyManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAGVerifyManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FDE62FF17EE9CE4322C97AE4795E47D /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
 		903CEC9A0B862CC6D345AE3215CD84B2 /* NSDictionary+AXNetworkingMethods.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+AXNetworkingMethods.h"; path = "CTNetworking/CTNetworking/Categories/Dictionary/NSDictionary+AXNetworkingMethods.h"; sourceTree = "<group>"; };
 		9145F3BEC261C17E3F3E61B27A06FF1C /* View+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Masonry/View+MASAdditions.m"; sourceTree = "<group>"; };
@@ -485,7 +485,7 @@
 		9D14E36AA2B24B7351372788981470D2 /* SAMKeychainQuery.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SAMKeychainQuery.h; path = Sources/SAMKeychainQuery.h; sourceTree = "<group>"; };
 		9D4F1BED051B29EE3685D5B4182E2BD2 /* PingHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PingHelper.m; path = RealReachability/Ping/PingHelper.m; sourceTree = "<group>"; };
 		9D623D87FB70B1B20C92CFC527FCBDA9 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = AFNetworking/AFSecurityPolicy.h; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DA2DBEB0AAF51F7F0E8C0AD8CBF0D3E /* MASConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Masonry/MASConstraint.m; sourceTree = "<group>"; };
 		9E29E5A5DA9259A56C15253E6F1631B0 /* ReachStateWIFI.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ReachStateWIFI.m; path = RealReachability/FSM/ReachStateWIFI.m; sourceTree = "<group>"; };
 		9F2F09524463602C0B1E03730A1094BD /* UIImage+AGGenerate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+AGGenerate.m"; path = "AGCategories/Categories/UIImage/UIImage+AGGenerate.m"; sourceTree = "<group>"; };
@@ -525,7 +525,7 @@
 		C050DCAC8C0BC289137F756CC6B6B7BF /* MJRefreshNormalHeader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshNormalHeader.h; path = MJRefresh/Custom/Header/MJRefreshNormalHeader.h; sourceTree = "<group>"; };
 		C118A43A2EDFFF28B3EAB2E134598E0A /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
 		C169911551D16057F772919BF9600825 /* MJRefreshComponent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshComponent.h; path = MJRefresh/Base/MJRefreshComponent.h; sourceTree = "<group>"; };
-		C3381D6519BB3C57B8F8D41E0E1B955E /* libCTNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libCTNetworking.a; path = libCTNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3381D6519BB3C57B8F8D41E0E1B955E /* libCTNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCTNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42F6DCF04BB7661B203FF67A798F9E0 /* CTMediator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CTMediator-dummy.m"; sourceTree = "<group>"; };
 		C4800B0B6496E512EE5EF08121E6F917 /* ReachStateUnloaded.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ReachStateUnloaded.h; path = RealReachability/FSM/ReachStateUnloaded.h; sourceTree = "<group>"; };
 		C706FD1584673E5150211F9C2274B48C /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
@@ -569,14 +569,14 @@
 		F7379334520212BD8D7984A7A8E1127E /* Aspects.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Aspects.m; sourceTree = "<group>"; };
 		F7BF5DF08DE58E3DBE2597BC6EE0C1DB /* UIScrollView+MJExtension.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+MJExtension.m"; path = "MJRefresh/UIScrollView+MJExtension.m"; sourceTree = "<group>"; };
 		F8882B14B11378094F76B61061432BEE /* Pods-AGViewModelDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AGViewModelDemo-dummy.m"; sourceTree = "<group>"; };
-		F8A67322E0242CC4490D82248843D49A /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libAFNetworking.a; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8A67322E0242CC4490D82248843D49A /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F95DF8D4519D4EB01965B78689759046 /* CTMemoryCachedRecord.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CTMemoryCachedRecord.m; path = CTNetworking/CTNetworking/Components/CacheComponents/MemCacheDataCenter/MemoryCachedRecord/CTMemoryCachedRecord.m; sourceTree = "<group>"; };
 		FAD2608987AB27B790ABFE2B7CFAB814 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
 		FB14FC32DA5E3598927CCB4737D7D77A /* NSFileManager+AGFolderOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager+AGFolderOperation.m"; path = "AGCategories/Categories/NSFileManager/NSFileManager+AGFolderOperation.m"; sourceTree = "<group>"; };
 		FB2179B4925BA1BC4D9039A30E544E09 /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
 		FB7F557621824F9361F25BF9C3868A88 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
 		FBB0BDE5F4D0B988E1F6DE86C19631AF /* MJRefreshFooter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJRefreshFooter.h; path = MJRefresh/Base/MJRefreshFooter.h; sourceTree = "<group>"; };
-		FC2C66498F905ADE0DD74F0B5216BD56 /* libSAMKeychain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSAMKeychain.a; path = libSAMKeychain.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC2C66498F905ADE0DD74F0B5216BD56 /* libSAMKeychain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSAMKeychain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -695,7 +695,6 @@
 				F718B47EE9C4DC96F15EC5C73BDEA231 /* Resources */,
 				5AD20C5E0F79490A9B4CECC4240C0E9A /* Support Files */,
 			);
-			name = SAMKeychain;
 			path = SAMKeychain;
 			sourceTree = "<group>";
 		};
@@ -719,7 +718,6 @@
 				1E05DED63C5BC09BDA49561352362307 /* Support Files */,
 				8FDEF2FC95822331B48890D52B29ADFE /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -741,7 +739,6 @@
 				F7379334520212BD8D7984A7A8E1127E /* Aspects.m */,
 				B2A6F1B31DE48B9CA4AD90046372786D /* Support Files */,
 			);
-			name = AspectsV1.4.2;
 			path = AspectsV1.4.2;
 			sourceTree = "<group>";
 		};
@@ -763,7 +760,6 @@
 				25A55F57467ADBC364DD1B0CB637CD10 /* CTMediator.m */,
 				FF8740C26D50C9086D020F3F5B3BCFAF /* Support Files */,
 			);
-			name = CTMediator;
 			path = CTMediator;
 			sourceTree = "<group>";
 		};
@@ -833,7 +829,6 @@
 				FBF15D235156451CE0132738971D1A73 /* Ping */,
 				D21E94E720EF7174839C1A6039E112F1 /* Support Files */,
 			);
-			name = RealReachability;
 			path = RealReachability;
 			sourceTree = "<group>";
 		};
@@ -855,7 +850,6 @@
 				F5F1F6F3DE5E2E1086B18992992C0E30 /* AGVerifyManager.m */,
 				04BBB84B3B33873B4BEDAE4D8F89F1D0 /* Support Files */,
 			);
-			name = AGVerifyManager;
 			path = AGVerifyManager;
 			sourceTree = "<group>";
 		};
@@ -911,7 +905,6 @@
 				C74F8FE933881ADE3AA098C61EDEEAB0 /* ViewController+MASAdditions.m */,
 				F08C6ABC2EDE2193191AC5B00F50465D /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -1009,7 +1002,6 @@
 				B304017FBAF6C3DAF4721960AD661743 /* Resources */,
 				7CF67F32DD7FCE3A11C9BE3900D33B06 /* Support Files */,
 			);
-			name = MJRefresh;
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
@@ -1035,7 +1027,6 @@
 				5D5C571CCF8A9B6A381FC36DF67DFD7D /* UIImage+AGTransform.m */,
 				875E8289EFB253868AE74594A5BC6DB8 /* Support Files */,
 			);
-			name = AGCategories;
 			path = AGCategories;
 			sourceTree = "<group>";
 		};
@@ -1175,7 +1166,6 @@
 				B63D4019C09E34D4F23062B84331D443 /* Target_H5API.m */,
 				798224B7DEBF620C6315D65658B2F8C1 /* Support Files */,
 			);
-			name = CTNetworking;
 			path = CTNetworking;
 			sourceTree = "<group>";
 		};
@@ -1200,7 +1190,6 @@
 				FD93AB8BEE555DCC31A216165DEC893F /* Resources */,
 				83219B82DB5CFA8A4D4EB9AF026ACC58 /* Support Files */,
 			);
-			name = SVProgressHUD;
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -1212,7 +1201,6 @@
 				38D10BD0C625B159517479C3DD6FBE2C /* AGTMKit.h */,
 				69618357D4CC365AA6D9F36052AD6793 /* Support Files */,
 			);
-			name = AGTimerManager;
 			path = AGTimerManager;
 			sourceTree = "<group>";
 		};
@@ -1718,14 +1706,15 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1030;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 46383C2D24D5A9065E1D5A30B9AD9856 /* Products */;
@@ -2063,6 +2052,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2112,8 +2102,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -2128,7 +2117,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AGVerifyManager/AGVerifyManager-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2151,7 +2140,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/SAMKeychain/SAMKeychain-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2175,7 +2164,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/CTMediator/CTMediator-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2198,7 +2187,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AspectsV1.4.2/AspectsV1.4.2-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2221,7 +2210,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/SAMKeychain/SAMKeychain-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2267,7 +2256,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AGTimerManager/AGTimerManager-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2286,6 +2275,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2399,7 +2389,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/MJRefresh/MJRefresh-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2422,7 +2412,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/MJRefresh/MJRefresh-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2446,7 +2436,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AGVerifyManager/AGVerifyManager-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2470,7 +2460,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/RealReachability/RealReachability-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2494,7 +2484,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AGTimerManager/AGTimerManager-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2517,7 +2507,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AFNetworking/AFNetworking-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2541,7 +2531,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/RealReachability/RealReachability-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2564,7 +2554,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/Masonry/Masonry-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2636,7 +2626,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AspectsV1.4.2/AspectsV1.4.2-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2660,7 +2650,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/CTMediator/CTMediator-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2684,7 +2674,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/Masonry/Masonry-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -2729,7 +2719,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/AFNetworking/AFNetworking-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";

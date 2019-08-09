@@ -39,6 +39,7 @@
     }];
     
     // json
+    [vmm ag_addAllSerializableObjectUseDefaultKeys];
     NSString *json = [vmm ag_toJSONString];
     NSError *error;
     NSDictionary *dict = ag_newNSDictionaryWithJSONString(json, &error);
