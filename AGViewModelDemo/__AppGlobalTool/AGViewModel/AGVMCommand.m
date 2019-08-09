@@ -19,7 +19,7 @@
 
 + (AGVMCommand *)defaultInstance
 {
-    return [[AGVMCommand alloc] init];
+    return [[self alloc] init];
 }
 
 - (instancetype)initWithExecuteBlock:(AGVMCommandBlock)execute undoBlock:(AGVMCommandBlock)undo

@@ -911,7 +911,7 @@
 
 + (AGViewModel *)defaultInstance
 {
-    return [AGViewModel newWithModel:nil];
+    return [self newWithModel:nil];
 }
 
 - (AGVMSetObjectForKeyBlock)setObjectForKey

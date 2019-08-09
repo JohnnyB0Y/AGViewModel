@@ -25,7 +25,7 @@
 #pragma mark - ----------- Life Cycle ----------
 + (AGVMManager *)defaultInstance
 {
-    return [AGVMManager newWithSectionCapacity:6];
+    return [self newWithSectionCapacity:6];
 }
 
 /**

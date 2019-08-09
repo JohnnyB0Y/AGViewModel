@@ -24,7 +24,7 @@
 
 + (AGVMSection *)defaultInstance
 {
-    return [AGVMSection newWithItemCapacity:15];
+    return [self newWithItemCapacity:15];
 }
 
 /**
