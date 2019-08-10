@@ -6,7 +6,6 @@
 //  Copyright © 2017年 JohnnyB0Y. All rights reserved.
 //
 
-#import "AGDocumentViewController.h"
 #import "AGDiskDocumentViewController.h"
 #import <Masonry.h>
 #import "AGTableViewManager.h"
@@ -15,15 +14,14 @@
 #import "AGDocumentVMGenerator.h"
 #import "AGGlobalVMKeys.h"
 
-@interface AGDocumentViewController ()
+@interface AGDiskDocumentViewController ()
 <AGVMDelegate>
 
-/** ` */
 @property (nonatomic, strong) AGTableViewManager *tableViewManager;
-@property (nonatomic, strong) AGDocumentVMGenerator *documentVMG;
+
 @end
 
-@implementation AGDocumentViewController
+@implementation AGDiskDocumentViewController
 
 #pragma mark - ----------- Life Cycle ----------
 - (void)viewDidLoad {
@@ -99,18 +97,6 @@
     [self.tableViewManager.view reloadData];
 }
 
-- (void) rightBarButtonItemClick:(UIBarButtonItem *)item
-{
-    // 保存图书列表
-    AGVMManager *vmm = self.documentVMG.documentVMM;
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:vmm];
-    [data writeToURL:[self _archiveURL] atomically:YES];
-    
-    // 跳转到磁盘图书列表视图控制器
-    AGDiskDocumentViewController *vc = [[AGDiskDocumentViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
 #pragma mark - ---------- Private Methods ----------
 #pragma mark add SubViews
 - (void) _addSubviews
@@ -133,7 +119,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     
-    self.title = @"唐诗";
+    self.title = @"唐诗归档";
 }
 
 #pragma mark add actions
@@ -146,18 +132,19 @@
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(handleDeviceOrientationChange:)
                                                 name:UIDeviceOrientationDidChangeNotification object:nil];
-    
-    // 导航右上角按钮
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"归档并跳转" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
 }
 
 #pragma mark network request
 - (void) _networkRequest
 {
-    AGVMManager *vmm = self.documentVMG.documentVMM;
+    // 取数据
+    NSData *data = [NSData dataWithContentsOfURL:[self _archiveURL]];
+    AGVMManager *vmm = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    // 刷新数据
     [self.tableViewManager handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
-        [originVmm ag_removeAllSections];
-        [originVmm ag_addSectionsFromManager:vmm];
+//        [originVmm.fs ag_addItemsFromSection:vmm.fs];
+        [originVmm ag_mergeFromManager:vmm];
     }];
 }
 
@@ -178,14 +165,6 @@
         _tableViewManager.vmDelegate = self;
     }
     return _tableViewManager;
-}
-
-- (AGDocumentVMGenerator *)documentVMG
-{
-    if (_documentVMG == nil) {
-        _documentVMG = [AGDocumentVMGenerator new];
-    }
-    return _documentVMG;
 }
 
 @end

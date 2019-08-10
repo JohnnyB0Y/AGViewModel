@@ -32,6 +32,7 @@
 		3A04295920B7AE4B0025D9D5 /* AGBookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04295720B7AE4B0025D9D5 /* AGBookDetailViewController.m */; };
 		3A04295A20B7AE4B0025D9D5 /* AGBookDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A04295820B7AE4B0025D9D5 /* AGBookDetailViewController.xib */; };
 		3A04295D20B7B2610025D9D5 /* AGBookHandleReformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04295C20B7B2610025D9D5 /* AGBookHandleReformer.m */; };
+		3A14FEAB22FE750400F00003 /* AGDiskDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14FEAA22FE750400F00003 /* AGDiskDocumentViewController.m */; };
 		3A31B617222B8DA90015B424 /* UITableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B616222B8DA90015B424 /* UITableView+AGViewModel.m */; };
 		3A31B61A222B94E60015B424 /* UICollectionView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B619222B94E60015B424 /* UICollectionView+AGViewModel.m */; };
 		3A4045FC22E9FCE000EF706C /* AGViewModelComputableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4045FB22E9FCE000EF706C /* AGViewModelComputableTests.m */; };
@@ -139,6 +140,8 @@
 		3A04295820B7AE4B0025D9D5 /* AGBookDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AGBookDetailViewController.xib; sourceTree = "<group>"; };
 		3A04295B20B7B2610025D9D5 /* AGBookHandleReformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGBookHandleReformer.h; sourceTree = "<group>"; };
 		3A04295C20B7B2610025D9D5 /* AGBookHandleReformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGBookHandleReformer.m; sourceTree = "<group>"; };
+		3A14FEA922FE750400F00003 /* AGDiskDocumentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDiskDocumentViewController.h; sourceTree = "<group>"; };
+		3A14FEAA22FE750400F00003 /* AGDiskDocumentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDiskDocumentViewController.m; sourceTree = "<group>"; };
 		3A31B615222B8DA90015B424 /* UITableView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+AGViewModel.h"; sourceTree = "<group>"; };
 		3A31B616222B8DA90015B424 /* UITableView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+AGViewModel.m"; sourceTree = "<group>"; };
 		3A31B618222B94E60015B424 /* UICollectionView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+AGViewModel.h"; sourceTree = "<group>"; };
@@ -345,6 +348,8 @@
 			children = (
 				3A04293620B7AADA0025D9D5 /* AGDocumentViewController.h */,
 				3A04293720B7AADA0025D9D5 /* AGDocumentViewController.m */,
+				3A14FEA922FE750400F00003 /* AGDiskDocumentViewController.h */,
+				3A14FEAA22FE750400F00003 /* AGDiskDocumentViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -492,8 +497,8 @@
 		3A7FD5E920B77F0200A0787A /* VMGenerator */ = {
 			isa = PBXGroup;
 			children = (
-				3A7FD5EA20B77F0200A0787A /* AGDocumentVMGenerator.m */,
 				3A7FD5EB20B77F0200A0787A /* AGDocumentVMGenerator.h */,
+				3A7FD5EA20B77F0200A0787A /* AGDocumentVMGenerator.m */,
 			);
 			path = VMGenerator;
 			sourceTree = "<group>";
@@ -921,6 +926,7 @@
 				3A8C698C21DEC9530021BCB1 /* UIScreen+AGViewModel.m in Sources */,
 				3A31B617222B8DA90015B424 /* UITableView+AGViewModel.m in Sources */,
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
+				3A14FEAB22FE750400F00003 /* AGDiskDocumentViewController.m in Sources */,
 				3A04292420B796260025D9D5 /* AGBookListCellVMP.m in Sources */,
 				3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */,
 				3A8C699921E127CB0021BCB1 /* AGSwitchControlItem.m in Sources */,

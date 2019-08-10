@@ -479,7 +479,9 @@
     NSMutableDictionary *dictM = ag_newNSMutableDictionary(_serializationDictM.count);
     [_serializationDictM enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         id targetObj = self->_bindingModel[key];
-        [dictM setObject:targetObj forKey:key];
+        if ( targetObj ) {
+            [dictM setObject:targetObj forKey:key];
+        }
     }];
     
     return ag_newJSONStringWithDictionary(dictM, vm, block);
