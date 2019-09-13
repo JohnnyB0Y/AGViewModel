@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - ------------- enum --------------
 typedef NS_ENUM(NSUInteger, AGResourceFileType) {
-    AGResourceFileTypeStoryboard, // Storyboard文件
-    AGResourceFileTypeNib, // Nib文件
-    AGResourceFileTypeCode // 代码
+    AGResourceFileTypeStoryboard, ///< Storyboard文件
+    AGResourceFileTypeNib, ///< Nib文件
+    AGResourceFileTypeCode ///< 代码
 };
 
 #pragma mark - ------------- typedef block --------------
