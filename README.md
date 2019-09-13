@@ -5,7 +5,7 @@
 platform :ios, '7.0'
 target 'AGViewModel' do
 
-pod 'AGViewModel', '~> 0.6.25'
+pod 'AGViewModel', '~> 0.6'
 
 end
 ```
