@@ -58,10 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_removeAllObjects;
 
 /** 马上更新数据 并 刷新视图 */
-- (void) ag_refreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_refreshUIByUpdateModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
 
 /** 更新数据，并对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
-- (void) ag_setNeedsRefreshUIModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_setNeedsRefreshUIModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
 
 /** 对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
 - (void) ag_setNeedsRefreshUI;

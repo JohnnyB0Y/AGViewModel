@@ -163,14 +163,14 @@
     [_bindingModel removeAllObjects];
 }
 
-- (void) ag_refreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (void) ag_refreshUIByUpdateModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
-    [self ag_setNeedsRefreshUIModelInBlock:block];
+    [self ag_setNeedsRefreshUIModelUsingBlock:block];
     [self ag_refreshUI];
 }
 
 /** 更新数据，并对“需要刷新UI”进行标记；当调用ag_refreshUIIfNeeded时，刷新UI界面。*/
-- (void) ag_setNeedsRefreshUIModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (void) ag_setNeedsRefreshUIModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
     if ( block ) block( self );
     [self ag_setNeedsRefreshUI];

@@ -135,7 +135,7 @@
         Class cellClass = vm[kAGVMViewClass];
         if ( cellClass == [AGBoxACell class] ) {
             //
-            [vm ag_refreshUIByUpdateModelInBlock:^(AGViewModel *viewModel) {
+            [vm ag_refreshUIByUpdateModelUsingBlock:^(AGViewModel *viewModel) {
                 viewModel[kAGBoxACellSegmentedControlSelectedIndex] = @( selected );
             }];
             
@@ -158,7 +158,7 @@
         // 改变对应类的颜色
         if ( vm[kAGVMViewClass] == selectedCellClass ) {
             // 选中类名的 cell
-            [vm ag_refreshUIByUpdateModelInBlock:^(AGViewModel *viewModel) {
+            [vm ag_refreshUIByUpdateModelUsingBlock:^(AGViewModel *viewModel) {
                 viewModel[kAGVMBoxColor] = selectedCellColor;
             }];
             

@@ -145,8 +145,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 更新
 - (void) setObject:(AGVMSection *)vms atIndexedSubscript:(NSInteger)idx;
 
-- (void) ag_makeSectionsItemsRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
-- (void) ag_makeSectionsHeaderFooterRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_makeSectionsItemsRefreshUIByUpdateModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
+- (void) ag_makeSectionsHeaderFooterRefreshUIByUpdateModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block;
 
 - (void) ag_makeSectionsItemsSetNeedsCachedBindingViewSize;
 - (void) ag_makeSectionsHeaderFooterSetNeedsCachedBindingViewSize;

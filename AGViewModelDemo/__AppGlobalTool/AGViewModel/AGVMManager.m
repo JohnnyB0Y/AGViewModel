@@ -311,13 +311,13 @@
 }
 
 #pragma mark 更新
-- (void) ag_makeSectionsItemsRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (void) ag_makeSectionsItemsRefreshUIByUpdateModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
-    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeItemsRefreshUIByUpdateModelInBlock:) withObject:block];
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeItemsRefreshUIByUpdateModelUsingBlock:) withObject:block];
 }
-- (void) ag_makeSectionsHeaderFooterRefreshUIByUpdateModelInBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
+- (void) ag_makeSectionsHeaderFooterRefreshUIByUpdateModelUsingBlock:(NS_NOESCAPE AGVMUpdateModelBlock)block
 {
-    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeHeaderFooterRefreshUIByUpdateModelInBlock:) withObject:block];
+    [self.sectionArrM makeObjectsPerformSelector:@selector(ag_makeHeaderFooterRefreshUIByUpdateModelUsingBlock:) withObject:block];
 }
 
 - (void) ag_makeSectionsItemsSetNeedsCachedBindingViewSize

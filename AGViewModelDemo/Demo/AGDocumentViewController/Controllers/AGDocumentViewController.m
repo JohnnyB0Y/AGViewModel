@@ -81,7 +81,7 @@
             }
             
             // 转换箭头
-            [vm ag_refreshUIByUpdateModelInBlock:^(AGViewModel *viewModel) {
+            [vm ag_refreshUIByUpdateModelUsingBlock:^(AGViewModel *viewModel) {
                 viewModel[kAGVMItemArrowIsOpen] = @(! isOpen);
             }];
             
