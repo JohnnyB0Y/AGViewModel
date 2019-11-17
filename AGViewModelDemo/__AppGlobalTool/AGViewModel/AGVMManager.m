@@ -8,6 +8,7 @@
 
 #import "AGVMManager.h"
 #import "AGVMFunction.h"
+#import "NSMutableArray+AGViewModel.h"
 
 @interface AGVMManager ()
 
@@ -195,6 +196,12 @@
 - (void) ag_addSectionsFromManager:(AGVMManager *)vmm
 {
     [self ag_addSectionsFromArray:vmm.sectionArrM];
+}
+
+- (void)ag_addSectionsWithCount:(NSUInteger)count usingBlock:(AGVMSection * (NS_NOESCAPE^)(NSUInteger))block
+{
+    if ( nil == block ) return;
+    [self.sectionArrM ag_addObjectsWithCount:count usingBlock:block];
 }
 
 #pragma mark 插入

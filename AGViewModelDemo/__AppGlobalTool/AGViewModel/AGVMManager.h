@@ -112,6 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_addSection:(AGVMSection *)section;
 - (void) ag_addSectionsFromManager:(AGVMManager *)vmm;
 - (void) ag_addSectionsFromArray:(NSArray<AGVMSection *> *)sections;
+- (void) ag_addSectionsWithCount:(NSUInteger)count usingBlock:(AGVMSection * _Nullable (NS_NOESCAPE^)(NSUInteger idx))block;
 
 #pragma mark 插入
 - (void) ag_insertSection:(AGVMSection *)section

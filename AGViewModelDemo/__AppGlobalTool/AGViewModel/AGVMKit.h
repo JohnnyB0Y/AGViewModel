@@ -13,6 +13,7 @@
 #import "AGVMCommand.h"
 #import "AGVMProtocol.h"
 #import "AGVMFunction.h"
+#import "AGVMCommandQueue.h"
 
 #import "AGVMManager.h"
 #import "AGVMSection.h"
@@ -28,6 +29,7 @@
 #import "UICollectionReusableView+AGViewModel.h"
 #import "UITableViewHeaderFooterView+AGViewModel.h"
 
+#import "NSMutableArray+AGViewModel.h"
 #import "NSDictionary+AGViewModel.h"
 #import "NSArray+AGViewModel.h"
 

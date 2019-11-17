@@ -8,6 +8,7 @@
 
 #import "AGVMSection.h"
 #import "AGVMFunction.h"
+#import "NSMutableArray+AGViewModel.h"
 
 @interface AGVMSection ()
 
@@ -343,6 +344,12 @@
 - (void) ag_addItem:(AGViewModel *)item
 {
     item ? [self.itemArrM addObject:item] : nil;
+}
+
+- (void)ag_addItemsWithCount:(NSUInteger)count usingBlock:(AGViewModel * _Nullable (NS_NOESCAPE^)(NSUInteger))block
+{
+    if ( nil == block ) return;
+    [self.itemArrM ag_addObjectsWithCount:count usingBlock:block];
 }
 
 #pragma mark 更新

@@ -12,8 +12,8 @@ inhibit_all_warnings!
     pod 'Masonry'
     pod 'RealReachability'
     pod 'SVProgressHUD'
-    pod 'AGTimerManager', '~> 0.5.1'
-    pod 'AGVerifyManager', '~> 0.3.4'
-    pod 'AGCategories', '~> 0.1.6'
+    pod 'AGTimerManager'
+    pod 'AGVerifyManager'
+    pod 'AGCategories'
 
 end

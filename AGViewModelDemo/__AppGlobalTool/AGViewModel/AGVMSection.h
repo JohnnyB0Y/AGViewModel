@@ -207,6 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) ag_addItem:(AGViewModel *)item;
 - (void) ag_addItemsFromSection:(AGVMSection *)vms;
 - (void) ag_addItemsFromArray:(NSArray<AGViewModel *> *)vmArr;
+- (void) ag_addItemsWithCount:(NSUInteger)count usingBlock:(AGViewModel * _Nullable (NS_NOESCAPE^)(NSUInteger idx))block;
 
 #pragma mark 插入
 - (void) ag_insertItem:(AGViewModel *)item
