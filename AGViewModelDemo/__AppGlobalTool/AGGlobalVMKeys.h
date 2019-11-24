@@ -9,9 +9,9 @@
 #ifndef AGGlobalVMKeys_h
 #define AGGlobalVMKeys_h
 
-static NSString * const kAGVMItemTitle = @"kAGVMItemTitle";
-static NSString * const kAGVMItemSubTitle = @"kAGVMItemSubTitle";
-static NSString * const kAGVMItemDetail = @"kAGVMItemDetail";
-static NSString * const kAGVMItemArrowIsOpen = @"kAGVMItemArrowIsOpen";
+AGVMStaticConstKeyNameDefine(kAGVMItemTitle);
+AGVMStaticConstKeyNameDefine(kAGVMItemSubTitle);
+AGVMStaticConstKeyNameDefine(kAGVMItemDetail);
+AGVMStaticConstKeyNameDefine(kAGVMItemArrowIsOpen);
 
 #endif /* AGGlobalVMKeys_h */
