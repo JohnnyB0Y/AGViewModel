@@ -437,10 +437,6 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     if (_tableViewManager == nil) {
         NSArray *cellClasses = @[[AGBookListCell class],];
         _tableViewManager = [[AGTableViewManager alloc] initWithCellClasses:cellClasses originVMManager:nil];
-        AGVMManager *vmm = _tableViewManager.vmm;
-        // 设置归档 key
-        [vmm ag_addAllArchivedObjectUseDefaultKeys];
-        [vmm.fs ag_addAllArchivedObjectUseDefaultKeys];
         _tableViewManager.vmDelegate = self;
     }
     return _tableViewManager;
@@ -451,9 +447,6 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     if (_tableViewManager1 == nil) {
         NSArray *cellClasses = @[[AGBookListCell class],];
         _tableViewManager1 = [[AGTableViewManager alloc] initWithCellClasses:cellClasses originVMManager:nil];
-        AGVMManager *vmm = _tableViewManager1.vmm;
-        [vmm ag_addAllArchivedObjectUseDefaultKeys];
-        [vmm.fs ag_addAllArchivedObjectUseDefaultKeys];
         _tableViewManager1.vmDelegate = self;
     }
     return _tableViewManager1;
@@ -464,9 +457,6 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     if (_tableViewManager2 == nil) {
         NSArray *cellClasses = @[[AGBookListCell class],];
         _tableViewManager2 = [[AGTableViewManager alloc] initWithCellClasses:cellClasses originVMManager:nil];
-        AGVMManager *vmm = _tableViewManager2.vmm;
-        [vmm ag_addAllArchivedObjectUseDefaultKeys];
-        [vmm.fs ag_addAllArchivedObjectUseDefaultKeys];
         _tableViewManager2.vmDelegate = self;
     }
     return _tableViewManager2;

@@ -8,6 +8,7 @@
 
 #import "UIViewController+AGViewModel.h"
 #import <objc/runtime.h>
+#import "AGViewModel.h"
 
 static void *kAGContextProperty = &kAGContextProperty;
 
@@ -78,7 +79,12 @@ static void *kAGContextProperty = &kAGContextProperty;
 #pragma mark - ----------- Getter Methods ----------
 - (AGViewModel *)context
 {
-    return objc_getAssociatedObject(self, kAGContextProperty);
+    AGViewModel *context = objc_getAssociatedObject(self, kAGContextProperty);
+    if (nil == context) {
+        context = [AGViewModel newWithModel:nil capacity:24];
+        self.context = context;
+    }
+    return context;
 }
 
 #pragma mark - ----------- Setter Methods ----------

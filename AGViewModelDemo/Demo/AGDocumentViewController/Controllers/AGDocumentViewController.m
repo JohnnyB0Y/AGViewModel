@@ -16,7 +16,7 @@
 #import "AGGlobalVMKeys.h"
 
 @interface AGDocumentViewController ()
-<AGVMDelegate>
+<AGVMDelegate, AGVMNotificationDelegate>
 
 /** ` */
 @property (nonatomic, strong) AGTableViewManager *tableViewManager;
@@ -87,6 +87,11 @@
             
         }
     }
+}
+
+- (void)ag_viewModel:(AGViewModel *)vm receiveNotification:(NSNotification *)notification
+{
+    NSLog(@"%@", notification);
 }
 
 #pragma mark - ---------- Public Methods ----------

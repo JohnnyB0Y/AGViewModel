@@ -49,6 +49,8 @@
     if ( self ) {
         self->_capacity = capacity;
         self->_itemArrM = ag_newNSMutableArray(capacity);
+        [self ag_addAllArchivedObjectUseDefaultKeys];
+        [self ag_addAllSerializableObjectUseDefaultKeys];
     }
     return self;
 }

@@ -185,23 +185,23 @@ typedef void (^AGVMReduceBlock)(AGViewModel *viewModel, NSInteger idx);
 #pragma mark ViewController Protocol
 @protocol AGViewControllerProtocol <NSObject>
 @required
-/** 负责控制器间（本级控制器与下级控制器之间）参数传递和共享的ViewModel */
+/// 负责控制器间（本级控制器与下级控制器之间）参数传递，建议Copy一下，不要共用同一个。
 @property (nonatomic, strong, nullable) AGViewModel *context;
 
-/** 代码创建控制器；传递contextVM */
+/// 代码创建控制器；参数传递，建议Copy一下，不要共用同一个。
 + (instancetype) newWithContext:(nullable AGViewModel *)context;
 
 @optional
-/** 如果使用默认 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。*/
+/// 如果使用默认 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。
 + (NSBundle *) ag_resourceBundle;
 
-/** 代码创建控制器；传递contextVM */
+/// 代码创建控制器；参数传递，建议Copy一下，不要共用同一个。
 - (instancetype) initWithContext:(nullable AGViewModel *)context;
 
-/** 从Storyboard文件创建控制器；传递contextVM */
+/// 从Storyboard文件创建控制器；参数传递，建议Copy一下，不要共用同一个。
 + (instancetype) newFromStoryboardWithContext:(nullable AGViewModel *)context;
 
-/** 从Nib文件创建控制器；传递contextVM */
+/// 从Nib文件创建控制器；参数传递，建议Copy一下，不要共用同一个。
 + (instancetype) newFromNibWithContext:(nullable AGViewModel *)context;
 
 + (instancetype)newWithViewModel:(nullable AGViewModel *)vm NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, "use: + newWithContext:");
@@ -244,6 +244,17 @@ typedef void (^AGVMReduceBlock)(AGViewModel *viewModel, NSInteger idx);
 @optional
 - (void) ag_viewModel:(AGViewModel *)vm handleAction:(nullable SEL)action;
 - (void) ag_viewModel:(AGViewModel *)vm handleAction:(nullable SEL)action info:(nullable AGViewModel *)info;
+
+@end
+
+
+#pragma mark AGVMNotificationDelegate
+@protocol AGVMNotificationDelegate <NSObject>
+
+/// 通过代理处理接收到的通知
+/// @param vm 自己
+/// @param notification 收到的通知
+- (void) ag_viewModel:(AGViewModel *)vm receiveNotification:(NSNotification *)notification;
 
 @end
 

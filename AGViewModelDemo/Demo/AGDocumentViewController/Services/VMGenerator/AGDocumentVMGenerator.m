@@ -18,13 +18,8 @@
     if (_documentVMM == nil) {
         _documentVMM = ag_newAGVMManager(5);
         
-        [_documentVMM ag_addAllArchivedObjectUseDefaultKeys];
-        [_documentVMM ag_addAllSerializableObjectUseDefaultKeys];
-        
 #pragma mark 第一首诗
         [_documentVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
-            [vms ag_addAllSerializableObjectUseDefaultKeys];
-            [vms ag_addAllArchivedObjectUseDefaultKeys];
             
             // 诗的标题
             [vms ag_packageHeaderData:^(AGViewModel * _Nonnull package) {
@@ -36,8 +31,6 @@
                 
                 // 诗的正文
                 AGVMSection *subVMS = ag_newAGVMSection(2);
-                [subVMS ag_addAllArchivedObjectUseDefaultKeys];
-                [subVMS ag_addAllSerializableObjectUseDefaultKeys];
                 
                 [subVMS ag_packageItemData:^(AGViewModel * _Nonnull package) {
                     package[kAGVMItemDetail] = @"折戟沉沙铁未销，自将磨洗认前朝。";
@@ -71,7 +64,8 @@
                 .addArchivedKey(kAGVMItemSubTitle)
                 .addArchivedKey(kAGVMViewH)
                 .addArchivedKey(kAGVMViewClassName)
-                .addArchivedKey(kAGVMSection);
+                .addArchivedKey(kAGVMSection)
+                .addArchivedKey(kAGVMItemArrowIsOpen);
                 
                 // 加入序列化
                 package
@@ -79,7 +73,8 @@
                 .addSerializableKey(kAGVMItemSubTitle)
                 .addSerializableKey(kAGVMViewH)
                 .addSerializableKey(kAGVMViewClassName)
-                .addSerializableKey(kAGVMSection);
+                .addSerializableKey(kAGVMSection)
+                .addSerializableKey(kAGVMItemArrowIsOpen);
                 
             }];
             
@@ -87,8 +82,6 @@
         
 #pragma mark 第二首诗
         [_documentVMM ag_packageSection:^(AGVMSection * _Nonnull vms) {
-            [vms ag_addAllSerializableObjectUseDefaultKeys];
-            [vms ag_addAllArchivedObjectUseDefaultKeys];
             
             // 诗的标题
             [vms ag_packageHeaderData:^(AGViewModel * _Nonnull package) {
@@ -100,8 +93,6 @@
                 
                 // 诗的正文
                 AGVMSection *subVMS = ag_newAGVMSection(2);
-                [subVMS ag_addAllArchivedObjectUseDefaultKeys];
-                [subVMS ag_addAllSerializableObjectUseDefaultKeys];
                 
                 [subVMS ag_packageItemData:^(AGViewModel * _Nonnull package) {
                     package[kAGVMItemDetail] = @"本以高难饱，徒劳恨费声。\
@@ -111,10 +102,14 @@
                     package[kAGVMViewClassName] = NSStringFromClass([GZPSItemDetailCell class]);
                     
                     // 加入归档
-                    package.addArchivedKey(kAGVMItemDetail).addArchivedKey(kAGVMViewClassName);
+                    package
+                    .addArchivedKey(kAGVMItemDetail)
+                    .addArchivedKey(kAGVMViewClassName);
                     
                     // 加入序列化
-                    package.addSerializableKey(kAGVMItemDetail).addSerializableKey(kAGVMViewClassName);
+                    package
+                    .addSerializableKey(kAGVMItemDetail)
+                    .addSerializableKey(kAGVMViewClassName);
                     
                 }];
                 
@@ -125,10 +120,14 @@
                     package[kAGVMViewClassName] = NSStringFromClass([GZPSItemDetailCell class]);
                     
                     // 加入归档
-                    package.addArchivedKey(kAGVMItemDetail).addArchivedKey(kAGVMViewClassName);
+                    package
+                    .addArchivedKey(kAGVMItemDetail)
+                    .addArchivedKey(kAGVMViewClassName);
                     
                     // 加入序列化
-                    package.addSerializableKey(kAGVMItemDetail).addSerializableKey(kAGVMViewClassName);
+                    package
+                    .addSerializableKey(kAGVMItemDetail)
+                    .addSerializableKey(kAGVMViewClassName);
                     
                 }];
                 
@@ -140,7 +139,8 @@
                 .addArchivedKey(kAGVMItemSubTitle)
                 .addArchivedKey(kAGVMViewH)
                 .addArchivedKey(kAGVMViewClassName)
-                .addArchivedKey(kAGVMSection);
+                .addArchivedKey(kAGVMSection)
+                .addArchivedKey(kAGVMItemArrowIsOpen);
                 
                 // 加入序列化
                 package
@@ -148,7 +148,8 @@
                 .addSerializableKey(kAGVMItemSubTitle)
                 .addSerializableKey(kAGVMViewH)
                 .addSerializableKey(kAGVMViewClassName)
-                .addSerializableKey(kAGVMSection);
+                .addSerializableKey(kAGVMSection)
+                .addSerializableKey(kAGVMItemArrowIsOpen);
                 
             }];
             

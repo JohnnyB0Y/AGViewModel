@@ -8,6 +8,7 @@
 
 #import "AGVMKeys.h"
 #import "AGVMProtocol.h"
+#import "NSNotification+AGViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -215,6 +216,28 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) AGViewModel *(^addSerializableKey)(NSString *key);
 @property (readonly) AGViewModel *(^removeSerializableKey)(NSString *key);
 @property (readonly) AGViewModel *(^removeAllSerializableKeys)(void);
+
+@end
+
+#pragma mark - 通知收发
+@interface AGViewModel (NSNotificationCenter)
+
+@property (nonatomic, weak, nullable) id<AGVMNotificationDelegate> notificationDelegate;
+
+/// 发送通知
+- (void) ag_postNotificationName:(NSNotificationName)notificationName;
+- (void) ag_postNotificationName:(NSNotificationName)notificationName
+                          object:(nullable id)object;
+
+/// 接收通知
+- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName;
+- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName
+                                object:(nullable id)object;
+
+/// 移除通知
+- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName;
+- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName
+                                   object:(nullable id)object;
 
 @end
 

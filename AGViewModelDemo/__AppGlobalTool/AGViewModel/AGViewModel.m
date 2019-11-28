@@ -11,7 +11,6 @@
 #import "AGVMNotifier.h"
 #import "AGVMCommand.h"
 
-
 @interface AGViewModel ()
 
 @property (nonatomic, strong) AGVMNotifier *notifier;
@@ -29,11 +28,13 @@
     struct AGResponeMethods {
         unsigned int ag_callDelegateToDoForAction       : 1;
         unsigned int ag_callDelegateToDoForActionInfo   : 1;
+        unsigned int ag_callDelegateReceiveNotification : 1;
     } _responeMethod;
     
     struct AGIfNeededTags {
         unsigned int ag_cachedBindingViewSize           : 1;
         unsigned int ag_refreshUI                       : 1;
+        unsigned int ag_removeObserver                  : 1;
     } _ifNeededTags;
     
 }
@@ -60,6 +61,7 @@
     if (self) {
         _bindingModel = bindingModel;
         _ifNeededTags.ag_cachedBindingViewSize = YES;
+        _ifNeededTags.ag_removeObserver = NO;
     }
     return self;
 }
@@ -71,6 +73,10 @@
     _archivedDictM = nil;
     _commandDictM = nil;
     _weaklyMT = nil;
+    
+    if (_ifNeededTags.ag_removeObserver) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
 }
 
 #pragma mark - ---------- Public Methods ----------
@@ -1074,6 +1080,74 @@
         [self ag_removeAllSerializableKeys];
         return self;
     };
+}
+
+@end
+
+AGVMStaticConstKeyNameDefine(kAGVMNotificationDelegate);
+
+@implementation AGViewModel (NSNotificationCenter)
+
+- (void) ag_postNotificationName:(NSNotificationName)notificationName
+{
+    [self ag_postNotificationName:notificationName object:nil];
+}
+
+- (void) ag_postNotificationName:(NSNotificationName)notificationName
+                          object:(nullable id)object
+{
+    NSNotification *notification = [NSNotification notificationWithName:notificationName object:object viewModel:self];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
+- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName
+                                object:(nullable id)object
+{
+    if (notificationName.length > 0) {
+        _ifNeededTags.ag_removeObserver = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ag_viewModelReceiveNotification:) name:notificationName object:object];
+    }
+}
+
+- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName
+{
+    [self ag_addReceiveNotificationName:notificationName object:nil];
+}
+
+- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName
+{
+    [self ag_removeReceiveNotificationName:notificationName object:nil];
+}
+
+- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName
+                                   object:(nullable id)object
+{
+    if (notificationName.length > 0) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:notificationName object:object];
+    }
+}
+
+#pragma mark - ----------- Getter Setter Methods ----------
+- (id<AGVMNotificationDelegate>)notificationDelegate
+{
+    return [self ag_weaklyObjectForKey:kAGVMNotificationDelegate];
+}
+
+- (void)setNotificationDelegate:(id<AGVMNotificationDelegate>)notificationDelegate
+{
+    if ( self.notificationDelegate != notificationDelegate ) {
+        [self ag_setWeaklyObject:notificationDelegate forKey:kAGVMNotificationDelegate];
+        _responeMethod.ag_callDelegateReceiveNotification
+        = [self.notificationDelegate respondsToSelector:@selector(ag_viewModel:receiveNotification:)];
+    }
+}
+
+#pragma mark - ---------- Event Methods ----------
+- (void) ag_viewModelReceiveNotification:(NSNotification *)notification
+{
+    if (_responeMethod.ag_callDelegateReceiveNotification) {
+        [self.notificationDelegate ag_viewModel:self receiveNotification:notification];
+    }
 }
 
 @end
