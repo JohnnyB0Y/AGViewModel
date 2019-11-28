@@ -30,7 +30,7 @@
 #pragma mark 常量 声明&定义 宏
 typedef NSString * const AGVMConstKeyName NS_EXTENSIBLE_STRING_ENUM;
 
-/// 声明常量 👉AGVMConstKeyExtern kAGVMObject;👈
+/// 声明常量 👉AGVMConstKeyNameExtern kAGVMObject;👈
 #define AGVMConstKeyNameExtern FOUNDATION_EXTERN AGVMConstKeyName
 
 /// 定义常量 👉AGVMConstKeyNameDefine(kAGVMObject);👈

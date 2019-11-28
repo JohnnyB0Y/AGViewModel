@@ -75,11 +75,6 @@ static void *kAGContextProperty = &kAGContextProperty;
     return [NSBundle mainBundle];
 }
 
-- (void) ag_addSubviews {}
-- (void) ag_layoutSubviews {}
-- (void) ag_setupUI {}
-- (void) ag_addActions {}
-
 #pragma mark - ----------- Getter Methods ----------
 - (AGViewModel *)context
 {

@@ -32,6 +32,28 @@
     return [self dequeueReusableCellWithIdentifier:[cls ag_reuseIdentifier]];
 }
 
+- (void) ag_registerCellForClassName:(NSString *)clsName
+{
+    Class cls = NSClassFromString(clsName);
+    [self registerClass:cls forCellReuseIdentifier:clsName];
+}
+
+- (void) ag_registerNibCellForName:(NSString *)clsName
+{
+    Class cls = NSClassFromString(clsName);
+    UINib *nib = [UINib nibWithNibName:clsName bundle:[cls ag_resourceBundle]];
+    [self registerNib:nib forCellReuseIdentifier:clsName];
+}
+
+- (__kindof UITableViewCell *) ag_dequeueCellWithClassName:(NSString *)clsName for:(nullable NSIndexPath *)indexPath
+{
+    // 如果在此处奔溃，请优先检查视图是否已注册到 tableView。
+    if ( indexPath ) {
+        return [self dequeueReusableCellWithIdentifier:clsName forIndexPath:indexPath];
+    }
+    return [self dequeueReusableCellWithIdentifier:clsName];
+}
+
 #pragma mark - table view header footer view
 - (void) ag_registerHeaderFooterViewForClass:(Class<AGViewReusable>)cls
 {
@@ -48,6 +70,25 @@
 {
     // 如果在此处奔溃，请优先检查视图是否已注册到 tableView。
     return [self dequeueReusableHeaderFooterViewWithIdentifier:[cls ag_reuseIdentifier]];
+}
+
+- (void) ag_registerHeaderFooterViewForClassName:(NSString *)clsName
+{
+    Class cls = NSClassFromString(clsName);
+    [self registerClass:cls forHeaderFooterViewReuseIdentifier:clsName];
+}
+
+- (void) ag_registerNibHeaderFooterViewForClassName:(NSString *)clsName
+{
+    Class cls = NSClassFromString(clsName);
+    UINib *nib = [UINib nibWithNibName:clsName bundle:[cls ag_resourceBundle]];
+    [self registerNib:nib forHeaderFooterViewReuseIdentifier:clsName];
+}
+
+- (__kindof UITableViewHeaderFooterView *) ag_dequeueHeaderFooterViewWithClassName:(NSString *)clsName
+{
+    // 如果在此处奔溃，请优先检查视图是否已注册到 tableView。
+    return [self dequeueReusableHeaderFooterViewWithIdentifier:clsName];
 }
 
 @end

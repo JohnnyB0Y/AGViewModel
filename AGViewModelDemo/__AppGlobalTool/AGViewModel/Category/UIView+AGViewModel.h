@@ -30,20 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable AGViewModel *) viewModel NS_REQUIRES_SUPER;
 
 
-#pragma mark Override Methods
-/** 添加子视图 */
-- (void) ag_addSubviews NS_REQUIRES_SUPER;
-
-/** 布局子视图 */
-- (void) ag_layoutSubviews NS_REQUIRES_SUPER;
-
-/** 设置UI */
-- (void) ag_setupUI NS_REQUIRES_SUPER;
-
-/** 添加事件&行为 */
-- (void) ag_addActions NS_REQUIRES_SUPER;
-
-
 #pragma mark Resource Methods
 /** 如果你使用 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。*/
 + (NSBundle *) ag_resourceBundle; // 默认 main bundle

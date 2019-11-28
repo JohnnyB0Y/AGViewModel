@@ -25,8 +25,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if ( self ) {
-        [self ag_addSubviews];
-        [self ag_layoutSubviews];
         [self ag_setupUI];
         [self ag_addActions];
     }
@@ -37,8 +35,6 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    [self ag_addSubviews];
-    [self ag_layoutSubviews];
     [self ag_setupUI];
     [self ag_addActions];
 }
@@ -91,30 +87,15 @@
 
 
 #pragma mark - ---------- Private Methods ----------
-// 添加子视图
-- (void) ag_addSubviews
-{
-    [super ag_addSubviews];
-}
-
-// 添加子视图约束
-- (void) ag_layoutSubviews
-{
-    [super ag_layoutSubviews];
-    
-}
-
 // 设置UI
 - (void) ag_setupUI
 {
-    [super ag_setupUI];
     // ...
     self.coverImageView.userInteractionEnabled = YES;
 }
 
 - (void) ag_addActions
 {
-    [super ag_addActions];
 	// ...
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(coverImageViewTap:)];
     

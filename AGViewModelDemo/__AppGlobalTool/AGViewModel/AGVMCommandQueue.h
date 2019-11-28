@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  1, 参考 NSOperation、NSOperationQueue
  2, 希望能把多个网络请求串起来
  3, 有状态和优先级影响执行顺序、redo、undo
+ 4, 参考PromiseKit https://github.com/mxcl/PromiseKit
  */
 
 

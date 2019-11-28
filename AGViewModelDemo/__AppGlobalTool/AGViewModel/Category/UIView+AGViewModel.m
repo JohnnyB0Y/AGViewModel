@@ -150,10 +150,4 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
     [self setCenter:CGPointMake(self.centerX, centerY)];
 }
 
-#pragma mark Override Methods
-- (void) ag_addSubviews {}
-- (void) ag_layoutSubviews {}
-- (void) ag_setupUI {}
-- (void) ag_addActions {}
-
 @end

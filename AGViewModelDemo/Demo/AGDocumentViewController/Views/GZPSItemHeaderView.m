@@ -29,7 +29,6 @@
         [self ag_addSubviews];
         [self ag_layoutSubviews];
         [self ag_setupUI];
-        [self ag_addActions];
     }
     
     return self;
@@ -62,7 +61,6 @@
 // 添加子视图
 - (void) ag_addSubviews
 {
-    [super ag_addSubviews];
     // ...
     [self.contentView addSubview:self.headerLine];
     [self.contentView addSubview:self.titleLabel];
@@ -73,7 +71,6 @@
 // 添加子视图约束
 - (void) ag_layoutSubviews
 {
-    [super ag_layoutSubviews];
     // ...
     [self.headerLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.mas_equalTo(self.contentView);
@@ -100,7 +97,6 @@
 // 设置UI
 - (void) ag_setupUI
 {
-    [super ag_setupUI];
     // ...
     UIView *bgView = [UIView new];
     bgView.backgroundColor = [UIColor whiteColor];
