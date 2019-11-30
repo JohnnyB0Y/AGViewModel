@@ -36,6 +36,4 @@
 #import "UITableView+AGViewModel.h"
 #import "UICollectionView+AGViewModel.h"
 
-#import "NSNotification+AGViewModel.h"
-
 #endif /* AGVMKit_h */

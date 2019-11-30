@@ -7,6 +7,7 @@
 //
 
 #import "NSNotification+AGViewModel.h"
+#import "AGViewModel.h"
 #import <objc/runtime.h>
 
 static void *kAGViewModelProperty = &kAGViewModelProperty;

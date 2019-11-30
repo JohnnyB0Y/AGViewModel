@@ -252,9 +252,10 @@ typedef void (^AGVMReduceBlock)(AGViewModel *viewModel, NSInteger idx);
 @protocol AGVMNotificationDelegate <NSObject>
 
 /// 通过代理处理接收到的通知
-/// @param vm 自己
+/// @param context 自己
 /// @param notification 收到的通知
-- (void) ag_viewModel:(AGViewModel *)vm receiveNotification:(NSNotification *)notification;
+/// @param info 传递过来的数据
+- (void) ag_viewModel:(AGViewModel *)context receiveNotification:(NSNotification *)notification info:(AGViewModel *)info;
 
 @end
 

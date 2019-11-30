@@ -230,13 +230,13 @@ NS_ASSUME_NONNULL_BEGIN
                           object:(nullable id)object;
 
 /// 接收通知
-- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName;
-- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName
+- (void) ag_addObserveNotificationName:(NSNotificationName)notificationName;
+- (void) ag_addObserveNotificationName:(NSNotificationName)notificationName
                                 object:(nullable id)object;
 
 /// 移除通知
-- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName;
-- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName
+- (void) ag_removeObserveNotificationName:(NSNotificationName)notificationName;
+- (void) ag_removeObserveNotificationName:(NSNotificationName)notificationName
                                    object:(nullable id)object;
 
 @end

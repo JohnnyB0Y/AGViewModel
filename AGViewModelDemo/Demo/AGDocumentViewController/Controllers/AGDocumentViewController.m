@@ -14,6 +14,7 @@
 #import "GZPSItemHeaderView.h"
 #import "AGDocumentVMGenerator.h"
 #import "AGGlobalVMKeys.h"
+#import "AGDocumentKeys.h"
 
 @interface AGDocumentViewController ()
 <AGVMDelegate, AGVMNotificationDelegate>
@@ -38,15 +39,6 @@
     [self _addActions];
     
     [self _networkRequest];
-}
-
-- (void)dealloc
-{
-    // 取消挂起的网络请求
-    
-    
-    // 移除通知监听
-    
 }
 
 #pragma mark - ---------- Custom Delegate ----------
@@ -89,9 +81,38 @@
     }
 }
 
-- (void)ag_viewModel:(AGViewModel *)vm receiveNotification:(NSNotification *)notification
+#pragma mark AGVMNotificationDelegate
+- (void)ag_viewModel:(AGViewModel *)context receiveNotification:(NSNotification *)notification info:(AGViewModel *)info
 {
-    NSLog(@"%@", notification);
+    if (notification.name == nAGDocumentItemOpenCloseOperation) {
+        
+        UITableView *tableView = self.tableViewManager.view;
+        BOOL isOpen = [info[kAGVMItemArrowIsOpen] boolValue];
+        AGViewModel *headerVM = self.tableViewManager.vmm[info.indexPath.section].headerVM;
+        AGVMSection *vms = headerVM[kAGVMSection];
+        AGVMSection *currentVMS = self.tableViewManager.vmm[headerVM.indexPath.section];
+        
+        NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity:vms.count];
+        for (NSInteger i = 0; i<vms.count; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:headerVM.indexPath.section];
+            [indexPaths addObject:indexPath];
+        }
+        
+        if ( isOpen ) {
+            [currentVMS ag_insertItemsFromSection:vms atIndex:0];
+            [tableView reloadData];
+        }
+        else {
+            [currentVMS ag_removeAllItems];
+            [tableView reloadData];
+        }
+        
+        // 转换箭头
+        [headerVM ag_refreshUIByUpdateModelUsingBlock:^(AGViewModel *viewModel) {
+            viewModel[kAGVMItemArrowIsOpen] = @(isOpen);
+        }];
+        
+    }
 }
 
 #pragma mark - ---------- Public Methods ----------
@@ -154,6 +175,10 @@
     
     // 导航右上角按钮
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"归档并跳转" style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItemClick:)];
+    
+    // 添加通知监听
+    self.context.notificationDelegate = self;
+    [self.context ag_addObserveNotificationName:nAGDocumentItemOpenCloseOperation];
 }
 
 #pragma mark network request

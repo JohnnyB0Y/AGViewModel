@@ -13,6 +13,7 @@
 #import "GZPSItemHeaderView.h"
 #import "AGDocumentVMGenerator.h"
 #import "AGGlobalVMKeys.h"
+#import "AGDocumentKeys.h"
 
 @interface AGDiskDocumentViewController ()
 <AGVMDelegate>
@@ -36,15 +37,6 @@
     [self _addActions];
     
     [self _networkRequest];
-}
-
-- (void)dealloc
-{
-    // 取消挂起的网络请求
-    
-    
-    // 移除通知监听
-    
 }
 
 #pragma mark - ---------- Custom Delegate ----------
@@ -83,6 +75,8 @@
                 viewModel[kAGVMItemArrowIsOpen] = @(! isOpen);
             }];
             
+            // 把操作同步到上一级控制器.
+            [vm ag_postNotificationName:nAGDocumentItemOpenCloseOperation];
         }
     }
 }
@@ -143,8 +137,8 @@
     
     // 刷新数据
     [self.tableViewManager handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
-//        [originVmm.fs ag_addItemsFromSection:vmm.fs];
-        [originVmm ag_mergeFromManager:vmm];
+        [originVmm ag_removeAllSections];
+        [originVmm ag_addSectionsFromManager:vmm];
     }];
 }
 

@@ -300,10 +300,12 @@
         NSMutableDictionary *dictM = ag_newNSMutableDictionary(_archivedDictM.count);
         [_archivedDictM enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             id targetObj = self->_bindingModel[key];
-            BOOL isConformsToProtocol = [targetObj conformsToProtocol:@protocol(NSCoding)];
-            NSAssert(isConformsToProtocol, @"Archived object not conform to <NSCoding> protocol.");
-            if ( isConformsToProtocol ) {
-                [dictM setObject:targetObj forKey:key];
+            if ( targetObj ) {
+                BOOL isConformsToProtocol = [targetObj conformsToProtocol:@protocol(NSCoding)];
+                NSAssert(isConformsToProtocol, @"Archived object not conform to <NSCoding> protocol.");
+                if ( isConformsToProtocol ) {
+                    [dictM setObject:targetObj forKey:key];
+                }
             }
         }];
         
@@ -1084,7 +1086,7 @@
 
 @end
 
-AGVMStaticConstKeyNameDefine(kAGVMNotificationDelegate);
+AGVMStaticConstKeyNameDefine(__kAGVMNotificationDelegate__);
 
 @implementation AGViewModel (NSNotificationCenter)
 
@@ -1100,7 +1102,7 @@ AGVMStaticConstKeyNameDefine(kAGVMNotificationDelegate);
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
-- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName
+- (void) ag_addObserveNotificationName:(NSNotificationName)notificationName
                                 object:(nullable id)object
 {
     if (notificationName.length > 0) {
@@ -1109,17 +1111,17 @@ AGVMStaticConstKeyNameDefine(kAGVMNotificationDelegate);
     }
 }
 
-- (void) ag_addReceiveNotificationName:(NSNotificationName)notificationName
+- (void) ag_addObserveNotificationName:(NSNotificationName)notificationName
 {
-    [self ag_addReceiveNotificationName:notificationName object:nil];
+    [self ag_addObserveNotificationName:notificationName object:nil];
 }
 
-- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName
+- (void) ag_removeObserveNotificationName:(NSNotificationName)notificationName
 {
-    [self ag_removeReceiveNotificationName:notificationName object:nil];
+    [self ag_removeObserveNotificationName:notificationName object:nil];
 }
 
-- (void) ag_removeReceiveNotificationName:(NSNotificationName)notificationName
+- (void) ag_removeObserveNotificationName:(NSNotificationName)notificationName
                                    object:(nullable id)object
 {
     if (notificationName.length > 0) {
@@ -1130,15 +1132,15 @@ AGVMStaticConstKeyNameDefine(kAGVMNotificationDelegate);
 #pragma mark - ----------- Getter Setter Methods ----------
 - (id<AGVMNotificationDelegate>)notificationDelegate
 {
-    return [self ag_weaklyObjectForKey:kAGVMNotificationDelegate];
+    return [self ag_weaklyObjectForKey:__kAGVMNotificationDelegate__];
 }
 
 - (void)setNotificationDelegate:(id<AGVMNotificationDelegate>)notificationDelegate
 {
     if ( self.notificationDelegate != notificationDelegate ) {
-        [self ag_setWeaklyObject:notificationDelegate forKey:kAGVMNotificationDelegate];
+        [self ag_setWeaklyObject:notificationDelegate forKey:__kAGVMNotificationDelegate__];
         _responeMethod.ag_callDelegateReceiveNotification
-        = [self.notificationDelegate respondsToSelector:@selector(ag_viewModel:receiveNotification:)];
+        = [self.notificationDelegate respondsToSelector:@selector(ag_viewModel:receiveNotification:info:)];
     }
 }
 
@@ -1146,7 +1148,7 @@ AGVMStaticConstKeyNameDefine(kAGVMNotificationDelegate);
 - (void) ag_viewModelReceiveNotification:(NSNotification *)notification
 {
     if (_responeMethod.ag_callDelegateReceiveNotification) {
-        [self.notificationDelegate ag_viewModel:self receiveNotification:notification];
+        [self.notificationDelegate ag_viewModel:self receiveNotification:notification info:notification.viewModel];
     }
 }
 

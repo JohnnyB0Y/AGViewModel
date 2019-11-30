@@ -37,10 +37,12 @@
                     package[kAGVMViewClassName] = NSStringFromClass([GZPSItemDetailCell class]);
                     
                     // 加入归档
-                    package.addArchivedKey(kAGVMItemDetail).addArchivedKey(kAGVMViewClassName);
+                    package.addArchivedKey(kAGVMItemDetail)
+                    .addArchivedKey(kAGVMViewClassName);
                     
                     // 加入序列化
-                    package.addSerializableKey(kAGVMItemDetail).addSerializableKey(kAGVMViewClassName);
+                    package.addSerializableKey(kAGVMItemDetail)
+                    .addSerializableKey(kAGVMViewClassName);
                     
                 }];
                 
@@ -49,10 +51,12 @@
                     package[kAGVMViewClassName] = NSStringFromClass(GZPSItemDetailCell.class);
                     
                     // 加入归档
-                    package.addArchivedKey(kAGVMItemDetail).addArchivedKey(kAGVMViewClassName);
+                    package.addArchivedKey(kAGVMItemDetail)
+                    .addArchivedKey(kAGVMViewClassName);
                     
                     // 加入序列化
-                    package.addSerializableKey(kAGVMItemDetail).addSerializableKey(kAGVMViewClassName);
+                    package.addSerializableKey(kAGVMItemDetail)
+                    .addSerializableKey(kAGVMViewClassName);
                     
                 }];
                 

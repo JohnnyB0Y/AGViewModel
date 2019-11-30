@@ -68,9 +68,6 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     
     // 取消挂起的网络请求
     [self.bookAPICaller cancelAllRequests];
-    
-    // 移除通知监听
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 + (AGResourceFileType)typeOfCreateInstance
