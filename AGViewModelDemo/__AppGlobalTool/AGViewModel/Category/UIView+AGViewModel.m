@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 
 static void *kAGViewModelProperty = &kAGViewModelProperty;
+static void *kAGViewModelSubviewMT = &kAGViewModelSubviewMT;
 
 @implementation UIView (AGViewModel)
 
@@ -46,6 +47,32 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
     return [NSBundle mainBundle];
 }
 
+#pragma mark management subview
+- (void)ag_addSubview:(UIView *)view forKey:(NSString *)key
+{
+    [self addSubview:view];
+    if (view && key) {
+        [[self subviewMT] setObject:view forKey:key];
+    }
+}
+
+- (nullable UIView *)ag_subviewForKey:(NSString *)key
+{
+    if (key) {
+        return [[self subviewMT] objectForKey:key];
+    }
+    return nil;
+}
+
+- (void)ag_addSubview:(UIView *)view withName:(NSString *)name atPosition:(NSString *)position
+{
+    [self ag_addSubview:view forKey:[NSString stringWithFormat:@"%@%@", name, position]];
+}
+
+- (UIView *)ag_subviewWithName:(NSString *)name atPosition:(NSString *)position
+{
+    return [self ag_subviewForKey:[NSString stringWithFormat:@"%@%@", name, position]];
+}
 
 #pragma mark - ----------- Getter Setter Methods ----------
 - (void)setViewModel:(AGViewModel *)viewModel
@@ -56,6 +83,16 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 - (AGViewModel *)viewModel
 {
     return objc_getAssociatedObject(self, kAGViewModelProperty);
+}
+
+- (NSMapTable *)subviewMT
+{
+    id subviewMT = objc_getAssociatedObject(self, kAGViewModelSubviewMT);
+    if (nil == subviewMT) {
+        subviewMT = [NSMapTable strongToWeakObjectsMapTable];
+        objc_setAssociatedObject(self, kAGViewModelSubviewMT, subviewMT, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return subviewMT;
 }
 
 - (CGFloat)width
@@ -151,3 +188,29 @@ static void *kAGViewModelProperty = &kAGViewModelProperty;
 }
 
 @end
+
+/// 标题控件
+AGVMConstKeyNameDefine(kSVTitleLabel);
+/// 子标题控件
+AGVMConstKeyNameDefine(kSVSubtitleLabel);
+/// 详情控件
+AGVMConstKeyNameDefine(kSVDetailLabel);
+/// 日期控件
+AGVMConstKeyNameDefine(kSVDateLabel);
+/// 头像控件
+AGVMConstKeyNameDefine(kSVAvatarView);
+/// 性别控件
+AGVMConstKeyNameDefine(kSVSexView);
+/// 分割线控件
+AGVMConstKeyNameDefine(kSVPartingLine);
+
+/// 位置-左
+AGVMConstKeyNameDefine(pSVLeft);
+/// 位置-右
+AGVMConstKeyNameDefine(pSVRight);
+/// 位置-顶
+AGVMConstKeyNameDefine(pSVTop);
+/// 位置-底
+AGVMConstKeyNameDefine(pSVBottom);
+/// 位置-中心
+AGVMConstKeyNameDefine(pSVCenter);

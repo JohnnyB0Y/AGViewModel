@@ -10,6 +10,7 @@
 #import "AGVMFunction.h"
 #import "AGVMNotifier.h"
 #import "AGVMCommand.h"
+#import "NSNotification+AGViewModel.h"
 
 @interface AGViewModel ()
 

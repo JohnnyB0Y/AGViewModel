@@ -257,6 +257,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 取出
 - (nullable AGViewModel *) objectAtIndexedSubscript:(NSInteger)idx;
 
+- (NSMutableArray *)ag_arrayWithObjectsUsingBlock:(_Nullable id(NS_NOESCAPE^)(AGViewModel *vm, NSUInteger idx, BOOL *stop))block;
+
 #pragma mark 合并
 /** 合并 headerVM、 footerVM、 commonVM、itemMergeVM、itemArr */
 - (void) ag_mergeFromSection:(AGVMSection *)vms;

@@ -211,6 +211,8 @@ typedef void (^AGVMReduceBlock)(AGViewModel *viewModel, NSInteger idx);
 
 #pragma mark AGVMPackagable
 @protocol AGVMPackagable <NSObject>
+
+/// 字典数据 ==> AGViewModel
 - (AGViewModel *) ag_packageData:(NSDictionary *)dict forObject:(nullable id)obj;
 @end
 

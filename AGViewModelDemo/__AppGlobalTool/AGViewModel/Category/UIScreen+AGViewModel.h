@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign, readonly) UIDeviceOrientation deviceOrientation;
 @property(nonatomic, assign, readonly) CGFloat width;
 @property(nonatomic, assign, readonly) CGFloat height;
+/// 一像素
+@property(nonatomic, assign, readonly) CGFloat onePixel;
 
 @end
 

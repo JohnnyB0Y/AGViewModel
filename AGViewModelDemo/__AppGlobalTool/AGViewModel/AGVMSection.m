@@ -480,6 +480,20 @@
     return nil;
 }
 
+- (NSMutableArray *)ag_arrayWithObjectsUsingBlock:(id(NS_NOESCAPE^)(AGViewModel *, NSUInteger, BOOL *))block
+{
+    NSMutableArray *arrM = [NSMutableArray array];
+    if (nil == block) return arrM;
+    
+    [self ag_enumerateItemsUsingBlock:^(AGViewModel *vm, NSUInteger idx, BOOL *stop) {
+        id obj = block(vm, idx, stop);
+        if (obj) {
+            [arrM addObject:obj];
+        }
+    }];
+    return arrM;
+}
+
 #pragma mark 合并
 - (void) ag_mergeFromSection:(AGVMSection *)vms
 {

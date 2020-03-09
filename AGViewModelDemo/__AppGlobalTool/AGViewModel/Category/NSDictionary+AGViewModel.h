@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark 安全取值
 - (nullable NSString *) ag_safeStringForKey:(NSString *)key;
+- (nullable NSNumber *) ag_safeNumberForKey:(NSString *)key;
 - (nullable NSURL *) ag_safeURLForKey:(NSString *)key;
 - (nullable NSArray *) ag_safeArrayForKey:(NSString *)key;
 - (nullable NSDictionary *) ag_safeDictionaryForKey:(NSString *)key;

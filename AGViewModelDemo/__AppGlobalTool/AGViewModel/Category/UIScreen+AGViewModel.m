@@ -31,4 +31,9 @@
     return [UIApplication sharedApplication].statusBarOrientation;
 }
 
+- (CGFloat)onePixel
+{
+    return 1.0 / self.scale;
+}
+
 @end

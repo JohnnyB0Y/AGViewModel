@@ -30,6 +30,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable AGViewModel *) viewModel NS_REQUIRES_SUPER;
 
 
+#pragma mark management subview
+- (void)ag_addSubview:(UIView *)view forKey:(NSString *)key;
+- (nullable UIView *)ag_subviewForKey:(NSString *)key;
+
+/// 添加子控件到视图，name + position = key；
+/// @param view 子控件
+/// @param name 控件描述
+/// @param position 位置描述（建议：l => left; r => right; t => top; b => bottom; c => center;)
+- (void)ag_addSubview:(UIView *)view withName:(NSString *)name atPosition:(NSString *)position;
+
+/// 取出子控件，name + position = key；
+/// @param name 控件描述
+/// @param position 位置描述
+- (nullable UIView *)ag_subviewWithName:(NSString *)name atPosition:(NSString *)position;
+
+
 #pragma mark Resource Methods
 /** 如果你使用 nib、xib 创建视图，又需要打包成库文件的时候，请返回你的资源文件目录。*/
 + (NSBundle *) ag_resourceBundle; // 默认 main bundle
@@ -41,5 +57,36 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype) ag_newFromNibInBundle:(nullable NSBundle *)bundle;
 
 @end
+
+/**
+ 子控件，默认 key
+ k => key; SV => subview;
+ */
+
+/// 标题控件
+AGVMConstKeyNameExtern kSVTitleLabel;
+/// 子标题控件
+AGVMConstKeyNameExtern kSVSubtitleLabel;
+/// 详情控件
+AGVMConstKeyNameExtern kSVDetailLabel;
+/// 日期控件
+AGVMConstKeyNameExtern kSVDateLabel;
+/// 头像控件
+AGVMConstKeyNameExtern kSVAvatarView;
+/// 性别控件
+AGVMConstKeyNameExtern kSVSexView;
+/// 分割线控件
+AGVMConstKeyNameExtern kSVPartingLine;
+
+/// 位置-左
+AGVMConstKeyNameExtern pSVLeft;
+/// 位置-右
+AGVMConstKeyNameExtern pSVRight;
+/// 位置-顶
+AGVMConstKeyNameExtern pSVTop;
+/// 位置-底
+AGVMConstKeyNameExtern pSVBottom;
+/// 位置-中心
+AGVMConstKeyNameExtern pSVCenter;
 
 NS_ASSUME_NONNULL_END

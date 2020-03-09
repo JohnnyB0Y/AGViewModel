@@ -76,6 +76,8 @@
 		3AD8916D1F38965100E86F9F /* AGVMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891671F38965100E86F9F /* AGVMSection.m */; };
 		3ADD780921E637F90054437D /* AGVMFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD780821E637F90054437D /* AGVMFunction.m */; };
 		3ADD781121E687A10054437D /* AGBookListVMG.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADD781021E687A10054437D /* AGBookListVMG.m */; };
+		3ADF890E23ACAB1B0047492B /* AGVMBasePackager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADF890D23ACAB1B0047492B /* AGVMBasePackager.m */; };
+		3ADF891123ACAB7D0047492B /* AGVMBaseGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ADF891023ACAB7D0047492B /* AGVMBaseGenerator.m */; };
 		3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3802031437B009F4B29 /* UITableViewCell+AGViewModel.m */; };
 		3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */; };
 		3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */; };
@@ -231,6 +233,10 @@
 		3ADD780821E637F90054437D /* AGVMFunction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMFunction.m; sourceTree = "<group>"; };
 		3ADD780F21E687A10054437D /* AGBookListVMG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBookListVMG.h; sourceTree = "<group>"; };
 		3ADD781021E687A10054437D /* AGBookListVMG.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGBookListVMG.m; sourceTree = "<group>"; };
+		3ADF890C23ACAB1B0047492B /* AGVMBasePackager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMBasePackager.h; sourceTree = "<group>"; };
+		3ADF890D23ACAB1B0047492B /* AGVMBasePackager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMBasePackager.m; sourceTree = "<group>"; };
+		3ADF890F23ACAB7D0047492B /* AGVMBaseGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMBaseGenerator.h; sourceTree = "<group>"; };
+		3ADF891023ACAB7D0047492B /* AGVMBaseGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGVMBaseGenerator.m; sourceTree = "<group>"; };
 		3AE5B11C1FEF984B00C91906 /* AGVMFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGVMFunction.h; sourceTree = "<group>"; };
 		3AE9C3802031437B009F4B29 /* UITableViewCell+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+AGViewModel.m"; sourceTree = "<group>"; };
 		3AE9C3812031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewHeaderFooterView+AGViewModel.m"; sourceTree = "<group>"; };
@@ -662,6 +668,7 @@
 		3ABB4B211F2644E50007255F /* AGViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				3ADF890B23ACAAF10047492B /* Inheritable */,
 				3AE9C37F2031437B009F4B29 /* Category */,
 				3AD8915D1F38965100E86F9F /* AGViewModel.h */,
 				3AD8915E1F38965100E86F9F /* AGViewModel.m */,
@@ -717,6 +724,25 @@
 				3ADD781021E687A10054437D /* AGBookListVMG.m */,
 			);
 			path = VMGenerator;
+			sourceTree = "<group>";
+		};
+		3ADF890B23ACAAF10047492B /* Inheritable */ = {
+			isa = PBXGroup;
+			children = (
+				3ADF891223ACACF50047492B /* Services */,
+			);
+			path = Inheritable;
+			sourceTree = "<group>";
+		};
+		3ADF891223ACACF50047492B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3ADF890C23ACAB1B0047492B /* AGVMBasePackager.h */,
+				3ADF890D23ACAB1B0047492B /* AGVMBasePackager.m */,
+				3ADF890F23ACAB7D0047492B /* AGVMBaseGenerator.h */,
+				3ADF891023ACAB7D0047492B /* AGVMBaseGenerator.m */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		3AE9C37F2031437B009F4B29 /* Category */ = {
@@ -913,6 +939,7 @@
 				3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
 				3A04293920B7AADB0025D9D5 /* GZPSItemDetailCell.m in Sources */,
 				3ADD780921E637F90054437D /* AGVMFunction.m in Sources */,
+				3ADF890E23ACAB1B0047492B /* AGVMBasePackager.m in Sources */,
 				3AED795D21F48E4300489182 /* AGAPIBaseCaller.m in Sources */,
 				3A04295D20B7B2610025D9D5 /* AGBookHandleReformer.m in Sources */,
 				3AA8036D21DE6ABC00515EC8 /* AGVMKeys.m in Sources */,
@@ -938,6 +965,7 @@
 				3A8C699621E0EDA50021BCB1 /* AGViewStorehouse.m in Sources */,
 				3A04294E20B7AB000025D9D5 /* AGBoxBCell.m in Sources */,
 				3A04293820B7AADB0025D9D5 /* GZPSItemHeaderView.m in Sources */,
+				3ADF891123ACAB7D0047492B /* AGVMBaseGenerator.m in Sources */,
 				3A04292E20B7AAB00025D9D5 /* ViewController.m in Sources */,
 				3A4EDECE22D8DE900088625D /* NSDictionary+AGViewModel.m in Sources */,
 				3AA8036B21DE4B2900515EC8 /* UIViewController+AGViewModel.m in Sources */,
