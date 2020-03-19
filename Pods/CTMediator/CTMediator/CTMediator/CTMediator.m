@@ -39,6 +39,10 @@ NSString * const kCTMediatorParamsKeySwiftTargetModuleName = @"kCTMediatorParams
 
 - (id)performActionWithUrl:(NSURL *)url completion:(void (^)(NSDictionary *))completion
 {
+    if (url == nil) {
+        return nil;
+    }
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSString *urlString = [url query];
     for (NSString *param in [urlString componentsSeparatedByString:@"&"]) {
@@ -67,6 +71,10 @@ NSString * const kCTMediatorParamsKeySwiftTargetModuleName = @"kCTMediatorParams
 
 - (id)performTarget:(NSString *)targetName action:(NSString *)actionName params:(NSDictionary *)params shouldCacheTarget:(BOOL)shouldCacheTarget
 {
+    if (targetName == nil || actionName == nil) {
+        return nil;
+    }
+    
     NSString *swiftModuleName = params[kCTMediatorParamsKeySwiftTargetModuleName];
     
     // generate target
@@ -114,6 +122,9 @@ NSString * const kCTMediatorParamsKeySwiftTargetModuleName = @"kCTMediatorParams
 
 - (void)releaseCachedTargetWithTargetName:(NSString *)targetName
 {
+    if (targetName == nil) {
+        return;
+    }
     NSString *targetClassString = [NSString stringWithFormat:@"Target_%@", targetName];
     [self.cachedTarget removeObjectForKey:targetClassString];
 }

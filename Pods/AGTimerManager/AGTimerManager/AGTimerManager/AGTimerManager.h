@@ -32,6 +32,8 @@ typedef BOOL(^AGTMDateCountdownBlock)(NSCalendar *calendar, NSDateComponents *co
 
 @interface AGTimerManager : NSObject
 
+@property (class, readonly) AGTimerManager *defaultInstance;
+
 #pragma mark 多任务定时器🍩
 
 /**
@@ -41,7 +43,7 @@ typedef BOOL(^AGTMDateCountdownBlock)(NSCalendar *calendar, NSDateComponents *co
  @param ti 时间间隔
  @param delay 开始定时器的延迟时间
  */
-- (void) ag_prepareTaskTimer:(NSString **)timerKey
+- (void) ag_prepareTaskTimer:(NSString * _Nonnull * _Nonnull)timerKey
                     interval:(NSTimeInterval)ti
                        delay:(NSTimeInterval)delay;
 
@@ -203,7 +205,7 @@ typedef BOOL(^AGTMDateCountdownBlock)(NSCalendar *calendar, NSDateComponents *co
 
 #pragma mark 倒计时⏳
 /**
- 开始倒计时，间隔为1秒 (NSRunLoopCommonModes)
+ 马上开始倒计时，间隔为1秒 (NSRunLoopCommonModes模式下，自定义 duration，countdownBlock，completionBlock)
  
  @param duration 计数值
  @param countdownBlock 计数回调 block 返回 NO 停止，返回 YES 继续。
@@ -214,9 +216,22 @@ typedef BOOL(^AGTMDateCountdownBlock)(NSCalendar *calendar, NSDateComponents *co
                             countdown:(nullable AGTMCountdownBlock)countdownBlock
                            completion:(nullable AGTMCompletionBlock)completionBlock;
 
+/**
+ 可延迟开始倒计时，间隔为1秒 (NSRunLoopCommonModes模式下，自定义 duration，delay，countdownBlock，completionBlock)
+ 
+ @param duration 计数值
+ @param delay 计时开始前的延迟秒数
+ @param countdownBlock 计数回调 block 返回 NO 停止，返回 YES 继续。
+ @param completionBlock 计数完成 block
+ @return timer key
+ */
+- (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
+                                delay:(NSTimeInterval)delay
+                            countdown:(nullable AGTMCountdownBlock)countdownBlock
+                           completion:(nullable AGTMCompletionBlock)completionBlock;
 
 /**
- 开始倒计时 (NSRunLoopCommonModes)
+ 马上开始倒计时 (NSRunLoopCommonModes模式下，自定义 duration，ti，countdownBlock，completionBlock)
  
  @param duration 计数值
  @param ti 计数间隔
@@ -230,7 +245,23 @@ typedef BOOL(^AGTMDateCountdownBlock)(NSCalendar *calendar, NSDateComponents *co
                            completion:(nullable AGTMCompletionBlock)completionBlock;
 
 /**
- 开始倒计时 (自定义NSRunLoopMode)
+ 可延迟开始倒计时 (NSRunLoopCommonModes 模式下，自定义duration，interval，delay，countdownBlock，completionBlock)
+ 
+ @param duration 计数值
+ @param ti 计数间隔
+ @param delay 计时开始前的延迟秒数
+ @param countdownBlock 计数回调 block 返回 NO 停止，返回 YES 继续。
+ @param completionBlock 计数完成 block
+ @return timer key
+ */
+- (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
+                             interval:(NSTimeInterval)ti
+                                delay:(NSTimeInterval)delay
+                            countdown:(nullable AGTMCountdownBlock)countdownBlock
+                           completion:(nullable AGTMCompletionBlock)completionBlock;
+
+/**
+ 马上开始倒计时 (自定义 duration, interval, mode, countdownBlock, completionBlock)
  
  @param duration 计数值
  @param ti 计数间隔
@@ -241,6 +272,24 @@ typedef BOOL(^AGTMDateCountdownBlock)(NSCalendar *calendar, NSDateComponents *co
  */
 - (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
                              interval:(NSTimeInterval)ti
+                              forMode:(NSRunLoopMode)mode
+                            countdown:(nullable AGTMCountdownBlock)countdownBlock
+                           completion:(nullable AGTMCompletionBlock)completionBlock;
+
+/**
+ 可延迟开始倒计时 (自定义 duration, interval, delay, mode, countdownBlock, completionBlock)
+ 
+ @param duration 计数值
+ @param ti 计数间隔
+ @param delay 计时开始前的延迟秒数
+ @param mode 运行循环模式
+ @param countdownBlock 计数回调 block 返回 NO 停止，返回 YES 继续。
+ @param completionBlock 计数完成 block
+ @return timer key
+ */
+- (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
+                             interval:(NSTimeInterval)ti
+                                delay:(NSTimeInterval)delay
                               forMode:(NSRunLoopMode)mode
                             countdown:(nullable AGTMCountdownBlock)countdownBlock
                            completion:(nullable AGTMCompletionBlock)completionBlock;

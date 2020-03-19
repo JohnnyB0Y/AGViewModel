@@ -440,6 +440,11 @@ static void *kAGTMTimerStrongToWeakMapTableProperty = &kAGTMTimerStrongToWeakMap
 
 @implementation AGTimerManager
 
++ (AGTimerManager *)defaultInstance
+{
+    return [[self alloc] init];
+}
+
 #pragma mark 共享定时器🍩
 - (void) ag_prepareTaskTimer:(NSString **)timerKey
                     interval:(NSTimeInterval)ti
@@ -531,7 +536,7 @@ static void *kAGTMTimerStrongToWeakMapTableProperty = &kAGTMTimerStrongToWeakMap
                             repeat:(AGTMRepeatBlock)repeatBlock
 {
     NSString *timerKey;
-    [self ag_prepareTaskTimer:&timerKey interval:ti delay:0.];
+    [self ag_prepareTaskTimer:&timerKey interval:ti delay:delay];
     [self ag_addTaskForTimer:timerKey taskToken:@"__AGRepeatTaskToken" repeat:repeatBlock completion:nil];
     [self ag_startTaskTimer:timerKey forMode:mode];
     return timerKey;
@@ -608,11 +613,26 @@ static void *kAGTMTimerStrongToWeakMapTableProperty = &kAGTMTimerStrongToWeakMap
                             countdown:(AGTMCountdownBlock)countdownBlock
                            completion:(AGTMCompletionBlock)completionBlock
 {
+    return [self ag_startCountdownTimer:duration
+                               interval:ti
+                                  delay:0.0
+                                forMode:mode
+                              countdown:countdownBlock
+                             completion:completionBlock];
+}
+
+- (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
+                             interval:(NSTimeInterval)ti
+                                delay:(NSTimeInterval)delay
+                              forMode:(NSRunLoopMode)mode
+                            countdown:(AGTMCountdownBlock)countdownBlock
+                           completion:(AGTMCompletionBlock)completionBlock
+{
     if ( duration <= 0 ) return nil;
     
     NSString *timerKey;
     __block NSTimeInterval countdown = duration;
-    [self ag_prepareTaskTimer:&timerKey interval:ti delay:0.];
+    [self ag_prepareTaskTimer:&timerKey interval:ti delay:delay];
     
     [self ag_addTaskForTimer:timerKey taskToken:@"__AGCountdownTaskToken" repeat:^BOOL{
         
@@ -652,12 +672,39 @@ static void *kAGTMTimerStrongToWeakMapTableProperty = &kAGTMTimerStrongToWeakMap
 }
 
 - (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
+                                delay:(NSTimeInterval)delay
+                            countdown:(AGTMCountdownBlock)countdownBlock
+                           completion:(AGTMCompletionBlock)completionBlock
+{
+    return [self ag_startCountdownTimer:duration
+                               interval:1.
+                                  delay:delay
+                                forMode:NSRunLoopCommonModes
+                              countdown:countdownBlock
+                             completion:completionBlock];
+}
+
+- (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
                              interval:(NSTimeInterval)ti
                             countdown:(AGTMCountdownBlock)countdownBlock
                            completion:(AGTMCompletionBlock)completionBlock
 {
     return [self ag_startCountdownTimer:duration
                                interval:ti
+                                forMode:NSRunLoopCommonModes
+                              countdown:countdownBlock
+                             completion:completionBlock];
+}
+
+- (NSString *) ag_startCountdownTimer:(NSTimeInterval)duration
+                             interval:(NSTimeInterval)ti
+                                delay:(NSTimeInterval)delay
+                            countdown:(AGTMCountdownBlock)countdownBlock
+                           completion:(AGTMCompletionBlock)completionBlock
+{
+    return [self ag_startCountdownTimer:duration
+                               interval:ti
+                                  delay:delay
                                 forMode:NSRunLoopCommonModes
                               countdown:countdownBlock
                              completion:completionBlock];

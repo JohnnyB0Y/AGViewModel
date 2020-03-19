@@ -540,14 +540,14 @@ itemClickBlock = _itemClickBlock;
 }
 
 #pragma mark - ----------- Setter Methods ----------
-- (void)setHeaderRefreshingBlock:(MJRefreshComponentRefreshingBlock)headerRefreshingBlock
+- (void)setHeaderRefreshingBlock:(MJRefreshComponentAction)headerRefreshingBlock
 {
     _headerRefreshingBlock = [headerRefreshingBlock copy];
     //设置下拉刷新
     self.view.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:_headerRefreshingBlock];
 }
 
-- (void)setFooterRefreshingBlock:(MJRefreshComponentRefreshingBlock)footerRefreshingBlock
+- (void)setFooterRefreshingBlock:(MJRefreshComponentAction)footerRefreshingBlock
 {
     _footerRefreshingBlock = [footerRefreshingBlock copy];
     self.view.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:_footerRefreshingBlock];

@@ -42,9 +42,9 @@ typedef void(^ATVMManagerHandleBlock)
 
 #pragma mark block
 /** 下拉刷新 */
-@property (nonatomic, copy) MJRefreshComponentRefreshingBlock headerRefreshingBlock;
+@property (nonatomic, copy) MJRefreshComponentAction headerRefreshingBlock;
 /** 上拉加载 */
-@property (nonatomic, copy) MJRefreshComponentRefreshingBlock footerRefreshingBlock;
+@property (nonatomic, copy) MJRefreshComponentAction footerRefreshingBlock;
 
 
 #pragma mark operation

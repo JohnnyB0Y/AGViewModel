@@ -14,7 +14,7 @@
 - (NSMutableSet<Class<AGViewReusable>> *)classSet
 {
     if (nil == _classSet) {
-        _classSet = [[NSMutableSet alloc] initWithCapacity:6];;
+        _classSet = [[NSMutableSet alloc] initWithCapacity:6];
     }
     return _classSet;
 }
@@ -23,7 +23,7 @@
 - (NSMutableSet<NSString *> *)classNameSet
 {
     if (nil == _classNameSet) {
-        _classNameSet = [[NSMutableSet alloc] initWithCapacity:6];;
+        _classNameSet = [[NSMutableSet alloc] initWithCapacity:6];
     }
     return _classNameSet;
 }

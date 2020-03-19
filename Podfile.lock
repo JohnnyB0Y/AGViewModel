@@ -14,16 +14,16 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - AGCategories (0.1.8)
-  - AGTimerManager (0.5.1)
-  - AGVerifyManager (0.3.4)
+  - AGCategories (0.1.9)
+  - AGTimerManager (0.5.3)
+  - AGVerifyManager (0.3.7)
   - AspectsV1.4.2 (1.4.2)
-  - CTMediator (25)
+  - CTMediator (28)
   - CTNetworking (14):
     - AFNetworking
     - CTMediator
   - Masonry (1.1.0)
-  - MJRefresh (3.1.16)
+  - MJRefresh (3.3.1)
   - RealReachability (1.3.0):
     - RealReachability/Connection (= 1.3.0)
     - RealReachability/Ping (= 1.3.0)
@@ -34,9 +34,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
-  - AGCategories (~> 0.1.6)
-  - AGTimerManager (~> 0.5.1)
-  - AGVerifyManager (~> 0.3.4)
+  - AGCategories
+  - AGTimerManager
+  - AGVerifyManager
   - AspectsV1.4.2 (~> 1.4.2)
   - CTMediator
   - CTNetworking
@@ -47,7 +47,7 @@ DEPENDENCIES:
   - SVProgressHUD
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AFNetworking
     - AGCategories
     - AGTimerManager
@@ -63,18 +63,18 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AGCategories: 1fcd073caad1c6f369521234cff7abf095e21c29
-  AGTimerManager: 26321cb98c200c52bcbac21ebce6f36318ba3927
-  AGVerifyManager: dd61d7ee90e1ef41458ff179b99645176c53c163
+  AGCategories: 1cee263e808a674b2ddd44ccf5d0aeb7221ba90e
+  AGTimerManager: 5efa65280746e4afae2ff0f9ddab2fd107c44f75
+  AGVerifyManager: be8ea79fd5745c5b1d9893015d76e63a3344b4a8
   AspectsV1.4.2: a8b168606776215f5ba4790b95ff315df336aca9
-  CTMediator: 830c1fc204b3a6abf2a059510c7380f56343da0f
+  CTMediator: 6a05e9f1098b2d2fbc9d19cc7f28e94c3a08b5d2
   CTNetworking: 1d76c25dc81eec59744a31559959522319020b81
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
+  MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
   RealReachability: eae9c58d2db52fadd8e1cba4b5d4c028454fbc47
   SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 17ec7c031426e6a83e18726b26f323fe424be6ec
+PODFILE CHECKSUM: 668a39dd24bd4ac8a1bab98bd6d2e716b12c381a
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4

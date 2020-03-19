@@ -109,6 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype) newWithModel:(nullable NSDictionary *)bindingModel;
 - (instancetype) initWithModel:(NSMutableDictionary *)bindingModel NS_DESIGNATED_INITIALIZER;
 
++ (instancetype) newUsingBlock:(AGVMPackageDataBlock)block;
+- (instancetype) initUsingBlock:(AGVMPackageDataBlock)block;
+
 - (instancetype) init NS_UNAVAILABLE;
 + (instancetype) new NS_UNAVAILABLE;
 

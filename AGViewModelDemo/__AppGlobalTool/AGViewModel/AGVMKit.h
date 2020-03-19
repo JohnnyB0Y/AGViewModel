@@ -36,4 +36,7 @@
 #import "UITableView+AGViewModel.h"
 #import "UICollectionView+AGViewModel.h"
 
+#import "AGVMBasePackager.h"
+#import "AGVMBaseGenerator.h"
+
 #endif /* AGVMKit_h */

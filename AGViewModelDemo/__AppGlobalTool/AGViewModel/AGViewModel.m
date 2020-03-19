@@ -67,6 +67,18 @@
     return self;
 }
 
+- (instancetype)initUsingBlock:(AGVMPackageDataBlock)block
+{
+    id vm = [self initWithModel:ag_newNSMutableDictionary(6)];
+    block ? block(vm) : nil;
+    return vm;
+}
+
++ (instancetype)newUsingBlock:(AGVMPackageDataBlock)block
+{
+    return [[self alloc] initUsingBlock:block];
+}
+
 - (void)dealloc
 {
     _configDataBlock = nil;
