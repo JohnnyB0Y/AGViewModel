@@ -120,13 +120,15 @@ NSString * const kCTMediatorParamsKeySwiftTargetModuleName = @"kCTMediatorParams
     }
 }
 
-- (void)releaseCachedTargetWithTargetName:(NSString *)targetName
+- (void)releaseCachedTargetWithFullTargetName:(NSString *)fullTargetName
 {
-    if (targetName == nil) {
+    /*
+     fullTargetName在oc环境下，就是Target_XXXX。要带上Target_前缀。在swift环境下，就是XXXModule.Target_YYY。不光要带上Target_前缀，还要带上模块名。
+     */
+    if (fullTargetName == nil) {
         return;
     }
-    NSString *targetClassString = [NSString stringWithFormat:@"Target_%@", targetName];
-    [self.cachedTarget removeObjectForKey:targetClassString];
+    [self.cachedTarget removeObjectForKey:fullTargetName];
 }
 
 #pragma mark - private methods

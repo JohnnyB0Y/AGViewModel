@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIViewController * _Nullable)topViewController;
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)animated completion:(void (^)(void))completion;
+- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)animated completion:(void (^ _Nullable )(void))completion;
 
 @end
 

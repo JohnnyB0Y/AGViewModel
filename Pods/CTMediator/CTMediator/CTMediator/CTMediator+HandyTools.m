@@ -37,18 +37,23 @@
         }
     }
     
-    
     if ([navigationController isKindOfClass:[UINavigationController class]]) {
         [navigationController pushViewController:viewController animated:animated];
     }
 }
 
-- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)animated completion:(void (^)(void))completion
+- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)animated completion:(void (^ _Nullable)(void))completion
 {
     UIViewController *viewController = [self topViewController];
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         UINavigationController *navigationController = (UINavigationController *)viewController;
         viewController = navigationController.topViewController;
+    }
+    
+    if ([viewController isKindOfClass:[UIAlertController class]]) {
+        UIViewController *viewControllerToUse = viewController.presentingViewController;
+        [viewController dismissViewControllerAnimated:false completion:nil];
+        viewController = viewControllerToUse;
     }
     
     if (viewController) {
