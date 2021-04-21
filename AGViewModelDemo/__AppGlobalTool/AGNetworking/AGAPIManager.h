@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AGAPIManager : NSObject
-<AGAPIInterceptor, AGAPIVerifier>
+<AGAPIInterceptor, AGAPIVerifier, AGAPIAssembly>
 
 @property (nonatomic, copy, readonly) AGAPIManagerCallbackBlock callbackBlock;
 @property (nonatomic, copy, readonly) AGAPIManagerParamsBlock paramsBlock;
@@ -20,9 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 回调状态
 @property (nonatomic, assign) AGAPICallbackStatus status;
-@property (nonatomic, assign, readonly) NSInteger httpCode;
+
 /// 正在加载？
 @property (nonatomic, assign, readonly) BOOL isLoading;
+@property (nonatomic, copy, nullable) NSNumber *requestId;
+@property (nonatomic, strong, nullable, readonly) id rawData;
+@property (nonatomic, strong, nullable, readonly) NSHTTPURLResponse *response;
 
 #pragma 请求起飞
 - (void) request;

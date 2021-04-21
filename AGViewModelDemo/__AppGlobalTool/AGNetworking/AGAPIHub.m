@@ -20,18 +20,12 @@
 }
 
 - (void) groupRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback {
-    dispatch_group_t g = dispatch_group_create();
-    dispatch_queue_t q = dispatch_queue_create("api-group-requeue-queue", DISPATCH_QUEUE_CONCURRENT);
-    
-    [apis enumerateObjectsUsingBlock:^(AGAPIManager * _Nonnull api, NSUInteger idx, BOOL * _Nonnull stop) {
-        dispatch_group_async(g, q, ^{
-            [api request];
-        });
-    }];
-    
-    dispatch_group_notify(g, q, ^{
-        
-    });
+    AGAPIIterator *itor = [[AGAPIIterator alloc] initWithAPIs:apis];
+    AGAPIManager *api = [itor nextAPIManager];
+    while (api) {
+        [api requestWithAPIGroupIterator:itor];
+        api = [itor nextAPIManager];
+    }
 }
 
 @end

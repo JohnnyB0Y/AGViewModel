@@ -18,6 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// api session
 @property (nonatomic, strong, readonly) id<AGAPISessionProtocol> session;
+/// api header
+@property (nonatomic, strong, readonly) NSMutableDictionary *headers;
+/// api common params
+@property (nonatomic, strong, readonly) NSMutableDictionary *commonParams;
+/// api environment
+@property (nonatomic, assign) AGAPIEnvironment environment;
+
 
 + (instancetype) newWithAPISession:(id<AGAPISessionProtocol>)session;
 - (instancetype) initWithAPISession:(id<AGAPISessionProtocol>)session;
@@ -35,7 +42,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGVerifyError *) verifyHTTPCode:(NSInteger)code forAPIManager:(AGAPIManager *)manager;
 
 /// 全局错误，处理成功 返回 true 就不调用callback函数了，处理失败返回 false 继续往下走。
-- (BOOL) handleGlobalError:(AGVerifyError *)error forAPIManager:(AGAPIManager *)manager;
+- (BOOL) handleGlobalError:(NSError *)error forAPIManager:(AGAPIManager *)manager;
+
+- (NSString *)baseURL;
 
 @end
 

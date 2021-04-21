@@ -12,7 +12,6 @@
 #import <AGVerifyManager/AGVerifyManager.h>
 
 @interface AGAPIManager ()
-<AGAPIAssembly>
 
 @property (nonatomic, copy) dispatch_block_t requestNext;
 /// 重试次数
@@ -27,8 +26,8 @@
 /// 生命周期观察者集合
 @property (nonatomic, strong) NSMutableSet<id<AGAPIInterceptor>> *interceptors;
 
-/// data
-@property (nonatomic, strong) id rawData;
+/// 取出的最终数据
+@property (nonatomic, strong) id finalData;
 
 @end
 
@@ -103,13 +102,15 @@
     // 发起请求
     __weak typeof(self) weakSelf = self;
     _isLoading = YES;
-    [service.session callAPIForAPIManager:self options:nil callback:^(id  _Nullable data, NSInteger httpCode, NSError * _Nullable error) {
+    [service.session callAPIForAPIManager:self options:nil callback:^(id  _Nullable data, NSHTTPURLResponse *response, NSError * _Nullable error) {
         __strong typeof(weakSelf) self = weakSelf;
         if (nil == self) return;
         
         self->_isLoading = NO; // 请求落地
-        self->_httpCode = httpCode;
+        self->_response = response;
+        self->_rawData = data;
         self.status = AGAPICallbackStatusAfterCalling;
+        
         if ([self _afterCallingAPI:self] == NO) {
             if (self.status == AGAPICallbackStatusAfterCalling) {
                 [self _apiCallbackFailure:AGAPICallbackStatusInterceptedAfterCalling];
@@ -139,19 +140,19 @@
             
             [self _beforeParseData:self]; // 开始解析数据
             
-            if ([self _verifyHTTPCode:httpCode] == NO) {
+            if ([self _verifyHTTPCode:self.response.statusCode] == NO) {
                 self.status = AGAPICallbackStatusHttpCodeError;
-                if ([self _handleGlobalError:nil] == NO) {
+                if ([self _handleGlobalError:error] == NO) {
                     [self _apiCallbackFailure:self.status];
                 }
             }
             else {
-                self.rawData = [self rawDataForAPIManager:self];
-                if ([self _verifyCallbackData:self.rawData] == NO) { // 校验数据
+                self.finalData = [self finalDataForAPIManager:self];
+                if ([self _verifyCallbackData:self.finalData] == NO) { // 校验数据
                     if (self.status == AGAPICallbackStatusAfterCalling) {
                         self.status = AGAPICallbackStatusDataError;
                     }
-                    if ([self _handleGlobalError:nil] == NO) {
+                    if ([self _handleGlobalError:error] == NO) {
                         [self _apiCallbackFailure:self.status];
                     }
                 }
@@ -180,7 +181,7 @@
 }
 
 - (void)retryRequest:(NSInteger)numberOfTry {
-    if (self.isRetrying) {
+    if (self.isRetrying || self.isLoading) {
         [self _apiCallbackFailure:AGAPICallbackStatusRepetitionRequest];
         return;
     }
@@ -287,6 +288,7 @@
     NSMutableDictionary *paramsM = [NSMutableDictionary dictionaryWithDictionary:params];
     AGAPIService *service = [AGAPIService dequeueAPIServiceForKey:[self apiServiceKey]];
     [paramsM addEntriesFromDictionary:[service pagedParamsForAPIManager:self]];
+    [paramsM addEntriesFromDictionary:[service commonParams]];
     return paramsM;
 }
 
@@ -296,8 +298,17 @@
 }
 
 /// 全局错误，处理成功 返回 true 就不调用callback函数了，处理失败返回 false 继续往下走。
-- (BOOL) handleGlobalError:(AGVerifyError *)error {
+- (BOOL) handleGlobalError:(NSError *)error {
     return [[self service] handleGlobalError:error forAPIManager:self];
+}
+
+- (void)cancelRequest {
+    if (self.isLoading) {
+        [[[self service] session] cancelAPIForAPIManager:self options:nil];
+        self.requestId = nil;
+        [self _afterCallingAPI:self];
+        [self _apiCallbackFailure:AGAPICallbackStatusCancel];
+    }
 }
 
 #pragma mark - ---------- AGAPIAssembly Methods ----------
@@ -305,16 +316,24 @@
     return [[self service] connectTimeout];
 }
 
-- (nonnull id)errorDataForAPIManager:(nonnull AGAPIManager *)manager {
+- (NSInteger)receiveTimeout {
+    return [[self service] receiveTimeout];
+}
+
+- (NSURLRequest *)requestForAPIManager:(AGAPIManager *)manager {
+    return [[self service] requestForAPIManager:manager];
+}
+
+- (id)errorDataForAPIManager:(nonnull AGAPIManager *)manager {
     return [[self service] errorDataForAPIManager:manager];
 }
 
-- (nonnull NSString *)finalURL:(nonnull NSString *)baseURL apiMethod:(nonnull NSString *)apiMethod params:(nonnull NSDictionary *)params {
-    return [[self service] finalURL:baseURL apiMethod:apiMethod params:params];
+- (NSString *)finalURL:(nonnull NSString *)baseURL apiPath:(nonnull NSString *)apiPath params:(nonnull NSDictionary *)params {
+    return [[self service] finalURL:baseURL apiPath:apiPath params:params];
 }
 
-- (nonnull id)rawDataForAPIManager:(nonnull AGAPIManager *)manager {
-    return [[self service] rawDataForAPIManager:manager];
+- (id)finalDataForAPIManager:(nonnull AGAPIManager *)manager {
+    return [[self service] finalDataForAPIManager:manager];
 }
 
 #pragma mark - ---------- Private Methods ----------
@@ -418,7 +437,7 @@
     return [self verifyHTTPCode:code];
 }
 
-- (BOOL) _handleGlobalError:(AGVerifyError *)error {
+- (BOOL) _handleGlobalError:(NSError *)error {
     return [self handleGlobalError:error];
 }
 
