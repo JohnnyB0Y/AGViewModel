@@ -69,6 +69,10 @@
 		3AC28E001FB8179C00578B5D /* AGTableViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFA1FB8179C00578B5D /* AGTableViewManager.m */; };
 		3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFB1FB8179C00578B5D /* AGCollectionViewManager.m */; };
 		3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC28DFC1FB8179C00578B5D /* AGBaseViewManager.m */; };
+		3AC6DFFD262FD14100838176 /* AGAPISessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6DFFC262FD14100838176 /* AGAPISessionManager.m */; };
+		3AC6E016262FE0E000838176 /* AGAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6E015262FE0E000838176 /* AGAPIManager.m */; };
+		3AC6E01B262FE10F00838176 /* AGAPIHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6E01A262FE10F00838176 /* AGAPIHub.m */; };
+		3AC6E020262FE13000838176 /* AGAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC6E01F262FE13000838176 /* AGAPIService.m */; };
 		3AD3277D239205F700213C9F /* AGDocumentKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD3277C239205F700213C9F /* AGDocumentKeys.m */; };
 		3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8915E1F38965100E86F9F /* AGViewModel.m */; };
 		3AD8916B1F38965100E86F9F /* AGVMSharedPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AD891631F38965100E86F9F /* AGVMSharedPackager.m */; };
@@ -217,6 +221,15 @@
 		3AC28DFD1FB8179C00578B5D /* AGTableViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGTableViewManager.h; sourceTree = "<group>"; };
 		3AC28DFE1FB8179C00578B5D /* AGCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGCollectionViewManager.h; sourceTree = "<group>"; };
 		3AC28DFF1FB8179C00578B5D /* AGBaseViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGBaseViewManager.h; sourceTree = "<group>"; };
+		3AC6DFFB262FD14100838176 /* AGAPISessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAPISessionManager.h; sourceTree = "<group>"; };
+		3AC6DFFC262FD14100838176 /* AGAPISessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGAPISessionManager.m; sourceTree = "<group>"; };
+		3AC6E000262FD19F00838176 /* AGAPIProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAPIProtocol.h; sourceTree = "<group>"; };
+		3AC6E014262FE0E000838176 /* AGAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAPIManager.h; sourceTree = "<group>"; };
+		3AC6E015262FE0E000838176 /* AGAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGAPIManager.m; sourceTree = "<group>"; };
+		3AC6E019262FE10F00838176 /* AGAPIHub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAPIHub.h; sourceTree = "<group>"; };
+		3AC6E01A262FE10F00838176 /* AGAPIHub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGAPIHub.m; sourceTree = "<group>"; };
+		3AC6E01E262FE13000838176 /* AGAPIService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAPIService.h; sourceTree = "<group>"; };
+		3AC6E01F262FE13000838176 /* AGAPIService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGAPIService.m; sourceTree = "<group>"; };
 		3AD3277C239205F700213C9F /* AGDocumentKeys.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDocumentKeys.m; sourceTree = "<group>"; };
 		3AD3277E2392061600213C9F /* AGDocumentKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDocumentKeys.h; sourceTree = "<group>"; };
 		3AD8915D1F38965100E86F9F /* AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGViewModel.h; sourceTree = "<group>"; };
@@ -658,6 +671,7 @@
 		3ABB4B061F2644BA0007255F /* __AppGlobalTool */ = {
 			isa = PBXGroup;
 			children = (
+				3AC6DFFA262FD0AF00838176 /* AGNetworking */,
 				3A8C698D21E0ECEA0021BCB1 /* AGSwitchControl */,
 				3AC28DF91FB8179C00578B5D /* ViewManager */,
 				3ABB4B211F2644E50007255F /* AGViewModel */,
@@ -715,6 +729,22 @@
 				3A04292620B7AAB00025D9D5 /* Services */,
 			);
 			path = Mian;
+			sourceTree = "<group>";
+		};
+		3AC6DFFA262FD0AF00838176 /* AGNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				3AC6DFFB262FD14100838176 /* AGAPISessionManager.h */,
+				3AC6DFFC262FD14100838176 /* AGAPISessionManager.m */,
+				3AC6E000262FD19F00838176 /* AGAPIProtocol.h */,
+				3AC6E014262FE0E000838176 /* AGAPIManager.h */,
+				3AC6E015262FE0E000838176 /* AGAPIManager.m */,
+				3AC6E019262FE10F00838176 /* AGAPIHub.h */,
+				3AC6E01A262FE10F00838176 /* AGAPIHub.m */,
+				3AC6E01E262FE13000838176 /* AGAPIService.h */,
+				3AC6E01F262FE13000838176 /* AGAPIService.m */,
+			);
+			path = AGNetworking;
 			sourceTree = "<group>";
 		};
 		3ADD780E21E687A10054437D /* VMGenerator */ = {
@@ -826,7 +856,7 @@
 		3AACE8191EACF9100097C4F3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = JohnnyB0Y;
 				TargetAttributes = {
 					3AACE8201EACF9100097C4F3 = {
@@ -938,6 +968,7 @@
 				3A8C699321E0ED610021BCB1 /* AGLikeButtom.m in Sources */,
 				3AE9C38B2031437B009F4B29 /* UITableViewHeaderFooterView+AGViewModel.m in Sources */,
 				3A04293920B7AADB0025D9D5 /* GZPSItemDetailCell.m in Sources */,
+				3AC6DFFD262FD14100838176 /* AGAPISessionManager.m in Sources */,
 				3ADD780921E637F90054437D /* AGVMFunction.m in Sources */,
 				3ADF890E23ACAB1B0047492B /* AGVMBasePackager.m in Sources */,
 				3AED795D21F48E4300489182 /* AGAPIBaseCaller.m in Sources */,
@@ -979,7 +1010,9 @@
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
 				3A14FEAB22FE750400F00003 /* AGDiskDocumentViewController.m in Sources */,
 				3A04292420B796260025D9D5 /* AGBookListCellVMP.m in Sources */,
+				3AC6E01B262FE10F00838176 /* AGAPIHub.m in Sources */,
 				3A89D45421D99CC300B0779A /* AGMainCell.m in Sources */,
+				3AC6E020262FE13000838176 /* AGAPIService.m in Sources */,
 				3ABF523D2381444300E8B39F /* NSMutableArray+AGViewModel.m in Sources */,
 				3A8C699921E127CB0021BCB1 /* AGSwitchControlItem.m in Sources */,
 				3A89D45721D99DB700B0779A /* AGMainHeaderFooterView.m in Sources */,
@@ -991,6 +1024,7 @@
 				3A8C699021E0ECF70021BCB1 /* AGSwitchControl.m in Sources */,
 				3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */,
 				3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */,
+				3AC6E016262FE0E000838176 /* AGAPIManager.m in Sources */,
 				3ADD781121E687A10054437D /* AGBookListVMG.m in Sources */,
 				3A04294F20B7AB000025D9D5 /* AGBoxCCell.m in Sources */,
 				3A04291420B783EA0025D9D5 /* AGDoubanService.m in Sources */,
@@ -1069,6 +1103,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1093,7 +1128,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1126,6 +1161,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1145,7 +1181,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
