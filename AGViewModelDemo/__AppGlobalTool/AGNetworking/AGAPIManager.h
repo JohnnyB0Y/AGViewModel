@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AGAPIManager : NSObject
+<AGAPIInterceptor, AGAPIVerifier>
 
 @property (nonatomic, copy, readonly) AGAPIManagerCallbackBlock callbackBlock;
 @property (nonatomic, copy, readonly) AGAPIManagerParamsBlock paramsBlock;
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 重试请求
 - (void) retryRequest:(NSInteger)numberOfTry;
 
-#pragma hub 使用
+#pragma api hub 使用
 - (void) requestWithAPISerialIterator:(AGAPIIterator *)itor;
 - (void) requestWithAPIGroupIterator:(AGAPIIterator *)itor;
 
@@ -40,9 +41,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary *) reformAPIParams:(NSDictionary *)params NS_REQUIRES_SUPER;
 
+/// 添加数据校验器
+- (void) useVerifier:(id<AGAPIVerifier>)verifier;
+/// 添加生命周期观察者
+- (void) useInterceptor:(id<AGAPIInterceptor>)interceptor;
+
 #pragma override
 - (NSString *)apiServiceKey;
-- (AGAPIMethodType)apiMethod;
+- (AGAPIMethodType)apiMethodType;
+- (NSString *)apiMethod;
 - (NSString *)apiPath;
 
 @end

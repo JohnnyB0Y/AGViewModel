@@ -9,7 +9,7 @@
 #ifndef AGAPIProtocol_h
 #define AGAPIProtocol_h
 
-@class AGAPIManager, AGAPIIterator;
+@class AGAPIManager, AGAPIIterator, AGVerifyError;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -92,6 +92,37 @@ typedef NSDictionary * _Nonnull (^AGAPIManagerParamsBlock)
 
 @protocol AGAPIAssembly <NSObject>
 
+
+@end
+
+@protocol AGAPIVerifier <NSObject>
+
+/// 验证回调数据是否合规
+- (nullable AGVerifyError *) verifyCallbackDataForAPIManager:(AGAPIManager *)manager data:(id)data;
+/// 验证请求参数是否合规
+- (nullable AGVerifyError *) verifyCallParamsForAPIManager:(AGAPIManager *)manager params:(NSDictionary *)params;
+
+@end
+
+@protocol AGAPIInterceptor <NSObject>
+
+/// API起飞前, 返回值为false即打断请求
+- (BOOL) beforeCallingAPI:(AGAPIManager *)manager;
+
+/// API落地后, 返回值为false即打断回调
+- (BOOL) afterCallingAPI:(AGAPIManager *)manager;
+
+/// API失败回调执行前，返回值为false即打断回调
+- (BOOL) beforePerformApiCallbackFailure:(AGAPIManager *)manager;
+
+/// API失败回调执行后
+- (void) afterPerformApiCallbackFailure:(AGAPIManager *)manager;
+
+/// API成功回调执行前，返回值为false即打断回调
+- (BOOL) beforePerformApiCallbackSuccess:(AGAPIManager *)manager;
+
+/// API成功回调执行后
+- (void) afterPerformApiCallbackSuccess:(AGAPIManager *)manager;
 
 @end
 

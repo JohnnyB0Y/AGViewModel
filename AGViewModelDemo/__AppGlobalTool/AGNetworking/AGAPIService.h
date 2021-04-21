@@ -27,7 +27,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 分页
 - (nullable NSDictionary *) pagedParamsForAPIManager:(AGAPIManager *)manager;
+/// 是否最后一页？
 - (BOOL) isLastPagedForAPIManager:(AGAPIManager *)manager;
+
+/// 校验HTTP状态码
+- (AGVerifyError *) verifyHTTPCode:(NSInteger)code forAPIManager:(AGAPIManager *)manager;
+
+/// 全局错误，处理成功 返回 true 就不调用callback函数了，处理失败返回 false 继续往下走。
+- (BOOL) handleGlobalError:(AGVerifyError *)error forAPIManager:(AGAPIManager *)manager;
 
 @end
 
