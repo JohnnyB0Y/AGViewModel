@@ -15,6 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AGAPIHub : NSObject
 
+- (void) serialRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback;
+
+- (void) groupRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback;
+
+- (void) cancleAllRequest;
+
 @end
 
 @interface AGAPIIterator : NSObject

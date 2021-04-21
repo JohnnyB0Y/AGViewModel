@@ -13,19 +13,25 @@
 
 @implementation AGAPIHub
 
-- (void) serialRequestAPIs:(NSArray<AGAPIManager *> *)apis {
+- (void) serialRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback {
     AGAPIIterator *itor = [[AGAPIIterator alloc] initWithAPIs:apis];
+    itor.callbackBlock = callback;
     AGAPIManager *api = [itor nextAPIManager];
-    [api requestWithAPISerialIterator:itor];
+    [api requestWithAPISerialIterator:itor params:nil];
 }
 
 - (void) groupRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback {
     AGAPIIterator *itor = [[AGAPIIterator alloc] initWithAPIs:apis];
+    itor.callbackBlock = callback;
     AGAPIManager *api = [itor nextAPIManager];
     while (api) {
         [api requestWithAPIGroupIterator:itor];
         api = [itor nextAPIManager];
     }
+}
+
+- (void)cancleAllRequest {
+    
 }
 
 @end

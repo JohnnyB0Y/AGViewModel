@@ -61,6 +61,8 @@ typedef NS_ENUM(NSUInteger, AGAPICallbackStatus) {
     AGAPICallbackStatusExceptionError, // 程序错误，抛异常
 };
 
+typedef void(^AGAPIRequestNextBlock)(NSDictionary * _Nullable params);
+
 typedef void (^AGAPICallbackBlock)
 (
     id _Nullable data,
@@ -77,7 +79,7 @@ typedef void (^AGAPIHandleBlock)
 typedef void (^AGAPIManagerCallbackBlock)
 (
     AGAPIManager *manager,
-    _Nullable dispatch_block_t requestNext
+    _Nullable AGAPIRequestNextBlock requestNext
 );
 
 typedef void (^AGAPIManagerGroupCallbackBlock)

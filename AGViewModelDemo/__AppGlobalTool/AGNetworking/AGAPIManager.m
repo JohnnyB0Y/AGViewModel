@@ -13,7 +13,7 @@
 
 @interface AGAPIManager ()
 
-@property (nonatomic, copy) dispatch_block_t requestNext;
+@property (nonatomic, copy) AGAPIRequestNextBlock requestNext;
 /// 重试次数
 @property (nonatomic, assign) NSInteger numberOfTry;
 /// 重试中？
@@ -94,8 +94,14 @@
     
     // 下一个
     if (itor && serial) {
-        self.requestNext = ^() {
-            [[itor nextAPIManager] requestWithAPISerialIterator:itor];
+        self.requestNext = ^(NSDictionary *params) {
+            AGAPIManager *api = [itor nextAPIManager];
+            if (api) {
+                [api requestWithAPISerialIterator:itor params:params];
+            }
+            else if (itor.callbackBlock) { // 完成
+                itor.callbackBlock(itor.apis, YES);
+            }
         };
     }
     

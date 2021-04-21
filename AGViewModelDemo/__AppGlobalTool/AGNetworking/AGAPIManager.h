@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) retryRequest:(NSInteger)numberOfTry;
 
 #pragma api hub 使用
-- (void) requestWithAPISerialIterator:(AGAPIIterator *)itor;
+- (void) requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params;
 - (void) requestWithAPIGroupIterator:(AGAPIIterator *)itor;
 
 #pragma 配置
