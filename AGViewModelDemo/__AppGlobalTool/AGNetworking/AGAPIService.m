@@ -36,4 +36,13 @@ static NSMutableDictionary *apiServices = nil;
     return apiServices[key];
 }
 
+/// 分页
+- (NSDictionary *)pagedParamsForAPIManager:(AGAPIManager *)manager {
+    return nil;
+}
+
+- (BOOL)isLastPagedForAPIManager:(AGAPIManager *)manager {
+    return NO;
+}
+
 @end

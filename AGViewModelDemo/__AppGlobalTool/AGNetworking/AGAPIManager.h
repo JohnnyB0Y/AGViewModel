@@ -15,14 +15,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) AGAPIManagerCallbackBlock callbackBlock;
 @property (nonatomic, copy, readonly) AGAPIManagerParamsBlock paramsBlock;
+@property (nonatomic, copy, readonly) NSDictionary *finalParams;
 
 /// 回调状态
 @property (nonatomic, assign) AGAPICallbackStatus status;
+/// 正在加载？
+@property (nonatomic, assign, readonly) BOOL isLoading;
 
 #pragma 请求起飞
 - (void) request;
 - (void) requestWithCallback:(AGAPIManagerCallbackBlock)callback;
 - (void) requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback;
+
+/// 重试请求
+- (void) retryRequest:(NSInteger)numberOfTry;
 
 #pragma hub 使用
 - (void) requestWithAPISerialIterator:(AGAPIIterator *)itor;
@@ -32,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) configRequestCallback:(AGAPIManagerCallbackBlock)callback;
 - (void) configRequestParams:(AGAPIManagerParamsBlock)params;
 
+- (NSDictionary *) reformAPIParams:(NSDictionary *)params NS_REQUIRES_SUPER;
 
 #pragma override
 - (NSString *)apiServiceKey;

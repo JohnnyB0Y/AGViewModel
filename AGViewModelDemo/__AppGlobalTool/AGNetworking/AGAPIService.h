@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) registerAPIServiceForDefault;
 + (nullable AGAPIService *) dequeueAPIServiceForKey:(NSString *)key;
 
+/// 分页
+- (nullable NSDictionary *) pagedParamsForAPIManager:(AGAPIManager *)manager;
+- (BOOL) isLastPagedForAPIManager:(AGAPIManager *)manager;
+
 @end
 
 NS_ASSUME_NONNULL_END
