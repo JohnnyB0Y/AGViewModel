@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 回调状态
 @property (nonatomic, assign) AGAPICallbackStatus status;
+@property (nonatomic, assign, readonly) NSInteger httpCode;
 /// 正在加载？
 @property (nonatomic, assign, readonly) BOOL isLoading;
 

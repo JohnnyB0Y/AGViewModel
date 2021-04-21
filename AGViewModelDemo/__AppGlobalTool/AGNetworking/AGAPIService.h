@@ -14,6 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AGAPIService : NSObject
+<AGAPIAssembly>
 
 /// api session
 @property (nonatomic, strong, readonly) id<AGAPISessionProtocol> session;

@@ -64,6 +64,7 @@ typedef NS_ENUM(NSUInteger, AGAPICallbackStatus) {
 typedef void (^AGAPICallbackBlock)
 (
     id _Nullable data,
+    NSInteger httpCode,
     NSError * _Nullable error
 );
 
@@ -92,6 +93,12 @@ typedef NSDictionary * _Nonnull (^AGAPIManagerParamsBlock)
 
 @protocol AGAPIAssembly <NSObject>
 
+- (id) rawDataForAPIManager:(AGAPIManager *)manager;
+- (id) errorDataForAPIManager:(AGAPIManager *)manager;
+
+- (NSString *) finalURL:(NSString *)baseURL apiMethod:(NSString *)apiMethod params:(NSDictionary *)params;
+
+- (NSInteger) connectTimeout;
 
 @end
 
@@ -111,6 +118,12 @@ typedef NSDictionary * _Nonnull (^AGAPIManagerParamsBlock)
 
 /// API落地后, 返回值为false即打断回调
 - (BOOL) afterCallingAPI:(AGAPIManager *)manager;
+
+/// API解析数据前
+- (void) beforeParseData:(AGAPIManager *)manager;
+
+/// API解析数据后
+- (void) afterParseData:(AGAPIManager *)manager;
 
 /// API失败回调执行前，返回值为false即打断回调
 - (BOOL) beforePerformApiCallbackFailure:(AGAPIManager *)manager;

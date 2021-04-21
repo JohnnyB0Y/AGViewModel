@@ -45,4 +45,20 @@ static NSMutableDictionary *apiServices = nil;
     return NO;
 }
 
+- (NSInteger)connectTimeout {
+    return 15;
+}
+
+- (id)errorDataForAPIManager:(nonnull AGAPIManager *)manager {
+    return nil;
+}
+
+- (NSString *)finalURL:(nonnull NSString *)baseURL apiMethod:(nonnull NSString *)apiMethod params:(nonnull NSDictionary *)params {
+    return nil;
+}
+
+- (id)rawDataForAPIManager:(nonnull AGAPIManager *)manager {
+    return nil;
+}
+
 @end
