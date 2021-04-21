@@ -57,15 +57,16 @@
 - (void)finishedOneAPIAndCheckCallback {
     // 完成一条，累加一次，检查一次
     if (++self.finishedCount >= self.apis.count) {
-        self.callbackBlock ? self.callbackBlock(self.apis, nil) : nil;
+        __block BOOL allSuccess = YES;
+        [self.apis enumerateObjectsUsingBlock:^(AGAPIManager * _Nonnull api, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (api.status != AGAPICallbackStatusSuccess) {
+                allSuccess = NO;
+                *stop = YES;
+            }
+        }];
+        
+        self.callbackBlock ? self.callbackBlock(self.apis, allSuccess) : nil;
     }
-}
-
-- (NSMutableArray<NSError *> *)errors {
-    if (_errors == nil) {
-        _errors = [NSMutableArray array];
-    }
-    return _errors;
 }
 
 @end

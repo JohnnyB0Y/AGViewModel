@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) NSInteger next;
 
 @property (nonatomic, assign) NSInteger finishedCount;
-@property (nonatomic, strong) NSMutableArray<NSError *> *errors;
 @property (nonatomic, copy) AGAPIManagerGroupCallbackBlock callbackBlock;
 
 - (instancetype)initWithAPIs:(NSArray<AGAPIManager *> *)apis;

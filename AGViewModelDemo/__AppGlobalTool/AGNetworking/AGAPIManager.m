@@ -91,7 +91,7 @@
             [self _apiCallbackSuccess:AGAPICallbackStatusSuccess];
         }
         
-        if (itor && serial == NO) {
+        if (itor && serial == NO && self.isRetrying == NO) {
             // 完成一条，累加一次，检查一次
             [itor finishedOneAPIAndCheckCallback];
         }

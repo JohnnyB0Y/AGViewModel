@@ -82,7 +82,7 @@ typedef void (^AGAPIManagerCallbackBlock)
 typedef void (^AGAPIManagerGroupCallbackBlock)
 (
     NSArray<AGAPIManager *> *apis,
-    NSError * _Nullable error
+    BOOL allSuccess
 );
 
 typedef NSDictionary * _Nonnull (^AGAPIManagerParamsBlock)
