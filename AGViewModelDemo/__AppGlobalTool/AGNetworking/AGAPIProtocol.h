@@ -107,17 +107,28 @@ typedef NSDictionary * _Nonnull (^AGAPIManagerParamsBlock)
 
 @end
 
+@protocol AGAPIPageable <NSObject>
+
+/// 分页
+- (nullable NSDictionary *) pagedParamsForAPIManager:(AGAPIManager *)manager;
+
+/// 是否最后一页？
+- (BOOL) isLastPagedForAPIManager:(AGAPIManager *)manager;
+
+@end
+
 @protocol AGAPIVerifier <NSObject>
 
 /// 验证回调数据是否合规
-- (nullable AGVerifyError *) verifyCallbackDataForAPIManager:(AGAPIManager *)manager data:(id)data;
+- (nullable AGVerifyError *) verifyCallbackData:(id)data forAPIManager:(AGAPIManager *)manager;
+
 /// 验证请求参数是否合规
-- (nullable AGVerifyError *) verifyCallParamsForAPIManager:(AGAPIManager *)manager params:(NSDictionary *)params;
+- (nullable AGVerifyError *) verifyCallParams:(NSDictionary *)params forAPIManager:(AGAPIManager *)manager;
 
 @end
 
 @protocol AGAPIInterceptor <NSObject>
-
+@optional
 /// API起飞前, 返回值为false即打断请求
 - (BOOL) beforeCallingAPI:(AGAPIManager *)manager;
 

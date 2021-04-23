@@ -29,6 +29,11 @@
 /// 取出的最终数据
 @property (nonatomic, strong) id finalData;
 
+- (void) requestWithParams:(NSDictionary *)params
+                  callback:(AGAPIManagerCallbackBlock)callback
+                  iterator:(AGAPIIterator *)itor
+                    serial:(BOOL)serial;
+
 @end
 
 @implementation AGAPIManager
@@ -52,6 +57,9 @@
     NSDictionary *params = self.paramsBlock ? self.paramsBlock(self) : @{};
     [self requestWithParams:params callback:callback];
 }
+- (void) requestWithParams:(NSDictionary *)params {
+    [self requestWithParams:params callback:self.callbackBlock];
+}
 - (void) requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback {
     [self requestWithParams:params callback:callback iterator:nil serial:NO];
 }
@@ -67,8 +75,7 @@
     }
     
     // 启动服务
-    AGAPIService *service = [AGAPIService dequeueAPIServiceForKey:[self apiServiceKey]];
-    if (service == nil) {
+    if ([self service] == nil) {
         [self _apiCallbackFailure:AGAPICallbackStatusApiServiceUnregistered];
         return;
     }
@@ -108,7 +115,8 @@
     // 发起请求
     __weak typeof(self) weakSelf = self;
     _isLoading = YES;
-    [service.session callAPIForAPIManager:self options:nil callback:^(id  _Nullable data, NSHTTPURLResponse *response, NSError * _Nullable error) {
+    self.error = nil;
+    [[self service].session callAPIForAPIManager:self options:nil callback:^(id  _Nullable data, NSHTTPURLResponse *response, NSError * _Nullable error) {
         __strong typeof(weakSelf) self = weakSelf;
         if (nil == self) return;
         
@@ -252,12 +260,12 @@
 }
 
 /// 验证请求参数是否合规
-- (AGVerifyError *)verifyCallParamsForAPIManager:(AGAPIManager *)manager params:(NSDictionary *)params {
+- (AGVerifyError *)verifyCallParams:(NSDictionary *)params forAPIManager:(AGAPIManager *)manager {
     return nil;
 }
 
 /// 验证回调数据是否合规
-- (AGVerifyError *)verifyCallbackDataForAPIManager:(AGAPIManager *)manager data:(id)data {
+- (AGVerifyError *)verifyCallbackData:(id)data forAPIManager:(AGAPIManager *)manager {
     return nil;
 }
 
@@ -295,9 +303,7 @@
 
 - (NSDictionary *)reformAPIParams:(NSDictionary *)params {
     NSMutableDictionary *paramsM = [NSMutableDictionary dictionaryWithDictionary:params];
-    AGAPIService *service = [AGAPIService dequeueAPIServiceForKey:[self apiServiceKey]];
-    [paramsM addEntriesFromDictionary:[service pagedParamsForAPIManager:self]];
-    [paramsM addEntriesFromDictionary:[service commonParams]];
+    [paramsM addEntriesFromDictionary:[[self service] commonParams]];
     return paramsM;
 }
 
@@ -420,12 +426,15 @@
     }];
 }
 
+#pragma ------------------- 参数与数据校验 ----------------------
 - (BOOL) _verifyCallbackData:(id)data {
     __block BOOL result = YES;
     [_verifiers enumerateObjectsUsingBlock:^(id<AGAPIVerifier>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj verifyCallbackDataForAPIManager:self data:data] == NO) {
+        AGVerifyError *error = [obj verifyCallbackData:data forAPIManager:self];
+        if (error) {
             result = NO;
             *stop = YES;
+            self.error = error;
         }
     }];
     return result;
@@ -434,9 +443,11 @@
 - (BOOL) _verifyCallParams:(NSDictionary *)params {
     __block BOOL result = YES;
     [_verifiers enumerateObjectsUsingBlock:^(id<AGAPIVerifier>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj verifyCallParamsForAPIManager:self params:params] == NO) {
+        AGVerifyError *error = [obj verifyCallParams:params forAPIManager:self];
+        if (error) {
             result = NO;
             *stop = YES;
+            self.error = error;
         }
     }];
     return result;
@@ -469,6 +480,76 @@
 
 - (AGAPIService *) service {
     return [AGAPIService dequeueAPIServiceForKey:[self apiServiceKey]];
+}
+
+@end
+
+#pragma mark ------------ API分页控制
+@interface AGAPIPagedManager ()
+
+/// 每页大小
+@property (nonatomic, assign) NSInteger pageSize;
+
+/// 当前页码
+@property (nonatomic, assign) NSInteger currentPage;
+
+/// 首页？
+@property (nonatomic, assign) BOOL isFirstPage;
+
+/// 最后一页？
+@property (nonatomic, assign) BOOL isLastPage;
+
+@end
+
+@implementation AGAPIPagedManager
+
+- (void)requestWithParams:(NSDictionary *)params
+                 callback:(AGAPIManagerCallbackBlock)callback
+                 iterator:(AGAPIIterator *)itor
+                   serial:(BOOL)serial {
+    _isFirstPage = YES;
+    _currentPage = 1;
+    [super requestWithParams:params callback:callback iterator:itor serial:serial];
+}
+
+- (void)requestNextPageWithParams:(NSDictionary *)params {
+    if (self.isLoading) {
+        [self _apiCallbackFailure:AGAPICallbackStatusRepetitionRequest];
+        return;
+    }
+    if (self.isLastPage) {
+        [self _apiCallbackFailure:AGAPICallbackStatusLastPageError];
+        return;
+    }
+    [super requestWithParams:params];
+}
+
+- (void)requestNextPage {
+    [self requestNextPageWithParams:@{}];
+}
+
+- (NSDictionary *)reformAPIParams:(NSDictionary *)params {
+    NSMutableDictionary *paramsM = [NSMutableDictionary dictionaryWithDictionary:params];
+    [paramsM addEntriesFromDictionary:[self pagedParamsForAPIManager:self]];
+    return [super reformAPIParams:paramsM];
+}
+
+- (BOOL)beforePerformApiCallbackSuccess:(AGAPIManager *)manager {
+    _isLastPage = [self isLastPagedForAPIManager:manager];
+    _isFirstPage = _currentPage == 1;
+    if (_isLastPage == NO) {
+        _currentPage++;
+    }
+    return [super beforePerformApiCallbackSuccess:manager];
+}
+
+#pragma mark AGAPIPageable
+- (BOOL)isLastPagedForAPIManager:(nonnull AGAPIManager *)manager {
+    return [[self service] isLastPagedForAPIManager:manager];
+}
+
+- (nullable NSDictionary *)pagedParamsForAPIManager:(nonnull AGAPIManager *)manager {
+    return [[self service] pagedParamsForAPIManager:manager];
 }
 
 @end

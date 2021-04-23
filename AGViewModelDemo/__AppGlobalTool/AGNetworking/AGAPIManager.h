@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma 请求起飞
 - (void) request;
 - (void) requestWithCallback:(AGAPIManagerCallbackBlock)callback;
+- (void) requestWithParams:(NSDictionary *)params;
 - (void) requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback;
 
 /// 重试请求
@@ -55,6 +56,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (AGAPIMethodType)apiMethodType;
 - (NSString *)apiMethod;
 - (NSString *)apiPath;
+
+@end
+
+@interface AGAPIPagedManager : AGAPIManager
+<AGAPIPageable>
+
+/// 请求下一页数据
+- (void)requestNextPage;
+- (void)requestNextPageWithParams:(NSDictionary *)params;
 
 @end
 
