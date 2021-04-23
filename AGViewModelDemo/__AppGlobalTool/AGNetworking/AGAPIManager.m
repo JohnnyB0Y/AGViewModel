@@ -176,9 +176,12 @@
     }];
 }
 
-- (void)requestWithAPISerialIterator:(AGAPIIterator *)itor {
-    NSDictionary *params = self.paramsBlock ? self.paramsBlock(self) : @{};
-    [self requestWithParams:params callback:self.callbackBlock iterator:itor serial:YES];
+- (void)requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params {
+    NSMutableDictionary *paramsM = [NSMutableDictionary dictionaryWithDictionary:params];
+    if (self.paramsBlock) {
+        [paramsM addEntriesFromDictionary:self.paramsBlock(self)];
+    }
+    [self requestWithParams:paramsM callback:self.callbackBlock iterator:itor serial:YES];
 }
 
 - (void)requestWithAPIGroupIterator:(AGAPIIterator *)itor {
