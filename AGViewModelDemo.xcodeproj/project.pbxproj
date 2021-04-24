@@ -32,6 +32,7 @@
 		3A04295920B7AE4B0025D9D5 /* AGBookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04295720B7AE4B0025D9D5 /* AGBookDetailViewController.m */; };
 		3A04295A20B7AE4B0025D9D5 /* AGBookDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A04295820B7AE4B0025D9D5 /* AGBookDetailViewController.xib */; };
 		3A04295D20B7B2610025D9D5 /* AGBookHandleReformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04295C20B7B2610025D9D5 /* AGBookHandleReformer.m */; };
+		3A10865F2634686300BF1655 /* AGDataCollector.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A10865E2634686300BF1655 /* AGDataCollector.m */; };
 		3A14FEAB22FE750400F00003 /* AGDiskDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14FEAA22FE750400F00003 /* AGDiskDocumentViewController.m */; };
 		3A31B617222B8DA90015B424 /* UITableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B616222B8DA90015B424 /* UITableView+AGViewModel.m */; };
 		3A31B61A222B94E60015B424 /* UICollectionView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B619222B94E60015B424 /* UICollectionView+AGViewModel.m */; };
@@ -150,6 +151,8 @@
 		3A04295820B7AE4B0025D9D5 /* AGBookDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AGBookDetailViewController.xib; sourceTree = "<group>"; };
 		3A04295B20B7B2610025D9D5 /* AGBookHandleReformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGBookHandleReformer.h; sourceTree = "<group>"; };
 		3A04295C20B7B2610025D9D5 /* AGBookHandleReformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGBookHandleReformer.m; sourceTree = "<group>"; };
+		3A10865D2634686300BF1655 /* AGDataCollector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDataCollector.h; sourceTree = "<group>"; };
+		3A10865E2634686300BF1655 /* AGDataCollector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDataCollector.m; sourceTree = "<group>"; };
 		3A14FEA922FE750400F00003 /* AGDiskDocumentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDiskDocumentViewController.h; sourceTree = "<group>"; };
 		3A14FEAA22FE750400F00003 /* AGDiskDocumentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDiskDocumentViewController.m; sourceTree = "<group>"; };
 		3A31B615222B8DA90015B424 /* UITableView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+AGViewModel.h"; sourceTree = "<group>"; };
@@ -422,6 +425,15 @@
 			path = AGDocumentViewController;
 			sourceTree = "<group>";
 		};
+		3A10865C2634682800BF1655 /* AGDataCollector */ = {
+			isa = PBXGroup;
+			children = (
+				3A10865D2634686300BF1655 /* AGDataCollector.h */,
+				3A10865E2634686300BF1655 /* AGDataCollector.m */,
+			);
+			path = AGDataCollector;
+			sourceTree = "<group>";
+		};
 		3A1D2F2B1F499864004E8735 /* AGBoxViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,6 +683,7 @@
 		3ABB4B061F2644BA0007255F /* __AppGlobalTool */ = {
 			isa = PBXGroup;
 			children = (
+				3A10865C2634682800BF1655 /* AGDataCollector */,
 				3AC6DFFA262FD0AF00838176 /* AGNetworking */,
 				3A8C698D21E0ECEA0021BCB1 /* AGSwitchControl */,
 				3AC28DF91FB8179C00578B5D /* ViewManager */,
@@ -987,6 +1000,7 @@
 				3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */,
 				3A04291720B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m in Sources */,
 				3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */,
+				3A10865F2634686300BF1655 /* AGDataCollector.m in Sources */,
 				3A04291E20B793960025D9D5 /* Target_AGDoubanService.m in Sources */,
 				3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */,
 				3AC28E001FB8179C00578B5D /* AGTableViewManager.m in Sources */,

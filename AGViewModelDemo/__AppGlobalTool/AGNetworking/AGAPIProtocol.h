@@ -155,25 +155,29 @@ typedef NSDictionary * _Nonnull (^AGAPIManagerParamsBlock)
 
 @end
 
+@protocol AGAPIReformer <NSObject>
+- (id) reformData:(nullable id)data options:(nullable id)options forAPIManager:(AGAPIManager *)manager;
+@end
+
 @protocol AGAPISessionProtocol <NSObject>
 
 /// 发起API请求
 - (void) callAPIForAPIManager:(AGAPIManager *)manager
-                      options:(nullable NSObject *)options
+                      options:(nullable id)options
                      callback:(nullable AGAPICallbackBlock)callback;
 
 /// 取消请求
 - (void) cancelAPIForAPIManager:(AGAPIManager *)manager
-                        options:(nullable NSObject *)options;
+                        options:(nullable id)options;
 
 /// 删除缓存
 - (void) deleteCacheForAPIManager:(AGAPIManager *)manager
-                          options:(nullable NSObject *)options
+                          options:(nullable id)options
                          callback:(nullable AGAPIHandleBlock)callback;
 
 /// 删除所有缓存
 - (void) deleteAllCache:(nullable AGAPIManager *)manager
-                options:(nullable NSObject *)options
+                options:(nullable id)options
                callback:(nullable AGAPIHandleBlock)callback;
 
 @end

@@ -36,6 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 重试请求
 - (void) retryRequest:(NSInteger)numberOfTry;
 
+/// 取出整理后的数据
+- (nullable id) fetchDataModel:(id<AGAPIReformer>)reformer options:(nullable id)options;
+/// 取出整理后的数据列表
+- (nullable NSArray<id> *) fetchDataModelList:(id<AGAPIReformer>)reformer options:(nullable id)options;
+
 #pragma api hub 使用
 - (void) requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params;
 - (void) requestWithAPIGroupIterator:(AGAPIIterator *)itor;

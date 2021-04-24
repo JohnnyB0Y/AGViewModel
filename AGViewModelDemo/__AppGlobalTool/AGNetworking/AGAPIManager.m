@@ -207,6 +207,19 @@
     [self request];
 }
 
+/// 取出整理后的数据
+- (id) fetchDataModel:(id<AGAPIReformer>)reformer options:(id)options {
+    return [reformer reformData:self.finalData options:options forAPIManager:self];
+}
+/// 取出整理后的数据列表
+- (NSArray<id> *) fetchDataModelList:(id<AGAPIReformer>)reformer options:(id)options {
+    NSArray *models = [reformer reformData:self.finalData options:options forAPIManager:self];
+    if ([models isKindOfClass:[NSArray class]]) {
+        return models;
+    }
+    return nil;
+}
+
 #pragma 配置
 - (void) configRequestCallback:(AGAPIManagerCallbackBlock)callback {
     _callbackBlock = callback;
