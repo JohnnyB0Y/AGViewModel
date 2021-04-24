@@ -442,11 +442,12 @@
 - (BOOL) _verifyCallbackData:(id)data {
     __block BOOL result = YES;
     [_verifiers enumerateObjectsUsingBlock:^(id<AGAPIVerifier>  _Nonnull obj, BOOL * _Nonnull stop) {
-        AGVerifyError *error = [obj verifyCallbackData:data forAPIManager:self];
-        if (error) {
-            result = NO;
-            *stop = YES;
-            self.error = error;
+        if ([obj respondsToSelector:@selector(verifyCallbackData:forAPIManager:)]) {
+            self.error = [obj verifyCallbackData:data forAPIManager:self];
+            if (self.error) {
+                result = NO;
+                *stop = YES;
+            }
         }
     }];
     return result;
@@ -455,11 +456,12 @@
 - (BOOL) _verifyCallParams:(NSDictionary *)params {
     __block BOOL result = YES;
     [_verifiers enumerateObjectsUsingBlock:^(id<AGAPIVerifier>  _Nonnull obj, BOOL * _Nonnull stop) {
-        AGVerifyError *error = [obj verifyCallParams:params forAPIManager:self];
-        if (error) {
-            result = NO;
-            *stop = YES;
-            self.error = error;
+        if ([obj respondsToSelector:@selector(verifyCallParams:forAPIManager:)]) {
+            self.error = [obj verifyCallParams:params forAPIManager:self];
+            if (self.error) {
+                result = NO;
+                *stop = YES;
+            }
         }
     }];
     return result;
