@@ -356,7 +356,8 @@
     self.status = status;
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj beforePerformApiCallbackFailure:self] == NO) {
+        if ([obj respondsToSelector:@selector(beforePerformApiCallbackFailure:)] &&
+            [obj beforePerformApiCallbackFailure:self] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -367,7 +368,9 @@
     }
     
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        [obj afterPerformApiCallbackFailure:self];
+        if ([obj respondsToSelector:@selector(afterPerformApiCallbackFailure:)]) {
+            [obj afterPerformApiCallbackFailure:self];
+        }
     }];
 }
 
@@ -375,7 +378,8 @@
     self.status = status;
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj beforePerformApiCallbackSuccess:self] == NO) {
+        if ([obj respondsToSelector:@selector(beforePerformApiCallbackSuccess:)] &&
+            [obj beforePerformApiCallbackSuccess:self] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -386,14 +390,17 @@
     }
     
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        [obj afterPerformApiCallbackSuccess:self];
+        if ([obj respondsToSelector:@selector(afterPerformApiCallbackSuccess:)]) {
+            [obj afterPerformApiCallbackSuccess:self];
+        }
     }];
 }
 
 - (BOOL) _beforeCallingAPI:(AGAPIManager *)manager {
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj beforeCallingAPI:manager] == NO) {
+        if ([obj respondsToSelector:@selector(beforeCallingAPI:)] &&
+            [obj beforeCallingAPI:manager] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -404,7 +411,8 @@
 - (BOOL) _afterCallingAPI:(AGAPIManager *)manager {
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj afterCallingAPI:manager] == NO) {
+        if ([obj respondsToSelector:@selector(afterCallingAPI:)] &&
+            [obj afterCallingAPI:manager] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -415,14 +423,18 @@
 /// API解析数据前
 - (void) _beforeParseData:(AGAPIManager *)manager {
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        [obj beforeParseData:manager];
+        if ([obj respondsToSelector:@selector(beforeParseData:)]) {
+            [obj beforeParseData:manager];
+        }
     }];
 }
 
 /// API解析数据后
 - (void) _afterParseData:(AGAPIManager *)manager {
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        [obj afterParseData:manager];
+        if ([obj respondsToSelector:@selector(afterParseData:)]) {
+            [obj afterParseData:manager];
+        }
     }];
 }
 
