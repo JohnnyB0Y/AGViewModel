@@ -21,19 +21,28 @@
 
 @implementation AGAPISessionManager
 
-- (void)callAPIForAPIManager:(nonnull AGAPIManager *)manager
-                     options:(nullable NSObject *)options
-                    callback:(nullable AGAPICallbackBlock)callback {
+- (void)ag_callAPIForAPIManager:(nonnull AGAPIManager *)manager
+                        options:(nullable NSObject *)options
+                       callback:(nullable AGAPICallbackBlock)callback {
     
     __weak typeof(manager) weakManager = manager;
-    NSURLSessionTask *task = [self.session dataTaskWithRequest:[manager requestForAPIManager:manager] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    __weak typeof(self) weakSelf = self;
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:[manager ag_urlRequestForAPIManager:manager] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        __strong typeof(weakManager) strongManager = weakManager;
-        if (nil == strongManager) return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(weakManager) strongManager = weakManager;
+            if (nil == strongManager) return;
+            __strong typeof(weakSelf) self = weakSelf;
+            if (nil == self) return;
+            
+            if (callback && strongManager.requestId) {
+                callback(data, (NSHTTPURLResponse *)response, error);
+            }
+            
+            // 移除task
+            [self.tasks removeObjectForKey:strongManager.requestId];
+        });
         
-        if (callback && strongManager.requestId) {
-            callback(data, (NSHTTPURLResponse *)response, error);
-        }
     }];
     
     manager.requestId = @(task.taskIdentifier);
@@ -42,16 +51,16 @@
     [task resume];
 }
 
-- (void)cancelAPIForAPIManager:(nonnull AGAPIManager *)manager options:(nullable NSObject *)options {
+- (void)ag_cancelAPIForAPIManager:(nonnull AGAPIManager *)manager options:(nullable NSObject *)options {
     NSURLSessionTask *task = [self.tasks objectForKey:manager.requestId];
     [task cancel];
     [self.tasks removeObjectForKey:manager.requestId];
 }
 
-- (void)deleteAllCache:(nullable AGAPIManager *)manager options:(nullable NSObject *)options callback:(nullable AGAPIHandleBlock)callback {
+- (void)ag_deleteAllCache:(nullable AGAPIManager *)manager options:(nullable NSObject *)options callback:(nullable AGAPIHandleBlock)callback {
 }
 
-- (void)deleteCacheForAPIManager:(nonnull AGAPIManager *)manager options:(nullable NSObject *)options callback:(nullable AGAPIHandleBlock)callback {
+- (void)ag_deleteCacheForAPIManager:(nonnull AGAPIManager *)manager options:(nullable NSObject *)options callback:(nullable AGAPIHandleBlock)callback {
 }
 
 #pragma mark - ----------- Getter Methods ----------

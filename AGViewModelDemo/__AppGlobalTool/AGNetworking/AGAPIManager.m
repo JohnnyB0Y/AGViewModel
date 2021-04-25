@@ -84,7 +84,7 @@
     
     
     // 参数校验
-    _finalParams = [self reformAPIParams:params];
+    _finalParams = [self ag_reformAPIParams:params];
     if ([self _verifyCallParams:_finalParams] == NO) {
         [self _apiCallbackFailure:AGAPICallbackStatusParamError];
         return;
@@ -102,9 +102,9 @@
     // 下一个
     if (itor && serial) {
         self.requestNext = ^(NSDictionary *params) {
-            AGAPIManager *api = [itor nextAPIManager];
+            AGAPIManager *api = [itor ag_nextAPIManager];
             if (api) {
-                [api requestWithAPISerialIterator:itor params:params];
+                [api ag_requestWithAPISerialIterator:itor params:params];
             }
             else if (itor.callbackBlock) { // 完成
                 itor.callbackBlock(itor.apis, YES);
@@ -116,7 +116,7 @@
     __weak typeof(self) weakSelf = self;
     _isLoading = YES;
     self.error = nil;
-    [[self service].session callAPIForAPIManager:self options:nil callback:^(id  _Nullable data, NSHTTPURLResponse *response, NSError * _Nullable error) {
+    [[self service].session ag_callAPIForAPIManager:self options:nil callback:^(id  _Nullable data, NSHTTPURLResponse *response, NSError * _Nullable error) {
         __strong typeof(weakSelf) self = weakSelf;
         if (nil == self) return;
         
@@ -161,7 +161,7 @@
                 }
             }
             else {
-                self.finalData = [self finalDataForAPIManager:self];
+                self.finalData = [self ag_finalDataForAPIManager:self];
                 if ([self _verifyCallbackData:self.finalData] == NO) { // 校验数据
                     if (self.status == AGAPICallbackStatusAfterCalling) {
                         self.status = AGAPICallbackStatusDataError;
@@ -179,12 +179,12 @@
         }
         
         if (itor && serial == NO && self.isRetrying == NO) { // 完成一条，累加一次，检查一次
-            [itor finishedOneAPIAndCheckCallback];
+            [itor ag_finishedOneAPIAndCheckCallback];
         }
     }];
 }
 
-- (void)requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params {
+- (void)ag_requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params {
     NSMutableDictionary *paramsM = [NSMutableDictionary dictionaryWithDictionary:params];
     if (self.paramsBlock) {
         [paramsM addEntriesFromDictionary:self.paramsBlock(self)];
@@ -192,7 +192,7 @@
     [self requestWithParams:paramsM callback:self.callbackBlock iterator:itor serial:YES];
 }
 
-- (void)requestWithAPIGroupIterator:(AGAPIIterator *)itor {
+- (void)ag_requestWithAPIGroupIterator:(AGAPIIterator *)itor {
     NSDictionary *params = self.paramsBlock ? self.paramsBlock(self) : @{};
     [self requestWithParams:params callback:self.callbackBlock iterator:itor serial:NO];
 }
@@ -209,11 +209,11 @@
 
 /// 取出整理后的数据
 - (id) fetchDataModel:(id<AGAPIReformer>)reformer options:(id)options {
-    return [reformer reformData:self.finalData options:options forAPIManager:self];
+    return [reformer ag_reformData:self.finalData options:options forAPIManager:self];
 }
 /// 取出整理后的数据列表
 - (NSArray<id> *) fetchDataModelList:(id<AGAPIReformer>)reformer options:(id)options {
-    NSArray *models = [reformer reformData:self.finalData options:options forAPIManager:self];
+    NSArray *models = [reformer ag_reformData:self.finalData options:options forAPIManager:self];
     if ([models isKindOfClass:[NSArray class]]) {
         return models;
     }
@@ -221,32 +221,32 @@
 }
 
 #pragma 配置
-- (void) configRequestCallback:(AGAPIManagerCallbackBlock)callback {
+- (void) ag_configRequestCallback:(AGAPIManagerCallbackBlock)callback {
     _callbackBlock = callback;
 }
-- (void) configRequestParams:(AGAPIManagerParamsBlock)params {
+- (void) ag_configRequestParams:(AGAPIManagerParamsBlock)params {
     _paramsBlock = params;
 }
 
 /// 添加数据校验器
-- (void) useVerifier:(id<AGAPIVerifier>)verifier {
+- (void) ag_useVerifier:(id<AGAPIVerifier>)verifier {
     [self.verifiers addObject:verifier];
 }
 /// 添加生命周期观察者
-- (void) useInterceptor:(id<AGAPIInterceptor>)interceptor {
+- (void) ag_useInterceptor:(id<AGAPIInterceptor>)interceptor {
     [self.interceptors addObject:interceptor];
 }
 
-- (NSString *)apiServiceKey {
+- (NSString *)ag_apiServiceKey {
     return @"kAGAPIServiceDefault";
 }
 
-- (AGAPIMethodType)apiMethodType {
+- (AGAPIMethodType)ag_apiMethodType {
     return AGAPIMethodTypeGet;
 }
 
-- (NSString *)apiMethod {
-    switch ([self apiMethodType]) {
+- (NSString *)ag_apiMethod {
+    switch ([self ag_apiMethodType]) {
         case AGAPIMethodTypeGet: {
             return @"GET";
         } break;
@@ -268,53 +268,53 @@
     }
 }
 
-- (NSString *)apiPath {
+- (NSString *)ag_apiPath {
     return @"/";
 }
 
 /// 验证请求参数是否合规
-- (AGVerifyError *)verifyCallParams:(NSDictionary *)params forAPIManager:(AGAPIManager *)manager {
+- (AGVerifyError *)ag_verifyCallParams:(NSDictionary *)params forAPIManager:(AGAPIManager *)manager {
     return nil;
 }
 
 /// 验证回调数据是否合规
-- (AGVerifyError *)verifyCallbackData:(id)data forAPIManager:(AGAPIManager *)manager {
+- (AGVerifyError *)ag_verifyCallbackData:(id)data forAPIManager:(AGAPIManager *)manager {
     return nil;
 }
 
 /// API起飞前, 返回值为false即打断请求
-- (BOOL) beforeCallingAPI:(AGAPIManager *)manager {
+- (BOOL) ag_beforeCallingAPI:(AGAPIManager *)manager {
     return YES;
 }
 
 /// API落地后, 返回值为false即打断回调
-- (BOOL) afterCallingAPI:(AGAPIManager *)manager {
+- (BOOL) ag_afterCallingAPI:(AGAPIManager *)manager {
     return YES;
 }
 
 /// API解析数据前
-- (void) beforeParseData:(AGAPIManager *)manager {}
+- (void) ag_beforeParseData:(AGAPIManager *)manager {}
 
 /// API解析数据后
-- (void) afterParseData:(AGAPIManager *)manager {}
+- (void) ag_afterParseData:(AGAPIManager *)manager {}
 
 /// API失败回调执行前，返回值为false即打断回调
-- (BOOL) beforePerformApiCallbackFailure:(AGAPIManager *)manager {
+- (BOOL) ag_beforePerformApiCallbackFailure:(AGAPIManager *)manager {
     return YES;
 }
 
 /// API失败回调执行后
-- (void) afterPerformApiCallbackFailure:(AGAPIManager *)manager {}
+- (void) ag_afterPerformApiCallbackFailure:(AGAPIManager *)manager {}
 
 /// API成功回调执行前，返回值为false即打断回调
-- (BOOL) beforePerformApiCallbackSuccess:(AGAPIManager *)manager {
+- (BOOL) ag_beforePerformApiCallbackSuccess:(AGAPIManager *)manager {
     return YES;
 }
 
 /// API成功回调执行后
-- (void) afterPerformApiCallbackSuccess:(AGAPIManager *)manager {}
+- (void) ag_afterPerformApiCallbackSuccess:(AGAPIManager *)manager {}
 
-- (NSDictionary *)reformAPIParams:(NSDictionary *)params {
+- (NSDictionary *)ag_reformAPIParams:(NSDictionary *)params {
     NSMutableDictionary *paramsM = [NSMutableDictionary dictionaryWithDictionary:params];
     [paramsM addEntriesFromDictionary:[[self service] commonParams]];
     return paramsM;
@@ -322,17 +322,17 @@
 
 /// 处理HTTP状态码
 - (AGVerifyError *) verifyHTTPCode:(NSInteger)code {
-    return [[self service] verifyHTTPCode:code forAPIManager:self];
+    return [[self service] ag_verifyHTTPCode:code forAPIManager:self];
 }
 
 /// 全局错误，处理成功 返回 true 就不调用callback函数了，处理失败返回 false 继续往下走。
 - (BOOL) handleGlobalError:(NSError *)error {
-    return [[self service] handleGlobalError:error forAPIManager:self];
+    return [[self service] ag_handleGlobalError:error forAPIManager:self];
 }
 
 - (void)cancelRequest {
     if (self.isLoading) {
-        [[[self service] session] cancelAPIForAPIManager:self options:nil];
+        [[[self service] session] ag_cancelAPIForAPIManager:self options:nil];
         self.requestId = nil;
         [self _afterCallingAPI:self];
         [self _apiCallbackFailure:AGAPICallbackStatusCancel];
@@ -340,28 +340,28 @@
 }
 
 #pragma mark - ---------- AGAPIAssembly Methods ----------
-- (NSInteger)connectTimeout {
-    return [[self service] connectTimeout];
+- (NSInteger)ag_connectTimeout {
+    return [[self service] ag_connectTimeout];
 }
 
-- (NSInteger)receiveTimeout {
-    return [[self service] receiveTimeout];
+- (NSInteger)ag_receiveTimeout {
+    return [[self service] ag_receiveTimeout];
 }
 
-- (NSURLRequest *)requestForAPIManager:(AGAPIManager *)manager {
-    return [[self service] requestForAPIManager:manager];
+- (NSURLRequest *)ag_urlRequestForAPIManager:(AGAPIManager *)manager {
+    return [[self service] ag_urlRequestForAPIManager:manager];
 }
 
-- (id)errorDataForAPIManager:(nonnull AGAPIManager *)manager {
-    return [[self service] errorDataForAPIManager:manager];
+- (id)ag_errorDataForAPIManager:(nonnull AGAPIManager *)manager {
+    return [[self service] ag_errorDataForAPIManager:manager];
 }
 
-- (NSString *)finalURL:(nonnull NSString *)baseURL apiPath:(nonnull NSString *)apiPath params:(nonnull NSDictionary *)params {
-    return [[self service] finalURL:baseURL apiPath:apiPath params:params];
+- (NSString *)ag_finalURL:(nonnull NSString *)baseURL apiPath:(nonnull NSString *)apiPath params:(nonnull NSDictionary *)params {
+    return [[self service] ag_finalURL:baseURL apiPath:apiPath params:params];
 }
 
-- (id)finalDataForAPIManager:(nonnull AGAPIManager *)manager {
-    return [[self service] finalDataForAPIManager:manager];
+- (id)ag_finalDataForAPIManager:(nonnull AGAPIManager *)manager {
+    return [[self service] ag_finalDataForAPIManager:manager];
 }
 
 #pragma mark - ---------- Private Methods ----------
@@ -369,8 +369,8 @@
     self.status = status;
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(beforePerformApiCallbackFailure:)] &&
-            [obj beforePerformApiCallbackFailure:self] == NO) {
+        if ([obj respondsToSelector:@selector(ag_beforePerformApiCallbackFailure:)] &&
+            [obj ag_beforePerformApiCallbackFailure:self] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -381,8 +381,8 @@
     }
     
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(afterPerformApiCallbackFailure:)]) {
-            [obj afterPerformApiCallbackFailure:self];
+        if ([obj respondsToSelector:@selector(ag_afterPerformApiCallbackFailure:)]) {
+            [obj ag_afterPerformApiCallbackFailure:self];
         }
     }];
 }
@@ -391,8 +391,8 @@
     self.status = status;
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(beforePerformApiCallbackSuccess:)] &&
-            [obj beforePerformApiCallbackSuccess:self] == NO) {
+        if ([obj respondsToSelector:@selector(ag_beforePerformApiCallbackSuccess:)] &&
+            [obj ag_beforePerformApiCallbackSuccess:self] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -403,8 +403,8 @@
     }
     
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(afterPerformApiCallbackSuccess:)]) {
-            [obj afterPerformApiCallbackSuccess:self];
+        if ([obj respondsToSelector:@selector(ag_afterPerformApiCallbackSuccess:)]) {
+            [obj ag_afterPerformApiCallbackSuccess:self];
         }
     }];
 }
@@ -412,8 +412,8 @@
 - (BOOL) _beforeCallingAPI:(AGAPIManager *)manager {
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(beforeCallingAPI:)] &&
-            [obj beforeCallingAPI:manager] == NO) {
+        if ([obj respondsToSelector:@selector(ag_beforeCallingAPI:)] &&
+            [obj ag_beforeCallingAPI:manager] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -424,8 +424,8 @@
 - (BOOL) _afterCallingAPI:(AGAPIManager *)manager {
     __block BOOL result = YES;
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(afterCallingAPI:)] &&
-            [obj afterCallingAPI:manager] == NO) {
+        if ([obj respondsToSelector:@selector(ag_afterCallingAPI:)] &&
+            [obj ag_afterCallingAPI:manager] == NO) {
             result = NO;
             *stop = YES;
         }
@@ -436,8 +436,8 @@
 /// API解析数据前
 - (void) _beforeParseData:(AGAPIManager *)manager {
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(beforeParseData:)]) {
-            [obj beforeParseData:manager];
+        if ([obj respondsToSelector:@selector(ag_beforeParseData:)]) {
+            [obj ag_beforeParseData:manager];
         }
     }];
 }
@@ -445,8 +445,8 @@
 /// API解析数据后
 - (void) _afterParseData:(AGAPIManager *)manager {
     [_interceptors enumerateObjectsUsingBlock:^(id<AGAPIInterceptor>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(afterParseData:)]) {
-            [obj afterParseData:manager];
+        if ([obj respondsToSelector:@selector(ag_afterParseData:)]) {
+            [obj ag_afterParseData:manager];
         }
     }];
 }
@@ -455,8 +455,8 @@
 - (BOOL) _verifyCallbackData:(id)data {
     __block BOOL result = YES;
     [_verifiers enumerateObjectsUsingBlock:^(id<AGAPIVerifier>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(verifyCallbackData:forAPIManager:)]) {
-            self.error = [obj verifyCallbackData:data forAPIManager:self];
+        if ([obj respondsToSelector:@selector(ag_verifyCallbackData:forAPIManager:)]) {
+            self.error = [obj ag_verifyCallbackData:data forAPIManager:self];
             if (self.error) {
                 result = NO;
                 *stop = YES;
@@ -469,8 +469,8 @@
 - (BOOL) _verifyCallParams:(NSDictionary *)params {
     __block BOOL result = YES;
     [_verifiers enumerateObjectsUsingBlock:^(id<AGAPIVerifier>  _Nonnull obj, BOOL * _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(verifyCallParams:forAPIManager:)]) {
-            self.error = [obj verifyCallParams:params forAPIManager:self];
+        if ([obj respondsToSelector:@selector(ag_verifyCallParams:forAPIManager:)]) {
+            self.error = [obj ag_verifyCallParams:params forAPIManager:self];
             if (self.error) {
                 result = NO;
                 *stop = YES;
@@ -506,7 +506,7 @@
 }
 
 - (AGAPIService *) service {
-    return [AGAPIService dequeueAPIServiceForKey:[self apiServiceKey]];
+    return [AGAPIService ag_dequeueAPIServiceForKey:[self ag_apiServiceKey]];
 }
 
 @end
@@ -539,7 +539,7 @@
     [super requestWithParams:params callback:callback iterator:itor serial:serial];
 }
 
-- (void)requestNextPageWithParams:(NSDictionary *)params {
+- (void)ag_requestNextPageWithParams:(NSDictionary *)params {
     if (self.isLoading) {
         [self _apiCallbackFailure:AGAPICallbackStatusRepetitionRequest];
         return;
@@ -551,32 +551,32 @@
     [super requestWithParams:params];
 }
 
-- (void)requestNextPage {
-    [self requestNextPageWithParams:@{}];
+- (void)ag_requestNextPage {
+    [self ag_requestNextPageWithParams:@{}];
 }
 
-- (NSDictionary *)reformAPIParams:(NSDictionary *)params {
+- (NSDictionary *)ag_reformAPIParams:(NSDictionary *)params {
     NSMutableDictionary *paramsM = [NSMutableDictionary dictionaryWithDictionary:params];
-    [paramsM addEntriesFromDictionary:[self pagedParamsForAPIManager:self]];
-    return [super reformAPIParams:paramsM];
+    [paramsM addEntriesFromDictionary:[self ag_pagedParamsForAPIManager:self]];
+    return [super ag_reformAPIParams:paramsM];
 }
 
-- (BOOL)beforePerformApiCallbackSuccess:(AGAPIManager *)manager {
-    _isLastPage = [self isLastPagedForAPIManager:manager];
+- (BOOL)ag_beforePerformApiCallbackSuccess:(AGAPIManager *)manager {
+    _isLastPage = [self ag_isLastPagedForAPIManager:manager];
     _isFirstPage = _currentPage == 1;
     if (_isLastPage == NO) {
         _currentPage++;
     }
-    return [super beforePerformApiCallbackSuccess:manager];
+    return [super ag_beforePerformApiCallbackSuccess:manager];
 }
 
 #pragma mark AGAPIPageable
-- (BOOL)isLastPagedForAPIManager:(nonnull AGAPIManager *)manager {
-    return [[self service] isLastPagedForAPIManager:manager];
+- (BOOL)ag_isLastPagedForAPIManager:(nonnull AGAPIManager *)manager {
+    return [[self service] ag_isLastPagedForAPIManager:manager];
 }
 
-- (nullable NSDictionary *)pagedParamsForAPIManager:(nonnull AGAPIManager *)manager {
-    return [[self service] pagedParamsForAPIManager:manager];
+- (nullable NSDictionary *)ag_pagedParamsForAPIManager:(nonnull AGAPIManager *)manager {
+    return [[self service] ag_pagedParamsForAPIManager:manager];
 }
 
 @end

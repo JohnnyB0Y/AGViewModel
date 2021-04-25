@@ -29,22 +29,22 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype) newWithAPISession:(id<AGAPISessionProtocol>)session;
 - (instancetype) initWithAPISession:(id<AGAPISessionProtocol>)session;
 
-- (void) registerAPIServiceForKey:(NSString *)key;
-- (void) registerAPIServiceForDefault;
-+ (nullable AGAPIService *) dequeueAPIServiceForKey:(NSString *)key;
+- (void) ag_registerAPIServiceForKey:(NSString *)key;
+- (void) ag_registerAPIServiceForDefault;
++ (nullable AGAPIService *) ag_dequeueAPIServiceForKey:(NSString *)key;
 
 /// 分页
-- (nullable NSDictionary *) pagedParamsForAPIManager:(AGAPIManager *)manager;
+- (nullable NSDictionary *) ag_pagedParamsForAPIManager:(AGAPIManager *)manager;
 /// 是否最后一页？
-- (BOOL) isLastPagedForAPIManager:(AGAPIManager *)manager;
+- (BOOL) ag_isLastPagedForAPIManager:(AGAPIManager *)manager;
 
 /// 校验HTTP状态码
-- (AGVerifyError *) verifyHTTPCode:(NSInteger)code forAPIManager:(AGAPIManager *)manager;
+- (AGVerifyError *) ag_verifyHTTPCode:(NSInteger)code forAPIManager:(AGAPIManager *)manager;
 
 /// 全局错误，处理成功 返回 true 就不调用callback函数了，处理失败返回 false 继续往下走。
-- (BOOL) handleGlobalError:(NSError *)error forAPIManager:(AGAPIManager *)manager;
+- (BOOL) ag_handleGlobalError:(NSError *)error forAPIManager:(AGAPIManager *)manager;
 
-- (NSString *)baseURL;
+- (NSString *)ag_baseURL;
 
 @end
 

@@ -33,53 +33,53 @@ static NSMutableDictionary *apiServices = nil;
     return self;
 }
 
-- (void) registerAPIServiceForKey:(NSString *)key {
+- (void) ag_registerAPIServiceForKey:(NSString *)key {
     [apiServices setValue:self forKey:key];
 }
-- (void) registerAPIServiceForDefault {
-    [self registerAPIServiceForKey:@"kAGAPIServiceDefault"];
+- (void) ag_registerAPIServiceForDefault {
+    [self ag_registerAPIServiceForKey:@"kAGAPIServiceDefault"];
 }
 
-+ (AGAPIService *)dequeueAPIServiceForKey:(NSString *)key {
++ (AGAPIService *)ag_dequeueAPIServiceForKey:(NSString *)key {
     return apiServices[key];
 }
 
 /// 分页
-- (NSDictionary *)pagedParamsForAPIManager:(AGAPIManager *)manager {
+- (NSDictionary *)ag_pagedParamsForAPIManager:(AGAPIManager *)manager {
     return nil;
 }
 
-- (BOOL)isLastPagedForAPIManager:(AGAPIManager *)manager {
+- (BOOL)ag_isLastPagedForAPIManager:(AGAPIManager *)manager {
     return NO;
 }
 
 /// 校验HTTP状态码
-- (AGVerifyError *) verifyHTTPCode:(NSInteger)code forAPIManager:(AGAPIManager *)manager {
+- (AGVerifyError *) ag_verifyHTTPCode:(NSInteger)code forAPIManager:(AGAPIManager *)manager {
     return nil;
 }
 
 /// 全局错误，处理成功 返回 true 就不调用callback函数了，处理失败返回 false 继续往下走。
-- (BOOL) handleGlobalError:(NSError *)error forAPIManager:(AGAPIManager *)manager {
+- (BOOL) ag_handleGlobalError:(NSError *)error forAPIManager:(AGAPIManager *)manager {
     return  NO;
 }
 
-- (NSString *)baseURL {
+- (NSString *)ag_baseURL {
     return nil;
 }
 
-- (NSInteger)connectTimeout {
+- (NSInteger)ag_connectTimeout {
     return 15;
 }
 
-- (NSInteger)receiveTimeout {
+- (NSInteger)ag_receiveTimeout {
     return 15;
 }
 
-- (id)errorDataForAPIManager:(nonnull AGAPIManager *)manager {
+- (id)ag_errorDataForAPIManager:(nonnull AGAPIManager *)manager {
     return nil;
 }
 
-- (NSString *)finalURL:(nonnull NSString *)baseURL apiPath:(nonnull NSString *)apiPath params:(nonnull NSDictionary *)params {
+- (NSString *)ag_finalURL:(nonnull NSString *)baseURL apiPath:(nonnull NSString *)apiPath params:(nonnull NSDictionary *)params {
     NSMutableString *finalURL = [NSMutableString stringWithFormat:@"%@%@", baseURL, apiPath];
     
     if (params.count > 0) {
@@ -97,7 +97,7 @@ static NSMutableDictionary *apiServices = nil;
     return finalURL;
 }
 
-- (id)finalDataForAPIManager:(nonnull AGAPIManager *)manager {
+- (id)ag_finalDataForAPIManager:(nonnull AGAPIManager *)manager {
     if ([manager.rawData isKindOfClass:[NSDictionary class]] || [manager.rawData isKindOfClass:[NSArray class]]) {
         return manager.rawData;
     }
@@ -111,12 +111,12 @@ static NSMutableDictionary *apiServices = nil;
     return nil;
 }
 
-- (NSURLRequest *)requestForAPIManager:(AGAPIManager *)manager {
-    NSString *finalURL = [manager finalURL:self.baseURL apiPath:manager.apiPath params:manager.finalParams];
+- (NSURLRequest *)ag_urlRequestForAPIManager:(AGAPIManager *)manager {
+    NSString *finalURL = [manager ag_finalURL:[self ag_baseURL] apiPath:[manager ag_apiPath] params:manager.finalParams];
     finalURL = [finalURL stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:finalURL]];
-    request.HTTPMethod = [manager apiMethod];
-    request.timeoutInterval = [manager connectTimeout];
+    request.HTTPMethod = [manager ag_apiMethod];
+    request.timeoutInterval = [manager ag_connectTimeout];
     request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
     return request;
 }

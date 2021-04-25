@@ -95,90 +95,90 @@ typedef NSDictionary * _Nonnull (^AGAPIManagerParamsBlock)
 
 @protocol AGAPIAssembly <NSObject>
 
-- (nullable id) finalDataForAPIManager:(AGAPIManager *)manager;
-- (nullable id) errorDataForAPIManager:(AGAPIManager *)manager;
+- (nullable id) ag_finalDataForAPIManager:(AGAPIManager *)manager;
+- (nullable id) ag_errorDataForAPIManager:(AGAPIManager *)manager;
 
-- (NSURLRequest *) requestForAPIManager:(AGAPIManager *)manager;
+- (NSURLRequest *) ag_urlRequestForAPIManager:(AGAPIManager *)manager;
 
-- (NSString *) finalURL:(NSString *)baseURL apiPath:(NSString *)apiPath params:(NSDictionary *)params;
+- (NSString *) ag_finalURL:(NSString *)baseURL apiPath:(NSString *)apiPath params:(NSDictionary *)params;
 
-- (NSInteger) connectTimeout;
-- (NSInteger) receiveTimeout;
+- (NSInteger) ag_connectTimeout;
+- (NSInteger) ag_receiveTimeout;
 
 @end
 
 @protocol AGAPIPageable <NSObject>
 
 /// 分页
-- (nullable NSDictionary *) pagedParamsForAPIManager:(AGAPIManager *)manager;
+- (nullable NSDictionary *) ag_pagedParamsForAPIManager:(AGAPIManager *)manager;
 
 /// 是否最后一页？
-- (BOOL) isLastPagedForAPIManager:(AGAPIManager *)manager;
+- (BOOL) ag_isLastPagedForAPIManager:(AGAPIManager *)manager;
 
 @end
 
 @protocol AGAPIVerifier <NSObject>
 
 /// 验证回调数据是否合规
-- (nullable AGVerifyError *) verifyCallbackData:(id)data forAPIManager:(AGAPIManager *)manager;
+- (nullable AGVerifyError *) ag_verifyCallbackData:(id)data forAPIManager:(AGAPIManager *)manager;
 
 /// 验证请求参数是否合规
-- (nullable AGVerifyError *) verifyCallParams:(NSDictionary *)params forAPIManager:(AGAPIManager *)manager;
+- (nullable AGVerifyError *) ag_verifyCallParams:(NSDictionary *)params forAPIManager:(AGAPIManager *)manager;
 
 @end
 
 @protocol AGAPIInterceptor <NSObject>
 @optional
 /// API起飞前, 返回值为false即打断请求
-- (BOOL) beforeCallingAPI:(AGAPIManager *)manager;
+- (BOOL) ag_beforeCallingAPI:(AGAPIManager *)manager;
 
 /// API落地后, 返回值为false即打断回调
-- (BOOL) afterCallingAPI:(AGAPIManager *)manager;
+- (BOOL) ag_afterCallingAPI:(AGAPIManager *)manager;
 
 /// API解析数据前
-- (void) beforeParseData:(AGAPIManager *)manager;
+- (void) ag_beforeParseData:(AGAPIManager *)manager;
 
 /// API解析数据后
-- (void) afterParseData:(AGAPIManager *)manager;
+- (void) ag_afterParseData:(AGAPIManager *)manager;
 
 /// API失败回调执行前，返回值为false即打断回调
-- (BOOL) beforePerformApiCallbackFailure:(AGAPIManager *)manager;
+- (BOOL) ag_beforePerformApiCallbackFailure:(AGAPIManager *)manager;
 
 /// API失败回调执行后
-- (void) afterPerformApiCallbackFailure:(AGAPIManager *)manager;
+- (void) ag_afterPerformApiCallbackFailure:(AGAPIManager *)manager;
 
 /// API成功回调执行前，返回值为false即打断回调
-- (BOOL) beforePerformApiCallbackSuccess:(AGAPIManager *)manager;
+- (BOOL) ag_beforePerformApiCallbackSuccess:(AGAPIManager *)manager;
 
 /// API成功回调执行后
-- (void) afterPerformApiCallbackSuccess:(AGAPIManager *)manager;
+- (void) ag_afterPerformApiCallbackSuccess:(AGAPIManager *)manager;
 
 @end
 
 @protocol AGAPIReformer <NSObject>
-- (id) reformData:(nullable id)data options:(nullable id)options forAPIManager:(AGAPIManager *)manager;
+- (id) ag_reformData:(nullable id)data options:(nullable id)options forAPIManager:(AGAPIManager *)manager;
 @end
 
 @protocol AGAPISessionProtocol <NSObject>
 
 /// 发起API请求
-- (void) callAPIForAPIManager:(AGAPIManager *)manager
-                      options:(nullable id)options
-                     callback:(nullable AGAPICallbackBlock)callback;
+- (void) ag_callAPIForAPIManager:(AGAPIManager *)manager
+                         options:(nullable id)options
+                        callback:(nullable AGAPICallbackBlock)callback;
 
 /// 取消请求
-- (void) cancelAPIForAPIManager:(AGAPIManager *)manager
-                        options:(nullable id)options;
+- (void) ag_cancelAPIForAPIManager:(AGAPIManager *)manager
+                           options:(nullable id)options;
 
 /// 删除缓存
-- (void) deleteCacheForAPIManager:(AGAPIManager *)manager
-                          options:(nullable id)options
-                         callback:(nullable AGAPIHandleBlock)callback;
+- (void) ag_deleteCacheForAPIManager:(AGAPIManager *)manager
+                             options:(nullable id)options
+                            callback:(nullable AGAPIHandleBlock)callback;
 
 /// 删除所有缓存
-- (void) deleteAllCache:(nullable AGAPIManager *)manager
-                options:(nullable id)options
-               callback:(nullable AGAPIHandleBlock)callback;
+- (void) ag_deleteAllCache:(nullable AGAPIManager *)manager
+                   options:(nullable id)options
+                  callback:(nullable AGAPIHandleBlock)callback;
 
 @end
 

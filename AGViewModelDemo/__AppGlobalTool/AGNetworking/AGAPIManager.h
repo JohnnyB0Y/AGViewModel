@@ -42,25 +42,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSArray<id> *) fetchDataModelList:(id<AGAPIReformer>)reformer options:(nullable id)options;
 
 #pragma api hub 使用
-- (void) requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params;
-- (void) requestWithAPIGroupIterator:(AGAPIIterator *)itor;
+- (void) ag_requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params;
+- (void) ag_requestWithAPIGroupIterator:(AGAPIIterator *)itor;
 
 #pragma 配置
-- (void) configRequestCallback:(AGAPIManagerCallbackBlock)callback;
-- (void) configRequestParams:(AGAPIManagerParamsBlock)params;
+- (void) ag_configRequestCallback:(AGAPIManagerCallbackBlock)callback;
+- (void) ag_configRequestParams:(AGAPIManagerParamsBlock)params;
 
-- (NSDictionary *) reformAPIParams:(NSDictionary *)params NS_REQUIRES_SUPER;
+- (NSDictionary *) ag_reformAPIParams:(NSDictionary *)params NS_REQUIRES_SUPER;
 
 /// 添加数据校验器
-- (void) useVerifier:(id<AGAPIVerifier>)verifier;
+- (void) ag_useVerifier:(id<AGAPIVerifier>)verifier;
 /// 添加生命周期观察者
-- (void) useInterceptor:(id<AGAPIInterceptor>)interceptor;
+- (void) ag_useInterceptor:(id<AGAPIInterceptor>)interceptor;
 
 #pragma override
-- (NSString *)apiServiceKey;
-- (AGAPIMethodType)apiMethodType;
-- (NSString *)apiMethod;
-- (NSString *)apiPath;
+- (NSString *)ag_apiServiceKey;
+- (AGAPIMethodType)ag_apiMethodType;
+- (NSString *)ag_apiMethod;
+- (NSString *)ag_apiPath;
 
 @end
 
@@ -68,8 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 <AGAPIPageable>
 
 /// 请求下一页数据
-- (void)requestNextPage;
-- (void)requestNextPageWithParams:(NSDictionary *)params;
+- (void)ag_requestNextPage;
+- (void)ag_requestNextPageWithParams:(NSDictionary *)params;
 
 @end
 

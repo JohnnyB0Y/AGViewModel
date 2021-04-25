@@ -13,24 +13,24 @@
 
 @implementation AGAPIHub
 
-- (void) serialRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback {
+- (void) ag_serialRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback {
     AGAPIIterator *itor = [[AGAPIIterator alloc] initWithAPIs:apis];
     itor.callbackBlock = callback;
-    AGAPIManager *api = [itor nextAPIManager];
-    [api requestWithAPISerialIterator:itor params:nil];
+    AGAPIManager *api = [itor ag_nextAPIManager];
+    [api ag_requestWithAPISerialIterator:itor params:nil];
 }
 
-- (void) groupRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback {
+- (void) ag_groupRequestAPIs:(NSArray<AGAPIManager *> *)apis callback:(AGAPIManagerGroupCallbackBlock)callback {
     AGAPIIterator *itor = [[AGAPIIterator alloc] initWithAPIs:apis];
     itor.callbackBlock = callback;
-    AGAPIManager *api = [itor nextAPIManager];
+    AGAPIManager *api = [itor ag_nextAPIManager];
     while (api) {
-        [api requestWithAPIGroupIterator:itor];
-        api = [itor nextAPIManager];
+        [api ag_requestWithAPIGroupIterator:itor];
+        api = [itor ag_nextAPIManager];
     }
 }
 
-- (void)cancleAllRequest {
+- (void)ag_cancleAllRequest {
     
 }
 
@@ -47,14 +47,14 @@
     return self;
 }
 
-- (AGAPIManager *) nextAPIManager {
+- (AGAPIManager *) ag_nextAPIManager {
     if (_next >= _apis.count) {
         return nil;
     }
     return _apis[_next++];
 }
 
-- (void)finishedOneAPIAndCheckCallback {
+- (void)ag_finishedOneAPIAndCheckCallback {
     // 完成一条，累加一次，检查一次
     if (++self.finishedCount >= self.apis.count) {
         __block BOOL allSuccess = YES;
