@@ -29,10 +29,10 @@
 /// 取出的最终数据
 @property (nonatomic, strong) id finalData;
 
-- (void) requestWithParams:(NSDictionary *)params
-                  callback:(AGAPIManagerCallbackBlock)callback
-                  iterator:(AGAPIIterator *)itor
-                    serial:(BOOL)serial;
+- (void) ag_requestWithParams:(NSDictionary *)params
+                     callback:(AGAPIManagerCallbackBlock)callback
+                     iterator:(AGAPIIterator *)itor
+                       serial:(BOOL)serial;
 
 @end
 
@@ -50,23 +50,23 @@
 
 #pragma mark - ---------- Public Methods ----------
 #pragma 请求起飞
-- (void) request {
-    [self requestWithCallback:self.callbackBlock];
+- (void) ag_request {
+    [self ag_requestWithCallback:self.callbackBlock];
 }
-- (void) requestWithCallback:(AGAPIManagerCallbackBlock)callback {
+- (void) ag_requestWithCallback:(AGAPIManagerCallbackBlock)callback {
     NSDictionary *params = self.paramsBlock ? self.paramsBlock(self) : @{};
-    [self requestWithParams:params callback:callback];
+    [self ag_requestWithParams:params callback:callback];
 }
-- (void) requestWithParams:(NSDictionary *)params {
-    [self requestWithParams:params callback:self.callbackBlock];
+- (void) ag_requestWithParams:(NSDictionary *)params {
+    [self ag_requestWithParams:params callback:self.callbackBlock];
 }
-- (void) requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback {
-    [self requestWithParams:params callback:callback iterator:nil serial:NO];
+- (void) ag_requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback {
+    [self ag_requestWithParams:params callback:callback iterator:nil serial:NO];
 }
-- (void) requestWithParams:(NSDictionary *)params
-                  callback:(AGAPIManagerCallbackBlock)callback
-                  iterator:(AGAPIIterator *)itor
-                    serial:(BOOL)serial {
+- (void) ag_requestWithParams:(NSDictionary *)params
+                     callback:(AGAPIManagerCallbackBlock)callback
+                     iterator:(AGAPIIterator *)itor
+                       serial:(BOOL)serial {
     _callbackBlock = callback;
     
     if (self.isLoading) {
@@ -135,7 +135,7 @@
         if (error) { // 出错
             if (self.isRetrying) {
                 if (--self.numberOfTry > 0) {
-                    [self retryRequest:self.numberOfTry];
+                    [self ag_retryRequest:self.numberOfTry];
                 }
                 else {
                     // ... 错误处理！！！！
@@ -189,30 +189,30 @@
     if (self.paramsBlock) {
         [paramsM addEntriesFromDictionary:self.paramsBlock(self)];
     }
-    [self requestWithParams:paramsM callback:self.callbackBlock iterator:itor serial:YES];
+    [self ag_requestWithParams:paramsM callback:self.callbackBlock iterator:itor serial:YES];
 }
 
 - (void)ag_requestWithAPIGroupIterator:(AGAPIIterator *)itor {
     NSDictionary *params = self.paramsBlock ? self.paramsBlock(self) : @{};
-    [self requestWithParams:params callback:self.callbackBlock iterator:itor serial:NO];
+    [self ag_requestWithParams:params callback:self.callbackBlock iterator:itor serial:NO];
 }
 
-- (void)retryRequest:(NSInteger)numberOfTry {
+- (void)ag_retryRequest:(NSInteger)numberOfTry {
     if (self.isRetrying || self.isLoading) {
         [self _apiCallbackFailure:AGAPICallbackStatusRepetitionRequest];
         return;
     }
     self.numberOfTry = numberOfTry;
     self.isRetrying = YES;
-    [self request];
+    [self ag_request];
 }
 
 /// 取出整理后的数据
-- (id) fetchDataModel:(id<AGAPIReformer>)reformer options:(id)options {
+- (id) ag_fetchDataModel:(id<AGAPIReformer>)reformer options:(id)options {
     return [reformer ag_reformData:self.finalData options:options forAPIManager:self];
 }
 /// 取出整理后的数据列表
-- (NSArray<id> *) fetchDataModelList:(id<AGAPIReformer>)reformer options:(id)options {
+- (NSArray<id> *) ag_fetchDataModelList:(id<AGAPIReformer>)reformer options:(id)options {
     NSArray *models = [reformer ag_reformData:self.finalData options:options forAPIManager:self];
     if ([models isKindOfClass:[NSArray class]]) {
         return models;
@@ -269,6 +269,7 @@
 }
 
 - (NSString *)ag_apiPath {
+    [self doesNotRecognizeSelector:_cmd];
     return @"/";
 }
 
@@ -330,10 +331,11 @@
     return [[self service] ag_handleGlobalError:error forAPIManager:self];
 }
 
-- (void)cancelRequest {
+- (void)ag_cancelRequest {
     if (self.isLoading) {
         [[[self service] session] ag_cancelAPIForAPIManager:self options:nil];
         self.requestId = nil;
+        self.status = AGAPICallbackStatusCancel;
         [self _afterCallingAPI:self];
         [self _apiCallbackFailure:AGAPICallbackStatusCancel];
     }
@@ -536,7 +538,7 @@
                    serial:(BOOL)serial {
     _isFirstPage = YES;
     _currentPage = 1;
-    [super requestWithParams:params callback:callback iterator:itor serial:serial];
+    [super ag_requestWithParams:params callback:callback iterator:itor serial:serial];
 }
 
 - (void)ag_requestNextPageWithParams:(NSDictionary *)params {
@@ -548,7 +550,7 @@
         [self _apiCallbackFailure:AGAPICallbackStatusLastPageError];
         return;
     }
-    [super requestWithParams:params];
+    [super ag_requestWithParams:params];
 }
 
 - (void)ag_requestNextPage {

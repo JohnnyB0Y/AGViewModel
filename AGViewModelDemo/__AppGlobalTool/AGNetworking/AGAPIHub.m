@@ -31,7 +31,7 @@
 }
 
 - (void)ag_cancleAllRequest {
-    
+    [self doesNotRecognizeSelector:_cmd];
 }
 
 @end

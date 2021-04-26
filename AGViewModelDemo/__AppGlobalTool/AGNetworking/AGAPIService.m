@@ -46,24 +46,29 @@ static NSMutableDictionary *apiServices = nil;
 
 /// 分页
 - (NSDictionary *)ag_pagedParamsForAPIManager:(AGAPIManager *)manager {
+    [self doesNotRecognizeSelector:_cmd];
     return nil;
 }
 
 - (BOOL)ag_isLastPagedForAPIManager:(AGAPIManager *)manager {
+    [self doesNotRecognizeSelector:_cmd];
     return NO;
 }
 
 /// 校验HTTP状态码
 - (AGVerifyError *) ag_verifyHTTPCode:(NSInteger)code forAPIManager:(AGAPIManager *)manager {
+    [self doesNotRecognizeSelector:_cmd];
     return nil;
 }
 
 /// 全局错误，处理成功 返回 true 就不调用callback函数了，处理失败返回 false 继续往下走。
 - (BOOL) ag_handleGlobalError:(NSError *)error forAPIManager:(AGAPIManager *)manager {
+    [self doesNotRecognizeSelector:_cmd];
     return  NO;
 }
 
 - (NSString *)ag_baseURL {
+    [self doesNotRecognizeSelector:_cmd];
     return nil;
 }
 
@@ -76,10 +81,13 @@ static NSMutableDictionary *apiServices = nil;
 }
 
 - (id)ag_errorDataForAPIManager:(nonnull AGAPIManager *)manager {
+    [self doesNotRecognizeSelector:_cmd];
     return nil;
 }
 
-- (NSString *)ag_finalURL:(nonnull NSString *)baseURL apiPath:(nonnull NSString *)apiPath params:(nonnull NSDictionary *)params {
+- (NSString *)ag_finalURL:(nonnull NSString *)baseURL
+                  apiPath:(nonnull NSString *)apiPath
+                   params:(nonnull NSDictionary *)params {
     NSMutableString *finalURL = [NSMutableString stringWithFormat:@"%@%@", baseURL, apiPath];
     
     if (params.count > 0) {
@@ -92,6 +100,7 @@ static NSMutableDictionary *apiServices = nil;
             else {
                 [finalURL appendFormat:@"&%@=%@", key, obj];
             }
+            i++;
         }];
     }
     return finalURL;

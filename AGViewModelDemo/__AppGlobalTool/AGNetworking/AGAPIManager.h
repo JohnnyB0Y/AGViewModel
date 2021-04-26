@@ -28,18 +28,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable, readonly) NSHTTPURLResponse *response;
 
 #pragma 请求起飞
-- (void) request;
-- (void) requestWithCallback:(AGAPIManagerCallbackBlock)callback;
-- (void) requestWithParams:(NSDictionary *)params;
-- (void) requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback;
+- (void) ag_request;
+- (void) ag_requestWithCallback:(AGAPIManagerCallbackBlock)callback;
+- (void) ag_requestWithParams:(NSDictionary *)params;
+- (void) ag_requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback;
+
+- (void) ag_cancelRequest;
 
 /// 重试请求
-- (void) retryRequest:(NSInteger)numberOfTry;
+- (void) ag_retryRequest:(NSInteger)numberOfTry;
 
 /// 取出整理后的数据
-- (nullable id) fetchDataModel:(id<AGAPIReformer>)reformer options:(nullable id)options;
+- (nullable id) ag_fetchDataModel:(id<AGAPIReformer>)reformer options:(nullable id)options;
 /// 取出整理后的数据列表
-- (nullable NSArray<id> *) fetchDataModelList:(id<AGAPIReformer>)reformer options:(nullable id)options;
+- (nullable NSArray<id> *) ag_fetchDataModelList:(id<AGAPIReformer>)reformer options:(nullable id)options;
 
 #pragma api hub 使用
 - (void) ag_requestWithAPISerialIterator:(AGAPIIterator *)itor params:(nullable NSDictionary *)params;
