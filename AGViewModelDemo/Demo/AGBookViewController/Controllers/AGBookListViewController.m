@@ -12,29 +12,22 @@
 
 #import "AGTableViewManager.h"
 #import <SVProgressHUD.h>
-#import <CTNetworking.h>
 #import <Masonry.h>
 #import "AGVMKit.h"
 #import <AGCategories/UIColor+AGExtensions.h>
 #import "AGSwitchControl.h"
 
 #import "AGBookListCell.h"
-#import "AGBookAPICaller.h"
 #import "AGBookAPIKeys.h"
-
 #import "AGTaobaoAPIHub.h"
 
 @interface AGBookListViewController ()
-<CTAPIManagerParamSource, CTAPIManagerCallBackDelegate,
-AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
+<AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 
 /** ` */
 @property (nonatomic, strong) AGTableViewManager *tableViewManager;
 @property (nonatomic, strong) AGTableViewManager *tableViewManager1;
 @property (nonatomic, strong) AGTableViewManager *tableViewManager2;
-
-/** book api caller */
-@property (nonatomic, strong) AGBookAPICaller *bookAPICaller;
 
 /// 淘宝 api hub
 @property (nonatomic, strong) AGTaobaoAPIHub *taobaoAPIHub;
@@ -71,7 +64,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     [SVProgressHUD dismiss];
     
     // 取消挂起的网络请求
-    [self.bookAPICaller cancelAllRequests];
+    [self.taobaoAPIHub ag_cancleAllRequest];
 }
 
 + (AGResourceFileType)typeOfCreateInstance
@@ -80,73 +73,6 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 }
 
 #pragma mark - ---------- Custom Delegate ----------
-#pragma mark - CTAPIManagerParamSourceDelegate
-- (NSDictionary *) paramsForApi:(CTAPIBaseManager *)manager
-{
-    NSMutableDictionary *paramM = ag_newNSMutableDictionary(5);
-    
-    if ( manager == self.bookAPICaller.listAPIManager ) {
-        // ... q={}&count={}&start={}
-        
-        AGViewModel *vm = self.itemsData[self.switchControl.currentIndex];
-        NSString *title = vm[kAGVMTitleText];
-        
-        // https://suggest.taobao.com/sug?code=utf-8&q=%E5%8D%AB%E8%A1%A3&callback=cb
-        paramM[@"q"] = title;
-        paramM[@"code"] = @"utf-8";
-        paramM[kAGVMIndex] = @(self.switchControl.currentIndex); // 用来区分返回的数据
-    }
-    
-    return [paramM copy];
-}
-
-#pragma mark - CTAPIManagerApiCallBackDelegate
-- (void) managerCallAPIDidSuccess:(CTAPIBaseManager *)manager
-{
-    [SVProgressHUD dismiss];
-    return;
-    if ( manager == self.bookAPICaller.listAPIManager ) {
-        // ...
-        NSInteger index = [manager.response.originRequestParams[kAGVMIndex] integerValue];
-        AGViewModel *vm = self.itemsData[index];
-        AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
-        
-        AGVMManager *vmm = [manager fetchDataWithReformer:self.bookAPICaller.listReformer];
-        
-        NSLog(@"%ld - %@ - count:%ld", index, vm[kAGVMTitleText], vmm.fs.count);
-        
-        AGVMManager *cache = vm[kAGVMManager];
-        if ( self.bookAPICaller.listAPIManager.isFirstPage ) { // 第一页数据
-            cache = [vmm copy];
-            vm[kAGVMManager] = cache; // 缓存到vm
-        }
-        else { // 后续页面数据
-            [cache.fs ag_addItemsFromSection:vmm.fs]; // 拼接到后面
-        }
-        
-        [tvm handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
-            [originVmm.fs ag_removeAllItems];
-            [originVmm.fs ag_addItemsFromSection:cache.fs];
-        }];
-    }
-}
-
-- (void) managerCallAPIDidFailed:(CTAPIBaseManager *)manager
-{
-    [SVProgressHUD dismiss];
-    
-    // 参数错误、返回数据错误
-    if ( manager.verifyError ) {
-        [SVProgressHUD showErrorWithStatus:manager.verifyError.msg];
-    }
-    
-    NSInteger index = [manager.response.originRequestParams[kAGVMIndex] integerValue];
-    AGViewModel *vm = self.itemsData[index];
-    AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
-    // 停止刷新
-    [tvm stopRefresh];
-}
-
 #pragma mark - AGVMDelegate 你点击了图书封面
 - (void)ag_viewModel:(AGViewModel *)vm handleAction:(SEL)action
 {
@@ -459,7 +385,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         AGViewModel *vm = self.itemsData[index];
         AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
         
-        AGVMManager *vmm = [manager ag_fetchDataModel:self.bookAPICaller.listReformer options:nil];
+        AGVMManager *vmm = [manager ag_fetchDataModel:self.taobaoAPIHub.productListReformer options:nil];
         
         NSLog(@"API 请求成功：%ld - %@ - count:%ld", index, vm[kAGVMTitleText], vmm.fs.count);
         
@@ -514,14 +440,6 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         _tableViewManager2.vmDelegate = self;
     }
     return _tableViewManager2;
-}
-
-- (AGBookAPICaller *)bookAPICaller
-{
-    if (_bookAPICaller == nil) {
-        _bookAPICaller = [AGBookAPICaller newWithAPIDelegate:self];
-    }
-    return _bookAPICaller;
 }
 
 - (AGTaobaoAPIHub *)taobaoAPIHub {

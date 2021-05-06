@@ -11,6 +11,7 @@
 @implementation AGTaobaoAPIHub
 
 @synthesize productList = _productList;
+@synthesize productListReformer = _productListReformer;
 
 
 - (void)ag_cancleAllRequest {
@@ -23,6 +24,13 @@
         _productList = [[AGTaobaoListAPIManager alloc] init];
     }
     return _productList;
+}
+
+- (AGBookListAPIReformer *)productListReformer {
+    if ( _productListReformer == nil) {
+        _productListReformer = [AGBookListAPIReformer new];
+    }
+    return _productListReformer;
 }
 
 @end

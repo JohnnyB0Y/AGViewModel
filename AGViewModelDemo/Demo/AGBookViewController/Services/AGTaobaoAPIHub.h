@@ -6,8 +6,9 @@
 //  Copyright © 2021 JohnnyB0Y. All rights reserved.
 //
 
-#import "AGAPIHub.h"
+#import "AGAPINetworking.h"
 #import "AGTaobaoListAPIManager.h"
+#import "AGBookListAPIReformer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 淘宝产品列表
 @property (nonatomic, strong, readonly) AGTaobaoListAPIManager *productList;
+
+/// 淘宝产品列表数据过滤
+@property (nonatomic, strong, readonly) AGBookListAPIReformer *productListReformer;
 
 @end
 

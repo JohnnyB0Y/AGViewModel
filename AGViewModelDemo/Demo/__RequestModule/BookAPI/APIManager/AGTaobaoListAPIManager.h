@@ -6,7 +6,7 @@
 //  Copyright © 2021 JohnnyB0Y. All rights reserved.
 //
 
-#import "AGAPIManager.h"
+#import "AGAPINetworking.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -171,6 +171,7 @@
 		3A3869C32643E4DC008F1AD2 /* AGTaobaoListAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGTaobaoListAPIManager.m; sourceTree = "<group>"; };
 		3A3869C72643E671008F1AD2 /* AGTaobaoAPIHub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGTaobaoAPIHub.h; sourceTree = "<group>"; };
 		3A3869C82643E671008F1AD2 /* AGTaobaoAPIHub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGTaobaoAPIHub.m; sourceTree = "<group>"; };
+		3A3869CE26440008008F1AD2 /* AGAPINetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGAPINetworking.h; sourceTree = "<group>"; };
 		3A402A3423901461008894BE /* NSNotification+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNotification+AGViewModel.h"; sourceTree = "<group>"; };
 		3A402A3523901461008894BE /* NSNotification+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+AGViewModel.m"; sourceTree = "<group>"; };
 		3A4045FB22E9FCE000EF706C /* AGViewModelComputableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGViewModelComputableTests.m; sourceTree = "<group>"; };
@@ -784,6 +785,7 @@
 				3AC6E01A262FE10F00838176 /* AGAPIHub.m */,
 				3AC6E01E262FE13000838176 /* AGAPIService.h */,
 				3AC6E01F262FE13000838176 /* AGAPIService.m */,
+				3A3869CE26440008008F1AD2 /* AGAPINetworking.h */,
 			);
 			path = AGNetworking;
 			sourceTree = "<group>";

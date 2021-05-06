@@ -7,8 +7,6 @@
 //
 
 #import "AGTaobaoAPIService.h"
-#import "AGAPIManager.h"
-#import <AGVerifyManager/AGVerifyManager.h>
 
 @implementation AGTaobaoAPIService
 
