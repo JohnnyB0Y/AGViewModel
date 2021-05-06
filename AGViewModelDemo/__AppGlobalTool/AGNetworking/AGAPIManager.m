@@ -19,7 +19,7 @@
 /// 重试中？
 @property (nonatomic, assign) NSInteger isRetrying;
 /// 错误
-@property (nonatomic, strong, nullable) AGVerifyError *error;
+@property (nonatomic, strong, nullable, readwrite) AGVerifyError *error;
 /// 校验器集合
 @property (nonatomic, strong) NSMutableSet<id<AGAPIVerifier>> *verifiers;
 
@@ -140,12 +140,18 @@
                 else {
                     // ... 错误处理！！！！
                     self.isRetrying = NO;
-                    [self _apiCallbackFailure:AGAPICallbackStatusFailure];
+                    self.status = AGAPICallbackStatusFailure;
+                    if ([self _handleGlobalError:error] == NO) {
+                        [self _apiCallbackFailure:self.status];
+                    }
                 }
             }
             else {
                 // ... 错误处理！！！！
-                [self _apiCallbackFailure:AGAPICallbackStatusFailure];
+                self.status = AGAPICallbackStatusFailure;
+                if ([self _handleGlobalError:error] == NO) {
+                    [self _apiCallbackFailure:self.status];
+                }
             }
         }
         else { // 成功
@@ -165,9 +171,6 @@
                 if ([self _verifyCallbackData:self.finalData] == NO) { // 校验数据
                     if (self.status == AGAPICallbackStatusAfterCalling) {
                         self.status = AGAPICallbackStatusDataError;
-                    }
-                    if ([self _handleGlobalError:error] == NO) {
-                        [self _apiCallbackFailure:self.status];
                     }
                 }
                 else {
@@ -483,7 +486,8 @@
 }
 
 - (BOOL) _verifyHTTPCode:(NSInteger)code {
-    return [self verifyHTTPCode:code];
+    self.error = [self verifyHTTPCode:code];
+    return self.error == nil;
 }
 
 - (BOOL) _handleGlobalError:(NSError *)error {
@@ -532,13 +536,10 @@
 
 @implementation AGAPIPagedManager
 
-- (void)requestWithParams:(NSDictionary *)params
-                 callback:(AGAPIManagerCallbackBlock)callback
-                 iterator:(AGAPIIterator *)itor
-                   serial:(BOOL)serial {
+- (void)ag_requestWithParams:(NSDictionary *)params callback:(AGAPIManagerCallbackBlock)callback {
     _isFirstPage = YES;
     _currentPage = 1;
-    [super ag_requestWithParams:params callback:callback iterator:itor serial:serial];
+    [self ag_requestWithParams:params callback:callback iterator:nil serial:NO];
 }
 
 - (void)ag_requestNextPageWithParams:(NSDictionary *)params {
@@ -550,11 +551,13 @@
         [self _apiCallbackFailure:AGAPICallbackStatusLastPageError];
         return;
     }
-    [super ag_requestWithParams:params];
+    _isFirstPage = NO;
+    [self ag_requestWithParams:params callback:self.callbackBlock iterator:nil serial:NO];
 }
 
 - (void)ag_requestNextPage {
-    [self ag_requestNextPageWithParams:@{}];
+    NSDictionary *params = self.paramsBlock ? self.paramsBlock(self) : @{};
+    [self ag_requestNextPageWithParams:params];
 }
 
 - (NSDictionary *)ag_reformAPIParams:(NSDictionary *)params {

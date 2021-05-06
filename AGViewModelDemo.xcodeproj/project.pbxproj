@@ -37,6 +37,9 @@
 		3A14FEAB22FE750400F00003 /* AGDiskDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A14FEAA22FE750400F00003 /* AGDiskDocumentViewController.m */; };
 		3A31B617222B8DA90015B424 /* UITableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B616222B8DA90015B424 /* UITableView+AGViewModel.m */; };
 		3A31B61A222B94E60015B424 /* UICollectionView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31B619222B94E60015B424 /* UICollectionView+AGViewModel.m */; };
+		3A3869BF2643E37E008F1AD2 /* AGTaobaoAPIService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3869BE2643E37E008F1AD2 /* AGTaobaoAPIService.m */; };
+		3A3869C42643E4DC008F1AD2 /* AGTaobaoListAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3869C32643E4DC008F1AD2 /* AGTaobaoListAPIManager.m */; };
+		3A3869C92643E671008F1AD2 /* AGTaobaoAPIHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3869C82643E671008F1AD2 /* AGTaobaoAPIHub.m */; };
 		3A402A3623901461008894BE /* NSNotification+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A402A3523901461008894BE /* NSNotification+AGViewModel.m */; };
 		3A4045FC22E9FCE000EF706C /* AGViewModelComputableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4045FB22E9FCE000EF706C /* AGViewModelComputableTests.m */; };
 		3A4045FF22EAA0FE00EF706C /* AGVMCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4045FE22EAA0FE00EF706C /* AGVMCommand.m */; };
@@ -162,6 +165,12 @@
 		3A31B616222B8DA90015B424 /* UITableView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+AGViewModel.m"; sourceTree = "<group>"; };
 		3A31B618222B94E60015B424 /* UICollectionView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+AGViewModel.h"; sourceTree = "<group>"; };
 		3A31B619222B94E60015B424 /* UICollectionView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+AGViewModel.m"; sourceTree = "<group>"; };
+		3A3869BD2643E37E008F1AD2 /* AGTaobaoAPIService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGTaobaoAPIService.h; sourceTree = "<group>"; };
+		3A3869BE2643E37E008F1AD2 /* AGTaobaoAPIService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGTaobaoAPIService.m; sourceTree = "<group>"; };
+		3A3869C22643E4DC008F1AD2 /* AGTaobaoListAPIManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGTaobaoListAPIManager.h; sourceTree = "<group>"; };
+		3A3869C32643E4DC008F1AD2 /* AGTaobaoListAPIManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGTaobaoListAPIManager.m; sourceTree = "<group>"; };
+		3A3869C72643E671008F1AD2 /* AGTaobaoAPIHub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGTaobaoAPIHub.h; sourceTree = "<group>"; };
+		3A3869C82643E671008F1AD2 /* AGTaobaoAPIHub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGTaobaoAPIHub.m; sourceTree = "<group>"; };
 		3A402A3423901461008894BE /* NSNotification+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNotification+AGViewModel.h"; sourceTree = "<group>"; };
 		3A402A3523901461008894BE /* NSNotification+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNotification+AGViewModel.m"; sourceTree = "<group>"; };
 		3A4045FB22E9FCE000EF706C /* AGViewModelComputableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGViewModelComputableTests.m; sourceTree = "<group>"; };
@@ -329,6 +338,8 @@
 				3A04291320B783EA0025D9D5 /* AGDoubanService.m */,
 				3A04291C20B793960025D9D5 /* Target_AGDoubanService.h */,
 				3A04291D20B793960025D9D5 /* Target_AGDoubanService.m */,
+				3A3869BD2643E37E008F1AD2 /* AGTaobaoAPIService.h */,
+				3A3869BE2643E37E008F1AD2 /* AGTaobaoAPIService.m */,
 			);
 			path = APIServices;
 			sourceTree = "<group>";
@@ -499,6 +510,8 @@
 				3ADD780E21E687A10054437D /* VMGenerator */,
 				3A7FD5CE20B779AD00A0787A /* APIReformer */,
 				3A7FD5CF20B779AD00A0787A /* VMPackager */,
+				3A3869C72643E671008F1AD2 /* AGTaobaoAPIHub.h */,
+				3A3869C82643E671008F1AD2 /* AGTaobaoAPIHub.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -594,6 +607,8 @@
 				3A7FD5F220B7810100A0787A /* AGBookListAPIManager.m */,
 				3A04295320B7AC9C0025D9D5 /* AGBookDetailAPIManager.h */,
 				3A04295420B7AC9C0025D9D5 /* AGBookDetailAPIManager.m */,
+				3A3869C22643E4DC008F1AD2 /* AGTaobaoListAPIManager.h */,
+				3A3869C32643E4DC008F1AD2 /* AGTaobaoListAPIManager.m */,
 			);
 			path = APIManager;
 			sourceTree = "<group>";
@@ -1020,6 +1035,7 @@
 				3AACE8291EACF9100097C4F3 /* AppDelegate.m in Sources */,
 				3A04292D20B7AAB00025D9D5 /* AGHomeVMGenerator.m in Sources */,
 				3ABD840822218B870085E314 /* AGBookAPICaller.m in Sources */,
+				3A3869C42643E4DC008F1AD2 /* AGTaobaoListAPIManager.m in Sources */,
 				3A8C699621E0EDA50021BCB1 /* AGViewStorehouse.m in Sources */,
 				3A1086672636921200BF1655 /* AGPersistence.m in Sources */,
 				3A04294E20B7AB000025D9D5 /* AGBoxBCell.m in Sources */,
@@ -1033,6 +1049,7 @@
 				3AACE8261EACF9100097C4F3 /* main.m in Sources */,
 				3A8C698C21DEC9530021BCB1 /* UIScreen+AGViewModel.m in Sources */,
 				3A31B617222B8DA90015B424 /* UITableView+AGViewModel.m in Sources */,
+				3A3869BF2643E37E008F1AD2 /* AGTaobaoAPIService.m in Sources */,
 				3ABF523A237FC9BF00E8B39F /* AGVMCommandQueue.m in Sources */,
 				3A402A3623901461008894BE /* NSNotification+AGViewModel.m in Sources */,
 				3AD8916C1F38965100E86F9F /* AGVMManager.m in Sources */,
@@ -1049,6 +1066,7 @@
 				3AD8916A1F38965100E86F9F /* AGViewModel.m in Sources */,
 				3A7FD5E720B77EC300A0787A /* AGBoxVMGenerator.m in Sources */,
 				3A04291B20B792100025D9D5 /* Target_CTAppContext.m in Sources */,
+				3A3869C92643E671008F1AD2 /* AGTaobaoAPIHub.m in Sources */,
 				3A8C699021E0ECF70021BCB1 /* AGSwitchControl.m in Sources */,
 				3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */,
 				3AE9C38A2031437B009F4B29 /* UITableViewCell+AGViewModel.m in Sources */,

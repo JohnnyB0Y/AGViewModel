@@ -22,6 +22,7 @@
 #import "AGBookAPICaller.h"
 #import "AGBookAPIKeys.h"
 
+#import "AGTaobaoAPIHub.h"
 
 @interface AGBookListViewController ()
 <CTAPIManagerParamSource, CTAPIManagerCallBackDelegate,
@@ -34,6 +35,9 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 
 /** book api caller */
 @property (nonatomic, strong) AGBookAPICaller *bookAPICaller;
+
+/// 淘宝 api hub
+@property (nonatomic, strong) AGTaobaoAPIHub *taobaoAPIHub;
 
 /** switch control */
 @property (nonatomic, strong) AGSwitchControl *switchControl;
@@ -100,7 +104,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 - (void) managerCallAPIDidSuccess:(CTAPIBaseManager *)manager
 {
     [SVProgressHUD dismiss];
-    
+    return;
     if ( manager == self.bookAPICaller.listAPIManager ) {
         // ...
         NSInteger index = [manager.response.originRequestParams[kAGVMIndex] integerValue];
@@ -130,8 +134,6 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 - (void) managerCallAPIDidFailed:(CTAPIBaseManager *)manager
 {
     [SVProgressHUD dismiss];
-    
-    NSLog(@"%@ - %@", manager.response.content, manager.response.errorMessage);
     
     // 参数错误、返回数据错误
     if ( manager.verifyError ) {
@@ -303,7 +305,8 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
             [tvm startRefresh];
         }
         else {
-            [self.bookAPICaller.listAPIManager loadData];
+//            [self.bookAPICaller.listAPIManager loadData];
+            [self.taobaoAPIHub.productList ag_request];
         }
     }
 }
@@ -373,14 +376,14 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
     self.tableViewManager.headerRefreshingBlock = ^{
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
-            [self.bookAPICaller.listAPIManager loadData];
+            [self.taobaoAPIHub.productList ag_request];
         }
     };
 
     self.tableViewManager.footerRefreshingBlock = ^{
         __strong typeof(weakSelf) self = weakSelf;
         if ( self ) {
-            [self.bookAPICaller.listAPIManager loadNextPage];
+            [self.taobaoAPIHub.productList ag_requestNextPage];
         }
     };
 
@@ -416,12 +419,63 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 #pragma mark network request
 - (void) _networkRequest
 {
-    /**
-     
-     # isbn_url = 'https://api.douban.com/v2/book/isbn/{}'
-     # keyword_url = 'https://api.douban.com/v2/book/search?q={}&count={}&start={}'
-     
-     */
+    // https://suggest.taobao.com/sug?code=utf-8&q=%E5%8D%AB%E8%A1%A3&callback=cb
+    
+    // 配置请求参数
+    __weak typeof(self) weakSelf = self;
+    [self.taobaoAPIHub.productList ag_configRequestParams:^NSDictionary * _Nonnull(AGAPIManager * _Nonnull manager) {
+        __strong typeof(weakSelf) self = weakSelf;
+        if (nil == self) return nil;
+        
+        AGViewModel *vm = self.itemsData[self.switchControl.currentIndex];
+        NSString *title = vm[kAGVMTitleText];
+        NSMutableDictionary *paramM = [NSMutableDictionary dictionary];
+        paramM[@"q"] = title;
+        paramM[@"code"] = @"utf-8";
+        paramM[kAGVMIndex] = @(self.switchControl.currentIndex); // 用来区分返回的数据
+        return paramM;
+    }];
+    
+    // 配置回调
+    [self.taobaoAPIHub.productList ag_configRequestCallback:^(AGAPIManager * _Nonnull manager, AGAPIRequestNextBlock  _Nullable requestNext) {
+        __strong typeof(weakSelf) self = weakSelf;
+        if (nil == self) return;
+        
+        [SVProgressHUD dismiss];
+        
+        if (manager.error) { // failure
+            NSLog(@"API出错了：%ld", manager.status);
+            [SVProgressHUD showErrorWithStatus:manager.error.msg];
+            
+            NSInteger index = [manager.finalParams[kAGVMIndex] integerValue];
+            AGViewModel *vm = self.itemsData[index];
+            AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
+            [tvm stopRefresh]; // 停止刷新
+            return;
+        }
+        
+        // success
+        NSInteger index = [manager.finalParams[kAGVMIndex] integerValue];
+        AGViewModel *vm = self.itemsData[index];
+        AGTableViewManager *tvm = [vm ag_weaklyObjectForKey:kAGVMObject];
+        
+        AGVMManager *vmm = [manager ag_fetchDataModel:self.bookAPICaller.listReformer options:nil];
+        
+        NSLog(@"API 请求成功：%ld - %@ - count:%ld", index, vm[kAGVMTitleText], vmm.fs.count);
+        
+        AGVMManager *cache = vm[kAGVMManager];
+        if ( self.taobaoAPIHub.productList.isFirstPage ) { // 第一页数据
+            cache = [vmm copy];
+            vm[kAGVMManager] = cache; // 缓存到vm
+        }
+        else { // 后续页面数据
+            [cache.fs ag_addItemsFromSection:vmm.fs]; // 拼接到后面
+        }
+        [tvm handleVMManager:vmm inBlock:^(AGVMManager *originVmm) {
+            [originVmm.fs ag_removeAllItems];
+            [originVmm.fs ag_addItemsFromSection:cache.fs];
+        }];
+    }];
 }
 
 - (NSURL *) _archiveURL {
@@ -468,6 +522,13 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         _bookAPICaller = [AGBookAPICaller newWithAPIDelegate:self];
     }
     return _bookAPICaller;
+}
+
+- (AGTaobaoAPIHub *)taobaoAPIHub {
+    if (nil == _taobaoAPIHub) {
+        _taobaoAPIHub = [AGTaobaoAPIHub new];
+    }
+    return _taobaoAPIHub;
 }
 
 - (AGVMSection *)itemsData
@@ -527,7 +588,7 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
                 make.edges.mas_equalTo(targetView);
             }];
             
-            label.text = @"刷不出数据，IP可能被限";
+            label.text = @"豆瓣接口下架了，用淘宝接口模拟";
             
             return CGSizeMake(200., 44.);
         }];

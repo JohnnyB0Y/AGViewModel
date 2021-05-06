@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import <CTServiceFactory.h>
+#import "AGTaobaoAPIService.h"
+#import "AGAPISessionManager.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[AGTaobaoAPIService newWithAPISession:[AGAPISessionManager new]] ag_registerAPIServiceForDefault];
     return YES;
 }
 

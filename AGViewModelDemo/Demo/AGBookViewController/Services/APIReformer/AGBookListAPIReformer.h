@@ -10,8 +10,9 @@
 #import "AGVMKit.h"
 #import <CTNetworking.h>
 #import "AGBookListCellVMP.h"
+#import "AGAPIProtocol.h"
 
-@interface AGBookListAPIReformer : NSObject  <CTAPIManagerDataReformer>
+@interface AGBookListAPIReformer : NSObject  <CTAPIManagerDataReformer, AGAPIReformer>
 
 /** vmp */
 @property (nonatomic, strong, readonly) AGBookListCellVMP *bookListCellVMP;

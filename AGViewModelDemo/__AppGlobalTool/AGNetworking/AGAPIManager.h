@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 回调状态
 @property (nonatomic, assign) AGAPICallbackStatus status;
+/// 错误信息
+@property (nonatomic, strong, readonly, nullable) AGVerifyError *error;
 
 /// 正在加载？
 @property (nonatomic, assign, readonly) BOOL isLoading;
@@ -58,16 +60,28 @@ NS_ASSUME_NONNULL_BEGIN
 /// 添加生命周期观察者
 - (void) ag_useInterceptor:(id<AGAPIInterceptor>)interceptor;
 
-#pragma override
+
+/// API 服务器 key，默认 kAGAPIServiceDefault
 - (NSString *)ag_apiServiceKey;
+
+/// API 方法类型，默认 AGAPIMethodTypeGet
 - (AGAPIMethodType)ag_apiMethodType;
+
+/// API 方法字符串
 - (NSString *)ag_apiMethod;
+
+/// API 路径
 - (NSString *)ag_apiPath;
 
 @end
 
 @interface AGAPIPagedManager : AGAPIManager
 <AGAPIPageable>
+
+/// 首页？
+@property (nonatomic, assign, readonly) BOOL isFirstPage;
+/// 最后一页？
+@property (nonatomic, assign, readonly) BOOL isLastPage;
 
 /// 请求下一页数据
 - (void)ag_requestNextPage;
