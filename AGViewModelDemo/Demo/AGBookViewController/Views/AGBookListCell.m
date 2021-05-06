@@ -43,19 +43,18 @@
 {
     CGSize bvS = CGSizeMake(screen.width, 0);
     // 计算视图size
-    CGFloat topH = 44.;
-    CGFloat bottomH = 16.;
-    
     CGSize maxS = CGSizeMake(screen.width - 32. - 60. - 8., CGFLOAT_MAX);
+    
+    NSString *title = [vm ag_safeStringForKey:ak_AGBook_title];
+    CGFloat titleH = [title ag_sizeOfFont:self.titleLabel.font maxSize:maxS].height;
+    
     NSString *summary = [vm ag_safeStringForKey:ak_AGBook_summary];
     CGFloat summaryH = [summary ag_sizeOfFont:self.summaryLabel.font
                                       maxSize:maxS].height;
     
-    bvS.height = topH + summaryH + bottomH;
+    CGFloat contentH = 4 + titleH + 8 + summaryH;
+    bvS.height = contentH < 90 ? 90 + 24 : contentH + 24;
     
-    if ( bvS.height < 90. ) {
-        bvS.height = 90. + 32.;
-    }
     return bvS;
 }
 
