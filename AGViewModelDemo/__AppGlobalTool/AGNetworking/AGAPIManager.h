@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) ag_cancelRequest;
 
-/// 重试请求
+/// 重试请求（在成功之前 或 重试次数用完之前，不会回调block）
 - (void) ag_retryRequest:(NSInteger)numberOfTry;
 
 /// 取出整理后的数据
@@ -82,6 +82,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isFirstPage;
 /// 最后一页？
 @property (nonatomic, assign, readonly) BOOL isLastPage;
+/// 当前页码
+@property (nonatomic, assign, readonly) NSInteger currentPage;
+
+/// 每页大小
+@property (nonatomic, assign) NSInteger pageSize;
 
 /// 请求下一页数据
 - (void)ag_requestNextPage;

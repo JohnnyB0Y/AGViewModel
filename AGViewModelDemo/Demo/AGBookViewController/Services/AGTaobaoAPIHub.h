@@ -8,7 +8,7 @@
 
 #import "AGAPINetworking.h"
 #import "AGTaobaoListAPIManager.h"
-#import "AGBookListAPIReformer.h"
+#import "AGTaobaoProductListAPIReformer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) AGTaobaoListAPIManager *productList;
 
 /// 淘宝产品列表数据过滤
-@property (nonatomic, strong, readonly) AGBookListAPIReformer *productListReformer;
+@property (nonatomic, strong, readonly) AGTaobaoProductListAPIReformer *productListReformer;
 
 @end
 

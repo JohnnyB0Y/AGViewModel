@@ -1,6 +1,6 @@
 //
 //  AGTaobaoAPIService.m
-//  AGViewModelDemo
+//
 //
 //  Created by JohnnyB0Y on 2021/5/6.
 //  Copyright © 2021 JohnnyB0Y. All rights reserved.
@@ -38,14 +38,14 @@
 - (NSString *)ag_baseURL {
     if (self.environment == AGAPIEnvironmentDevelop) {
         // 开发环境
-        return @"https://suggest.taobao.com/";
+        return @"https://suggest.taobao.com";
     }
     else if (self.environment == AGAPIEnvironmentReleaseCandidate) {
         // 预发布环境
-        return @"https://suggest.taobao.com/";
+        return @"https://suggest.taobao.com";
     }
     // 生产环境
-    return @"https://suggest.taobao.com/";
+    return @"https://suggest.taobao.com";
 }
 
 - (NSInteger)ag_connectTimeout {

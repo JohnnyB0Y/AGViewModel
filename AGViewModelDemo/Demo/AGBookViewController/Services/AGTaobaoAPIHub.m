@@ -26,9 +26,9 @@
     return _productList;
 }
 
-- (AGBookListAPIReformer *)productListReformer {
+- (AGTaobaoProductListAPIReformer *)productListReformer {
     if ( _productListReformer == nil) {
-        _productListReformer = [AGBookListAPIReformer new];
+        _productListReformer = [AGTaobaoProductListAPIReformer new];
     }
     return _productListReformer;
 }

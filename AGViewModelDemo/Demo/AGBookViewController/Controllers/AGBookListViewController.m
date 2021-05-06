@@ -231,7 +231,6 @@
             [tvm startRefresh];
         }
         else {
-//            [self.bookAPICaller.listAPIManager loadData];
             [self.taobaoAPIHub.productList ag_request];
         }
     }

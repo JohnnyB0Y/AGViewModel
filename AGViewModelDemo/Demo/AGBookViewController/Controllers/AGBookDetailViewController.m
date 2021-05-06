@@ -7,18 +7,10 @@
 //
 
 #import "AGBookDetailViewController.h"
-#import <SVProgressHUD.h>
-#import <CTNetworking.h>
 #import <UIImageView+AFNetworking.h>
-
-#import "AGBookAPICaller.h"
 #import "AGBookAPIKeys.h"
 
 @interface AGBookDetailViewController ()
-<CTAPIManagerParamSource, CTAPIManagerCallBackDelegate>
-
-/** book api caller */
-@property (nonatomic, strong) AGBookAPICaller *bookAPICaller;
 
 @property (weak, nonatomic) IBOutlet UIImageView *coverImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -42,69 +34,6 @@
     
     [self _networkRequest];
 }
-
-- (void)dealloc
-{
-    [SVProgressHUD dismiss];
-    
-    // 取消挂起的网络请求
-    
-    
-    // 移除通知监听
-    
-}
-
-#pragma mark - ---------- Custom Delegate ----------
-#pragma mark - CTAPIManagerParamSourceDelegate
-- (NSDictionary *) paramsForApi:(CTAPIBaseManager *)manager
-{
-    NSMutableDictionary *paramM = ag_newNSMutableDictionary(5);
-    
-//    if ( manager == <#loadingAPIManager#> ) {
-//        // ...
-//        paramM[@"<#param#>"] = <#param#>;
-//    }
-//    else if ( manager == <#loadingAPIManager#> ) {
-//        // ...
-//
-//    }
-    
-    return [paramM copy];
-}
-
-#pragma mark - CTAPIManagerApiCallBackDelegate
-- (void) managerCallAPIDidSuccess:(CTAPIBaseManager *)manager
-{
-    [SVProgressHUD dismiss];
-    
-    if ( manager == _bookAPICaller.detailAPIManager ) {
-        // ...
-        AGViewModel *vm = [manager fetchDataWithReformer:self.bookAPICaller.handleReformer];
-        
-        NSString *title = [vm ag_safeStringForKey:ak_AGBook_title];
-        NSURL *imageURL = [vm ag_safeURLForKey:ak_AGBook_image];
-        NSString *summary = [vm ag_safeStringForKey:ak_AGBook_summary];
-        
-        [self.titleLabel setText:title];
-        [self.coverImageView setImageWithURL:imageURL];
-        [self.summaryLabel setText:summary];
-        
-    }
-    
-}
-
-- (void) managerCallAPIDidFailed:(CTAPIBaseManager *)manager
-{
-    [SVProgressHUD dismiss];
-    
-//    if ( manager.verifyError ) {
-//        [SVProgressHUD showErrorWithStatus:manager.verifyError.msg];
-//    }
-    
-}
-
-#pragma mark - ---------- Public Methods ----------
-
 
 #pragma mark - ---------- Event Methods ----------
 - (void) rightBarButtonItemClick:(id)sender
@@ -130,6 +59,14 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = [self.context ag_safeStringForKey:ak_AGBook_title];
+    
+    NSString *title = [self.context ag_safeStringForKey:ak_AGBook_title];
+    NSURL *imageURL = [self.context ag_safeURLForKey:ak_AGBook_image];
+    NSString *summary = [self.context ag_safeStringForKey:ak_AGBook_summary];
+    
+    [self.titleLabel setText:title];
+    [self.coverImageView setImageWithURL:imageURL];
+    [self.summaryLabel setText:summary];
 }
 
 #pragma mark add actions
@@ -143,19 +80,7 @@
 #pragma mark network request
 - (void) _networkRequest
 {
-    self.bookAPICaller.detailAPIManager.isbn = self.context[ak_AGBook_isbn];
-    [SVProgressHUD show];
-    [self.bookAPICaller.detailAPIManager loadData];
+    
 }
-
-#pragma mark - ----------- Getter Methods ----------
-- (AGBookAPICaller *)bookAPICaller
-{
-    if (_bookAPICaller == nil) {
-        _bookAPICaller = [AGBookAPICaller newWithAPIDelegate:self];
-    }
-    return _bookAPICaller;
-}
-
 
 @end

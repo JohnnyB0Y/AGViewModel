@@ -88,7 +88,7 @@ static NSMutableDictionary *apiServices = nil;
 - (NSString *)ag_finalURL:(nonnull NSString *)baseURL
                   apiPath:(nonnull NSString *)apiPath
                    params:(nonnull NSDictionary *)params {
-    NSMutableString *finalURL = [NSMutableString stringWithFormat:@"%@%@", baseURL, apiPath];
+    NSMutableString *finalURL = [NSMutableString stringWithFormat:@"%@/%@", baseURL, apiPath];
     
     if (params.count > 0) {
         [finalURL appendString:@"?"];

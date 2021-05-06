@@ -519,19 +519,9 @@
 
 #pragma mark ------------ API分页控制
 @interface AGAPIPagedManager ()
-
-/// 每页大小
-@property (nonatomic, assign) NSInteger pageSize;
-
-/// 当前页码
 @property (nonatomic, assign) NSInteger currentPage;
-
-/// 首页？
 @property (nonatomic, assign) BOOL isFirstPage;
-
-/// 最后一页？
 @property (nonatomic, assign) BOOL isLastPage;
-
 @end
 
 @implementation AGAPIPagedManager
