@@ -18,10 +18,6 @@ PODS:
   - AGTimerManager (0.5.3)
   - AGVerifyManager (0.3.7)
   - AspectsV1.4.2 (1.4.2)
-  - CTMediator (32)
-  - CTNetworking (15):
-    - AFNetworking
-    - CTMediator
   - Masonry (1.1.0)
   - MJRefresh (3.4.3)
   - RealReachability (1.3.0):
@@ -38,8 +34,6 @@ DEPENDENCIES:
   - AGTimerManager
   - AGVerifyManager
   - AspectsV1.4.2 (~> 1.4.2)
-  - CTMediator
-  - CTNetworking
   - Masonry
   - MJRefresh
   - RealReachability
@@ -53,8 +47,6 @@ SPEC REPOS:
     - AGTimerManager
     - AGVerifyManager
     - AspectsV1.4.2
-    - CTMediator
-    - CTNetworking
     - Masonry
     - MJRefresh
     - RealReachability
@@ -67,14 +59,12 @@ SPEC CHECKSUMS:
   AGTimerManager: 5efa65280746e4afae2ff0f9ddab2fd107c44f75
   AGVerifyManager: be8ea79fd5745c5b1d9893015d76e63a3344b4a8
   AspectsV1.4.2: a8b168606776215f5ba4790b95ff315df336aca9
-  CTMediator: 10f2c387be0ab2061b75b88c86f9903eedba1ce8
-  CTNetworking: 53a7fd1d39bce85c15af471890037b4608b7124b
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
   RealReachability: eae9c58d2db52fadd8e1cba4b5d4c028454fbc47
   SAMKeychain: 483e1c9f32984d50ca961e26818a534283b4cd5c
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 668a39dd24bd4ac8a1bab98bd6d2e716b12c381a
+PODFILE CHECKSUM: 7e316e8e6c968089153c9fd8eb71610eb00028a0
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.1

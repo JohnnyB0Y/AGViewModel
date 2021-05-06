@@ -7,9 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <CTServiceFactory.h>
 #import "AGTaobaoAPIService.h"
-#import "AGAPISessionManager.h"
 
 @interface AppDelegate ()
 

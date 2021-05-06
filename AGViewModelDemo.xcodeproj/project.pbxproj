@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A03B174205178E40034DC87 /* NSString+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A03B173205178E40034DC87 /* NSString+AGViewModel.m */; };
-		3A04291720B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04291520B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m */; };
 		3A04292120B7955D0025D9D5 /* AGTaobaoProductListAPIReformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04292020B7955D0025D9D5 /* AGTaobaoProductListAPIReformer.m */; };
 		3A04292420B796260025D9D5 /* AGBookListCellVMP.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04292320B796260025D9D5 /* AGBookListCellVMP.m */; };
 		3A04292D20B7AAB00025D9D5 /* AGHomeVMGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A04292820B7AAB00025D9D5 /* AGHomeVMGenerator.m */; };
@@ -85,7 +84,6 @@
 		3AE9C38C2031437B009F4B29 /* UICollectionReusableView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3822031437B009F4B29 /* UICollectionReusableView+AGViewModel.m */; };
 		3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C3832031437B009F4B29 /* UICollectionViewCell+AGViewModel.m */; };
 		3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */; };
-		3AED795D21F48E4300489182 /* AGAPIBaseCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AED795B21F48E4300489182 /* AGAPIBaseCaller.m */; };
 		3AFD681E21D3F6A6007317E6 /* AGDiskBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFD681D21D3F6A6007317E6 /* AGDiskBookListViewController.m */; };
 		87465D43050D2F2439B7FF87 /* libPods-AGViewModelDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */; };
 /* End PBXBuildFile section */
@@ -104,8 +102,6 @@
 		0B73F38F0874A936EE14B756 /* Pods-AGViewModelDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		3A03B172205178E40034DC87 /* NSString+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AGViewModel.h"; sourceTree = "<group>"; };
 		3A03B173205178E40034DC87 /* NSString+AGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AGViewModel.m"; sourceTree = "<group>"; };
-		3A04291520B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CTAPIBaseManager+WNAPIBaseManager.m"; sourceTree = "<group>"; };
-		3A04291620B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAPIBaseManager+WNAPIBaseManager.h"; sourceTree = "<group>"; };
 		3A04291F20B7955D0025D9D5 /* AGTaobaoProductListAPIReformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGTaobaoProductListAPIReformer.h; sourceTree = "<group>"; };
 		3A04292020B7955D0025D9D5 /* AGTaobaoProductListAPIReformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGTaobaoProductListAPIReformer.m; sourceTree = "<group>"; };
 		3A04292220B796260025D9D5 /* AGBookListCellVMP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGBookListCellVMP.h; sourceTree = "<group>"; };
@@ -256,8 +252,6 @@
 		3AE9C3882031437B009F4B29 /* UICollectionViewCell+AGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C392203143DB009F4B29 /* UIView+AGViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+AGViewModel.h"; sourceTree = "<group>"; };
 		3AE9C393203143DB009F4B29 /* UIView+AGViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+AGViewModel.m"; sourceTree = "<group>"; };
-		3AED795B21F48E4300489182 /* AGAPIBaseCaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGAPIBaseCaller.m; sourceTree = "<group>"; };
-		3AED795C21F48E4300489182 /* AGAPIBaseCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGAPIBaseCaller.h; sourceTree = "<group>"; };
 		3AFD681C21D3F6A6007317E6 /* AGDiskBookListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AGDiskBookListViewController.h; sourceTree = "<group>"; };
 		3AFD681D21D3F6A6007317E6 /* AGDiskBookListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AGDiskBookListViewController.m; sourceTree = "<group>"; };
 		50237810C9061914256F6227 /* Pods-AGViewModelDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGViewModelDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-AGViewModelDemo/Pods-AGViewModelDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -298,17 +292,6 @@
 				B9E38E8365AEB3988E2CFC57 /* libPods-AGViewModelDemo.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3A04291020B783A50025D9D5 /* APITools */ = {
-			isa = PBXGroup;
-			children = (
-				3AED795C21F48E4300489182 /* AGAPIBaseCaller.h */,
-				3AED795B21F48E4300489182 /* AGAPIBaseCaller.m */,
-				3A04291620B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.h */,
-				3A04291520B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m */,
-			);
-			path = APITools;
 			sourceTree = "<group>";
 		};
 		3A04291120B783A50025D9D5 /* APIServices */ = {
@@ -540,7 +523,6 @@
 			isa = PBXGroup;
 			children = (
 				3A04291120B783A50025D9D5 /* APIServices */,
-				3A04291020B783A50025D9D5 /* APITools */,
 				3A7FD5EE20B780AA00A0787A /* BookAPI */,
 			);
 			path = __RequestModule;
@@ -971,7 +953,6 @@
 				3AC6DFFD262FD14100838176 /* AGAPISessionManager.m in Sources */,
 				3ADD780921E637F90054437D /* AGVMFunction.m in Sources */,
 				3ADF890E23ACAB1B0047492B /* AGVMBasePackager.m in Sources */,
-				3AED795D21F48E4300489182 /* AGAPIBaseCaller.m in Sources */,
 				3AA8036D21DE6ABC00515EC8 /* AGVMKeys.m in Sources */,
 				3A7FD5D220B779F700A0787A /* AGBookListViewController.m in Sources */,
 				3AE9C394203143DB009F4B29 /* UIView+AGViewModel.m in Sources */,
@@ -983,7 +964,6 @@
 				3A4EDEE422D8EC6C0088625D /* NSArray+AGViewModel.m in Sources */,
 				3AC28E021FB8179C00578B5D /* AGBaseViewManager.m in Sources */,
 				3AE9C38D2031437B009F4B29 /* UICollectionViewCell+AGViewModel.m in Sources */,
-				3A04291720B78D500025D9D5 /* CTAPIBaseManager+WNAPIBaseManager.m in Sources */,
 				3AC28E011FB8179C00578B5D /* AGCollectionViewManager.m in Sources */,
 				3A10865F2634686300BF1655 /* AGDataCollector.m in Sources */,
 				3A409D8B1F606A1700845767 /* AGVMNotifier.m in Sources */,
