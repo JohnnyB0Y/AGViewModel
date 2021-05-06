@@ -471,9 +471,9 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
         underlineSize = CGSizeMake(16., 5.);
     }
     CGFloat underlineY = nextViewY - underlineSize.height - self.underlineBottomMargin;
-    _underlineOriginFrame = CGRectMake(0, underlineY, underlineSize.width, underlineSize.height);
+    CGFloat underlineX = _underlineOriginFrame.origin.x;
+    _underlineOriginFrame = CGRectMake(underlineX, underlineY, underlineSize.width, underlineSize.height);
     self.underlineContainer.frame = _underlineOriginFrame;
-    
     
     // footer
     if ( _footerContainer ) {

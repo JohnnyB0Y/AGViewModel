@@ -87,8 +87,9 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         AGViewModel *vm = self.itemsData[self.switchControl.currentIndex];
         NSString *title = vm[kAGVMTitleText];
         
+        // https://suggest.taobao.com/sug?code=utf-8&q=%E5%8D%AB%E8%A1%A3&callback=cb
         paramM[@"q"] = title;
-        paramM[@"count"] = @"16";
+        paramM[@"code"] = @"utf-8";
         paramM[kAGVMIndex] = @(self.switchControl.currentIndex); // 用来区分返回的数据
     }
     
@@ -129,6 +130,8 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
 - (void) managerCallAPIDidFailed:(CTAPIBaseManager *)manager
 {
     [SVProgressHUD dismiss];
+    
+    NSLog(@"%@ - %@", manager.response.content, manager.response.errorMessage);
     
     // 参数错误、返回数据错误
     if ( manager.verifyError ) {
@@ -473,7 +476,8 @@ AGVMDelegate, AGSwitchControlDataSource, AGSwitchControlDelegate>
         _itemsData = ag_newAGVMSection(12);
         
         NSArray *listViewManagers = @[self.tableViewManager, self.tableViewManager1, self.tableViewManager2];
-        NSArray *titles = @[@"莎士比亚", @"傅雷", @"春上春树", @"鲁迅", @"德鲁克", @"矛盾", @"巴金", @"陈春花", @"富兰克林", @"洛克菲勒"];
+//        NSArray *titles = @[@"莎士比亚", @"傅雷", @"春上春树", @"鲁迅", @"德鲁克", @"矛盾", @"巴金", @"陈春花", @"富兰克林", @"洛克菲勒"];
+        NSArray *titles = @[@"卫衣", @"皮带", @"帽子"];
         
         [_itemsData ag_packageItemMergeData:^(AGViewModel * _Nonnull package) {
             package[kAGVMViewClass] = AGSwitchControlItem.class;

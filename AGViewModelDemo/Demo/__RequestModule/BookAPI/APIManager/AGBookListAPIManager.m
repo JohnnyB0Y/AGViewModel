@@ -112,7 +112,8 @@
 #pragma mark - CTAPIManager
 - (NSString *)methodName
 {
-    return @"book/search";
+//    return @"book/search";
+    return @"sug";
 }
 
 - (NSString *)serviceIdentifier

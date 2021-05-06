@@ -47,6 +47,7 @@ NSString * const kCTApiProxyValidateResultKeyResponseString = @"kCTApiProxyValid
     }
     if (sessionManager == nil) {
         sessionManager = [AFHTTPSessionManager manager];
+        sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript", @"text/html", nil];
     }
     return sessionManager;
 }

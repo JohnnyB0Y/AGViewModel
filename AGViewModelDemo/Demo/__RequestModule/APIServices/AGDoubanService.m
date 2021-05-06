@@ -71,7 +71,8 @@ NSString * const AGDoubanServiceIdentifier = @"AGDoubanService";
 #pragma mark - getters and setters
 - (NSString *)baseURL
 {
-    return @"https://api.douban.com/v2";
+//    return @"https://api.douban.com/v2";
+    return @"https://suggest.taobao.com";
 }
 
 - (AFHTTPRequestSerializer *)httpRequestSerializer
